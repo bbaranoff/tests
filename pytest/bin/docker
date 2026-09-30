@@ -1,0 +1,17 @@
+#!/bin/bash
+# docker — CALE pour la suite pytest jouee SUR L'HOTE, sans conteneur.
+# conftest.py et les tests lisent leurs journaux par « docker exec <conteneur>
+# cat ... » (le banc historique tournait dans un conteneur nomme « trying »).
+# Ici la pile est native : quand le conteneur demande est « local » (ou celui
+# que CALYPSO_CONTAINER designe comme tel), « docker exec » execute la commande
+# ici meme. Tout autre appel docker passe au vrai binaire.
+if [ "${1:-}" = exec ]; then
+    shift
+    while [ $# -gt 0 ] && [ "${1#-}" != "$1" ]; do
+        case "$1" in -e|--env|-w|--workdir|-u|--user) shift ;; esac; shift
+    done
+    ct="${1:-}"; shift
+    if [ "$ct" = local ] || [ "$ct" = "${CALYPSO_CONTAINER:-trying}" ]; then exec "$@"; fi
+    exec /usr/bin/docker exec "$ct" "$@"
+fi
+exec /usr/bin/docker "$@"

@@ -1,0 +1,146 @@
+  hub        deduit du remote-ip de l ASP : 127.0.0.1
+[ .. ] Chargement de l'environnement
+[ OK ] Chargement de l'environnement (environment/load.env)
+[ .. ] Resolution de run.sh
+[ OK ] Resolution de run.sh (/opt/GSM/qosmo/run.sh)
+[ .. ] Lanceur QEMU
+[ OK ] Lanceur QEMU (/usr/local/bin/qosmo (qosmo local (/opt/GSM/qosmo)))
+[ .. ] Validation des chemins
+[ OK ] Validation des chemins
+  plan radio  lu dans /etc/osmocom/radio-plan.env
+  PLMN MS    MCC 001  MNC 01  operateur 1  ->  IMSI 001010001000001 / 001010001000002
+  radio      MS#1 sur ARFCN 514 (BTS principale)   MS#2 sur ARFCN 614 (side-car, unit-id 6012)
+[ .. ] Generation mobile MS#1
+  MS#1       aussi ecrit dans /root/.osmocom/bb/mobile_group1.cfg (le fichier que run.sh ouvre)
+[ OK ] Generation mobile MS#1 (/root/.osmocom/bb/mobile.cfg)
+[ .. ] Generation mobile MS#2 (faketrx)
+[ OK ] Generation mobile MS#2 (faketrx) (/root/.osmocom/bb/mobile_faketrx_bts1.cfg)
+
+╔══════════════════════════════════════════════════════╗
+║   Calypso GSM - bootstrap → run.sh                   ║
+╚══════════════════════════════════════════════════════╝
+
+  profil     hybrid (faketrx-qemu)
+  environ.   machine physique
+  noeud      aucun - identite SS7 inchangee
+  run.sh     /opt/GSM/qosmo/run.sh
+  MS#1       /opt/GSM/c54x_exe/mobile_pont.cfg  IMSI 001010001000001  ARFCN 514  VTY 4347  (banc DSP)
+             /root/.osmocom/bb/mobile.cfg non lance (module l2 retire du plan)
+  MS#2       /root/.osmocom/bb/mobile_faketrx_bts1.cfg  IMSI 001010001000002  ARFCN 614  VTY 4248
+  journaux   /run/user/0/osmo-nitb/logs
+  chiffrement a5 1
+
+[ .. ] Arret de la pile avant demarrage
+[ OK ] Arret de la pile avant demarrage
+[ .. ] Adresses privees du noeud
+[ OK ] Adresses privees du noeud (192.168.2.1 192.168.2.10 pose(s) en /32 sur enxa0cec8a98b06 (carte qui fournit Internet))
+[ .. ] Tableau de bord (:8080)
+[ OK ] Tableau de bord (:8080) (osmo-egprs-web.service)
+[ OK ] Fiche du noeud 1 (/etc/osmocom/mynode1.conf  (pour un autre noeud : --wan mynode1.conf))
+[ .. ] Raccord mobile (oFono)
+[ OK ] Raccord mobile (oFono) (modem /osmo ; pty RIL : /run/osmo-ril/at-pty)
+[ .. ] Audio (PulseAudio allege)
+[ OK ] Audio (PulseAudio allege) (journal /tmp/osmo-audio-chain.log)
+[ .. ] Transmission a run.sh (sans qemu,pty,osmocon,l2)
+
+Remise à zéro — rien ne sera relancé.
+
+  arrêt de la pile…
+  journaux archivés     /run/user/0/osmo-nitb/logs/../archives/20260930-000751
+  archives purgées      3 gardées (4 Mo -> 3 Mo)
+  journaux remis à zéro /run/user/0/osmo-nitb/logs
+  espace disponible     3,1G (1% utilisé)
+  supprimé              /dev/shm/calypso_bsp_dedie
+  supprimé              /dev/shm/calypso_dcch_cfg
+  supprimé              /dev/shm/calypso_kc_l1
+  supprimé              /dev/shm/calypso_rejeu_tch.bin
+
+État propre. Relancez :
+   ./run.sh
+
+[ .. ] Prerequisite checks
+[ OK ] Prerequisite checks
+[ .. ] Host tooling
+[ OK ] Host tooling
+[SKIP] Run directory (unmet dependency: profil)
+[ .. ] Shutting down recorded processes
+[SKIP] Shutting down recorded processes (already running)
+[ .. ] Resolving paths and ports
+[ OK ] Resolving paths and ports
+[ .. ] Core configuration templates
+[ OK ] Core configuration templates
+[ .. ] Logs and working area
+[ OK ] Logs and working area
+[ .. ] Cleaning up the previous run
+[SKIP] Cleaning up the previous run (already running)
+[ .. ] Interfaces and addressing plan
+[SKIP] Interfaces and addressing plan (already running)
+[ .. ] Core — OsmoSTP (SS7/M3UA)
+[ OK ] Core — OsmoSTP (SS7/M3UA)
+[ .. ] Core — OsmoHLR (GSUP registry)
+[ OK ] Core — OsmoHLR (GSUP registry)
+[ .. ] Core — OsmoMGW (MGCP/RTP media)
+[ OK ] Core — OsmoMGW (MGCP/RTP media)
+[ .. ] Core — OsmoMSC (CS switching)
+[ OK ] Core — OsmoMSC (CS switching)
+[ .. ] BTS#1 configurations (side-car)
+[SKIP] BTS#1 configurations (side-car) (already running)
+[ .. ] Core — OsmoBSC (BTS controller)
+[ OK ] Core — OsmoBSC (BTS controller)
+[ .. ] Core — APN TUN interface
+[ OK ] Core — APN TUN interface
+[ .. ] Core — OsmoGGSN (GTP data)
+[ OK ] Core — OsmoGGSN (GTP data)
+[ .. ] Core — OsmoSGSN (packet attach)
+[ OK ] Core — OsmoSGSN (packet attach)
+[ .. ] Core — OsmoPCU (packet scheduler)
+[ OK ] Core — OsmoPCU (packet scheduler)
+[ .. ] Core — Asterisk (SIP PBX)
+[ OK ] Core — Asterisk (SIP PBX)
+[ .. ] Mobile configuration
+[SKIP] Mobile configuration (already running)
+[ .. ] Core — MNCC↔SIP gateway
+[ OK ] Core — MNCC↔SIP gateway
+[ .. ] Core — subscribers provisioned in the HLR
+[SKIP] Core — subscribers provisioned in the HLR (already running)
+[ .. ] Core — SMS gateway (proto-SMSC)
+[ OK ] Core — SMS gateway (proto-SMSC)
+[ .. ] Audio bridge (PulseAudio + GAPK)
+[ OK ] Audio bridge (PulseAudio + GAPK)
+[ .. ] tmux observation session
+[ OK ] tmux observation session
+[SKIP] Console gdb ARM en telnet (non bloquante) (unmet dependency: qemu)
+[ .. ] BTS#1 simulated transceiver
+[ OK ] BTS#1 simulated transceiver
+[ .. ] Base station BTS#1 (side-car)
+[ OK ] Base station BTS#1 (side-car)
+[ .. ] Base station osmo-bts-trx
+[ OK ] Base station osmo-bts-trx
+[ .. ] MS#2 layer 1 (trxcon)
+[ OK ] MS#2 layer 1 (trxcon)
+[ .. ] Second subscriber (MS#2)
+[ OK ] Second subscriber (MS#2)
+[SKIP] GSMTAP capture (pcap) (unmet dependency: l2)
+[ .. ] Supervision view (tmux)
+[ OK ] Supervision view (tmux)
+[ .. ] Build identity and summary
+[ OK ] Build identity and summary
+[SKIP] Attaching to the tmux session (disabled by [ "${CALYPSO_NO_ATTACH:-0}" != 1 ] && [ -t 1 ])
+
+26 ok · 10 skipped · 0 failed
+
+  attach   tmux attach -t calypso
+  logs       /run/user/0/osmo-nitb/logs
+  status           ./run.sh --status
+  stop        ./run.sh --stop
+
+[ OK ] Transmission a run.sh (profil=hybrid, chaine Calypso laissee au banc DSP)
+[ .. ] Banc DSP C54x
+[ OK ] Banc DSP C54x (/opt/GSM/c54x_exe/run.sh  (INSNS=120000 LOCKSTEP=1 IQ=none))
+[1m[run dsp][0m 1. c54x_exe --arm  pid 1145797  (120000 insn/trame, iq=none, /dev/shm/calypso_api_ram, /tmp/calypso_dsp.sock)
+[1m[run dsp][0m 2. qemu-system-arm  pid 1145807  pty modem /dev/pts/27  moniteur /tmp/qemu-monitor-pont.sock  L1=DSP externe
+[1m[run dsp][0m    gdb ARM : telnet 0 44444  (stub tcp::1234, journal /tmp/c54x-pont/gdb.log)
+[1m[run dsp][0m 3. osmocon  pid 1145858  L1CTL sur /tmp/osmocom_l2
+[1m[run dsp][0m 4. mobile  pid 1145903  config /opt/GSM/c54x_exe/mobile_pont.cfg  vty telnet 127.0.0.1 4347
+[1m[run dsp][0m 5. pont.py  pid 1146021  TRXD 5700-5702 <- BTS ; vers le DSP (udp 6702)
+[1m[run dsp][0m tout tourne. Journaux : /tmp/c54x-pont/*.log   suivre : ./run.sh --logs   arreter : ./run.sh --stop

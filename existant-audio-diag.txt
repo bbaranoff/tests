@@ -1,0 +1,82 @@
+════════════════════════════════════════════════
+  Diagnostic audio - container nirvana-83de
+════════════════════════════════════════════════
+
+[1/7] /dev/snd
+  ✓ /dev/snd present
+       total 0
+       drwxr-xr-x   3 root root      300 sept. 29 16:30 .
+       drwxr-xr-x  21 root root     4780 sept. 29 16:30 ..
+       drwxr-xr-x   2 root root       80 sept. 29 16:30 by-path
+       crw-rw----+  1 root audio 116, 11 sept. 29 16:30 controlC0
+       crw-rw----+  1 root audio 116,  7 sept. 29 16:30 controlC1
+       crw-rw----+  1 root audio 116, 10 sept. 29 16:30 hwC0D0
+       crw-rw----+  1 root audio 116,  6 sept. 29 16:30 hwC1D0
+       crw-rw----+  1 root audio 116,  9 sept. 29 16:30 pcmC0D0c
+       crw-rw----+  1 root audio 116,  8 sept. 29 16:30 pcmC0D0p
+       crw-rw----+  1 root audio 116,  2 sept. 29 16:30 pcmC1D3p
+       crw-rw----+  1 root audio 116,  3 sept. 29 16:30 pcmC1D7p
+       crw-rw----+  1 root audio 116,  4 sept. 29 16:30 pcmC1D8p
+       crw-rw----+  1 root audio 116,  5 sept. 29 16:30 pcmC1D9p
+       crw-rw----+  1 root audio 116,  1 sept. 29 16:30 seq
+       crw-rw----+  1 root audio 116, 33 sept. 29 16:30 timer
+
+[2/7] ALSA
+  ✓ aplay disponible
+       Cartes:
+        0 [PCH            ]: HDA-Intel - HDA Intel PCH
+                             HDA Intel PCH at 0x4404130000 irq 250
+        1 [NVidia         ]: HDA-Intel - HDA NVidia
+                             HDA NVidia at 0x86000000 irq 17
+
+       Devices playback:
+       card 0: PCH [HDA Intel PCH], device 0: ALC287 Analog [ALC287 Analog]
+       card 1: NVidia [HDA NVidia], device 3: HDMI 0 [HDMI 0]
+       card 1: NVidia [HDA NVidia], device 7: HDMI 1 [HDMI 1]
+       card 1: NVidia [HDA NVidia], device 8: HDMI 2 [HDMI 2]
+       card 1: NVidia [HDA NVidia], device 9: HDMI 3 [HDMI 3]
+
+       Devices capture:
+       card 0: PCH [HDA Intel PCH], device 0: ALC287 Analog [ALC287 Analog]
+
+[3/7] PulseAudio
+  ⚠ PULSE_SERVER non defini
+       Sans PulseAudio, ALSA utilise directement hw:X,Y
+       Sur un desktop Linux moderne, le son passe par PulseAudio/PipeWire
+
+[4/7] Variables d'environnement
+       ALSA_CARD     = <non defini>
+       GAPK_ALSA_DEV = <non defini>
+       ALSA_OUTPUT   = <non defini>
+       ALSA_INPUT    = <non defini>
+       PULSE_SERVER  = <non defini>
+
+[5/7] mobile.cfg tch-voice
+       /root/.osmocom/bb/mobile_group1.cfg:
+  ⚠ io-handler gapk (audio via osmo-gapk, pas ALSA direct)
+
+[6/7] Test ALSA (bip 440Hz 0.2s)
+       Tentative speaker-test (2 secondes max)...
+       Invalid number of periods 1
+       
+       speaker-test 1.2.9
+       
+  ⚠ speaker-test echoue
+
+[7/7] Processus audio actifs
+  ✓ Processus mobile actif
+       1144713 bash -c tail -n 100 -F '/run/user/0/osmo-nitb/logs/mobile.log' 2>/dev/null | stdbuf -oL tr -d '\007' || sleep infinity
+       1144715 tail -n 100 -F /run/user/0/osmo-nitb/logs/mobile.log
+       1144739 bash -c tail -n 100 -F '/run/user/0/osmo-nitb/logs/sidecar-mobile.log' 2>/dev/null | stdbuf -oL tr -d '\007' || sleep infinity
+       osmo-gapk non actif (normal si l1phy utilise)
+
+═══ Resume ═══
+  ⚠ PulseAudio non configure
+       Sur un desktop moderne, le device 'default' ALSA necessite PulseAudio
+       Fix 1: monter le socket PulseAudio dans le container :
+         -v /run/user/$(id -u)/pulse/native:/run/user/1000/pulse/native
+         -e PULSE_SERVER=unix:/run/user/1000/pulse/native
+       Fix 2: utiliser un device ALSA direct (bypass PulseAudio) :
+         Trouver le device: aplay -l
+         Puis: ALSA_OUTPUT=hw:0,0 ALSA_INPUT=hw:0,0 dans start.sh
+

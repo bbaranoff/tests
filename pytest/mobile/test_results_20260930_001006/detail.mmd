@@ -1,0 +1,13 @@
+flowchart TB
+  classDef pass    fill:#bef5b1,stroke:#1f7a1f,color:#0a3d0a;
+  classDef partial fill:#fde79c,stroke:#b07a00,color:#3a2c00;
+  classDef fail    fill:#fbb4b4,stroke:#a31a1a,color:#5a0000;
+  classDef skip    fill:#e0e0e0,stroke:#6a6a6a,color:#333;
+  classDef xfail   fill:#fde79c,stroke:#b07a00,color:#3a2c00;
+  subgraph SG_C_Banc ["Banc 10/10"]
+    direction TB
+    C_Banc_L_L3_MM["L3-MM<br/>10/10"]
+    C_Banc_L_L3_MM --> T_001_pass_grp_L3_MM["PASS 10<br/>5.2s"]
+  end
+  class C_Banc_L_L3_MM pass;
+  class T_001_pass_grp_L3_MM pass;

@@ -1,0 +1,25 @@
+Welcome to the OsmoMSC VTY interface
+
+OsmoMSC - Osmocom Circuit-Switched Core Network implementation
+Copyright (C) 2016 by sysmocom s.f.m.c. GmbH <info@sysmocom.de>
+Based on OsmoNITB:
+  (C) 2008-2010 by Harald Welte <laforge@gnumonks.org>
+  (C) 2009-2012 by Holger Hans Peter Freyther <zecke@selfish.org>
+Contributions by Daniel Willmann, Jan LÃ¼bbe, Stefan Schmidt
+Dieter Spaar, Andreas Eversberg, Sylvain Munaut, Neels Hofmeyr
+
+License AGPLv3+: GNU AGPL version 3 or later <http://gnu.org/licenses/agpl-3.0.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+ÿûÿûÿþ"ÿýOsmoMSC> enable
+OsmoMSC# show statistics
+Location Update         : 0 attach, 2 normal, 0 periodic
+IMSI Detach Indications : 0
+Location Updating Results: 2 completed, 0 failed
+SMS MO                  : 0 submitted, 0 no receiver
+SMS MT                  : 2 delivered, 0 no memory, 0 other error
+MO Calls                : 3 setup, 3 connect ack
+MT Calls                : 0 setup, 0 connect
+MO NC SS/USSD           : 1 requests, 1 established, 0 rejected
+MT NC SS/USSD           : 0 requests, 0 established, 0 rejected
+OsmoMSC# 

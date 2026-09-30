@@ -1,0 +1,55 @@
+couverture couche 1 — mode dsp — 2026-09-30 00:15:16
+journaux lus :
+  dsp      /tmp/c54x-pont/dsp.log  3990 lignes
+  qemu     /tmp/c54x-pont/qemu.log  95 lignes
+  osmocon  /tmp/c54x-pont/osmocon.log  1380 lignes
+  mobile   /tmp/c54x-pont/mobile.log  2363 lignes
+  pont     /dev/shm/pont.log  445 lignes
+  cfg      /opt/GSM/c54x_exe/mobile_pont.cfg  167 lignes
+
+  FONCTION                               VERDICT      preuv sympt  QUI (note)
+  API RAM partagee ARM <-> DSP           GERE             1     0  qosmo + c54x_exe
+  tache FB postee par l'ARM              GERE            18     0  firmware (layer1)
+  FB (FCCH) detection                    GERE           150     0  ROM TI dans c54x_exe (d_fb_det)
+  tache SB postee par l'ARM              GERE            66     0  firmware — fenetre SB rarement armee (README)
+  SB (SCH) decodage, BSIC                GERE            44     0  ROM TI (a_sch)
+  BCCH SI1/2/4 decodes                   GERE            77     0  ROM TI (decodage canal) -> firmware -> mobile
+  SACCH SI5/6 (canal dedie)              GERE            17     0  ROM TI -> mobile
+  RACH montant                           GERE             7     0  firmware -> DSP (d_rach) -> montant.c -> pont
+  IMMEDIATE ASSIGNMENT                   GERE            13     0  pont (AGCH) -> DSP
+  canal dedie SDCCH : BSP                GERE            17     0  ROM TI suit la tache du firmware
+  SDCCH descendant                       GERE            23     0  ROM TI (decodage canal) — README : blocs jetes sur SDCCH/8 (suspect)
+  SDCCH montant                          GERE            20     0  firmware -> montant.c (a_cu)
+  authentification                       GERE             2     0  MSC <-> SIM emulee (QEMU)
+  chiffrement A5 : Kc vers le DSP        GERE            16     0  firmware -> API RAM (a_kc)
+  chiffrement A5 : coprocesseur          GERE             7     0  calypso_a5.c dans c54x_exe — CALYPSO_A5=0 le coupe
+  chiffrement A5 : confirme par la BTS   DEGRADE          7     6  pont
+  CIPHERING MODE COMPLETE                GERE             7     0  mobile
+  LOCATION UPDATING ACCEPT               GERE             1     0  mobile <-> MSC
+  TMSI attribue                          GERE             1     0  mobile
+  SMS (SM-CP/RP)                         GERE             5     0  mobile <-> MSC — DMM : connexion MM pour le SMS
+  appel : SETUP / PROCEEDING             GERE             3     0  mobile <-> MSC
+  appel : ALERTING / CONNECT             GERE             3     0  mobile <-> MSC
+  ASSIGNMENT COMMAND (TCH)               GERE             3     0  pont annonce au DSP
+  bascule BSP -> TCH                     GERE             3     0  ROM TI suit la tache TCHT/TCHA du firmware
+  ASSIGNMENT COMPLETE                    NON OBSERVE      0     0  mobile -> pont
+  TCH/F descendant : decodage canal      GERE            54     0  ROM TI (Viterbi)
+  TCH/F descendant : qualite (B_BFI)     NON GERE         0    54  ROM TI — README : B_BFI sur toute la parole, point ouvert n°1
+  FACCH montant                          GERE            20     0  firmware -> montant.c
+  SACCH montant en TCH                   GERE            20     0  firmware -> montant.c — README : correctif MVKD/MVDK, point ouvert n°2
+  garde MVKD/MVDK                        NON OBSERVE      0     0  qosmo c54x_exec.c — une ligne = la garde a joue
+  parole montante                        GERE            20     0  firmware -> montant.c (anneau calypso_tch_ul)
+  vocodage                               GERE             3     0  ROM TI, trames TI converties TI -> FR sur l'hote (io-tch-format ti)
+  saut de frequence                      NON GERE         0     0  pont : NON GERE — hors de ce montage
+  marge temps reel DSP                   GERE            91     0  c54x_exe [chrono] — README : 4.3-4.6 ms de travail pour 4.62 ms
+  CHANNEL RELEASE                        GERE             7     0  pont
+  retour BSP sur le SDCCH                NON OBSERVE      0     0  ROM TI (tache ALLC)
+  liberation radio cote mobile           GERE            17     0  mobile — DRR (DSUM n'est pas journalise)
+
+derniers compteurs :
+  pont  00:15:13 [pont] STATS fn=89895 | DL bursts=29012 blocs=7227 crc=26 dummy=97892 hors_voie=10312 | UL bursts=15067 tard=37 rach=7 | TCH dl=3198 facch=48 sacch=139 crc=290 ul=3185 bursts=13992 perdus=3 | FACCH ul=39 SACCH ul=206 | A5 dl=16060 ul=14956 | IQ dl=89796tr/709689bu ul=89796tr/15062bu fifo_drop=89043/89179
+  dsp   [a_dd] fn=89535 etat=c204 FIRE=0 BFI=1 err=19 (ecart 4 trames) | vues=3400 ko=0 bfi=3400
+  dsp   [chrono] fn=90998 sur 1000 trames (ms) : qemu 3.60 | A 0.05 | go 0.28 | B 0.16 | apres DONE 0.53 | trame 4.62 (temps reel 4.62)
+  mobile LU ACCEPT=1  CIPHER COMPLETE=7  CALL PROCEEDING=3  CONNECT=0  LOS=3
+
+bilan : 31 gere, 1 degrade, 2 non gere, 3 non observe

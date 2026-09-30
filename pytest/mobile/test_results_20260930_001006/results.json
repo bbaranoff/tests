@@ -1,0 +1,160 @@
+{
+  "counts": {
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0
+  },
+  "tests": [
+    {
+      "nodeid": "test_30_mobile.py::test_osmocon_romload_fini",
+      "name": "test_osmocon_romload_fini",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 0.00044043899833923206,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_mobile_vty_repond",
+      "name": "test_mobile_vty_repond",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 1.3173189549997915,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_imsi_du_mobile_est_celle_de_sa_conf",
+      "name": "test_imsi_du_mobile_est_celle_de_sa_conf",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 1.3008492890003254,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_campe_c3",
+      "name": "test_campe_c3",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 1.3013027790002525,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_sysinfo_bcch_decodes",
+      "name": "test_sysinfo_bcch_decodes",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 0.0031127080001169816,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_location_updating_accept",
+      "name": "test_location_updating_accept",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 0.0019206860015401617,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_mm_normal_service",
+      "name": "test_mm_normal_service",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 1.3008386549990973,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_authentification_et_chiffrement",
+      "name": "test_authentification_et_chiffrement",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 0.0007227649984997697,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_tmsi_attribue",
+      "name": "test_tmsi_attribue",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 0.00036980799995944835,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    },
+    {
+      "nodeid": "test_30_mobile.py::test_mobile_sans_crash_ni_vty_bind",
+      "name": "test_mobile_sans_crash_ni_vty_bind",
+      "outcome": "passed",
+      "markers": [
+        "banc_mobile",
+        "commun"
+      ],
+      "duration_s": 0.0007364980010606814,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L3-MM"
+    }
+  ]
+}

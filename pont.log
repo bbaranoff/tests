@@ -1,0 +1,452 @@
+00:08:18 [pont] pont TRX : ports 5700/5701/5702, ARFCN 514, BSIC 7, avance UL 3 trames
+00:08:18 [pont] pont DSP : bursts vers le BSP udp/6702, bascule TCH suivie par le firmware (montant.c), retard UL max 26 trames, retention Kc oui
+00:08:18 [pont] TS0 CCCH+SDCCH4  plan CCCH+SDCCH4, 4 sous-voies
+00:08:18 [pont] TS1 SDCCH8       plan SDCCH8, 8 sous-voies
+00:08:18 [pont] TS2 TCH/F        
+00:08:18 [pont] TS3 TCH/F        
+00:08:18 [pont] TS4 TCH/F        
+00:08:18 [pont] TS5 TCH/F        
+00:08:18 [pont] TS6 TCH/F        
+00:08:18 [pont] TS7 TCH/F        
+00:08:18 [pont] QEMU : pas de GSMTAP 4730/4731 (couche 1 gr-gsm desactivee) ; tap GSMTAP udp/4729
+00:08:18 [pont] enregistrement descendant -> /root/record.cfile (buffer roulant de 4096 Mo)
+00:08:18 [pont] enregistrement montant -> /root/record_ul.cfile (buffer roulant de 4096 Mo)
+00:08:19 [pont] BTS 127.0.0.1 : horloge armee vers le port 5800
+00:08:19 [pont] CTRL POWEROFF
+00:08:19 [pont] CTRL RFMUTE 1
+00:08:19 [pont] CTRL RFMUTE 0
+00:08:19 [pont] CTRL SETFORMAT 2
+00:08:19 [pont] CTRL RXTUNE 1710600
+00:08:19 [pont] CTRL TXTUNE 1805600
+00:08:19 [pont] CTRL SETTSC 7
+00:08:19 [pont] CTRL SETFORMAT 0
+00:08:19 [pont] CTRL NOMTXPOWER
+00:08:19 [pont] CTRL POWERON
+00:08:19 [pont] CTRL SETRXGAIN 40
+00:08:19 [pont] CTRL SETSLOT 0 5
+00:08:19 [pont] CTRL SETSLOT 1 7
+00:08:19 [pont] CTRL SETSLOT 2 1
+00:08:19 [pont] CTRL SETSLOT 3 1
+00:08:19 [pont] CTRL SETSLOT 4 1
+00:08:19 [pont] CTRL SETSLOT 5 1
+00:08:19 [pont] CTRL SETSLOT 6 1
+00:08:19 [pont] CTRL SETSLOT 7 1
+00:08:19 [pont] horloge asservie au DSP (/dev/shm/calypso_horloge, avance visee 12 trames)
+00:08:19 [pont] horloge : avance BTS mesuree -10 trames (creux sur 3 s), avance visee 26 pour une marge DL >= 16
+00:08:19 [pont] horloge : avance BTS mesuree -24 trames (creux sur 3 s), avance visee 40 pour une marge DL >= 16
+00:08:23 [pont] horloge : avance BTS mesuree -10 trames (creux sur 3 s), avance visee 26 pour une marge DL >= 16
+00:08:23 [pont] STATS fn=1122 | DL bursts=294 blocs=73 crc=0 dummy=1140 hors_voie=24 | UL bursts=5 tard=0 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=1 | A5 dl=0 ul=0 | IQ dl=1023tr/5912bu ul=1023tr/5bu fifo_drop=1015/1015
+00:08:23 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:08:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:16/0 TS0/6:17/0 TS0/12:17/0 TS0/16:17/0 TS1/0:4/0 TS1/32:2/0
+00:08:23 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:08:23 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:08:26 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:08:26 [pont] chiffrement descendant confirme par la BTS (fn=1734)
+00:08:27 [pont] CHANNEL RELEASE : en attente de la liberation du canal par le mobile
+00:08:28 [pont] STATS fn=2186 | DL bursts=740 blocs=185 crc=0 dummy=1152 hors_voie=524 | UL bursts=86 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=44 ul=45 | IQ dl=2086tr/14392bu ul=2086tr/85bu fifo_drop=2071/2073
+00:08:28 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:08:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:37/0 TS0/6:38/0 TS0/12:38/0 TS0/16:38/0 TS1/0:24/0 TS1/32:10/0
+00:08:28 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:08:29 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:08:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +2 moy +31.5 sur 6084 mesures, avance visee 16
+00:08:33 [pont] STATS fn=3267 | DL bursts=1091 blocs=272 crc=0 dummy=2491 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=3167tr/23040bu ul=3167tr/89bu fifo_drop=3145/3149
+00:08:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:58/0 TS0/6:59/0 TS0/12:59/0 TS0/16:59/0 TS1/0:27/0 TS1/32:10/0
+00:08:38 [pont] STATS fn=4349 | DL bursts=1437 blocs=359 crc=0 dummy=4015 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=4249tr/31702bu ul=4249tr/89bu fifo_drop=4218/4226
+00:08:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:80/0 TS0/6:81/0 TS0/12:81/0 TS0/16:80/0 TS1/0:27/0 TS1/32:10/0
+00:08:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.1 sur 5807 mesures, avance visee 16
+00:08:43 [pont] STATS fn=5432 | DL bursts=1776 blocs=444 crc=0 dummy=5546 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=5332tr/40360bu ul=5332tr/89bu fifo_drop=5292/5304
+00:08:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:101/0 TS0/6:102/0 TS0/12:102/0 TS0/16:102/0 TS1/0:27/0 TS1/32:10/0
+00:08:45 [pont] horloge : avance BTS mesuree -5 trames (creux sur 3 s), avance visee 21 pour une marge DL >= 16
+00:08:48 [pont] STATS fn=6521 | DL bursts=2112 blocs=528 crc=0 dummy=7090 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=6421tr/48970bu ul=6421tr/89bu fifo_drop=6372/6384
+00:08:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:122/0 TS0/6:123/0 TS0/12:123/0 TS0/16:123/0 TS1/0:27/0 TS1/32:10/0
+00:08:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +12 moy +24.6 sur 5809 mesures, avance visee 20
+00:08:50 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:08:53 [pont] STATS fn=7599 | DL bursts=2449 blocs=612 crc=0 dummy=8609 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=7500tr/57568bu ul=7500tr/89bu fifo_drop=7440/7454
+00:08:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:143/0 TS0/6:144/0 TS0/12:144/0 TS0/16:144/0 TS1/0:27/0 TS1/32:10/0
+00:08:57 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:08:58 [pont] horloge : avance BTS mesuree -6 trames (creux sur 3 s), avance visee 22 pour une marge DL >= 16
+00:08:58 [pont] STATS fn=8685 | DL bursts=2797 blocs=699 crc=0 dummy=10135 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=8586tr/66192bu ul=8586tr/89bu fifo_drop=8519/8528
+00:08:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:165/0 TS0/6:166/0 TS0/12:166/0 TS0/16:165/0 TS1/0:27/0 TS1/32:10/0
+00:08:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +12 moy +23.9 sur 5805 mesures, avance visee 22
+00:09:01 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:09:03 [pont] STATS fn=9766 | DL bursts=3136 blocs=784 crc=0 dummy=11666 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=9666tr/74839bu ul=9666tr/89bu fifo_drop=9587/9601
+00:09:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:186/0 TS0/6:187/0 TS0/12:187/0 TS0/16:187/0 TS1/0:27/0 TS1/32:10/0
+00:09:03 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:09:08 [pont] STATS fn=10849 | DL bursts=3472 blocs=868 crc=0 dummy=13198 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=10750tr/83504bu ul=10750tr/89bu fifo_drop=10662/10680
+00:09:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:207/0 TS0/6:208/0 TS0/12:208/0 TS0/16:208/0 TS1/0:27/0 TS1/32:10/0
+00:09:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.6 sur 5795 mesures, avance visee 16
+00:09:13 [pont] STATS fn=11932 | DL bursts=3808 blocs=952 crc=0 dummy=14728 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=11833tr/92168bu ul=11833tr/89bu fifo_drop=11736/11758
+00:09:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:228/0 TS0/6:229/0 TS0/12:229/0 TS0/16:229/0 TS1/0:27/0 TS1/32:10/0
+00:09:14 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:09:14 [pont] horloge : avance BTS mesuree -6 trames (creux sur 3 s), avance visee 22 pour une marge DL >= 16
+00:09:17 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:09:18 [pont] STATS fn=13022 | DL bursts=4160 blocs=1040 crc=0 dummy=16258 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=12922tr/100880bu ul=12922tr/89bu fifo_drop=12815/12836
+00:09:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:250/0 TS0/6:251/0 TS0/12:251/0 TS0/16:251/0 TS1/0:27/0 TS1/32:10/0
+00:09:18 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:09:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +14 moy +25.2 sur 5767 mesures, avance visee 16
+00:09:23 [pont] STATS fn=14102 | DL bursts=4496 blocs=1124 crc=0 dummy=17786 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=14002tr/109488bu ul=14002tr/89bu fifo_drop=13886/13907
+00:09:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:271/0 TS0/6:272/0 TS0/12:272/0 TS0/16:272/0 TS1/0:27/0 TS1/32:10/0
+00:09:28 [pont] STATS fn=15182 | DL bursts=4832 blocs=1208 crc=0 dummy=19314 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=15083tr/118104bu ul=15083tr/89bu fifo_drop=14960/14983
+00:09:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:292/0 TS0/6:293/0 TS0/12:293/0 TS0/16:293/0 TS1/0:27/0 TS1/32:10/0
+00:09:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +14 moy +23.3 sur 5855 mesures, avance visee 15
+00:09:33 [pont] STATS fn=16266 | DL bursts=5168 blocs=1292 crc=0 dummy=20846 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=16167tr/126776bu ul=16167tr/89bu fifo_drop=16039/16060
+00:09:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:313/0 TS0/6:314/0 TS0/12:314/0 TS0/16:314/0 TS1/0:27/0 TS1/32:10/0
+00:09:38 [pont] STATS fn=17349 | DL bursts=5512 blocs=1378 crc=0 dummy=22370 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=17250tr/135408bu ul=17250tr/89bu fifo_drop=17113/17138
+00:09:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:335/0 TS0/6:336/0 TS0/12:335/0 TS0/16:335/0 TS1/0:27/0 TS1/32:10/0
+00:09:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.0 sur 5880 mesures, avance visee 18
+00:09:43 [pont] STATS fn=18434 | DL bursts=5856 blocs=1464 crc=0 dummy=23900 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=18335tr/144088bu ul=18335tr/89bu fifo_drop=18187/18216
+00:09:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:356/0 TS0/6:357/0 TS0/12:357/0 TS0/16:357/0 TS1/0:27/0 TS1/32:10/0
+00:09:44 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:09:47 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:09:48 [pont] STATS fn=19517 | DL bursts=6192 blocs=1548 crc=0 dummy=25432 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=19418tr/152720bu ul=19418tr/89bu fifo_drop=19263/19292
+00:09:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:377/0 TS0/6:378/0 TS0/12:378/0 TS0/16:378/0 TS1/0:27/0 TS1/32:10/0
+00:09:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +12 moy +24.2 sur 5841 mesures, avance visee 15
+00:09:53 [pont] STATS fn=20600 | DL bursts=6528 blocs=1632 crc=0 dummy=26966 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=20501tr/161384bu ul=20501tr/89bu fifo_drop=20339/20368
+00:09:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:398/0 TS0/6:399/0 TS0/12:399/0 TS0/16:399/0 TS1/0:27/0 TS1/32:10/0
+00:09:58 [pont] STATS fn=21683 | DL bursts=6872 blocs=1718 crc=0 dummy=28489 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=21584tr/170048bu ul=21584tr/89bu fifo_drop=21413/21440
+00:09:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:420/0 TS0/6:421/0 TS0/12:420/0 TS0/16:420/0 TS1/0:27/0 TS1/32:10/0
+00:09:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.6 sur 5865 mesures, avance visee 16
+00:10:03 [pont] STATS fn=22766 | DL bursts=7216 blocs=1804 crc=0 dummy=30012 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=22667tr/178712bu ul=22667tr/89bu fifo_drop=22491/22514
+00:10:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:441/0 TS0/6:442/0 TS0/12:442/0 TS0/16:442/0 TS1/0:27/0 TS1/32:10/0
+00:10:05 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:10:05 [pont] horloge : avance BTS mesuree -12 trames (creux sur 3 s), avance visee 28 pour une marge DL >= 16
+00:10:05 [pont] horloge : avance BTS mesuree -17 trames (creux sur 3 s), avance visee 33 pour une marge DL >= 16
+00:10:05 [pont] horloge : avance BTS mesuree -22 trames (creux sur 3 s), avance visee 38 pour une marge DL >= 16
+00:10:08 [pont] STATS fn=23847 | DL bursts=7552 blocs=1888 crc=0 dummy=31541 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=23748tr/186563bu ul=23748tr/89bu fifo_drop=23565/23586
+00:10:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:462/0 TS0/6:463/0 TS0/12:463/0 TS0/16:463/0 TS1/0:27/0 TS1/32:10/0
+00:10:08 [pont] horloge : avance BTS mesuree -16 trames (creux sur 3 s), avance visee 32 pour une marge DL >= 16
+00:10:08 [pont] horloge : avance BTS mesuree -6 trames (creux sur 3 s), avance visee 22 pour une marge DL >= 16
+00:10:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +10 moy +30.6 sur 5842 mesures, avance visee 22
+00:10:11 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:10:11 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:10:13 [pont] STATS fn=24911 | DL bursts=7888 blocs=1972 crc=0 dummy=33044 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=24812tr/195075bu ul=24812tr/89bu fifo_drop=24622/24641
+00:10:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:483/0 TS0/6:484/0 TS0/12:484/0 TS0/16:484/0 TS1/0:27/0 TS1/32:10/0
+00:10:16 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:10:16 [pont] horloge : avance BTS mesuree -15 trames (creux sur 3 s), avance visee 31 pour une marge DL >= 16
+00:10:16 [pont] horloge : avance BTS mesuree -29 trames (creux sur 3 s), avance visee 40 pour une marge DL >= 16
+00:10:18 [pont] STATS fn=26020 | DL bursts=8232 blocs=2058 crc=0 dummy=34610 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=25920tr/202793bu ul=25920tr/89bu fifo_drop=25725/25740
+00:10:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:505/0 TS0/6:506/0 TS0/12:505/0 TS0/16:505/0 TS1/0:27/0 TS1/32:10/0
+00:10:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +0 moy +29.9 sur 5864 mesures, avance visee 40
+00:10:19 [pont] horloge : avance BTS mesuree -8 trames (creux sur 3 s), avance visee 24 pour une marge DL >= 16
+00:10:19 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:10:20 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:10:23 [pont] STATS fn=27079 | DL bursts=8560 blocs=2140 crc=0 dummy=36111 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=26980tr/211241bu ul=26980tr/89bu fifo_drop=26780/26795
+00:10:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:525/0 TS0/6:526/0 TS0/12:526/0 TS0/16:526/0 TS1/0:27/0 TS1/32:10/0
+00:10:28 [pont] STATS fn=28162 | DL bursts=8904 blocs=2226 crc=0 dummy=37634 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=28062tr/219897bu ul=28062tr/89bu fifo_drop=27851/27870
+00:10:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:547/0 TS0/6:548/0 TS0/12:547/0 TS0/16:547/0 TS1/0:27/0 TS1/32:10/0
+00:10:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +25.0 sur 5811 mesures, avance visee 15
+00:10:33 [pont] STATS fn=29245 | DL bursts=9248 blocs=2312 crc=0 dummy=39162 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=29145tr/228537bu ul=29145tr/89bu fifo_drop=28925/28946
+00:10:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:568/0 TS0/6:569/0 TS0/12:569/0 TS0/16:569/0 TS1/0:27/0 TS1/32:10/0
+00:10:38 [pont] STATS fn=30329 | DL bursts=9584 blocs=2396 crc=0 dummy=40698 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=30230tr/237217bu ul=30230tr/89bu fifo_drop=30003/30022
+00:10:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:589/0 TS0/6:590/0 TS0/12:590/0 TS0/16:590/0 TS1/0:27/0 TS1/32:10/0
+00:10:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.3 sur 5801 mesures, avance visee 16
+00:10:43 [pont] STATS fn=31412 | DL bursts=9920 blocs=2480 crc=0 dummy=42230 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=31312tr/245873bu ul=31312tr/89bu fifo_drop=31074/31095
+00:10:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:610/0 TS0/6:611/0 TS0/12:611/0 TS0/16:611/0 TS1/0:27/0 TS1/32:10/0
+00:10:48 [pont] STATS fn=32495 | DL bursts=10264 blocs=2566 crc=0 dummy=43753 hors_voie=584 | UL bursts=89 tard=4 rach=1 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=11 | A5 dl=56 ul=48 | IQ dl=32395tr/254543bu ul=32395tr/89bu fifo_drop=32147/32170
+00:10:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:632/0 TS0/6:633/0 TS0/12:632/0 TS0/16:632/0 TS1/0:27/0 TS1/32:10/0
+00:10:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.7 sur 5713 mesures, avance visee 17
+00:10:52 [pont] Kc lache (IMMEDIATE ASSIGNMENT) : le lien repart en clair
+00:10:53 [pont] STATS fn=33580 | DL bursts=10628 blocs=2656 crc=1 dummy=45144 hors_voie=624 | UL bursts=94 tard=4 rach=2 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=12 | A5 dl=60 ul=48 | IQ dl=33480tr/263217bu ul=33480tr/94bu fifo_drop=33221/33247
+00:10:53 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:10:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:653/0 TS0/6:654/0 TS0/12:654/0 TS0/16:654/0 TS1/0:30/1 TS1/32:11/0
+00:10:54 [pont] chiffrement descendant confirme par la BTS (fn=33762)
+00:10:54 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:10:54 [pont] horloge : avance BTS mesuree -5 trames (creux sur 3 s), avance visee 21 pour une marge DL >= 16
+00:10:57 [pont] CHANNEL RELEASE : en attente de la liberation du canal par le mobile
+00:10:57 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:10:58 [pont] STATS fn=34666 | DL bursts=11080 blocs=2769 crc=1 dummy=45156 hors_voie=1142 | UL bursts=182 tard=8 rach=2 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=22 | A5 dl=156 ul=132 | IQ dl=34566tr/271908bu ul=34566tr/182bu fifo_drop=34296/34324
+00:10:58 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:10:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:674/0 TS0/6:675/0 TS0/12:675/0 TS0/16:675/0 TS1/0:51/1 TS1/32:19/0
+00:10:58 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:10:58 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:10:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +24.7 sur 5987 mesures, avance visee 15
+00:11:03 [pont] STATS fn=35746 | DL bursts=11428 blocs=2856 crc=1 dummy=46614 hors_voie=1162 | UL bursts=182 tard=8 rach=2 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=22 | A5 dl=168 ul=132 | IQ dl=35647tr/280553bu ul=35647tr/182bu fifo_drop=35368/35400
+00:11:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:695/0 TS0/6:696/0 TS0/12:696/0 TS0/16:696/0 TS1/0:54/1 TS1/32:19/0
+00:11:08 [pont] STATS fn=36829 | DL bursts=11772 blocs=2942 crc=1 dummy=48138 hors_voie=1162 | UL bursts=182 tard=8 rach=2 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=22 | A5 dl=168 ul=132 | IQ dl=36729tr/289209bu ul=36729tr/182bu fifo_drop=36441/36475
+00:11:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:717/0 TS0/6:718/0 TS0/12:717/0 TS0/16:717/0 TS1/0:54/1 TS1/32:19/0
+00:11:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.3 sur 5797 mesures, avance visee 16
+00:11:13 [pont] STATS fn=37913 | DL bursts=12116 blocs=3028 crc=1 dummy=49664 hors_voie=1162 | UL bursts=182 tard=8 rach=2 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=22 | A5 dl=168 ul=132 | IQ dl=37813tr/297887bu ul=37813tr/182bu fifo_drop=37516/37552
+00:11:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:738/0 TS0/6:739/0 TS0/12:739/0 TS0/16:739/0 TS1/0:54/1 TS1/32:19/0
+00:11:16 [pont] Kc lache (IMMEDIATE ASSIGNMENT) : le lien repart en clair
+00:11:18 [pont] chiffrement descendant confirme par la BTS (fn=38996)
+00:11:18 [pont] STATS fn=38998 | DL bursts=12496 blocs=3122 crc=2 dummy=50785 hors_voie=1294 | UL bursts=203 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=25 | A5 dl=176 ul=144 | IQ dl=38898tr/306561bu ul=38898tr/203bu fifo_drop=38594/38628
+00:11:18 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:11:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:759/0 TS0/6:760/0 TS0/12:760/0 TS0/16:760/0 TS1/0:60/2 TS1/32:23/0
+00:11:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.9 sur 5924 mesures, avance visee 16
+00:11:21 [pont] CHANNEL RELEASE : en attente de la liberation du canal par le mobile
+00:11:22 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:11:23 [pont] STATS fn=40079 | DL bursts=12932 blocs=3231 crc=2 dummy=51031 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=39980tr/315217bu ul=39980tr/271bu fifo_drop=39665/39703
+00:11:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:780/0 TS0/6:781/0 TS0/12:781/0 TS0/16:781/0 TS1/0:80/2 TS1/32:28/0
+00:11:28 [pont] STATS fn=41162 | DL bursts=13274 blocs=3316 crc=2 dummy=52555 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=41063tr/323881bu ul=41063tr/271bu fifo_drop=40735/40779
+00:11:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:802/0 TS0/6:802/0 TS0/12:802/0 TS0/16:802/0 TS1/0:80/2 TS1/32:28/0
+00:11:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.2 sur 5939 mesures, avance visee 15
+00:11:33 [pont] STATS fn=42246 | DL bursts=13620 blocs=3403 crc=2 dummy=54080 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=42146tr/332545bu ul=42146tr/271bu fifo_drop=41807/41855
+00:11:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:823/0 TS0/6:824/0 TS0/12:824/0 TS0/16:824/0 TS1/0:80/2 TS1/32:28/0
+00:11:38 [pont] STATS fn=43329 | DL bursts=13956 blocs=3487 crc=2 dummy=55615 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=43230tr/341217bu ul=43230tr/271bu fifo_drop=42875/42930
+00:11:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:844/0 TS0/6:845/0 TS0/12:845/0 TS0/16:845/0 TS1/0:80/2 TS1/32:28/0
+00:11:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +16 moy +22.2 sur 5817 mesures, avance visee 15
+00:11:43 [pont] STATS fn=44414 | DL bursts=14292 blocs=3571 crc=2 dummy=57150 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=44314tr/349889bu ul=44314tr/271bu fifo_drop=43950/44009
+00:11:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:865/0 TS0/6:866/0 TS0/12:866/0 TS0/16:866/0 TS1/0:80/2 TS1/32:28/0
+00:11:48 [pont] STATS fn=45496 | DL bursts=14632 blocs=3656 crc=2 dummy=58673 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=45396tr/358550bu ul=45396tr/271bu fifo_drop=45019/45077
+00:11:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:887/0 TS0/6:887/0 TS0/12:887/0 TS0/16:887/0 TS1/0:80/2 TS1/32:28/0
+00:11:49 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:11:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.0 sur 5864 mesures, avance visee 18
+00:11:53 [pont] STATS fn=46581 | DL bursts=14980 blocs=3743 crc=2 dummy=60200 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=46482tr/367233bu ul=46482tr/271bu fifo_drop=46095/46156
+00:11:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:908/0 TS0/6:909/0 TS0/12:909/0 TS0/16:909/0 TS1/0:80/2 TS1/32:28/0
+00:11:53 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:11:56 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:11:56 [pont] horloge : avance BTS mesuree -14 trames (creux sur 3 s), avance visee 30 pour une marge DL >= 16
+00:11:56 [pont] horloge : avance BTS mesuree -20 trames (creux sur 3 s), avance visee 36 pour une marge DL >= 16
+00:11:56 [pont] horloge : avance BTS mesuree -26 trames (creux sur 3 s), avance visee 40 pour une marge DL >= 16
+00:11:58 [pont] STATS fn=47688 | DL bursts=15320 blocs=3828 crc=2 dummy=61769 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=47589tr/375164bu ul=47589tr/271bu fifo_drop=47191/47256
+00:11:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:930/0 TS0/6:930/0 TS0/12:930/0 TS0/16:930/0 TS1/0:80/2 TS1/32:28/0
+00:11:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +6 moy +28.3 sur 5831 mesures, avance visee 40
+00:12:00 [pont] horloge : avance BTS mesuree -19 trames (creux sur 3 s), avance visee 35 pour une marge DL >= 16
+00:12:00 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:12:00 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:12:00 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:12:03 [pont] STATS fn=48746 | DL bursts=15652 blocs=3911 crc=2 dummy=63265 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=48647tr/383628bu ul=48647tr/271bu fifo_drop=48237/48307
+00:12:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:950/0 TS0/6:951/0 TS0/12:951/0 TS0/16:951/0 TS1/0:80/2 TS1/32:28/0
+00:12:08 [pont] horloge : avance BTS mesuree -5 trames (creux sur 3 s), avance visee 21 pour une marge DL >= 16
+00:12:08 [pont] STATS fn=49831 | DL bursts=15992 blocs=3996 crc=2 dummy=64793 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=49732tr/392268bu ul=49732tr/271bu fifo_drop=49310/49382
+00:12:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:972/0 TS0/6:972/0 TS0/12:972/0 TS0/16:972/0 TS1/0:80/2 TS1/32:28/0
+00:12:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +11 moy +25.8 sur 5766 mesures, avance visee 21
+00:12:11 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:12:12 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:12:13 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:12:13 [pont] STATS fn=50914 | DL bursts=16338 blocs=4082 crc=2 dummy=66317 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=50815tr/400900bu ul=50815tr/271bu fifo_drop=50379/50460
+00:12:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:993/0 TS0/6:994/0 TS0/12:994/0 TS0/16:993/0 TS1/0:80/2 TS1/32:28/0
+00:12:16 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:12:18 [pont] STATS fn=51997 | DL bursts=16676 blocs=4167 crc=2 dummy=67850 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=51897tr/409556bu ul=51897tr/271bu fifo_drop=51451/51535
+00:12:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1014/0 TS0/6:1015/0 TS0/12:1015/0 TS0/16:1015/0 TS1/0:80/2 TS1/32:28/0
+00:12:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +13 moy +24.4 sur 5818 mesures, avance visee 16
+00:12:20 [pont] horloge : avance BTS mesuree -5 trames (creux sur 3 s), avance visee 21 pour une marge DL >= 16
+00:12:20 [pont] horloge : avance BTS mesuree -9 trames (creux sur 3 s), avance visee 25 pour une marge DL >= 16
+00:12:20 [pont] horloge : avance BTS mesuree -13 trames (creux sur 3 s), avance visee 29 pour une marge DL >= 16
+00:12:20 [pont] horloge : avance BTS mesuree -17 trames (creux sur 3 s), avance visee 33 pour une marge DL >= 16
+00:12:20 [pont] horloge : avance BTS mesuree -21 trames (creux sur 3 s), avance visee 37 pour une marge DL >= 16
+00:12:20 [pont] horloge : avance BTS mesuree -25 trames (creux sur 3 s), avance visee 40 pour une marge DL >= 16
+00:12:23 [pont] STATS fn=53105 | DL bursts=17024 blocs=4254 crc=2 dummy=69411 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=53005tr/417546bu ul=53005tr/271bu fifo_drop=52552/52636
+00:12:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1036/0 TS0/6:1037/0 TS0/12:1037/0 TS0/16:1036/0 TS1/0:80/2 TS1/32:28/0
+00:12:23 [pont] horloge : avance BTS mesuree -18 trames (creux sur 3 s), avance visee 34 pour une marge DL >= 16
+00:12:23 [pont] horloge : avance BTS mesuree -8 trames (creux sur 3 s), avance visee 24 pour une marge DL >= 16
+00:12:24 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:12:25 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:12:28 [pont] STATS fn=54163 | DL bursts=17350 blocs=4335 crc=2 dummy=70911 hors_voie=1724 | UL bursts=271 tard=8 rach=3 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=33 | A5 dl=276 ul=212 | IQ dl=54064tr/426018bu ul=54064tr/271bu fifo_drop=53604/53686
+00:12:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1056/0 TS0/6:1057/0 TS0/12:1057/0 TS0/16:1057/0 TS1/0:80/2 TS1/32:28/0
+00:12:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +11 moy +30.9 sur 5849 mesures, avance visee 15
+00:12:29 [pont] Kc lache (IMMEDIATE ASSIGNMENT) : le lien repart en clair
+00:12:31 [pont] chiffrement descendant confirme par la BTS (fn=54806)
+00:12:33 [pont] STATS fn=55247 | DL bursts=17780 blocs=4442 crc=3 dummy=71415 hors_voie=2060 | UL bursts=327 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=41 | A5 dl=324 ul=259 | IQ dl=55148tr/434690bu ul=55148tr/324bu fifo_drop=54679/54763
+00:12:33 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:12:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1078/0 TS0/6:1079/0 TS0/12:1079/0 TS0/16:1078/0 TS1/0:95/3 TS1/32:33/0
+00:12:33 [pont] CHANNEL RELEASE : en attente de la liberation du canal par le mobile
+00:12:36 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:12:38 [pont] STATS fn=56330 | DL bursts=18132 blocs=4530 crc=3 dummy=72089 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=56231tr/443354bu ul=56231tr/364bu fifo_drop=55753/55832
+00:12:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1099/0 TS0/6:1100/0 TS0/12:1100/0 TS0/16:1100/0 TS1/0:98/3 TS1/32:33/0
+00:12:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.5 sur 6032 mesures, avance visee 16
+00:12:43 [pont] STATS fn=57414 | DL bursts=18468 blocs=4614 crc=3 dummy=73624 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=57314tr/452018bu ul=57314tr/364bu fifo_drop=56824/56910
+00:12:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1120/0 TS0/6:1121/0 TS0/12:1121/0 TS0/16:1121/0 TS1/0:98/3 TS1/32:33/0
+00:12:48 [pont] STATS fn=58497 | DL bursts=18805 blocs=4698 crc=3 dummy=75154 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=58397tr/460682bu ul=58397tr/364bu fifo_drop=57902/57988
+00:12:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1141/0 TS0/6:1142/0 TS0/12:1142/0 TS0/16:1142/0 TS1/0:98/3 TS1/32:33/0
+00:12:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +16 moy +22.3 sur 5771 mesures, avance visee 15
+00:12:51 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:12:53 [pont] STATS fn=59584 | DL bursts=19154 blocs=4785 crc=3 dummy=76681 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=59485tr/469333bu ul=59485tr/364bu fifo_drop=58981/59071
+00:12:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1163/0 TS0/6:1164/0 TS0/12:1164/0 TS0/16:1163/0 TS1/0:98/3 TS1/32:33/0
+00:12:57 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:12:58 [pont] STATS fn=60664 | DL bursts=19492 blocs=4870 crc=3 dummy=78207 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=60564tr/477941bu ul=60564tr/364bu fifo_drop=60051/60143
+00:12:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1184/0 TS0/6:1185/0 TS0/12:1185/0 TS0/16:1185/0 TS1/0:98/3 TS1/32:33/0
+00:12:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.6 sur 5786 mesures, avance visee 16
+00:13:00 [pont] horloge : avance BTS mesuree -4 trames (creux sur 3 s), avance visee 20 pour une marge DL >= 16
+00:13:00 [pont] horloge : avance BTS mesuree -9 trames (creux sur 3 s), avance visee 25 pour une marge DL >= 16
+00:13:00 [pont] horloge : avance BTS mesuree -14 trames (creux sur 3 s), avance visee 30 pour une marge DL >= 16
+00:13:00 [pont] horloge : avance BTS mesuree -19 trames (creux sur 3 s), avance visee 35 pour une marge DL >= 16
+00:13:00 [pont] horloge : avance BTS mesuree -23 trames (creux sur 3 s), avance visee 39 pour une marge DL >= 16
+00:13:03 [pont] STATS fn=61772 | DL bursts=19838 blocs=4956 crc=3 dummy=79773 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=61672tr/486021bu ul=61672tr/364bu fifo_drop=61152/61246
+00:13:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1206/0 TS0/6:1207/0 TS0/12:1206/0 TS0/16:1206/0 TS1/0:98/3 TS1/32:33/0
+00:13:03 [pont] horloge : avance BTS mesuree -17 trames (creux sur 3 s), avance visee 33 pour une marge DL >= 16
+00:13:03 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:13:04 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:13:04 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:13:08 [pont] STATS fn=62832 | DL bursts=20165 blocs=5038 crc=3 dummy=81274 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=62733tr/494484bu ul=62733tr/364bu fifo_drop=62201/62302
+00:13:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1226/0 TS0/6:1227/0 TS0/12:1227/0 TS0/16:1227/0 TS1/0:98/3 TS1/32:33/0
+00:13:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +11 moy +31.5 sur 5801 mesures, avance visee 16
+00:13:13 [pont] STATS fn=63914 | DL bursts=20510 blocs=5124 crc=3 dummy=82797 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=63814tr/503132bu ul=63814tr/364bu fifo_drop=63277/63376
+00:13:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1248/0 TS0/6:1249/0 TS0/12:1248/0 TS0/16:1248/0 TS1/0:98/3 TS1/32:33/0
+00:13:18 [pont] STATS fn=64997 | DL bursts=20852 blocs=5210 crc=3 dummy=84323 hors_voie=2369 | UL bursts=364 tard=8 rach=4 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=45 | A5 dl=336 ul=296 | IQ dl=64898tr/511804bu ul=64898tr/364bu fifo_drop=64348/64455
+00:13:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1269/0 TS0/6:1270/0 TS0/12:1270/0 TS0/16:1270/0 TS1/0:98/3 TS1/32:33/0
+00:13:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.2 sur 5811 mesures, avance visee 16
+00:13:21 [pont] Kc lache (IMMEDIATE ASSIGNMENT) : le lien repart en clair
+00:13:23 [pont] STATS fn=66081 | DL bursts=21228 blocs=5303 crc=4 dummy=85480 hors_voie=2494 | UL bursts=385 tard=8 rach=5 | TCH dl=0 facch=0 sacch=0 crc=0 ul=0 bursts=0 perdus=0 | FACCH ul=0 SACCH ul=48 | A5 dl=340 ul=296 | IQ dl=65982tr/520476bu ul=65982tr/385bu fifo_drop=65424/65532
+00:13:23 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:13:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1290/0 TS0/6:1291/0 TS0/12:1291/0 TS0/16:1291/0 TS1/0:104/4 TS1/32:36/0
+00:13:24 [pont] chiffrement descendant confirme par la BTS (fn=66300)
+00:13:24 [pont] ASSIGNMENT COMMAND : TCH TN=2 TSC=7 ARFCN=514 annonce au DSP, bascule du BSP a la premiere tache TCH du firmware
+00:13:25 [pont] FACCH montante ECARTEE (pas une adresse SAPI 0) : e4 f4 74 f0 27 7c e4 f4 00 fe 00 02 00 fe 00 fe 00 fe 00 02 00 02 00
+00:13:25 [pont] le mobile est sur le TCH TN=2 (FACCH montante) : montant TCH ouvert
+00:13:25 [pont] FACCH montante non-I : 01 3f 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:25 [pont] canal dedie : TCH/F TS=2 SS=0 annonce par le firmware (SDCCH SS=0 TS=1 garde pour un retour)
+00:13:25 [pont] FACCH montante non-I : 03 21 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:25 [pont] FACCH montante non-I : 03 39 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:26 [pont] FACCH montante non-I : 03 41 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:26 [pont] FACCH montante non-I : 03 59 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:27 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:13:28 [pont] STATS fn=67167 | DL bursts=21657 blocs=5402 crc=12 dummy=85546 hors_voie=3008 | UL bursts=1044 tard=8 rach=5 | TCH dl=116 facch=8 sacch=6 crc=39 ul=106 bursts=604 perdus=0 | FACCH ul=7 SACCH ul=59 | A5 dl=1092 ul=951 | IQ dl=67067tr/529156bu ul=67067tr/1038bu fifo_drop=66500/66612
+00:13:28 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:13:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1311/0 TS0/6:1312/0 TS0/12:1312/0 TS0/16:1312/0 TS1/0:115/11 TS1/32:40/1
+00:13:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.0 sur 8815 mesures, avance visee 18
+00:13:31 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:13:33 [pont] STATS fn=68249 | DL bursts=22001 blocs=5488 crc=12 dummy=85713 hors_voie=3512 | UL bursts=2084 tard=9 rach=5 | TCH dl=365 facch=8 sacch=17 crc=40 ul=356 bursts=1603 perdus=0 | FACCH ul=7 SACCH ul=69 | A5 dl=2200 ul=1991 | IQ dl=68149tr/537812bu ul=68149tr/2079bu fifo_drop=67573/67685
+00:13:33 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:13:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1333/0 TS0/6:1334/0 TS0/12:1333/0 TS0/16:1333/0 TS1/0:115/11 TS1/32:40/1
+00:13:34 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:13:34 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:13:34 [pont] horloge : avance BTS mesuree -11 trames (creux sur 3 s), avance visee 27 pour une marge DL >= 16
+00:13:37 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:13:38 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:13:38 [pont] STATS fn=69341 | DL bursts=22344 blocs=5574 crc=12 dummy=85883 hors_voie=4028 | UL bursts=3133 tard=11 rach=5 | TCH dl=615 facch=8 sacch=27 crc=42 ul=606 bursts=2611 perdus=0 | FACCH ul=7 SACCH ul=80 | A5 dl=3312 ul=3041 | IQ dl=69241tr/546332bu ul=69241tr/3128bu fifo_drop=68658/68768
+00:13:38 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:13:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1354/0 TS0/6:1355/0 TS0/12:1355/0 TS0/16:1355/0 TS1/0:115/11 TS1/32:40/1
+00:13:38 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:13:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +14 moy +26.9 sur 12192 mesures, avance visee 15
+00:13:40 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:13:43 [pont] STATS fn=70420 | DL bursts=22680 blocs=5658 crc=12 dummy=86052 hors_voie=4536 | UL bursts=4172 tard=11 rach=5 | TCH dl=864 facch=8 sacch=38 crc=42 ul=856 bursts=3607 perdus=1 | FACCH ul=7 SACCH ul=90 | A5 dl=4416 ul=4079 | IQ dl=70321tr/554972bu ul=70321tr/4166bu fifo_drop=69733/69843
+00:13:43 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:13:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1375/0 TS0/6:1376/0 TS0/12:1376/0 TS0/16:1376/0 TS1/0:115/11 TS1/32:40/1
+00:13:43 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:13:45 [pont] FACCH montante non-I : 03 61 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:45 [pont] FACCH montante non-I : 03 79 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:45 [pont] CHANNEL RELEASE (FACCH) : TCH TN=2 maintenu jusqu'a la liberation par le mobile
+00:13:45 [pont] FACCH montante non-I : 03 81 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:45 [pont] FACCH montante non-I : 01 53 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:13:46 [pont] TCH TN=2 ferme (canal libere par le mobile)
+00:13:46 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:13:48 [pont] STATS fn=71499 | DL bursts=23016 blocs=5742 crc=12 dummy=86714 hors_voie=4860 | UL bursts=4844 tard=13 rach=5 | TCH dl=970 facch=16 sacch=42 crc=89 ul=962 bursts=4251 perdus=1 | FACCH ul=13 SACCH ul=96 | A5 dl=5120 ul=4751 | IQ dl=71399tr/563596bu ul=71399tr/4843bu fifo_drop=70804/70913
+00:13:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1396/0 TS0/6:1397/0 TS0/12:1397/0 TS0/16:1397/0 TS1/0:115/11 TS1/32:40/1
+00:13:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +24.4 sur 10191 mesures, avance visee 16
+00:13:50 [pont] horloge : avance BTS mesuree -4 trames (creux sur 3 s), avance visee 20 pour une marge DL >= 16
+00:13:50 [pont] horloge : avance BTS mesuree -8 trames (creux sur 3 s), avance visee 24 pour une marge DL >= 16
+00:13:50 [pont] horloge : avance BTS mesuree -11 trames (creux sur 3 s), avance visee 27 pour une marge DL >= 16
+00:13:50 [pont] horloge : avance BTS mesuree -14 trames (creux sur 3 s), avance visee 30 pour une marge DL >= 16
+00:13:50 [pont] horloge : avance BTS mesuree -17 trames (creux sur 3 s), avance visee 33 pour une marge DL >= 16
+00:13:50 [pont] horloge : avance BTS mesuree -20 trames (creux sur 3 s), avance visee 36 pour une marge DL >= 16
+00:13:50 [pont] horloge : avance BTS mesuree -23 trames (creux sur 3 s), avance visee 39 pour une marge DL >= 16
+00:13:53 [pont] STATS fn=72605 | DL bursts=23368 blocs=5830 crc=12 dummy=88272 hors_voie=4860 | UL bursts=4844 tard=13 rach=5 | TCH dl=970 facch=16 sacch=42 crc=89 ul=962 bursts=4251 perdus=1 | FACCH ul=13 SACCH ul=96 | A5 dl=5120 ul=4751 | IQ dl=72505tr/571722bu ul=72505tr/4843bu fifo_drop=71899/72010
+00:13:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1418/0 TS0/6:1419/0 TS0/12:1419/0 TS0/16:1419/0 TS1/0:115/11 TS1/32:40/1
+00:13:53 [pont] horloge : avance BTS mesuree -20 trames (creux sur 3 s), avance visee 36 pour une marge DL >= 16
+00:13:53 [pont] horloge : avance BTS mesuree -10 trames (creux sur 3 s), avance visee 26 pour une marge DL >= 16
+00:13:54 [pont] horloge : avance BTS mesuree -4 trames (creux sur 3 s), avance visee 20 pour une marge DL >= 16
+00:13:54 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:13:58 [pont] STATS fn=73667 | DL bursts=23704 blocs=5914 crc=12 dummy=89766 hors_voie=4860 | UL bursts=4844 tard=13 rach=5 | TCH dl=970 facch=16 sacch=42 crc=89 ul=962 bursts=4251 perdus=1 | FACCH ul=13 SACCH ul=96 | A5 dl=5120 ul=4751 | IQ dl=73568tr/580220bu ul=73568tr/4843bu fifo_drop=72955/73062
+00:13:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1439/0 TS0/6:1440/0 TS0/12:1440/0 TS0/16:1440/0 TS1/0:115/11 TS1/32:40/1
+00:13:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +13 moy +31.1 sur 5835 mesures, avance visee 18
+00:14:03 [pont] STATS fn=74748 | DL bursts=24040 blocs=5998 crc=12 dummy=91298 hors_voie=4860 | UL bursts=4844 tard=13 rach=5 | TCH dl=970 facch=16 sacch=42 crc=89 ul=962 bursts=4251 perdus=1 | FACCH ul=13 SACCH ul=96 | A5 dl=5120 ul=4751 | IQ dl=74649tr/588844bu ul=74649tr/4843bu fifo_drop=74031/74134
+00:14:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1460/0 TS0/6:1461/0 TS0/12:1461/0 TS0/16:1461/0 TS1/0:115/11 TS1/32:40/1
+00:14:05 [pont] Kc lache (IMMEDIATE ASSIGNMENT) : le lien repart en clair
+00:14:07 [pont] chiffrement descendant confirme par la BTS (fn=75614)
+00:14:08 [pont] ASSIGNMENT COMMAND : TCH TN=2 TSC=7 ARFCN=514 annonce au DSP, bascule du BSP a la premiere tache TCH du firmware
+00:14:08 [pont] STATS fn=75833 | DL bursts=24444 blocs=6097 crc=14 dummy=92113 hors_voie=5100 | UL bursts=4881 tard=13 rach=6 | TCH dl=970 facch=16 sacch=42 crc=98 ul=962 bursts=4251 perdus=1 | FACCH ul=13 SACCH ul=101 | A5 dl=5188 ul=4779 | IQ dl=75734tr/597524bu ul=75734tr/4876bu fifo_drop=75107/75212
+00:14:08 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1481/0 TS0/6:1482/0 TS0/12:1482/0 TS0/16:1482/0 TS1/0:125/12 TS1/32:45/2
+00:14:08 [pont] le mobile est sur le TCH TN=2 (FACCH montante) : montant TCH ouvert
+00:14:08 [pont] FACCH montante non-I : 01 3f 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:08 [pont] canal dedie : TCH/F TS=2 SS=0 annonce par le firmware (SDCCH SS=0 TS=1 garde pour un retour)
+00:14:08 [pont] FACCH montante non-I : 03 21 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:08 [pont] FACCH montante non-I : 03 39 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:09 [pont] FACCH montante non-I : 03 41 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:09 [pont] FACCH montante non-I : 03 59 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.9 sur 6791 mesures, avance visee 18
+00:14:09 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:14:13 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:14:13 [pont] STATS fn=76917 | DL bursts=24828 blocs=6188 crc=19 dummy=92243 hors_voie=5604 | UL bursts=5915 tard=13 rach=6 | TCH dl=1183 facch=25 sacch=52 crc=127 ul=1163 bursts=5243 perdus=1 | FACCH ul=20 SACCH ul=112 | A5 dl=6304 ul=5813 | IQ dl=76818tr/606196bu ul=76818tr/5909bu fifo_drop=76182/76289
+00:14:13 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1503/0 TS0/6:1504/0 TS0/12:1503/0 TS0/16:1503/0 TS1/0:130/17 TS1/32:45/2
+00:14:14 [pont] horloge : avance BTS mesuree -4 trames (creux sur 3 s), avance visee 20 pour une marge DL >= 16
+00:14:14 [pont] horloge : avance BTS mesuree -8 trames (creux sur 3 s), avance visee 24 pour une marge DL >= 16
+00:14:14 [pont] horloge : avance BTS mesuree -11 trames (creux sur 3 s), avance visee 27 pour une marge DL >= 16
+00:14:17 [pont] horloge : avance BTS mesuree -5 trames (creux sur 3 s), avance visee 21 pour une marge DL >= 16
+00:14:18 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:14:18 [pont] STATS fn=78007 | DL bursts=25172 blocs=6274 crc=19 dummy=92413 hors_voie=6116 | UL bursts=6963 tard=14 rach=6 | TCH dl=1431 facch=25 sacch=62 crc=130 ul=1413 bursts=6250 perdus=1 | FACCH ul=20 SACCH ul=122 | A5 dl=7412 ul=6861 | IQ dl=77908tr/614727bu ul=77908tr/6957bu fifo_drop=77261/77368
+00:14:18 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1524/0 TS0/6:1525/0 TS0/12:1525/0 TS0/16:1525/0 TS1/0:130/17 TS1/32:45/2
+00:14:18 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:14:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +14 moy +28.0 sur 12222 mesures, avance visee 15
+00:14:22 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:14:23 [pont] STATS fn=79083 | DL bursts=25508 blocs=6358 crc=19 dummy=92581 hors_voie=6623 | UL bursts=7998 tard=19 rach=6 | TCH dl=1679 facch=25 sacch=73 crc=130 ul=1663 bursts=7243 perdus=3 | FACCH ul=20 SACCH ul=132 | A5 dl=8512 ul=7896 | IQ dl=78984tr/623335bu ul=78984tr/7990bu fifo_drop=78327/78437
+00:14:23 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1545/0 TS0/6:1546/0 TS0/12:1546/0 TS0/16:1546/0 TS1/0:130/17 TS1/32:45/2
+00:14:26 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:14:28 [pont] STATS fn=80164 | DL bursts=25844 blocs=6442 crc=19 dummy=92748 hors_voie=7136 | UL bursts=9037 tard=20 rach=6 | TCH dl=1929 facch=25 sacch=83 crc=130 ul=1913 bursts=8241 perdus=3 | FACCH ul=20 SACCH ul=143 | A5 dl=9620 ul=8935 | IQ dl=80065tr/631951bu ul=80065tr/9029bu fifo_drop=79399/79511
+00:14:28 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1566/0 TS0/6:1567/0 TS0/12:1567/0 TS0/16:1567/0 TS1/0:130/17 TS1/32:45/2
+00:14:29 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:14:29 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.9 sur 12272 mesures, avance visee 18
+00:14:31 [pont] FACCH montante non-I : 03 61 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:31 [pont] FACCH montante non-I : 03 79 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:31 [pont] CHANNEL RELEASE (FACCH) : TCH TN=2 maintenu jusqu'a la liberation par le mobile
+00:14:31 [pont] FACCH montante non-I : 03 81 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:31 [pont] FACCH montante non-I : 01 53 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:32 [pont] TCH TN=2 ferme (canal libere par le mobile)
+00:14:32 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:14:33 [pont] STATS fn=81249 | DL bursts=26187 blocs=6527 crc=19 dummy=93063 hors_voie=7596 | UL bursts=9974 tard=25 rach=6 | TCH dl=2088 facch=33 sacch=90 crc=187 ul=2080 bursts=9140 perdus=3 | FACCH ul=26 SACCH ul=151 | A5 dl=10600 ul=9872 | IQ dl=81150tr/640599bu ul=81150tr/9969bu fifo_drop=80473/80589
+00:14:33 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1588/0 TS0/6:1588/0 TS0/12:1588/0 TS0/16:1588/0 TS1/0:130/17 TS1/32:45/2
+00:14:34 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:14:37 [pont] horloge : avance BTS mesuree -2 trames (creux sur 3 s), avance visee 18 pour une marge DL >= 16
+00:14:38 [pont] STATS fn=82336 | DL bursts=26532 blocs=6614 crc=19 dummy=94594 hors_voie=7596 | UL bursts=9974 tard=25 rach=6 | TCH dl=2088 facch=33 sacch=90 crc=187 ul=2080 bursts=9140 perdus=3 | FACCH ul=26 SACCH ul=151 | A5 dl=10600 ul=9872 | IQ dl=82237tr/649295bu ul=82237tr/9969bu fifo_drop=81549/81669
+00:14:38 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1609/0 TS0/6:1610/0 TS0/12:1610/0 TS0/16:1610/0 TS1/0:130/17 TS1/32:45/2
+00:14:39 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.7 sur 7796 mesures, avance visee 20
+00:14:41 [pont] horloge : avance BTS mesuree +1 trames (creux sur 3 s), avance visee 15 pour une marge DL >= 16
+00:14:43 [pont] Kc lache (IMMEDIATE ASSIGNMENT) : le lien repart en clair
+00:14:43 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:14:43 [pont] STATS fn=83393 | DL bursts=26868 blocs=6698 crc=19 dummy=96080 hors_voie=7596 | UL bursts=9975 tard=25 rach=7 | TCH dl=2088 facch=33 sacch=90 crc=187 ul=2080 bursts=9140 perdus=3 | FACCH ul=26 SACCH ul=151 | A5 dl=10600 ul=9872 | IQ dl=83294tr/657751bu ul=83294tr/9970bu fifo_drop=82593/82721
+00:14:43 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1630/0 TS0/6:1631/0 TS0/12:1630/0 TS0/16:1630/0 TS1/0:131/17 TS1/32:46/2
+00:14:43 [pont] horloge : avance BTS mesuree -7 trames (creux sur 3 s), avance visee 23 pour une marge DL >= 16
+00:14:44 [pont] chiffrement descendant confirme par la BTS (fn=83672)
+00:14:45 [pont] ASSIGNMENT COMMAND : TCH TN=2 TSC=7 ARFCN=514 annonce au DSP, bascule du BSP a la premiere tache TCH du firmware
+00:14:45 [pont] le mobile est sur le TCH TN=2 (FACCH montante) : montant TCH ouvert
+00:14:45 [pont] FACCH montante non-I : 01 3f 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:45 [pont] canal dedie : TCH/F TS=2 SS=0 annonce par le firmware (SDCCH SS=0 TS=1 garde pour un retour)
+00:14:46 [pont] FACCH montante non-I : 03 21 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:46 [pont] FACCH montante non-I : 03 39 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:46 [pont] FACCH montante non-I : 03 41 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:46 [pont] FACCH montante non-I : 03 59 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:14:46 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:14:47 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:14:48 [pont] STATS fn=84478 | DL bursts=27316 blocs=6803 crc=26 dummy=96125 hors_voie=8103 | UL bursts=10550 tard=29 rach=7 | TCH dl=2179 facch=40 sacch=96 crc=233 ul=2161 bursts=9659 perdus=3 | FACCH ul=33 SACCH ul=162 | A5 dl=11268 ul=10439 | IQ dl=84379tr/666385bu ul=84379tr/10540bu fifo_drop=83667/83797
+00:14:48 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:48 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1651/0 TS0/6:1652/0 TS0/12:1652/0 TS0/16:1652/0 TS1/0:144/24 TS1/32:52/2
+00:14:49 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:14:49 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +14 moy +26.6 sur 8486 mesures, avance visee 20
+00:14:53 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:14:53 [pont] STATS fn=85564 | DL bursts=27652 blocs=6887 crc=26 dummy=96295 hors_voie=8620 | UL bursts=11594 tard=29 rach=7 | TCH dl=2430 facch=40 sacch=106 crc=233 ul=2411 bursts=10661 perdus=3 | FACCH ul=33 SACCH ul=173 | A5 dl=12380 ul=11483 | IQ dl=85464tr/675065bu ul=85464tr/11584bu fifo_drop=84745/84875
+00:14:53 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:53 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1672/0 TS0/6:1673/0 TS0/12:1673/0 TS0/16:1673/0 TS1/0:144/24 TS1/32:52/2
+00:14:55 [pont] horloge : avance BTS mesuree -3 trames (creux sur 3 s), avance visee 19 pour une marge DL >= 16
+00:14:58 [pont] STATS fn=86650 | DL bursts=27989 blocs=6971 crc=26 dummy=96467 hors_voie=9132 | UL bursts=12638 tard=32 rach=7 | TCH dl=2680 facch=40 sacch=117 crc=233 ul=2661 bursts=11663 perdus=3 | FACCH ul=33 SACCH ul=183 | A5 dl=13488 ul=12527 | IQ dl=86550tr/683753bu ul=86550tr/12628bu fifo_drop=85824/85956
+00:14:58 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:14:58 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1693/0 TS0/6:1694/0 TS0/12:1694/0 TS0/16:1694/0 TS1/0:144/24 TS1/32:52/2
+00:14:58 [pont] horloge : avance BTS mesuree +0 trames (creux sur 3 s), avance visee 16 pour une marge DL >= 16
+00:14:59 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +25.3 sur 12167 mesures, avance visee 15
+00:15:03 [pont] STATS fn=87731 | DL bursts=28334 blocs=7057 crc=26 dummy=96634 hors_voie=9636 | UL bursts=13678 tard=33 rach=7 | TCH dl=2930 facch=40 sacch=127 crc=233 ul=2911 bursts=12662 perdus=3 | FACCH ul=33 SACCH ul=194 | A5 dl=14592 ul=13567 | IQ dl=87631tr/692401bu ul=87631tr/13667bu fifo_drop=86892/87030
+00:15:03 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:15:03 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1715/0 TS0/6:1716/0 TS0/12:1715/0 TS0/16:1715/0 TS1/0:144/24 TS1/32:52/2
+00:15:08 [pont] STATS fn=88812 | DL bursts=28676 blocs=7143 crc=26 dummy=96803 hors_voie=10142 | UL bursts=14717 tard=36 rach=7 | TCH dl=3175 facch=40 sacch=137 crc=238 ul=3161 bursts=13659 perdus=3 | FACCH ul=33 SACCH ul=204 | A5 dl=15700 ul=14606 | IQ dl=88713tr/701057bu ul=88713tr/14708bu fifo_drop=87967/88105
+00:15:08 [pont] canal dedie : SDCCH8 SS=0 TS=1 (DL fn%51=0, UL fn%51=15)
+00:15:08 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1736/0 TS0/6:1737/0 TS0/12:1737/0 TS0/16:1737/0 TS1/0:144/24 TS1/32:52/2
+00:15:08 [pont] FACCH montante non-I : 03 61 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:15:08 [pont] FACCH montante non-I : 03 79 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:15:09 [pont] CHANNEL RELEASE (FACCH) : TCH TN=2 maintenu jusqu'a la liberation par le mobile
+00:15:09 [pont] FACCH montante non-I : 03 81 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:15:09 [pont] FACCH montante non-I : 01 53 01 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b 2b
+00:15:09 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +23.0 sur 12273 mesures, avance visee 16
+00:15:09 [pont] TCH TN=2 ferme (canal libere par le mobile)
+00:15:09 [pont] canal libere par le mobile : Kc garde jusqu'a la prochaine IMMEDIATE ASSIGNMENT (la BTS chiffre encore)
+00:15:13 [pont] STATS fn=89895 | DL bursts=29012 blocs=7227 crc=26 dummy=97892 hors_voie=10312 | UL bursts=15067 tard=37 rach=7 | TCH dl=3198 facch=48 sacch=139 crc=290 ul=3185 bursts=13992 perdus=3 | FACCH ul=39 SACCH ul=206 | A5 dl=16060 ul=14956 | IQ dl=89796tr/709689bu ul=89796tr/15062bu fifo_drop=89043/89179
+00:15:13 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1757/0 TS0/6:1758/0 TS0/12:1758/0 TS0/16:1758/0 TS1/0:144/24 TS1/32:52/2
+00:15:18 [pont] STATS fn=90979 | DL bursts=29348 blocs=7311 crc=26 dummy=99427 hors_voie=10312 | UL bursts=15067 tard=37 rach=7 | TCH dl=3198 facch=48 sacch=139 crc=290 ul=3185 bursts=13992 perdus=3 | FACCH ul=39 SACCH ul=206 | A5 dl=16060 ul=14956 | IQ dl=90880tr/718361bu ul=90880tr/15062bu fifo_drop=90118/90254
+00:15:18 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1778/0 TS0/6:1779/0 TS0/12:1779/0 TS0/16:1779/0 TS1/0:144/24 TS1/32:52/2
+00:15:19 [pont] horloge : marge DL reelle (recu - reclame par le DSP) min +15 moy +22.3 sur 5975 mesures, avance visee 16
+00:15:23 [pont] STATS fn=92061 | DL bursts=29691 blocs=7396 crc=26 dummy=100949 hors_voie=10312 | UL bursts=15067 tard=37 rach=7 | TCH dl=3198 facch=48 sacch=139 crc=290 ul=3185 bursts=13992 perdus=3 | FACCH ul=39 SACCH ul=206 | A5 dl=16060 ul=14956 | IQ dl=91962tr/727017bu ul=91962tr/15062bu fifo_drop=91192/91327
+00:15:23 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1800/0 TS0/6:1800/0 TS0/12:1800/0 TS0/16:1800/0 TS1/0:144/24 TS1/32:52/2
+00:15:28 [pont] STATS fn=93145 | DL bursts=30036 blocs=7483 crc=26 dummy=102473 hors_voie=10312 | UL bursts=15067 tard=37 rach=7 | TCH dl=3198 facch=48 sacch=139 crc=290 ul=3185 bursts=13992 perdus=3 | FACCH ul=39 SACCH ul=206 | A5 dl=16060 ul=14956 | IQ dl=93046tr/735689bu ul=93046tr/15062bu fifo_drop=92267/92402
+00:15:28 [pont] blocs par TS/base51 (ok/echec) : TS0/2:1821/0 TS0/6:1822/0 TS0/12:1822/0 TS0/16:1822/0 TS1/0:144/24 TS1/32:52/2

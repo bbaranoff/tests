@@ -1,0 +1,1380 @@
+got 2 bytes from modem, data looks like: 3e 69  >i
+Received ident ack from phone, sending parameter sequence
+read_file(/opt/GSM/firmware/board/compal_e88/layer1.highram.bin): file_size=65128, hdr_len=0, dnload_len=65131
+Received parameter ack from phone, starting download
+Progress: 1%Progress: 3%Progress: 4%Progress: 6%Progress: 7%Progress: 9%Progress: 11%Progress: 12%Progress: 14%Progress: 15%Progress: 17%Progress: 18%Progress: 20%Progress: 22%Progress: 23%Progress: 25%Progress: 26%Progress: 28%Progress: 29%Progress: 31%Progress: 33%Progress: 34%Progress: 36%Progress: 37%Progress: 39%Progress: 40%Progress: 42%Progress: 44%Progress: 45%Progress: 47%Progress: 48%Progress: 50%Progress: 51%Progress: 53%Progress: 55%Progress: 56%Progress: 58%Progress: 59%Progress: 61%Progress: 62%Progress: 64%Progress: 66%Progress: 67%Progress: 69%Progress: 70%Progress: 72%Progress: 73%Progress: 75%Progress: 77%Progress: 78%Progress: 80%Progress: 81%Progress: 83%Progress: 84%Progress: 86%Progress: 88%Progress: 89%Progress: 91%Progress: 92%Progress: 94%Progress: 95%Progress: 97%Progress: 99%Progress: 100%Finished, sent 64 blocks in total
+Received branch ack, your code is running now!
+L1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionL1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionL1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionDSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+FB0 (937:4): TOA= 9888, Power= -54dBm, Angle=   -1Hz
+DSP Error Status: 8
+FB1 (947:8): TOA=11243, Power= -53dBm, Angle=   -1Hz
+  fn_offset=947 (fn=947 + attempt=8 + ntdma = 8)
+  delay=10 (fn_offset=947 + 11 - fn=947 - 1
+  scheduling next FB/SB detection task with delay 10
+=>FB @ FNR 947 fn_offset=947 qbits=4788
+Synchronize_TDMA
+DSP Error Status: 8
+DSP Error Status: 8
+SB1 (1899:1): TOA=   23, Power= -54dBm, Angle=  153Hz
+=> SB 0x0101001c: BSIC=7 fn=286(0/ 0/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 1898 fn_offset=286 qbits=4908
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+DSP Error Status: 8
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+DSP Error Status: 8
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (480:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (490:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=488 (fn=490 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=488 + 11 - fn=490 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 488 fn_offset=488 qbits=4788
+Synchronize_TDMA
+SB2 (984:2): TOA=   23, Power= -54dBm, Angle=  242Hz
+=> SB 0x001a001c: BSIC=7 fn=500(0/ 6/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 982 fn_offset=499 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (827:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (837:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=835 (fn=837 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=835 + 11 - fn=837 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 835 fn_offset=835 qbits=4788
+Synchronize_TDMA
+SB2 (1678:2): TOA=   23, Power= -54dBm, Angle=   96Hz
+=> SB 0x013d001c: BSIC=7 fn=847(0/15/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 1676 fn_offset=846 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x0e, offset=11, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x00, offset=125, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=9)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (2153:3): TOA= 2544, Power= -54dBm, Angle=    0Hz
+FB1 (2163:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=2161 (fn=2163 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=2161 + 11 - fn=2163 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 2161 fn_offset=2161 qbits=4788
+Synchronize_TDMA
+SB2 (4330:2): TOA=   23, Power= -54dBm, Angle=   94Hz
+=> SB 0x01bd001c: BSIC=7 fn=2173(1/15/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 4328 fn_offset=2172 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=614, flags=0x7)
+Starting FCCH RecognitionFB0 (2224:7): TOA= 7536, Power= -54dBm, Angle=   23Hz
+FB1 (2234:8): TOA= 8743, Power= -52dBm, Angle=   -9Hz
+  fn_offset=2232 (fn=2234 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=2232 + 11 - fn=2234 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 2232 fn_offset=2232 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=614, flags=0x7)
+Starting FCCH RecognitionFB0 (4481:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (4491:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=4489 (fn=4491 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=4489 + 11 - fn=4491 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 4489 fn_offset=4489 qbits=4788
+Synchronize_TDMA
+SB2 (8986:2): TOA=   23, Power= -54dBm, Angle=   76Hz
+=> SB 0x01b5001c: BSIC=7 fn=2275(1/13/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 8984 fn_offset=2274 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (2357:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (2367:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=2365 (fn=2367 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=2365 + 11 - fn=2367 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 2365 fn_offset=2365 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (4746:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (4757:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=4755 (fn=4757 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=4755 + 11 - fn=4757 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 4755 fn_offset=4755 qbits=4796
+Synchronize_TDMA
+SB2 (9517:2): TOA=   23, Power= -54dBm, Angle=    3Hz
+=> SB 0x01c0001c: BSIC=7 fn=2408(1/16/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 9515 fn_offset=2407 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (24806:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (24816:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=24814 (fn=24816 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=24814 + 11 - fn=24816 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 24814 fn_offset=24814 qbits=4788
+Synchronize_TDMA
+SB2 (49636:2): TOA=   23, Power= -54dBm, Angle=   65Hz
+=> SB 0x005e091c: BSIC=7 fn=24827(18/23/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 49634 fn_offset=24826 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (25001:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (25011:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=25009 (fn=25011 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=25009 + 11 - fn=25011 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 25009 fn_offset=25009 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (50034:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (50045:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=50043 (fn=50045 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=50043 + 11 - fn=50045 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 50043 fn_offset=50043 qbits=4796
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (100101:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (100111:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=100109 (fn=100111 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=100109 + 11 - fn=100111 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 100109 fn_offset=100109 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (200235:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (200245:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=200243 (fn=200245 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=200243 + 11 - fn=200245 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 200243 fn_offset=200243 qbits=4788
+Synchronize_TDMA
+SB2 (400494:2): TOA=   23, Power= -54dBm, Angle=   76Hz
+=> SB 0x005d091c: BSIC=7 fn=25113(18/23/21) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 400492 fn_offset=25112 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (25317:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (25327:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=25325 (fn=25327 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=25325 + 11 - fn=25327 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 25325 fn_offset=25325 qbits=4788
+Synchronize_TDMA
+SB2 (50658:2): TOA=   23, Power= -54dBm, Angle=  103Hz
+=> SB 0x00b6091c: BSIC=7 fn=25337(19/13/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 50656 fn_offset=25336 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (26224:3): TOA= 2544, Power= -54dBm, Angle=    0Hz
+FB1 (26234:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=26232 (fn=26234 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=26232 + 11 - fn=26234 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 26232 fn_offset=26232 qbits=4788
+Synchronize_TDMA
+SB2 (52472:2): TOA=   23, Power= -54dBm, Angle=  113Hz
+=> SB 0x01ad091c: BSIC=7 fn=26245(19/11/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 52470 fn_offset=26244 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (26531:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (26541:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=26539 (fn=26541 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=26539 + 11 - fn=26541 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 26539 fn_offset=26539 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (53094:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (53105:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=53103 (fn=53105 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=53103 + 11 - fn=53105 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 53103 fn_offset=53103 qbits=4796
+Synchronize_TDMA
+SB2 (106213:2): TOA=   23, Power= -54dBm, Angle=  199Hz
+=> SB 0x01280a1c: BSIC=7 fn=26582(20/10/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 106211 fn_offset=26581 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (33304:10): TOA=11280, Power= -53dBm, Angle=   -1Hz
+FB1 (33314:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=33312 (fn=33314 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=33312 + 11 - fn=33314 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 33312 fn_offset=33312 qbits=4788
+Synchronize_TDMA
+SB2 (66632:2): TOA=   23, Power= -54dBm, Angle=   24Hz
+=> SB 0x00c90c1c: BSIC=7 fn=33324(25/18/21) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 66630 fn_offset=33323 qbits=4908
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x14, offset=6, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x16, offset=118, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x03)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x03)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x03)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x03)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x03)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x03)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x03)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (34599:10): TOA=11280, Power= -53dBm, Angle=   -1Hz
+FB1 (34609:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=34607 (fn=34609 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=34607 + 11 - fn=34609 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 34607 fn_offset=34607 qbits=4788
+Synchronize_TDMA
+SB2 (69222:2): TOA=   23, Power= -54dBm, Angle=   93Hz
+=> SB 0x00360d1c: BSIC=7 fn=34619(26/13/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 69220 fn_offset=34618 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (34793:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (34803:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=34801 (fn=34803 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=34801 + 11 - fn=34803 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 34801 fn_offset=34801 qbits=4788
+Synchronize_TDMA
+SB2 (69610:2): TOA=   23, Power= -54dBm, Angle=  106Hz
+=> SB 0x01650d1c: BSIC=7 fn=34813(26/25/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 69608 fn_offset=34812 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (38536:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (38546:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=38544 (fn=38546 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=38544 + 11 - fn=38546 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 38544 fn_offset=38544 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (77105:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (77115:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=77113 (fn=77115 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=77113 + 11 - fn=77115 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 77113 fn_offset=77113 qbits=4788
+Synchronize_TDMA
+SB2 (154234:2): TOA=   23, Power= -54dBm, Angle=  105Hz
+=> SB 0x018d0e1c: BSIC=7 fn=38587(29/ 3/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 154232 fn_offset=38586 qbits=4908
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x97, offset=3, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x97, offset=115, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x03)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x03)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x03)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x03)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x03)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x03)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (39801:10): TOA=11280, Power= -53dBm, Angle=   -1Hz
+FB1 (39811:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=39809 (fn=39811 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=39809 + 11 - fn=39811 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 39809 fn_offset=39809 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (79635:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (79645:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=79643 (fn=79645 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=79643 + 11 - fn=79645 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 79643 fn_offset=79643 qbits=4788
+Synchronize_TDMA
+SB2 (159294:2): TOA=   23, Power= -54dBm, Angle=  224Hz
+=> SB 0x00510f1c: BSIC=7 fn=39852(30/20/21) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 159292 fn_offset=39851 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (40046:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (40056:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=40054 (fn=40056 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=40054 + 11 - fn=40056 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 40054 fn_offset=40054 qbits=4788
+Synchronize_TDMA
+SB2 (80116:2): TOA=   23, Power= -54dBm, Angle=  305Hz
+=> SB 0x01010f1c: BSIC=7 fn=40066(30/ 0/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 80114 fn_offset=40065 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (42412:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (42422:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=42420 (fn=42422 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=42420 + 11 - fn=42422 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 42420 fn_offset=42420 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (84857:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (84867:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=84865 (fn=84867 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=84865 + 11 - fn=84867 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 84865 fn_offset=84865 qbits=4788
+Synchronize_TDMA
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (169746:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (169757:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=169755 (fn=169757 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=169755 + 11 - fn=169757 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 169755 fn_offset=169755 qbits=4796
+Synchronize_TDMA
+SB2 (339517:2): TOA=   23, Power= -54dBm, Angle=  188Hz
+=> SB 0x0128101c: BSIC=7 fn=42494(32/10/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 339515 fn_offset=42493 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (42851:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (42861:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=42859 (fn=42861 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=42859 + 11 - fn=42861 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 42859 fn_offset=42859 qbits=4788
+Synchronize_TDMA
+SB2 (85726:2): TOA=   23, Power= -54dBm, Angle=   82Hz
+=> SB 0x015d101c: BSIC=7 fn=42871(32/23/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 85724 fn_offset=42870 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionBURST ID 2!=1
+FB0 (45452:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (45462:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=45460 (fn=45462 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=45460 + 11 - fn=45462 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 45460 fn_offset=45460 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (90936:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (90947:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=90945 (fn=90947 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=90945 + 11 - fn=90947 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 90945 fn_offset=90945 qbits=4796
+Synchronize_TDMA
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (181915:10): TOA=11280, Power= -53dBm, Angle=   -1Hz
+FB1 (181925:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=181923 (fn=181925 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=181923 + 11 - fn=181925 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 181923 fn_offset=181923 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (363863:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (363873:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=363871 (fn=363873 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=363871 + 11 - fn=363873 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 363871 fn_offset=363871 qbits=4788
+Synchronize_TDMA
+SB2 (727750:2): TOA=   23, Power= -54dBm, Angle=   26Hz
+=> SB 0x0159111c: BSIC=7 fn=45574(34/22/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 727748 fn_offset=45573 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (45768:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (45778:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=45776 (fn=45778 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=45776 + 11 - fn=45778 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 45776 fn_offset=45776 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (91569:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (91579:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=91577 (fn=91579 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=91577 + 11 - fn=91579 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 91577 fn_offset=91577 qbits=4788
+Synchronize_TDMA
+SB2 (183162:2): TOA=   23, Power= -54dBm, Angle=  117Hz
+=> SB 0x001d111c: BSIC=7 fn=45819(34/ 7/21) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 183160 fn_offset=45818 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (46115:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (46125:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=46123 (fn=46125 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=46123 + 11 - fn=46125 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 46123 fn_offset=46123 qbits=4788
+Synchronize_TDMA
+SB2 (92254:2): TOA=   23, Power= -54dBm, Angle=   32Hz
+=> SB 0x012d111c: BSIC=7 fn=46135(34/11/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 92252 fn_offset=46134 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (48419:3): TOA= 2544, Power= -54dBm, Angle=    0Hz
+FB1 (48429:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=48427 (fn=48429 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=48427 + 11 - fn=48429 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 48427 fn_offset=48427 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (96871:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (96881:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=96879 (fn=96881 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=96879 + 11 - fn=96881 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 96879 fn_offset=96879 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (193774:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (193784:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=193782 (fn=193784 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=193782 + 11 - fn=193784 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 193782 fn_offset=193782 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (387581:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (387591:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=387589 (fn=387591 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=387589 + 11 - fn=387591 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 387589 fn_offset=387589 qbits=4788
+Synchronize_TDMA
+SB2 (775186:2): TOA=   23, Power= -54dBm, Angle=  214Hz
+=> SB 0x0141121c: BSIC=7 fn=48532(36/16/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 775184 fn_offset=48531 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (48675:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (48685:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=48683 (fn=48685 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=48683 + 11 - fn=48685 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 48683 fn_offset=48683 qbits=4788
+Synchronize_TDMA
+SB2 (97374:2): TOA=   23, Power= -54dBm, Angle=   47Hz
+=> SB 0x005e121c: BSIC=7 fn=48695(36/23/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 97372 fn_offset=48694 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (48971:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (48981:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=48979 (fn=48981 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=48979 + 11 - fn=48981 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 48979 fn_offset=48979 qbits=4788
+Synchronize_TDMA
+SB2 (97966:2): TOA=   23, Power= -54dBm, Angle=   28Hz
+=> SB 0x011d121c: BSIC=7 fn=48991(36/ 7/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 97964 fn_offset=48990 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+BURST ID 3!=2
+Starting FCCH RecognitionFB0 (54346:9): TOA=10032, Power= -53dBm, Angle=   13Hz
+FB1 (54356:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=54354 (fn=54356 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=54354 + 11 - fn=54356 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 54354 fn_offset=54354 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (108725:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (108735:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=108733 (fn=108735 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=108733 + 11 - fn=108735 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 108733 fn_offset=108733 qbits=4788
+Synchronize_TDMA
+SB2 (217474:2): TOA=   23, Power= -54dBm, Angle=  101Hz
+=> SB 0x0195141c: BSIC=7 fn=54397(41/ 5/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 217472 fn_offset=54396 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x12, offset=9, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0x11, offset=116, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (55723:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (55733:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=55731 (fn=55733 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=55731 + 11 - fn=55733 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 55731 fn_offset=55731 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (111479:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (111489:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=111487 (fn=111489 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=111487 + 11 - fn=111489 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 111487 fn_offset=111487 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (222990:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (223001:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=222999 (fn=223001 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=222999 + 11 - fn=223001 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 222999 fn_offset=222999 qbits=4796
+Synchronize_TDMA
+SB2 (446005:2): TOA=   23, Power= -54dBm, Angle=   85Hz
+=> SB 0x0124151c: BSIC=7 fn=55805(42/ 9/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 446003 fn_offset=55804 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (56019:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (56029:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=56027 (fn=56029 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=56027 + 11 - fn=56029 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 56027 fn_offset=56027 qbits=4788
+Synchronize_TDMA
+SB2 (112062:2): TOA=   23, Power= -54dBm, Angle=   76Hz
+=> SB 0x0026151c: BSIC=7 fn=56039(42/ 9/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 112060 fn_offset=56038 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (56315:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (56325:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=56323 (fn=56325 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=56323 + 11 - fn=56325 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 56323 fn_offset=56323 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (112662:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (112673:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=112671 (fn=112673 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=112671 + 11 - fn=112673 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 112671 fn_offset=112671 qbits=4796
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (225357:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (225367:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=225365 (fn=225367 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=225365 + 11 - fn=225367 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 225365 fn_offset=225365 qbits=4788
+Synchronize_TDMA
+SB2 (450738:2): TOA=   23, Power= -54dBm, Angle=  188Hz
+=> SB 0x000a151c: BSIC=7 fn=56396(42/ 2/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 450736 fn_offset=56395 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (56723:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (56733:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=56731 (fn=56733 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=56731 + 11 - fn=56733 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 56731 fn_offset=56731 qbits=4788
+Synchronize_TDMA
+SB2 (113470:2): TOA=   23, Power= -54dBm, Angle=   89Hz
+=> SB 0x012d151c: BSIC=7 fn=56743(42/11/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 113468 fn_offset=56742 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (57376:4): TOA= 3840, Power= -54dBm, Angle=   -1Hz
+FB1 (57386:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=57384 (fn=57386 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=57384 + 11 - fn=57386 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 57384 fn_offset=57384 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (114784:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (114794:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=114792 (fn=114794 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=114792 + 11 - fn=114794 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 114792 fn_offset=114792 qbits=4788
+Synchronize_TDMA
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (229601:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (229611:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=229609 (fn=229611 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=229609 + 11 - fn=229611 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 229609 fn_offset=229609 qbits=4788
+Synchronize_TDMA
+SB2 (459226:2): TOA=   23, Power= -54dBm, Angle=  227Hz
+=> SB 0x01dd151c: BSIC=7 fn=57457(43/23/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 459224 fn_offset=57456 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (57641:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (57651:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=57649 (fn=57651 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=57649 + 11 - fn=57651 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 57649 fn_offset=57649 qbits=4788
+Synchronize_TDMA
+SB2 (115306:2): TOA=   23, Power= -54dBm, Angle=  122Hz
+=> SB 0x01cd151c: BSIC=7 fn=57661(43/19/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 115304 fn_offset=57660 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (65617:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (65627:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=65625 (fn=65627 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=65625 + 11 - fn=65627 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 65625 fn_offset=65625 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (131267:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (131277:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=131275 (fn=131277 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=131275 + 11 - fn=131277 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 131275 fn_offset=131275 qbits=4788
+Synchronize_TDMA
+SB2 (262558:2): TOA=   23, Power= -54dBm, Angle=  -18Hz
+=> SB 0x01c9181c: BSIC=7 fn=65668(49/18/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 262556 fn_offset=65667 qbits=4908
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0xf2, offset=8, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0xec, offset=120, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=9)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x0a, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833be4, ul->payload=00833be8, data_ind=00833be8, data_ind->data=00833be8 l3h=00833be8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_TCH_MODE_REQ (tch_mode=0x01 audio_mode=0x0a)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=9)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=10)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=11)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=12)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=13)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=14)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (71003:8): TOA= 8832, Power= -54dBm, Angle=   -1Hz
+FB1 (71013:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=71011 (fn=71013 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=71011 + 11 - fn=71013 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 71011 fn_offset=71011 qbits=4788
+Synchronize_TDMA
+SB2 (142030:2): TOA=   23, Power= -54dBm, Angle=  128Hz
+=> SB 0x01c51a1c: BSIC=7 fn=71023(53/17/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 142028 fn_offset=71022 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (71411:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (71421:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=71419 (fn=71421 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=71419 + 11 - fn=71421 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 71419 fn_offset=71419 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (142854:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (142865:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=142863 (fn=142865 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=142863 + 11 - fn=142865 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 142863 fn_offset=142863 qbits=4796
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (285741:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (285751:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=285749 (fn=285751 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=285749 + 11 - fn=285751 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 285749 fn_offset=285749 qbits=4788
+Synchronize_TDMA
+SB2 (571506:2): TOA=   23, Power= -54dBm, Angle=  130Hz
+=> SB 0x00ca1a1c: BSIC=7 fn=71492(53/18/41) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 571504 fn_offset=71491 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (71819:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (71829:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=71827 (fn=71829 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=71827 + 11 - fn=71829 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 71827 fn_offset=71827 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (143670:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (143681:9): TOA= 9995, Power= -53dBm, Angle=   -1Hz
+  fn_offset=143679 (fn=143681 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=143679 + 11 - fn=143681 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 143679 fn_offset=143679 qbits=4796
+Synchronize_TDMA
+SB2 (287365:2): TOA=   23, Power= -54dBm, Angle=  148Hz
+=> SB 0x01181b1c: BSIC=7 fn=71870(54/ 6/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 287363 fn_offset=71869 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=614, flags=0x7)
+Starting FCCH RecognitionFB0 (71921:6): TOA= 6288, Power= -54dBm, Angle=    7Hz
+FB1 (71931:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=71929 (fn=71931 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=71929 + 11 - fn=71931 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 71929 fn_offset=71929 qbits=4788
+Synchronize_TDMA
+SB2 (143866:2): TOA=   23, Power= -54dBm, Angle=   17Hz
+=> SB 0x01651b1c: BSIC=7 fn=71941(54/25/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 143864 fn_offset=71940 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (71972:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (71982:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=71980 (fn=71982 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=71980 + 11 - fn=71982 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 71980 fn_offset=71980 qbits=4788
+Synchronize_TDMA
+SB2 (143968:2): TOA=   23, Power= -54dBm, Angle=  144Hz
+=> SB 0x01611b1c: BSIC=7 fn=71992(54/24/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 143966 fn_offset=71991 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (75185:4): TOA= 3840, Power= -54dBm, Angle=   -1Hz
+FB1 (75195:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=75193 (fn=75195 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=75193 + 11 - fn=75195 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 75193 fn_offset=75193 qbits=4788
+Synchronize_TDMA
+SB2 (150394:2): TOA=   23, Power= -54dBm, Angle=  110Hz
+=> SB 0x01351c1c: BSIC=7 fn=75205(56/13/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 150392 fn_offset=75204 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0xed, offset=4, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0xe9, offset=124, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833800, ul->payload=00833804, data_ind=00833804, data_ind->data=00833804 l3h=00833804
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x0a, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833e7c, ul->payload=00833e80, data_ind=00833e80, data_ind->data=00833e80 l3h=00833e80
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_TCH_MODE_REQ (tch_mode=0x01 audio_mode=0x0a)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_PARAM_REQ (ta=0, tx_power=15)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=15)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (81019:9): TOA=10032, Power= -53dBm, Angle=   13Hz
+FB1 (81029:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=81027 (fn=81029 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=81027 + 11 - fn=81029 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 81027 fn_offset=81027 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 38   dBm at baseband, -100 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (162071:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (162081:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=162079 (fn=162081 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=162079 + 11 - fn=162081 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 162079 fn_offset=162079 qbits=4788
+Synchronize_TDMA
+SB2 (324166:2): TOA=   23, Power= -54dBm, Angle=   38Hz
+=> SB 0x01891e1c: BSIC=7 fn=81070(61/ 2/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 324164 fn_offset=81069 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (81254:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (81264:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=81262 (fn=81264 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=81262 + 11 - fn=81264 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 81262 fn_offset=81262 qbits=4788
+Synchronize_TDMA
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (162540:5): TOA= 5040, Power= -54dBm, Angle=    0Hz
+FB1 (162551:9): TOA= 9991, Power= -53dBm, Angle=   -1Hz
+  fn_offset=162549 (fn=162551 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=162549 + 11 - fn=162551 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 162549 fn_offset=162549 qbits=4780
+Synchronize_TDMA
+SB2 (325105:2): TOA=   23, Power= -54dBm, Angle=   88Hz
+=> SB 0x018c1e1c: BSIC=7 fn=81305(61/ 3/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 325103 fn_offset=81304 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries
+nb_cmd(0) and rxnb.msg != NULLL1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (83242:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (83252:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=83250 (fn=83252 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=83250 + 11 - fn=83252 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 83250 fn_offset=83250 qbits=4788
+Synchronize_TDMA
+SB2 (166508:2): TOA=   23, Power= -54dBm, Angle=   59Hz
+=> SB 0x012d1f1c: BSIC=7 fn=83263(62/11/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 166506 fn_offset=83262 qbits=4908
+nb_cmd(0) and rxnb.msg != NULLL1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0xff, offset=7, combined=1, uic=0xff)
+L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_RACH_REQ (ra=0xe2, offset=121, combined=1, uic=0xff)
+L1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x41, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833800, ul->payload=00833804, data_ind=00833804, data_ind->data=00833804 l3h=00833804
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: SCHED!L1CTL_PARAM_REQ (ta=0, tx_power=7)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DM_EST_REQ (chan_nr=0x0a, tsc=7)
+L1CTL_DM_EST_REQ indicates H0 (ARFCN=514)
+L1CTL_CRYPTO_REQ (algo=A5/1, len=8)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833e7c, ul->payload=00833e80, data_ind=00833e80, data_ind->data=00833e80 l3h=00833e80
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=00833568, ul->payload=0083356c, data_ind=0083356c, data_ind->data=0083356c l3h=0083356c
+L1CTL_TCH_MODE_REQ (tch_mode=0x01 audio_mode=0x0a)
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833800, ul->payload=00833804, data_ind=00833804, data_ind->data=00833804 l3h=00833804
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_PARAM_REQ (ta=0, tx_power=8)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=9)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=10)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=11)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=12)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=13)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=14)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_PARAM_REQ (ta=0, tx_power=15)
+L1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x40)
+updating measurement reportL1CTL_DATA_REQ (link_id=0x00)
+ul=008336b4, ul->payload=008336b8, data_ind=008336b8, data_ind->data=008336b8 l3h=008336b8
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DATA_REQ (link_id=0x00)
+ul=00833184, ul->payload=00833188, data_ind=00833188, data_ind->data=00833188 l3h=00833188
+L1CTL_DATA_REQ (link_id=0x00)
+ul=008332d0, ul->payload=008332d4, data_ind=008332d4, data_ind->data=008332d4 l3h=008332d4
+L1CTL_DATA_REQ (link_id=0x00)
+ul=0083341c, ul->payload=00833420, data_ind=00833420, data_ind->data=00833420 l3h=00833420
+L1CTL_DM_REL_REQL1CTL_RESET_REQ: FULL!L1CTL_RESET_REQ: FULL!L1CTL_PM_REQ start=514 end=514
+PM MEAS: ARFCN=514, 0    dBm at baseband, -138 dBm at RF
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (89036:1): TOA=   48, Power= -54dBm, Angle=   -1Hz
+FB1 (89047:9): TOA= 9991, Power= -53dBm, Angle=   -1Hz
+  fn_offset=89045 (fn=89047 + attempt=9 + ntdma = 7)
+  delay=8 (fn_offset=89045 + 11 - fn=89047 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 89045 fn_offset=89045 qbits=4780
+Synchronize_TDMA
+SB2 (178097:2): TOA=   23, Power= -54dBm, Angle=  177Hz
+=> SB 0x019c211c: BSIC=7 fn=89057(67/ 7/11) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 178095 fn_offset=89056 qbits=4908
+L1CTL_RESET_REQ: FULL!L1CTL_FBSB_REQ (arfcn=514, flags=0x7)
+Starting FCCH RecognitionFB0 (89363:2): TOA= 1296, Power= -54dBm, Angle=    2Hz
+FB1 (89373:8): TOA= 8743, Power= -53dBm, Angle=   -1Hz
+  fn_offset=89371 (fn=89373 + attempt=8 + ntdma = 6)
+  delay=8 (fn_offset=89371 + 11 - fn=89373 - 1
+  scheduling next FB/SB detection task with delay 8
+=>FB @ FNR 89371 fn_offset=89371 qbits=4788
+Synchronize_TDMA
+SB2 (178750:2): TOA=   23, Power= -54dBm, Angle=   98Hz
+=> SB 0x01d5211c: BSIC=7 fn=89383(67/21/31) qbits=0
+Synchronize_TDMA
+=>FB @ FNR 178748 fn_offset=89382 qbits=4908
+L1CTL_NEIGH_PM_REQ new list with 1 entries

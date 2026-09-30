@@ -1,0 +1,100 @@
+{
+  "counts": {
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0
+  },
+  "tests": [
+    {
+      "nodeid": "test_40_reseau.py::test_abonne_au_vlr",
+      "name": "test_abonne_au_vlr",
+      "outcome": "passed",
+      "markers": [
+        "banc_reseau",
+        "commun"
+      ],
+      "duration_s": 1.3017197130029672,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Mgmt"
+    },
+    {
+      "nodeid": "test_40_reseau.py::test_abonne_a_un_msisdn",
+      "name": "test_abonne_a_un_msisdn",
+      "outcome": "passed",
+      "markers": [
+        "banc_reseau",
+        "commun"
+      ],
+      "duration_s": 1.3011219710024307,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Mgmt"
+    },
+    {
+      "nodeid": "test_40_reseau.py::test_hlr_connait_l_abonne_avec_cle",
+      "name": "test_hlr_connait_l_abonne_avec_cle",
+      "outcome": "passed",
+      "markers": [
+        "banc_reseau",
+        "commun"
+      ],
+      "duration_s": 0.0030434319996857084,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Mgmt"
+    },
+    {
+      "nodeid": "test_40_reseau.py::test_lu_completees_sans_echec",
+      "name": "test_lu_completees_sans_echec",
+      "outcome": "passed",
+      "markers": [
+        "banc_reseau",
+        "commun"
+      ],
+      "duration_s": 1.3010128460009582,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Mgmt"
+    },
+    {
+      "nodeid": "test_40_reseau.py::test_stp_asp_msc_et_bsc_actifs",
+      "name": "test_stp_asp_msc_et_bsc_actifs",
+      "outcome": "passed",
+      "markers": [
+        "banc_reseau",
+        "commun"
+      ],
+      "duration_s": 1.3007986939992406,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Mgmt"
+    },
+    {
+      "nodeid": "test_40_reseau.py::test_sccp_utilisateurs_msc_bsc",
+      "name": "test_sccp_utilisateurs_msc_bsc",
+      "outcome": "passed",
+      "markers": [
+        "banc_reseau",
+        "commun"
+      ],
+      "duration_s": 1.3011666189995594,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Mgmt"
+    }
+  ]
+}

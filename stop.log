@@ -1,0 +1,119 @@
+  hub        deduit du remote-ip de l ASP : 127.0.0.1
+[ .. ] Chargement de l'environnement
+[ OK ] Chargement de l'environnement (environment/load.env)
+[ .. ] Resolution de run.sh
+[ OK ] Resolution de run.sh (/opt/GSM/qosmo/run.sh)
+[ .. ] Lanceur QEMU
+[ OK ] Lanceur QEMU (/usr/local/bin/qosmo (qosmo local (/opt/GSM/qosmo)))
+[ .. ] Validation des chemins
+[ OK ] Validation des chemins
+  plan radio  lu dans /etc/osmocom/radio-plan.env
+  PLMN MS    MCC 001  MNC 01  operateur 1  ->  IMSI 001010001000001 / 001010001000002
+  radio      MS#1 sur ARFCN 514 (BTS principale)   MS#2 sur ARFCN 614 (side-car, unit-id 6012)
+[ .. ] Generation mobile MS#1
+  MS#1       aussi ecrit dans /root/.osmocom/bb/mobile_group1.cfg (le fichier que run.sh ouvre)
+[ OK ] Generation mobile MS#1 (/root/.osmocom/bb/mobile.cfg)
+[ .. ] Generation mobile MS#2 (faketrx)
+[ OK ] Generation mobile MS#2 (faketrx) (/root/.osmocom/bb/mobile_faketrx_bts1.cfg)
+  pont TRX : cellule ARFCN 514 BSIC 7
+  pont TRX : non arme (action=stop, pas un demarrage)
+
+╔══════════════════════════════════════════════════════╗
+║   Calypso GSM - bootstrap → run.sh                   ║
+╚══════════════════════════════════════════════════════╝
+
+  profil     hybrid (faketrx-qemu)
+  environ.   machine physique
+  noeud      aucun - identite SS7 inchangee
+  run.sh     /opt/GSM/qosmo/run.sh
+  MS#1       /root/.osmocom/bb/mobile.cfg  IMSI 001010001000001  ARFCN 514  VTY 4247
+  MS#2       /root/.osmocom/bb/mobile_faketrx_bts1.cfg  IMSI 001010001000002  ARFCN 614  VTY 4248
+  journaux   /run/user/0/osmo-nitb/logs
+  chiffrement a5 1
+
+[ .. ] Arret de la pile via run.sh
+[ .. ] Stopping Attaching to the tmux session
+[ OK ] Stopping Attaching to the tmux session
+[ .. ] Stopping Build identity and summary
+[ OK ] Stopping Build identity and summary
+[ .. ] Stopping Supervision view (tmux)
+[ OK ] Stopping Supervision view (tmux)
+[ .. ] Stopping GSMTAP capture (pcap)
+[ OK ] Stopping GSMTAP capture (pcap)
+[ .. ] Stopping Layer 2 client
+[ OK ] Stopping Layer 2 client
+[ .. ] Stopping Second subscriber (MS#2)
+[ OK ] Stopping Second subscriber (MS#2)
+[ .. ] Stopping MS#2 layer 1 (trxcon)
+[ OK ] Stopping MS#2 layer 1 (trxcon)
+[ .. ] Stopping Base station osmo-bts-trx
+[ OK ] Stopping Base station osmo-bts-trx
+[ .. ] Stopping Base station BTS#1 (side-car)
+[ OK ] Stopping Base station BTS#1 (side-car)
+[ .. ] Stopping BTS#1 simulated transceiver
+[ OK ] Stopping BTS#1 simulated transceiver
+[ .. ] Stopping osmocon gateway
+[ OK ] Stopping osmocon gateway
+[ .. ] Stopping Console gdb ARM en telnet (non bloquante)
+[ OK ] Stopping Console gdb ARM en telnet (non bloquante)
+[ .. ] Stopping Emulator serial PTY
+[ OK ] Stopping Emulator serial PTY
+[ .. ] Stopping Calypso emulator (QEMU)
+[ OK ] Stopping Calypso emulator (QEMU)
+[ .. ] Stopping tmux observation session
+[ OK ] Stopping tmux observation session
+[ .. ] Stopping Audio bridge (PulseAudio + GAPK)
+[ OK ] Stopping Audio bridge (PulseAudio + GAPK)
+[ .. ] Stopping Core — SMS gateway (proto-SMSC)
+[ OK ] Stopping Core — SMS gateway (proto-SMSC)
+[ .. ] Stopping Core — subscribers provisioned in the HLR
+[ OK ] Stopping Core — subscribers provisioned in the HLR
+[ .. ] Stopping Core — MNCC↔SIP gateway
+[ OK ] Stopping Core — MNCC↔SIP gateway
+[ .. ] Stopping Mobile configuration
+[ OK ] Stopping Mobile configuration
+[ .. ] Stopping Core — Asterisk (SIP PBX)
+[ OK ] Stopping Core — Asterisk (SIP PBX)
+[ .. ] Stopping Core — OsmoPCU (packet scheduler)
+[ OK ] Stopping Core — OsmoPCU (packet scheduler)
+[ .. ] Stopping Core — OsmoSGSN (packet attach)
+[ OK ] Stopping Core — OsmoSGSN (packet attach)
+[ .. ] Stopping Core — OsmoGGSN (GTP data)
+[ OK ] Stopping Core — OsmoGGSN (GTP data)
+[ .. ] Stopping Core — APN TUN interface
+[ OK ] Stopping Core — APN TUN interface
+[ .. ] Stopping Core — OsmoBSC (BTS controller)
+[ OK ] Stopping Core — OsmoBSC (BTS controller)
+[ .. ] Stopping BTS#1 configurations (side-car)
+[ OK ] Stopping BTS#1 configurations (side-car)
+[ .. ] Stopping Core — OsmoMSC (CS switching)
+[ OK ] Stopping Core — OsmoMSC (CS switching)
+[ .. ] Stopping Core — OsmoMGW (MGCP/RTP media)
+[ OK ] Stopping Core — OsmoMGW (MGCP/RTP media)
+[ .. ] Stopping Core — OsmoHLR (GSUP registry)
+[ OK ] Stopping Core — OsmoHLR (GSUP registry)
+[ .. ] Stopping Core — OsmoSTP (SS7/M3UA)
+[ OK ] Stopping Core — OsmoSTP (SS7/M3UA)
+[ .. ] Stopping Interfaces and addressing plan
+[ OK ] Stopping Interfaces and addressing plan
+[ .. ] Stopping Cleaning up the previous run
+[ OK ] Stopping Cleaning up the previous run
+[ .. ] Stopping Logs and working area
+[ OK ] Stopping Logs and working area
+[ .. ] Stopping Core configuration templates
+[ OK ] Stopping Core configuration templates
+[ .. ] Stopping Resolving paths and ports
+[ OK ] Stopping Resolving paths and ports
+[ .. ] Stopping Shutting down recorded processes
+[ OK ] Stopping Shutting down recorded processes
+[ .. ] Stopping Run directory
+[ OK ] Stopping Run directory
+[ .. ] Stopping Host tooling
+[ OK ] Stopping Host tooling
+[ .. ] Stopping Prerequisite checks
+[ OK ] Stopping Prerequisite checks
+
+0 ok · 0 skipped · 0 failed
+[ OK ] Arret de la pile via run.sh
+[ OK ] python3 restants termines (hors encart du bureau)
+restes apres arret : aucun

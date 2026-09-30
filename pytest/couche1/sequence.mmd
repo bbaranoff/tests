@@ -1,0 +1,16 @@
+sequenceDiagram
+  autonumber
+  participant BTS
+  participant GRGSM as gr-gsm
+  participant ARM
+  participant DSP
+  participant CORR as Correlateur
+  BTS->>GRGSM: FCCH / SCH (FN reelle)
+  GRGSM->>ARM: SCH decodee (BSIC=7)
+  ARM->>DSP: 0x0810 B_TASK_ABORT=0
+  ARM->>DSP: task_md=5 (FB)
+  DSP->>DSP: go-live 0xa4e4 IMR=0x52fd
+  BTS-->>DSP: frame-IT vec28 (PRIO)
+  DSP->>CORR: CALA 0xb01e -> 0x8d00
+  CORR->>CORR: kernel 0xa076 (AR5=garbage MUR)
+  CORR-->>ARM: d_fb_det=0
