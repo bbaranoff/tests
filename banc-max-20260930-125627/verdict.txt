@@ -1,0 +1,25 @@
+   1 demarrage [32mOK       [0m arret complet, puis start-direct.sh --dsp : coeur en 16s
+   2 coeur     [32mOK       [0m process + VTY 4258 4239 4254 4242 4243
+   3 bts       [32mOK       [0m osmo-bts-trx, VTY 4241
+   4 services  [32mOK       [0m asterisk 5060, sip-connector, /tmp/sendmt_socket
+   5 ss7       [32mOK       [0m ss7_check 1 ✓, 0 ✗, diag-stp-operator
+   6 checks-existants [32mOK       [0m global_check, call-diag, audio-diag sans echec
+   7 pytest-infra [32mOK       [0m 11 passed -> pytest/infra/test_results.md
+   8 pytest-couche1 [32mOK       [0m 9 passed 13 skipped 1 xpassed -> pytest/couche1/test_results.md
+   9 pytest-mobile [32mOK       [0m 10 passed -> pytest/mobile/test_results.md
+  10 couche1   [32mOK       [0m c54x_exe --arm qemu-system-arm osmocon (+ pont_dsp.py )
+  11 pytest-reseau [32mOK       [0m 6 passed -> pytest/reseau/test_results.md
+  12 pytest-legacy [2mSAUTE    [0m sans --legacy (suite ecrite pour l'ancien banc en conteneur)
+  13 mobile    [32mOK       [0m VTY 4347 repond, IMSI 001010001000001
+  14 camp      [32mOK       [0m apres 1s, ARFCN=514(DCS) CGI=001-01-1-6001
+  15 attache   [32mOK       [0m MM « MM idle, normal service », IMSI 001010001000001 au VLR, MSISDN 100101
+  16 sms-mo    [32mOK       [0m SMS to 100102 successful (RP-ACK), MT delivered 0->1
+  17 sms-mt    [32mOK       [0m MSC delivered 1 -> 2 (1s)
+  18 ussd      [32mOK       [0m *#100# -> 100101, *#101# -> 001010001000001, MSC requests 0->2 etablies 0->2
+  19 appel     [32mOK       [0m CC ACTIVE apres 3s, MSC setup 0->1, connect-ack 0->1
+  20 voix      [32mOK       [0m retour: ton retrouve a t=5.0s (latence 2.0s), rms silence=2257 rms ton=6633 (+9.4 dB) ; raie dominante 1000 Hz, 100% de l'energie dans 950-1050 Hz ; silence: raie 0 Hz
+  21 ms2       [32mOK       [0m SMS et appel MS#1 -> 100102
+  22 multi     [2mSAUTE    [0m sans --multi
+  23 couverture [32mOK       [0m 32 gere, 1 degrade, 2 non gere, 2 non observe -> couverture.txt
+
+  [1mELEMENT MAX : 23/23[0m  (couverture)  mode dsp  echecs 0

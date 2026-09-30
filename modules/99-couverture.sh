@@ -91,7 +91,7 @@ vocodage;ROM TI, trames TI converties TI -> FR sur l'hote (io-tch-format ti);cfg
 saut de frequence;pont : NON GERE;pont;;saut de frequence : TCH non arme;hors de ce montage
 marge temps reel DSP;c54x_exe [chrono];dsp;\[chrono\];;README : 4.3-4.6 ms de travail pour 4.62 ms
 CHANNEL RELEASE;pont;pont;CHANNEL RELEASE;CHANNEL RELEASE sans liberation du mobile;
-retour BSP sur le SDCCH;ROM TI (tache ALLC);dsp;BSP rendu au SDCCH\|revenu sur le SDCCH;;
+retour BSP sur le SDCCH;ROM TI (tache ALLC);dsp;BSP rendu au SDCCH\|revenu sur le SDCCH;;attendu absent : seul un ASSIGNMENT FAILURE (retour a l'ancien canal, 04.08 3.4.3.3) y mene, un appel normal finit par CHANNEL RELEASE
 liberation radio cote mobile;mobile;mobile;new state dedicated -> release pending\|Returning to IDLE mode;;DRR (DSUM n'est pas journalise)
 T
 }

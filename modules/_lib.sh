@@ -28,9 +28,30 @@ liste_contient() { case ",$1," in *",$2,"*) return 0 ;; esac; return 1; }
 # `enable` puis la commande, une seconde de silence pour que nc lise la
 # reponse avant de fermer (sans elle, la commande part et rien ne revient).
 # Couleurs et \r retires : les verdicts sont des grep.
+# [2026-09-30] nc -N : netcat OpenBSD ne ferme pas la connexion a la fin de son
+# entree, il attend que le serveur ferme -- la VTY ne ferme jamais -- et chaque
+# lecture durait les 6 s du timeout (mesure : 6,0 s sans -N, 1,0 s avec, meme
+# reponse complete). Toutes les boucles du banc (attente de service, boucle
+# d'appel, sondes) en etaient six fois plus lentes : c'etait le « ca hang ».
 vty() {   # $1 = port, $2 = commande
-    { printf 'enable\n%s\n' "$2"; sleep 1; } | timeout --foreground 6 nc 127.0.0.1 "$1" 2>/dev/null \
+    { printf 'enable\n%s\n' "$2"; sleep 1; } | timeout --foreground 6 nc -N 127.0.0.1 "$1" 2>/dev/null \
         | tr -d '\r' | sed 's/\x1b\[[0-9;]*m//g'
+}
+# Lancer un appel et reessayer aussitot si la VTY le rejette sur-le-champ (mobile
+# en resélection : « Call has been rejected », « No service ») : au plus $3 essais
+# espaces d'une attente de service. Ecrit la sortie VTY dans $2. Rend 0 si la
+# commande est partie sans rejet immediat.
+appeler() {   # $1 = destination, $2 = fichier de sortie VTY, [$3 = essais, defaut 3]
+    local k out
+    for k in $(seq 1 "${3:-3}"); do
+        attendre_service 20
+        out="$( { printf 'enable\ncall 1 %s\n' "$1"; sleep 2; } | timeout --foreground 6 nc -N 127.0.0.1 "$MOB_VTY" 2>/dev/null | tr -d '\r' | sed 's/\x1b\[[0-9;]*m//g')"
+        printf '%s\n' "$out" >> "$2"
+        printf '%s' "$out" | grep -q 'rejected\|No service\|released' || return 0
+        say "appel rejete sur-le-champ (essai $k) : $(printf '%s' "$out" | grep -o '% Call[^%]*\|% No service' | head -1 | tr -d '\n')"
+        sleep 2
+    done
+    return 1
 }
 # La meme chose DANS un conteneur (operateurs 2, 3, hub) : nc n'y est pas
 # forcement, /dev/tcp de bash y est toujours.

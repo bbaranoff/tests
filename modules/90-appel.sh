@@ -6,13 +6,17 @@ mod_run() {
     local setup_avant ack_avant actif=0 cc="" i ack setup
     setup_avant="$(msc_ctr "MO Calls" 1)"; ack_avant="$(msc_ctr "MO Calls" 2)"
     : "${setup_avant:=0}"; : "${ack_avant:=0}"
-    attendre_service 20   # pas de RACH pendant la resynchro qui suit la liberation precedente
-    vty "$MOB_VTY" "call 1 $DEST" > "$OUT/appel-vty.txt"
-    for i in $(seq 1 "$CALL_MAX"); do
+    : > "$OUT/appel-vty.txt"
+    appeler "$DEST" "$OUT/appel-vty.txt" 3   # attend le service, reessaie si la VTY rejette sur-le-champ
+    # [2026-09-30] borne en SECONDES (chaque tour coute 2 lectures VTY, 2 a 12 s) :
+    # CALL_MAX etait un nombre de tours, il pouvait durer 5 minutes.
+    local t0=$SECONDS
+    while [ $((SECONDS - t0)) -lt "$CALL_MAX" ]; do
         cc="$(cc_state)"; [ "$cc" = ACTIVE ] && { actif=1; break; }
         ack="$(msc_ctr "MO Calls" 2)"
         [ -n "$ack" ] && [ "$ack" -gt "$ack_avant" ] 2>/dev/null && { actif=1; break; }
     done
+    i=$((SECONDS - t0))
     [ "$actif" = 1 ] && sleep "$CALL_S"
     show_ms > "$OUT/show-ms-appel.txt"
     vty "$MOB_VTY" "call 1 hangup" >> "$OUT/appel-vty.txt"; sleep 2

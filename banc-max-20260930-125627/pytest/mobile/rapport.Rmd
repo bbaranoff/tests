@@ -1,0 +1,45 @@
+---
+title: "Calypso GSM - GRAFCET go-live & tests"
+subtitle: "20260930_125912"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Synthese
+
+**Progression chemin (ponderee, ordonnee) : 7 %**  
+FBSB 25% + camping 22% = 47% du but ; total etapes 43 %  
+delta FN None - LOST 0 - 20260930_125912
+
+| Etape | Poids | Etat | Description |
+|---|---|---|---|
+| E0 | 2% | OK | BTS emet SI3/FCCH/SCH |
+| P1 | 2% | OK | ipc-device -> FIFO iq_grgsm |
+| G1 | 3% | OK | gr-gsm decode SCH (BSIC=7) |
+| F1 | 3% | MUR | FN-ALIGN recale FN |
+| B1 | 4% | MUR | BSP :6702 feed_iq |
+| B3 | 4% | MUR | rx_burst -> DARAM 0x2a00 |
+| A0 | 4% | OK | init go-live (ORM/RSBX/IMR) |
+| A1 | 4% | MUR | gate 0x0810 bit15 (abort=0) |
+| A2 | 4% | OK | IMR=0x52fd, LOST=0 |
+| A3 | 5% | MUR | task_md=5 -> 0x8d00 |
+| F2 | 6% | MUR | frame-IT vec28 (PRIO) |
+| K | 12% | en cours | CORRELATEUR kernel 0xa076 |
+| D | 25% | MUR | FBSB / d_fb_det (fb0_ret>0) |
+| M | 22% | OK | mobile campe (normal service) |
+
+# Diagrammes temporels
+
+_(pas de donnees log pour les plots temporels)_
+
+# Rapport de tests COMPLET (test_results.md)
+
+```
+(absent)
+```

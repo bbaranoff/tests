@@ -1,0 +1,131 @@
+═══ Diagnostic appel MS → Echo Test ═══
+
+[1/8] Services Osmocom
+  ✓ osmo-msc actif
+  ✓ osmo-bsc actif
+  ✓ osmo-mgw actif
+  ✓ osmo-stp actif
+  ✓ osmo-hlr actif
+
+[2/8] MNCC socket (/tmp/msc_mncc)
+  ✓ Socket MNCC existe
+       srwxr-xr-x 1 root root 0 sept. 30 12:56 /tmp/msc_mncc
+
+[3/8] osmo-sip-connector
+  ✓ Processus actif
+       3494326 /usr/bin/osmo-sip-connector -c /etc/osmocom/osmo-sip-connector.cfg
+  ✓ Ecoute sur :5061 (cote SIP)
+
+[4/8] Asterisk
+  ✓ Processus actif
+  ✓ Ecoute SIP sur :5060/udp
+       Endpoints PJSIP:
+        Endpoint:  <Endpoint/CID.....................................>  <State.....>  <Channels.>
+             Contact:  <Aor/ContactUri..........................> <Hash....> <Status> <RTT(ms)..>
+        Endpoint:  gsm_msc                                              Not in use    0 of inf
+             Contact:  gsm_msc/sip:127.0.0.1:5061                 d0c8ec6706 Avail         0.328
+        Endpoint:  interop_trunk_op2                                    Unavailable   0 of inf
+             Contact:  interop_trunk_op2/sip:172.20.0.12:5060     ab16a96a50 Unavail         nan
+        Endpoint:  interop_trunk_op3                                    Unavailable   0 of inf
+             Contact:  interop_trunk_op3/sip:172.20.0.13:5060     cacc8eab72 Unavail         nan
+        Endpoint:  linphone_A/100                                       Unavailable   0 of inf
+        Endpoint:  linphone_B/200                                       Unavailable   0 of inf
+
+       Dialplan 600:
+       [ Context 'gsm_in' created by 'pbx_config' ]
+         '600' =>          1. NoOp(=== GSM -> ECHO TEST - CallerID: ${CALLERID(all)} ===) [extensions.conf:291]
+                           2. Answer()                                   [extensions.conf:292]
+                           3. Playback(demo-echotest)                    [extensions.conf:293]
+                           4. Echo()                                     [extensions.conf:294]
+                           5. Playback(demo-echodone)                    [extensions.conf:295]
+                           6. Hangup()                                   [extensions.conf:296]
+         '_X.' =>          1. NoOp(=== GSM -> routage inter-op: ${EXTEN} - CallerID: ${CALLERID(all)} ===) [extensions.conf:424]
+                           2. Gosub(sub-record,s,1(${EXTEN}))            [extensions.conf:425]
+                           3. Goto(interop_out,${EXTEN},1)               [extensions.conf:426]
+
+[5/8] Config osmo-sip-connector
+       Contenu:
+       log file /var/log/osmocom/osmo-sip-connector.log
+        logging level sip info
+        logging level mncc info
+        logging color 1
+        logging timestamp 1
+        logging filter all 1
+        logging print category 1
+        logging print level 1
+       !
+       mncc
+         socket-path /tmp/msc_mncc
+       sip
+         local 127.0.0.1 5061
+         ! ── LA PATTE SIP EST LOCALE ────────────────────────────────────────────────
+         ! Elle portait le placeholder de dorsale INTER-OPERATEURS (celui d'osmo-stp.cfg)
+         ! -- op_backbone_ip, soit 172.20.0.11 pour l'operateur 1. C'est la bonne valeur
+         ! pour le local-ip de l'ASP ; c'est la mauvaise ici, et pour deux raisons
+         ! independantes :
+         !
+         !   1. Sur l'ISO/VM cette adresse N'EXISTE PAS - build-iso.sh la retire meme
+         !      volontairement ("172.20.0.11 est RETIREE : c'est l'adresse du PREMIER
+         !      CONTENEUR operateur"). sofia-sip, lie en local sur 127.0.0.1, ne peut pas
+         !      y emettre :
+         !          DSIP tport_vsend(...): Invalid argument with (s=7 */172.20.0.11:5060)
+         !          DSIP nta: INVITE (...): Invalid argument (22)
+         !          DSIP INVITE got status(503), releasing leg
+         !      -> TOUS les appels meurent en 503, quel que soit l'etat de la radio.
+         !
+         !   2. Meme joignable, Asterisk refuserait : pjsip.conf n'identifie cette patte
+         !      que sur la boucle locale - [gsm_msc-identify] match=127.0.0.1, et
+         !      [gsm_msc] contact=sip:127.0.0.1:5061. Les deux sens sont loopback.
+         !
+         ! 127.0.0.1 est correct dans LES DEUX topologies : en conteneur comme sur l'ISO,
+         ! osmo-sip-connector et Asterisk partagent le meme espace reseau, et Asterisk
+         ! ecoute sur 0.0.0.0:5060 (pjsip.conf [transport-udp] bind=0.0.0.0).
+         ! Surchargeable par SIP_REMOTE_IP_OVERRIDE si la patte devait un jour sortir.
+         remote 127.0.0.1 5060
+
+  ✓ Remote SIP pointe vers :5060
+
+[6/8] OsmoMGW (RTP)
+  ✓ VTY 4243 accessible
+       Endpoints:
+       
+       Copyright (C) 2009-2010 Holger Freyther and On-Waves
+       Copyright (C) 2017-2022 by sysmocom s.f.m.c. GmbH
+       Contributions by Pablo Neira Ayuso, Jacob Erlbeck, Neels Hofmeyr
+       Philipp Maier
+       
+       License AGPLv3+: GNU AGPL version 3 or later <http://gnu.org/licenses/agpl-3.0.html>
+       This is free software: you are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+       Virtual trunk 0 with 31 endpoints:
+       Virtual trunk 0 endpoint rtpbridge/1@mgw:
+          Availability: available
+          No active connections
+       
+       Virtual trunk 0 endpoint rtpbridge/2@mgw:
+
+[7/8] osmo-bts-trx
+  ✓ Processus actif
+
+[8/8] Enregistrement mobile (MSC VTY)
+  ⚠ Aucun abonne enregistre sur le MSC
+       Les MS ne sont pas encore attaches au reseau
+       Verifier : dans le VTY mobile → show ms
+       L'etat doit etre 'NORMAL service'
+
+═══ Chaine d'appel echo test ═══
+
+  mobile (call 1 600)
+    ↓ TCH via fake_trx
+  osmo-bts-trx → osmo-bsc → osmo-msc
+    ↓ MNCC socket /tmp/msc_mncc
+    ✓ MNCC socket
+  osmo-sip-connector (5061 → 5060)
+    ✓ sip-connector
+  Asterisk (gsm_in context, exten 600 → Echo())
+    ✓ Asterisk
+    ↓ RTP via OsmoMGW
+  osmo-bts-trx → fake_trx → trxcon → mobile
+    ↓ l1phy decode TCH-FR
+  ALSA → PulseAudio → HP
+

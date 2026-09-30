@@ -1,0 +1,16 @@
+sssssssssss.......ssX..                                                  [100%]============================ Mermaid report bundle =============================
+  folder : /root/banc-max-20260930-125627/pytest/couche1/test_results_20260930_125905/
+  md     : /root/banc-max-20260930-125627/pytest/couche1/test_results_20260930_125905/test_results.md
+  qmd    : /root/banc-max-20260930-125627/pytest/couche1/test_results_20260930_125905/test_results.qmd  (RStudio/quarto render)
+  zip    : /root/banc-max-20260930-125627/pytest/couche1/test_results_20260930_125905.zip
+  latest : /root/banc-max-20260930-125627/pytest/couche1/test_results_latest.zip
+  PNGs rendered : 0  (mmdc absent — only .mmd written)
+  counts : {'passed': 9, 'failed': 0, 'skipped': 13, 'xfailed': 1}
+
+=================================== XPASSES ====================================
+=========================== short test summary info ============================
+SKIPPED [11] test_20_couche1_grgsm.py: test grgsm : le banc est en mode dsp
+SKIPPED [1] test_21_couche1_dsp.py:56: aucun appel dans ce run : pas de bascule TCH a verifier
+SKIPPED [1] test_21_couche1_dsp.py:65: pas de sonde [a_dd] : aucun TCH dans ce run
+XPASS test_21_couche1_dsp.py::test_marge_temps_reel - README c54x_exe : 4.3-4.6 ms de travail DSP pour 4.62 ms
+9 passed, 13 skipped, 32 deselected, 1 xpassed in 1.67s

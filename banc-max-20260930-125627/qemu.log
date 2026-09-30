@@ -1,0 +1,106 @@
+char device redirected to /dev/pts/25 (label serial0)
+char device redirected to /dev/pts/26 (label serial1)
+[trx] pont DSP : API RAM partagee (/calypso_api_ram) + socket /tmp/calypso_dsp.sock - le C54x est dans c54x_exe, la couche 1 gr-gsm est desactivee
+calypso: couche 1 « grgsm » desactivee (DSP externe)
+[sim] EF_IMSI loaded from /root/.osmocom/bb/mobile.cfg: 001010001000001
+[sim] Ki loaded from /root/.osmocom/bb/mobile.cfg (16 bytes)
+[trx] pont DSP : timer de boot lance (echange DSP seul, sans IRQ TPU, jusqu'a ce que le firmware active le TDMA)
+[trx] pont DSP : DSP en retard, tick saute (fn=0, 1 sauts, 0 trames jouees)
+[sim] CMDSTART → ATR delivered (synchronous)
+[sim] ATR queued (4 bytes)
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=4
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=4
+[sim] SIM_IT read=0x0010 rx_count=4 edge_cleared=0x0000 post_it=0x0010 mem_io_pc=0x7bb71c060d43
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=3
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=3
+[sim] SIM_IT read=0x0010 rx_count=3 edge_cleared=0x0000 post_it=0x0010 mem_io_pc=0x7bb71c060d43
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=2
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=2
+[sim] SIM_IT read=0x0010 rx_count=2 edge_cleared=0x0000 post_it=0x0010 mem_io_pc=0x7bb71c060d43
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=1
+[sim] IRQ RAISE  IT=0x0010 MASKIT=0x0000 rx_count=1
+[sim] SIM_IT read=0x0010 rx_count=1 edge_cleared=0x0000 post_it=0x0010 mem_io_pc=0x7bb71c060d43
+[sim] IRQ lower  IT=0x0000 MASKIT=0x0000 rx_count=0
+[sim] IRQ lower  IT=0x0000 MASKIT=0xffed rx_count=0
+[sim] WT timeout fired (RX FIFO empty)
+[sim] IRQ RAISE  IT=0x0002 MASKIT=0xffed rx_count=0
+[sim] IRQ lower  IT=0x0000 MASKIT=0xffed rx_count=0
+[sim] SIM_IT read=0x0002 rx_count=0 edge_cleared=0x0002 post_it=0x0000 mem_io_pc=0x7bb71c060d43
+[trx] pont DSP : RESET_DSP relache par le firmware -> PONT_RESET (fn=0)
+[trx] pont DSP : le TDMA du firmware prend le relais du timer de boot (1 trames de boot)
+[trx] A_SCH fn=231 page0 0000->0100 page1 0000->0000 PC_ARM=0x008252f4
+[trx] A_SCH fn=963 page0 0100->8000 page1 0000->0000 PC_ARM=0x008243fc
+[trx] A_SCH fn=964 page0 8000->8000 page1 0000->8100 PC_ARM=0x008252f4
+[trx] A_SCH fn=986 page0 8000->0100 page1 8100->8100 PC_ARM=0x0082530c
+[trx] A_SCH fn=987 page0 0100->0100 page1 8100->0100 PC_ARM=0x0082440c
+[trx] A_SCH fn=1176 page0 0100->8100 page1 0100->0100 PC_ARM=0x008252e4
+[trx] A_SCH fn=1177 page0 8100->8100 page1 0100->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=1178 page0 8100->0100 page1 8000->8000 PC_ARM=0x008252f4
+[trx] A_SCH fn=1191 page0 0100->0100 page1 8000->0100 PC_ARM=0x008252f4
+[trx] A_SCH fn=1523 page0 0100->8100 page1 0100->0100 PC_ARM=0x0082530c
+[trx] A_SCH fn=1524 page0 8100->8100 page1 0100->8000 PC_ARM=0x0082aa4c
+[trx] A_SCH fn=1525 page0 8100->0100 page1 8000->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=1548 page0 0100->0100 page1 8000->0100 PC_ARM=0x008252e4
+[trx] IMM ASS ra=0x04 : reference 0/22/14 de la BTS -> 0/1/18 (last_rach fn=885)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[trx] A_SCH fn=2798 page0 0100->8100 page1 0100->0100 PC_ARM=0x0082440c
+[trx] A_SCH fn=2799 page0 8100->8100 page1 0100->8100 PC_ARM=0x0082aa0c
+[trx] A_SCH fn=2800 page0 8100->0100 page1 8100->8100 PC_ARM=0x008243fc
+[trx] A_SCH fn=2801 page0 0100->0100 page1 8100->0100 PC_ARM=0x00824400
+[trx] A_SCH fn=2829 page0 0100->8100 page1 0100->0100 PC_ARM=0x00825320
+[trx] A_SCH fn=2830 page0 8100->8100 page1 0100->8000 PC_ARM=0x008252e4
+[trx] A_SCH fn=2831 page0 8100->0100 page1 8000->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=2837 page0 0100->0100 page1 8000->0100 PC_ARM=0x0082440c
+[trx] A_SCH fn=2900 page0 0100->8100 page1 0100->0100 PC_ARM=0x00824400
+[trx] A_SCH fn=2901 page0 8100->8100 page1 0100->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=2902 page0 8100->0100 page1 8000->8000 PC_ARM=0x0082440c
+[trx] A_SCH fn=2925 page0 0100->0100 page1 8000->0100 PC_ARM=0x008252f4
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] A_SCH fn=3053 page0 0100->8100 page1 0100->0100 PC_ARM=0x008252e4
+[trx] A_SCH fn=3054 page0 8100->8100 page1 0100->8100 PC_ARM=0x008243fc
+[trx] A_SCH fn=3055 page0 8100->0100 page1 8100->8100 PC_ARM=0x0082530c
+[trx] A_SCH fn=3056 page0 0100->0100 page1 8100->0100 PC_ARM=0x008243ec
+[trx] A_SCH fn=3084 page0 0100->8100 page1 0100->0100 PC_ARM=0x008252f4
+[trx] A_SCH fn=3085 page0 8100->8100 page1 0100->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=3086 page0 8100->0100 page1 8000->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=3092 page0 0100->0100 page1 8000->0100 PC_ARM=0x0082530c
+[trx] pont DSP : l1_sync de l'ARM toujours pas finie apres 256 attentes (fn=21546, IT trame servie, EOI 21545/21546) : on attend au lieu de forcer le GO
+[trx] pont DSP : phase A recue, l1_sync de l'ARM finie apres 8192 attentes (fn=21546, 1 fois), GO envoye quand meme
+[trx] A_SCH fn=29910 page0 0100->8100 page1 0100->0100 PC_ARM=0x0082aa0c
+[trx] A_SCH fn=29911 page0 8100->8100 page1 0100->8000 PC_ARM=0x008252f4
+[trx] A_SCH fn=29912 page0 8100->0100 page1 8000->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=29918 page0 0100->0100 page1 8000->0100 PC_ARM=0x0082440c
+[trx] IMM ASS ra=0x1d : reference 22/18/45 de la BTS -> 22/22/23 (last_rach fn=29246)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[trx] A_SCH fn=31164 page0 0100->8100 page1 0100->0100 PC_ARM=0x008243fc
+[trx] A_SCH fn=31165 page0 8100->8100 page1 0100->8000 PC_ARM=0x00825308
+[trx] A_SCH fn=31166 page0 8100->0100 page1 8000->8000 PC_ARM=0x008252f4
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0x8e : reference 25/17/45 de la BTS -> 25/25/27 (last_rach fn=33279)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0x18 : reference 27/1/36 de la BTS -> 27/10/19 (last_rach fn=36280)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0x14 : reference 29/25/45 de la BTS -> 29/6/26 (last_rach fn=39500)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0xe9 : reference 1/2/4 de la BTS -> 1/6/33 (last_rach fn=43842)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie arme : chan_nr=0x0a TCH/F SS=0 TN=2
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0xe0 : reference 4/14/45 de la BTS -> 4/18/23 (last_rach fn=48014)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie arme : chan_nr=0x0a TCH/F SS=0 TN=2
+[trx] pont DSP : l1_sync de l'ARM toujours pas finie apres 256 attentes (fn=56148, IT trame servie, EOI 56147/56148) : on attend au lieu de forcer le GO
+[trx] pont DSP : l1_sync finie apres 4069 attentes (fn=56148)
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0x1e : reference 13/17/45 de la BTS -> 13/22/24 (last_rach fn=59796)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] IMM ASS ra=0xe4 : reference 14/13/45 de la BTS -> 14/16/22 (last_rach fn=61324)
+[dcch] canal dedie arme : chan_nr=0x41 SDCCH/8 SS=0 TN=1
+[dcch] canal dedie arme : chan_nr=0x0a TCH/F SS=0 TN=2
+[dcch] canal dedie libere : chan_nr=0x00 SDCCH/4 SS=0 TN=0
+[trx] pont DSP : l1_sync de l'ARM toujours pas finie apres 256 attentes (fn=77174, IT trame servie, EOI 77173/77174) : on attend au lieu de forcer le GO
+[trx] pont DSP : phase A recue, l1_sync de l'ARM finie apres 8192 attentes (fn=77174, 2 fois), GO envoye quand meme

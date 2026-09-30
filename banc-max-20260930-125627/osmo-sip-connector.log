@@ -1,0 +1,357 @@
+Tue Sep 29 21:48:37 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 21:48:37 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 21:48:37 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5ce261f5cd90
+
+Tue Sep 29 21:48:37 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 21:48:37 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 21:48:37 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 21:56:45 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Tue Sep 29 21:56:46 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Tue Sep 29 21:56:46 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5ce261f912f0) is now connected(be279bf8-36e2-1240-9c9f-c4c6e6754a1c).
+Tue Sep 29 21:56:47 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Tue Sep 29 21:57:06 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Tue Sep 29 21:57:06 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5ce261f912f0) in connected state.
+Tue Sep 29 21:57:06 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5ce261f912f0) got resp to bye
+Tue Sep 29 22:03:09 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:03:09 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:03:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x576ac45d0d90
+
+Tue Sep 29 22:03:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:03:09 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:03:09 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 22:19:04 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:19:04 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:19:04 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5825ab48cd90
+
+Tue Sep 29 22:19:04 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:19:04 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:19:04 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 22:20:26 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:20:26 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:20:26 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5edd9a1fbd90
+
+Tue Sep 29 22:20:26 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:20:26 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:20:26 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 22:26:09 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:26:09 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:26:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x626f69e6ad90
+
+Tue Sep 29 22:26:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:26:09 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:26:09 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 22:32:35 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:32:35 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:32:35 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x650519073d90
+
+Tue Sep 29 22:32:35 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:32:35 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:32:35 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 22:33:47 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:33:47 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:33:47 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x6392fe938d90
+
+Tue Sep 29 22:33:47 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:33:47 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:33:47 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 22:38:18 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 22:38:18 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 22:38:18 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x586700eb2d90
+
+Tue Sep 29 22:38:18 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 22:38:18 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 22:38:18 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 23:34:28 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 23:34:28 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 23:34:28 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x58e327278d90
+
+Tue Sep 29 23:34:28 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 23:34:28 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 23:34:28 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 23:39:33 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 23:39:33 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 23:39:33 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5f6ba4e1cd90
+
+Tue Sep 29 23:39:33 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 23:39:33 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 23:39:33 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 23:42:20 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 23:42:20 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 23:42:20 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x6501069f5d90
+
+Tue Sep 29 23:42:20 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 23:42:20 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 23:42:20 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Tue Sep 29 23:50:23 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Tue Sep 29 23:50:23 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Tue Sep 29 23:50:23 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5d6a96778d90
+
+Tue Sep 29 23:50:23 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Tue Sep 29 23:50:23 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Tue Sep 29 23:50:23 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 00:07:54 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 00:07:54 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 00:07:54 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5d258b201d90
+
+Wed Sep 30 00:07:54 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 00:07:54 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 00:07:54 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 00:13:24 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 00:13:25 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 00:13:25 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d258b22c940) is now connected(d50eb9cb-36f5-1240-a89d-c4c6e6754a1c).
+Wed Sep 30 00:13:26 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 00:13:45 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 00:13:45 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d258b22c940) in connected state.
+Wed Sep 30 00:13:45 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d258b22c940) got resp to bye
+Wed Sep 30 00:14:07 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 00:14:08 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 00:14:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d258b22d890) is now connected(eebbea6e-36f5-1240-a89d-c4c6e6754a1c).
+Wed Sep 30 00:14:09 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 00:14:31 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 00:14:31 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d258b22d890) in connected state.
+Wed Sep 30 00:14:31 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d258b22d890) got resp to bye
+Wed Sep 30 00:14:44 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5003) with MNCC leg(2147483651) IMSI(001010001000001)
+Wed Sep 30 00:14:45 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483651) ip(127.0.0.1), port(4018) pt(3) ptm(768)
+Wed Sep 30 00:14:45 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d258b217fd0) is now connected(0502a0a6-36f6-1240-a89d-c4c6e6754a1c).
+Wed Sep 30 00:14:46 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483651) is now connected.
+Wed Sep 30 00:15:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 00:15:08 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d258b217fd0) in connected state.
+Wed Sep 30 00:15:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d258b217fd0) got resp to bye
+Wed Sep 30 00:28:26 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 00:28:26 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 00:28:26 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5fe73a607d90
+
+Wed Sep 30 00:28:26 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 00:28:26 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 00:28:26 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 00:36:23 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 00:36:23 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 00:36:23 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x61bddee5ed90
+
+Wed Sep 30 00:36:23 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 00:36:23 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 00:36:23 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 00:42:27 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 00:42:28 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 00:42:28 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x61bddee8b1d0) is now connected(e3d758a1-36f9-1240-d88e-c4c6e6754a1c).
+Wed Sep 30 00:42:29 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 00:42:48 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 00:42:48 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x61bddee8b1d0) in connected state.
+Wed Sep 30 00:42:49 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x61bddee8b1d0) got resp to bye
+Wed Sep 30 00:48:24 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 00:48:25 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 00:48:25 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x61bddeea6630) is now connected(b88b5e02-36fa-1240-d88e-c4c6e6754a1c).
+Wed Sep 30 00:48:25 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 00:48:42 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 00:48:42 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x61bddeea6630) in connected state.
+Wed Sep 30 00:48:42 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x61bddeea6630) got resp to bye
+Wed Sep 30 10:34:00 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 10:34:00 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 10:34:00 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5d1e9a9a5d90
+
+Wed Sep 30 10:34:00 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 10:34:00 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 10:34:00 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 10:40:30 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 10:40:31 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 10:40:31 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d1e9a9b7a60) is now connected(7017abcf-374d-1240-34ad-c4c6e6754a1c).
+Wed Sep 30 10:40:32 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 10:40:52 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 10:40:52 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d1e9a9b7a60) in connected state.
+Wed Sep 30 10:40:52 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d1e9a9b7a60) got resp to bye
+Wed Sep 30 10:41:21 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 10:41:22 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 10:41:22 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d1e9a9d81e0) is now connected(8e1977cf-374d-1240-34ad-c4c6e6754a1c).
+Wed Sep 30 10:41:22 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 10:41:44 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 10:41:44 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d1e9a9d81e0) in connected state.
+Wed Sep 30 10:41:44 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d1e9a9d81e0) got resp to bye
+Wed Sep 30 10:42:04 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5003) with MNCC leg(2147483651) IMSI(001010001000001)
+Wed Sep 30 10:42:05 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483651) ip(127.0.0.1), port(4018) pt(3) ptm(768)
+Wed Sep 30 10:42:05 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d1e9a9d5a50) is now connected(a7cb4f4b-374d-1240-34ad-c4c6e6754a1c).
+Wed Sep 30 10:42:06 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483651) is now connected.
+Wed Sep 30 10:42:28 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 10:42:28 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d1e9a9d5a50) in connected state.
+Wed Sep 30 10:42:28 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d1e9a9d5a50) got resp to bye
+Wed Sep 30 10:42:33 2026 [1;31mDMNCC[0;m [1;31mERROR[0;m <0001> mncc.c:53 command(0x112) never arrived for leg(2147483651)
+Wed Sep 30 10:42:48 2026 [1;31mDMNCC[0;m [1;31mERROR[0;m <0001> mncc.c:617 call(2147483651) can not be found
+Wed Sep 30 10:46:22 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 10:46:22 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 10:46:22 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5ba65a0aed90
+
+Wed Sep 30 10:46:22 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 10:46:22 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 10:46:22 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 10:52:47 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 10:52:48 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 10:52:48 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5ba65a0dc6a0) is now connected(2741c903-374f-1240-4399-c4c6e6754a1c).
+Wed Sep 30 10:52:49 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 10:53:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 10:53:08 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5ba65a0dc6a0) in connected state.
+Wed Sep 30 10:53:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5ba65a0dc6a0) got resp to bye
+Wed Sep 30 10:53:37 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 10:53:38 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 10:53:38 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5ba65a0e1b20) is now connected(44dcdf35-374f-1240-4399-c4c6e6754a1c).
+Wed Sep 30 10:53:39 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 10:54:19 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 10:54:19 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5ba65a0e1b20) in connected state.
+Wed Sep 30 10:54:19 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5ba65a0e1b20) got resp to bye
+Wed Sep 30 10:54:44 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5003) with MNCC leg(2147483651) IMSI(001010001000001)
+Wed Sep 30 10:54:45 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483651) ip(127.0.0.1), port(4018) pt(3) ptm(768)
+Wed Sep 30 10:54:45 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5ba65a0e7050) is now connected(6cfdde52-374f-1240-4399-c4c6e6754a1c).
+Wed Sep 30 10:54:46 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483651) is now connected.
+Wed Sep 30 10:55:26 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 10:55:26 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5ba65a0e7050) in connected state.
+Wed Sep 30 10:55:26 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5ba65a0e7050) got resp to bye
+Wed Sep 30 11:29:01 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 11:29:01 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 11:29:01 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5eb5c6229d90
+
+Wed Sep 30 11:29:01 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 11:29:01 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 11:29:01 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 11:37:44 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 11:37:44 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 11:37:44 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x605d64c16d90
+
+Wed Sep 30 11:37:44 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 11:37:44 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 11:37:44 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 11:42:48 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 11:42:53 2026 [1;31mDMNCC[0;m [1;31mERROR[0;m <0001> mncc.c:53 command(0x204) never arrived for leg(2147483649)
+Wed Sep 30 11:42:54 2026 [1;31mDMNCC[0;m [1;31mERROR[0;m <0001> mncc.c:617 call(2147483649) can not be found
+Wed Sep 30 11:48:42 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 11:48:43 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4008) pt(3) ptm(768)
+Wed Sep 30 11:48:43 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x605d64c57520) is now connected(f6b206df-3756-1240-b896-c4c6e6754a1c).
+Wed Sep 30 11:48:43 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 11:49:03 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 11:49:03 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x605d64c57520) in connected state.
+Wed Sep 30 11:49:03 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x605d64c57520) got resp to bye
+Wed Sep 30 11:49:32 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5003) with MNCC leg(2147483651) IMSI(001010001000001)
+Wed Sep 30 11:49:33 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483651) ip(127.0.0.1), port(4016) pt(3) ptm(768)
+Wed Sep 30 11:49:33 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x605d64c57a90) is now connected(147e5f0d-3757-1240-b896-c4c6e6754a1c).
+Wed Sep 30 11:49:33 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483651) is now connected.
+Wed Sep 30 11:51:09 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(RESOURCE_UNAVAIL)
+Wed Sep 30 11:51:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x605d64c57a90) in connected state.
+Wed Sep 30 11:51:09 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x605d64c57a90) got resp to bye
+Wed Sep 30 11:57:45 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 11:57:45 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 11:57:45 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x6434de879d90
+
+Wed Sep 30 11:57:45 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 11:57:45 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 11:57:45 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 12:05:30 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 12:05:31 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 12:05:31 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x6434de8acc20) is now connected(4f9349f5-3759-1240-62a9-c4c6e6754a1c).
+Wed Sep 30 12:05:31 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 12:05:51 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 12:05:51 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x6434de8acc20) in connected state.
+Wed Sep 30 12:05:51 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x6434de8acc20) got resp to bye
+Wed Sep 30 12:09:36 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 12:09:37 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 12:09:37 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x6434de8c0f40) is now connected(e2940f4b-3759-1240-62a9-c4c6e6754a1c).
+Wed Sep 30 12:09:38 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 12:21:18 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(RESOURCE_UNAVAIL)
+Wed Sep 30 12:21:18 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x6434de8c0f40) in connected state.
+Wed Sep 30 12:21:18 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x6434de8c0f40) got resp to bye
+Wed Sep 30 12:21:42 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 12:21:42 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 12:21:42 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5d04f6f15d90
+
+Wed Sep 30 12:21:42 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 12:21:42 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 12:21:42 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 12:25:35 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 12:25:36 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 12:25:36 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d04f6f3a1c0) is now connected(1e228bde-375c-1240-ec85-c4c6e6754a1c).
+Wed Sep 30 12:25:37 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 12:25:45 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 12:25:45 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d04f6f3a1c0) in connected state.
+Wed Sep 30 12:25:45 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d04f6f3a1c0) got resp to bye
+Wed Sep 30 12:25:54 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 12:25:55 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 12:25:55 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5d04f6f245b0) is now connected(297e22df-375c-1240-ec85-c4c6e6754a1c).
+Wed Sep 30 12:25:56 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 12:27:22 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(RESOURCE_UNAVAIL)
+Wed Sep 30 12:27:22 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5d04f6f245b0) in connected state.
+Wed Sep 30 12:27:22 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5d04f6f245b0) got resp to bye
+Wed Sep 30 12:29:29 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 12:29:29 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 12:29:29 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x58f9f726ed90
+
+Wed Sep 30 12:29:29 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 12:29:29 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 12:29:29 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 12:34:42 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 12:34:43 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 12:34:43 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x58f9f7298ca0) is now connected(641d84c7-375d-1240-0283-c4c6e6754a1c).
+Wed Sep 30 12:34:44 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 12:34:52 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 12:34:52 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x58f9f7298ca0) in connected state.
+Wed Sep 30 12:34:52 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x58f9f7298ca0) got resp to bye
+Wed Sep 30 12:35:02 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 12:35:02 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 12:35:02 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x58f9f72a08d0) is now connected(6f9fa534-375d-1240-0283-c4c6e6754a1c).
+Wed Sep 30 12:35:03 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 12:36:19 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(RESOURCE_UNAVAIL)
+Wed Sep 30 12:36:19 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x58f9f72a08d0) in connected state.
+Wed Sep 30 12:36:19 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x58f9f72a08d0) got resp to bye
+Wed Sep 30 12:56:55 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Wed Sep 30 12:56:55 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Wed Sep 30 12:56:55 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5a547204ad90
+
+Wed Sep 30 12:56:55 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Wed Sep 30 12:56:55 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Wed Sep 30 12:56:55 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Wed Sep 30 13:00:45 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Wed Sep 30 13:00:46 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Wed Sep 30 13:00:46 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5a547206e590) is now connected(07c3d290-3761-1240-bcaa-c4c6e6754a1c).
+Wed Sep 30 13:00:47 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Wed Sep 30 13:00:55 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 13:00:55 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5a547206e590) in connected state.
+Wed Sep 30 13:00:55 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5a547206e590) got resp to bye
+Wed Sep 30 13:01:05 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Wed Sep 30 13:01:06 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Wed Sep 30 13:01:06 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5a5472060fd0) is now connected(134cf305-3761-1240-bcaa-c4c6e6754a1c).
+Wed Sep 30 13:01:06 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Wed Sep 30 13:01:51 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 13:01:51 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5a5472060fd0) in connected state.
+Wed Sep 30 13:01:51 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5a5472060fd0) got resp to bye
+Wed Sep 30 13:02:07 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5003) with MNCC leg(2147483651) IMSI(001010001000001)
+Wed Sep 30 13:02:08 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483651) ip(127.0.0.1), port(4018) pt(3) ptm(768)
+Wed Sep 30 13:02:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:88 leg(0x5a5472079dd0) is now progressing.
+Wed Sep 30 13:02:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:436 Processing INVITE Call-ID: e3605d0d-8f69-4ac0-943a-e1273de44f47
+Wed Sep 30 13:02:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:126 Incoming call(e3605d0d-8f69-4ac0-943a-e1273de44f47) handle(0x5a5472078e30)
+Wed Sep 30 13:02:08 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:189 SDP Extracted: IP=(127.0.0.1) PORT=(30182) PAYLOAD=(3).
+Wed Sep 30 13:02:11 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:88 leg(0x5a5472079dd0) is now progressing.
+Wed Sep 30 13:02:11 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(5004) ip(127.0.0.1), port(4026) pt(3) ptm(768)
+Wed Sep 30 13:02:14 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5a5472079dd0) is now connected(38ac3251-3761-1240-bcaa-c4c6e6754a1c).
+Wed Sep 30 13:02:14 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483651) is now connected.
+Wed Sep 30 13:02:22 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Wed Sep 30 13:02:22 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5a5472079dd0) in connected state.
+Wed Sep 30 13:02:22 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5a5472079dd0) got resp to bye
+Wed Sep 30 13:02:22 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:428 leg(0x5a547207ebc0) got bye, releasing.

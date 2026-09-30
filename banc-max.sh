@@ -120,6 +120,35 @@ if [ "$CAMPAGNE" = 1 ]; then . "$TESTS/modules/_campagne.sh"; campagne_run; exit
 lib_init
 say "mode ${B}$MODE${Z}  VTY mobile $MOB_VTY  conf $MOB_CFG  journal $OUT"
 
+# [2026-09-30] UN BARREAU NE PEUT PAS PENDRE. mod_run tourne dans un sous-shell
+# surveille : au-dela de MOD_TIMEOUT secondes (defaut 240, un module peut le
+# changer), tout l'arbre est tue et le verdict est ECHEC « timeout ». Le
+# sous-shell rend son verdict (et MSISDN, pose par « attache ») par un fichier.
+MOD_TIMEOUT_DEFAUT="${MOD_TIMEOUT_DEFAUT:-240}"
+mod_run_borne() {   # $1 = nom du barreau
+    local nom="$1" f="$OUT/.verdict-$nom" pid t=0 lim="${MOD_TIMEOUT:-$MOD_TIMEOUT_DEFAUT}"
+    rm -f "$f"
+    ( mod_run; { declare -p VERD DET MSISDN 2>/dev/null; } > "$f" ) &
+    pid=$!
+    while kill -0 "$pid" 2>/dev/null; do
+        if [ "$t" -ge "$lim" ]; then
+            say "${R}barreau $nom : ${lim}s ecoulees, arret${Z}"
+            tuer_arbre "$pid"; sleep 1; kill -KILL "$pid" 2>/dev/null
+            wait "$pid" 2>/dev/null
+            VERD[$nom]=ECHEC; DET[$nom]="timeout apres ${lim}s (MOD_TIMEOUT)"
+            return
+        fi
+        sleep 1; t=$((t+1))
+    done
+    wait "$pid" 2>/dev/null
+    if [ -s "$f" ]; then
+        # declare -p ecrit « declare -A VERD=(...) » : on garde le tableau complet
+        eval "$(sed 's/^declare -[-A]* //' "$f")"
+    else
+        VERD[$nom]=ECHEC; DET[$nom]="le module n'a rendu aucun verdict"
+    fi
+}
+
 # Les barreaux, dans l'ordre des fichiers. Chaque module declare :
 #   MOD_CHAINE=1   il suppose le barreau precedent (saute si la chaine est rompue)
 #   mod_run()      pose son verdict par `verdict <nom> OK|ECHEC|SAUTE "detail"`
@@ -131,7 +160,7 @@ for m in "$TESTS"/modules/[0-9]*.sh; do
     nom="$(mod_nom "$m")"
     if [ -n "$ONLY" ] && ! liste_contient "$ONLY" "$nom"; then VERD[$nom]="SAUTE"; DET[$nom]="hors --only"; continue; fi
     if liste_contient "$SKIP" "$nom"; then VERD[$nom]="SAUTE"; DET[$nom]="--skip"; continue; fi
-    MOD_CHAINE=0; MOD_OPTIONNEL=0; MOD_RELANCE_PILE=0
+    MOD_CHAINE=0; MOD_OPTIONNEL=0; MOD_RELANCE_PILE=0; MOD_TIMEOUT=""
     unset -f mod_run mod_titre 2>/dev/null
     . "$m"
     head_ "$nom  $(mod_titre 2>/dev/null)"
@@ -146,7 +175,7 @@ for m in "$TESTS"/modules/[0-9]*.sh; do
     # se rattrape pas en attendant plus.
     essai=1
     while :; do
-        mod_run
+        mod_run_borne "$nom"
         [ "${VERD[$nom]}" = ECHEC ] || break
         if [ "$MOD_RELANCE_PILE" = 1 ] && [ "$RESTART" = 1 ] && [ "$RELANCES_FAITES" -lt "$RELANCES" ]; then
             RELANCES_FAITES=$((RELANCES_FAITES+1))

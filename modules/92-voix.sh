@@ -20,18 +20,37 @@ sr=8000; t=np.arange(sr*4)/sr
 x=(0.6*np.sin(2*np.pi*1000*t)*32767).astype('<i2')
 w=wave.open(sys.argv[1],'wb'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(x.tobytes()); w.close()
 PY
-    attendre_service 20
-    vty "$MOB_VTY" "call 1 $DEST" > "$OUT/voix-appel-vty.txt"
+    : > "$OUT/voix-appel-vty.txt"
+    appeler "$DEST" "$OUT/voix-appel-vty.txt" 3
     local i cc actif=0
     for i in $(seq 1 "$CALL_MAX"); do cc="$(cc_state)"; [ "$cc" = ACTIVE ] && { actif=1; break; }; sleep 1; done
     if [ "$actif" != 1 ]; then vty "$MOB_VTY" "call 1 hangup" >/dev/null; verdict voix ECHEC "appel vers $DEST jamais ACTIVE (CC ${cc:-aucune})"; return; fi
     sleep 2                                   # le TCH s'installe, gapk ouvre ses deux sens
+    # [2026-09-30] L'EXTENSION 600 JOUE 22 s D'ANNONCE (demo-echotest) AVANT Echo().
+    # Mesure sur l'appel de 10:54 : descendant = voix de l'annonce pendant 22 s,
+    # ton injecte a +3 s donc jamais renvoye, puis Echo() renvoie fidelement ce
+    # qui monte (silence -> silence, capture -> retour 1-2 s plus tard). On attend
+    # donc le silence descendant (fin d'annonce) avant la reference et le ton.
+    # VOIX_ATTENTE_ANNONCE_S borne l'attente (defaut 30).
+    local w silence=0 rmsv
+    for w in $(seq 1 "${VOIX_ATTENTE_ANNONCE_S:-30}"); do
+        timeout --foreground 2 parecord --device=gsm_audio.monitor --rate=8000 --channels=1 --format=s16le --raw "$OUT/voix-sonde.raw" 2>/dev/null
+        rmsv="$($py - "$OUT/voix-sonde.raw" <<'PY2'
+import sys, numpy as np
+x=np.fromfile(sys.argv[1],dtype='<i2').astype(float)
+print(int(np.sqrt(np.mean(x*x))) if len(x) else 0)
+PY2
+)"
+        if [ "${rmsv:-0}" -lt 150 ]; then silence=$((silence+1)); [ "$silence" -ge 2 ] && break; else silence=0; fi
+    done
+    say "annonce Asterisk terminee apres ~$((w*1))s (rms descendant ${rmsv:-?}) ; injection du ton"
+    rm -f "$OUT/voix-sonde.raw"
     # [2026-09-30] 30 s et non 12 : en mode dsp le montant porte le ton ~10 s
     # apres son injection (trames de parole montantes manquantes, ~20 %, le
     # codeur consomme l'audio moins vite que le temps reel et le tampon de
     # capture grossit). L'analyse cherche le ton sur toute la duree et donne la
     # latence ; un retour a 10 s est un fait a noter, pas un echec du trajet.
-    local REC_S="${VOIX_REC_S:-30}"
+    local REC_S="${VOIX_REC_S:-15}"   # l'echo revient 1-2 s apres le ton une fois l'annonce passee
     timeout --foreground "$REC_S" parecord --device=gsm_audio.monitor --rate=8000 --channels=1 --format=s16le --raw "$rec" &
     local prec=$!
     sleep 3                                   # 3 s de silence : la reference
