@@ -1,2 +1,0 @@
-modems prevenus : 1
-MT SMS envoye → IMSI=001010001000001

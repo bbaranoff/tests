@@ -1,1 +1,0 @@
-ECHEC retour: rms silence=547 rms ton=568 (+0.3 dB) ; raie dominante 380 Hz, 1% de l'energie dans 950-1050 Hz ; silence: raie 334 Hz
