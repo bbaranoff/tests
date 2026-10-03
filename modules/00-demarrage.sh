@@ -34,6 +34,13 @@ mod_run() {
     say "arret complet des deux montages (grgsm et dsp)"
     arret_complet
     sleep 2
+    # --multi : le natif prend son identite (point code, OPERATOR_ID) AVANT de
+    # demarrer. Sinon start-multi.sh le realignait apres coup, l'arretait et le
+    # relancait par le bureau : une pile montee pour rien.
+    if [ "$MULTI" = 1 ]; then
+        say "start-multi.sh --align : identite du natif avant son demarrage"
+        ( cd "$REPO" && ./start-multi.sh --align ) >"$OUT/align-multi.log" 2>&1
+    fi
     say "start-direct.sh $START_OPT, detache (CALYPSO_NO_ATTACH=1)"
     ( cd "$REPO" && CALYPSO_NO_ATTACH=1 setsid ./start-direct.sh "$START_OPT" ) >"$OUT/start.log" 2>&1 &
     # On attend que le coeur ecoute avant de mesurer : sinon « coeur » tomberait
@@ -54,7 +61,7 @@ mod_run() {
     # inter-op mesureraient notre impatience.
     local hub="${MULTI_HUB_NAME:-osmo-inter-stp}" op2=osmo-operator-2 j
     say "start-multi.sh, detache (OSMO_NO_ATTACH=1)"
-    ( cd "$REPO" && OSMO_NO_ATTACH=1 OSMO_NONINTERACTIVE=1 ./start-multi.sh ) > "$OUT/start-multi.log" 2>&1
+    ( cd "$REPO" && OSMO_KEEP_NATIF=1 OSMO_NO_ATTACH=1 OSMO_NONINTERACTIVE=1 ./start-multi.sh $([ "$REBUILD" = 1 ] && echo --rebuild) ) > "$OUT/start-multi.log" 2>&1
     for j in $(seq 1 180); do
         docker exec "$op2" bash -c 'echo >/dev/tcp/127.0.0.1/4254' 2>/dev/null && break; sleep 1
     done

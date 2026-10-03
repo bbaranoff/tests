@@ -2,7 +2,7 @@
 # _lib.sh — ce que tous les barreaux partagent : le mode, la VTY, les
 # compteurs, le tableau. Charge par banc-max.sh, jamais lance seul.
 REPO="${OSMO_REPO:-/opt/GSM/osmo-operator}"
-MODE="${MODE:-}"; RESTART=0; MULTI=0; LEGACY=0; CONTINUE=0; STOP_AFTER=0
+MODE="${MODE:-}"; RESTART=0; MULTI=0; LEGACY=0; CONTINUE=0; STOP_AFTER=0; REBUILD=0
 ESSAIS=2; RELANCES=1; RELANCES_FAITES=0
 DEST=600; BOOT_MAX=180; ATTACH_MAX=60; SMS_MAX=30; CALL_MAX=25; CALL_S=6
 MS2_VTY=4248; MSC_VTY=4254
@@ -113,7 +113,8 @@ verdict() {   # $1 barreau, $2 OK|ECHEC|SAUTE, $3 detail
 # ouvre (donc l'IMSI presentee) et les process de couche 1. Tout le reste de
 # l'echelle est commun : meme coeur, meme BTS, meme MSC.
 lib_init() {
-    STAMP="$(date +%Y%m%d-%H%M%S)"; OUT="/root/banc-max-$STAMP"; mkdir -p "$OUT"
+    STAMP="$(date +%Y%m%d-%H%M%S)"; OUT="/root/banc-max-$STAMP"
+    mkdir -p "$OUT" || { echo "impossible de creer $OUT" >&2; exit 1; }
     if [ -z "$MODE" ] && [ "$RESTART" = 0 ]; then
         if   port_ouvert 4347; then MODE=dsp
         elif port_ouvert 4247; then MODE=grgsm
@@ -181,7 +182,17 @@ lib_verdict() {
 # qui lisait un conteneur ; les nouveaux tests lisent le banc par banc.py.
 pytest_famille() {   # $1 = famille (infra...), $2 = expression -m, [$3 = repertoire de tests]
     local fam="$1" expr="$2" rep="${3:-.}" py=/root/.env/bin/python3 res mon lien cible
-    $py -m pytest --version >/dev/null 2>&1 || { verdict "pytest-$fam" SAUTE "pytest absent de $py"; return; }
+    # pytest peut manquer au venv /root/.env : on retombe sur le python systeme
+    # (python3-pytest) avant de SAUTER. Les sondes tournent depuis / : dans
+    # tests/ le dossier pytest/ (sans __init__) fait dire « 'pytest' is a package
+    # and cannot be directly executed » quand le vrai module est absent, ce qui
+    # cache la vraie cause.
+    local cand
+    for cand in "$py" /usr/bin/python3; do
+        ( cd / && "$cand" -m pytest --version ) >/dev/null 2>&1 && { py="$cand"; break; }
+        py=""
+    done
+    [ -n "$py" ] || { verdict "pytest-$fam" SAUTE "pytest absent du venv /root/.env et de /usr/bin/python3 (apt install python3-pytest)"; return; }
     mon="$(ls -t /run/user/*/osmo-nitb/qemu-monitor.sock 2>/dev/null | head -1)"
     for lien in "/root/qemu.log:$(log_de qemu)" "/tmp/qemu.log:$(log_de qemu)" "/tmp/bridge.log:$(log_de pont)" \
                 "/tmp/mobile.log:$(log_de mobile)" "/tmp/osmocon.log:$(log_de osmocon)" "/tmp/bts.log:$LOGDIR/bts.log" \

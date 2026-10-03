@@ -51,6 +51,8 @@
 #     banc-max.sh --list                les barreaux, dans l'ordre
 #     banc-max.sh --dest 600            numero appele (defaut 600, echo test)
 #     banc-max.sh --boot-max 240        attente maximale du camp (s)
+#     banc-max.sh --rebuild             avec --multi : reconstruit l'image docker
+#                                       (Dockerfile.run) ; sinon jamais reconstruite
 #     banc-max.sh --stop-after          arrete la pile a la fin
 #
 #  Sortie : tableau, un barreau par ligne, puis « ELEMENT MAX : N/M ». Tout ce
@@ -58,6 +60,16 @@
 #  /root/banc-max-<date>/. Code de retour : nombre de barreaux en ECHEC.
 # -----------------------------------------------------------------------------
 set -uo pipefail
+
+# ── ROOT OBLIGATOIRE ─────────────────────────────────────────────────────────
+# Tout le banc vit sous /root : journal /root/banc-max-<date>, conf mobile
+# /root/.osmocom/bb, venv /root/.env. En utilisateur, le mkdir du journal echoue
+# et chaque barreau ecrit ensuite dans un repertoire qui n'existe pas.
+if [ "$(id -u)" -ne 0 ]; then
+    echo "banc-max.sh doit tourner en root : sudo bash $0 $*" >&2
+    exit 1
+fi
+
 TESTS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$TESTS/modules/_lib.sh"
 
@@ -97,6 +109,7 @@ while [ $# -gt 0 ]; do
         --legacy)     LEGACY=1 ;;
         --continue)   CONTINUE=1 ;;
         --stop-after) STOP_AFTER=1 ;;
+        --rebuild)    REBUILD=1 ;;
         --only=*)     ONLY="${1#*=}" ;;
         --skip=*)     SKIP="${1#*=}" ;;
         --list)       for m in "$TESTS"/modules/[0-9]*.sh; do
