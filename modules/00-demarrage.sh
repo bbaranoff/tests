@@ -7,7 +7,7 @@ mod_titre() { echo "pile $MODE, no attach$([ "$MULTI" = 1 ] && echo ' + multi-op
 # survivant fait echouer le demarrage suivant sur un etat qu'on croit propre
 # (start-direct.sh, note du 2026-09-22). On arrete donc les DEUX montages, on
 # attend que leurs processus aient disparu, et on tue ce qui reste.
-CHAINE_RE='qemu-system-arm|osmocon|c54x_exe --arm|pont/pont|pont_dsp|trxcon|fake_trx|(^|/)mobile( |$)'
+CHAINE_RE='qemu-system-arm|osmocon|c54x_exe[^ ]* --arm|pont/pont|pont_dsp|trxcon|fake_trx|(^|/)mobile( |$)'
 arret_complet() {
     # Les conteneurs op2/op3 et le hub ne sont touches QUE si --multi est passe :
     # sans lui, ce lanceur ne connait pas le multi-operateur.

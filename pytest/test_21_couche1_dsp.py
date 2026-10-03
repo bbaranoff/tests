@@ -11,7 +11,7 @@ pytestmark = [pytest.mark.banc_couche1, pytest.mark.dsp]
 
 
 def test_process_couche1():
-    assert banc.alive("c54x_exe --arm"), "c54x_exe --arm absent"
+    assert banc.alive("c54x_exe[^ ]* --arm"), "c54x_exe --arm absent (ni variante C54X_BIN)"
     assert banc.alive("qemu-system-arm"), "qemu-system-arm absent"
     assert banc.alive("osmocon"), "osmocon absent"
 

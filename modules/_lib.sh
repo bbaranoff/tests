@@ -142,7 +142,7 @@ lib_init() {
         grgsm) MOB_VTY=4247; MOB_CFG=/root/.osmocom/bb/mobile.cfg; START_OPT=--grgsm
                L1_REQ=(qemu-system-arm osmocon); L1_INFO=("pont/pont.py" grgsm_exe fake_trx trxcon) ;;
         dsp)   MOB_VTY=4347; MOB_CFG=/opt/GSM/c54x_exe/mobile_pont.cfg; START_OPT=--dsp
-               L1_REQ=("c54x_exe --arm" qemu-system-arm osmocon); L1_INFO=(pont_dsp.py) ;;
+               L1_REQ=("c54x_exe[^ ]* --arm" qemu-system-arm osmocon); L1_INFO=(pont_dsp.py) ;;
     esac
     IMSI="$(sed -n 's/^ *imsi \([0-9]\{15\}\).*/\1/p' "$MOB_CFG" 2>/dev/null | head -1)"
 }
