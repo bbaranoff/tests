@@ -5,7 +5,7 @@ mod_titre() { echo "proto-SMSC -> mobile"; }
 mod_run() {
     local avant lignes_avant rc recu=0 i v
     avant="$(msc_ctr "SMS MT" 1)"; : "${avant:=0}"
-    lignes_avant="$(wc -l < "$SMS_TXT" 2>/dev/null || echo 0)"
+    lignes_avant="$(cat "$SMS_TXT" 2>/dev/null | wc -l)"
     bash "$REPO/scripts/send-mt-sms.sh" "$IMSI" "banc-max MT $STAMP" > "$OUT/sms-mt-envoi.txt" 2>&1; rc=$?
     for i in $(seq 1 "$SMS_MAX"); do
         v="$(msc_ctr "SMS MT" 1)"

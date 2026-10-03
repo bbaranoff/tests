@@ -16,17 +16,21 @@ mod_run() {
     # Le verdict SS7 vient du check du depot, pas d'une seconde lecture ici.
     ( cd "$REPO" && NO_COLOR=1 ./checks/ss7_check.sh --quick ) > "$OUT/multi-ss7_check.txt" 2>&1
     [ $? -eq 0 ] || ko="$ko ss7_check($(grep -c 'FAIL\|✗' "$OUT/multi-ss7_check.txt") echecs)"
-    # SMS op1 -> op2 : le MSC natif compte le SUBMIT, celui de l'op 2 la remise.
-    local dest=100201 mo_avant mt_avant mt v
-    mo_avant="$(msc_ctr "SMS MO" 1)"; : "${mo_avant:=0}"
+    # SMS op1 -> op2 : la preuve est la REMISE comptee par le MSC de l'op 2.
+    # [2026-10-03] Le compteur « SMS MO » du MSC natif n'est PAS une preuve : il
+    # reste a 0 meme quand le SMS part et arrive (sms-mo local : « MT delivered
+    # 0->1 » avec « SMS MO : 0 submitted »). L'exiger faisait echouer ce barreau
+    # alors que l'op 2 avait bien livre.
+    local dest=100201 mt_avant mt
     mt_avant="$(msc_ctr "SMS MT" 1 "$op2")"; : "${mt_avant:=0}"
+    attendre_service 20
     vty "$MOB_VTY" "sms 1 $dest banc-max interop $STAMP" > "$OUT/multi-sms-vty.txt"
-    attend_ctr "SMS MO" 1 "$mo_avant" "$SMS_MAX" >/dev/null || ko="$ko sms-mo(non soumis au MSC op1)"
-    mt="$(attend_ctr "SMS MT" 1 "$mt_avant" "$SMS_MAX" "$op2")" || ko="$ko sms-mt-op2(delivered reste a $mt)"
+    mt="$(attend_ctr "SMS MT" 1 "$mt_avant" "$SMS_MAX" "$op2")" || ko="$ko sms-op2(rien livre : MT reste a $mt)"
     # Appel op1 -> op2 : on tient pour atteint un CC qui depasse l'initiation
     # (CALL_DELIVERED = l'op 2 fait sonner son abonne), personne ne decroche.
     local cc="" ok=0
-    vty "$MOB_VTY" "call 1 $dest" > "$OUT/multi-appel-vty.txt"
+    : > "$OUT/multi-appel-vty.txt"
+    appeler "$dest" "$OUT/multi-appel-vty.txt" 3 || say "appel op1 -> op2 rejete a chaque essai"
     for i in $(seq 1 "$CALL_MAX"); do
         cc="$(cc_state)"
         case "$cc" in CALL_DELIVERED|ACTIVE|CONNECT_REQUEST) ok=1; break ;; esac

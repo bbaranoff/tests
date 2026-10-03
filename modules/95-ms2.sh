@@ -11,7 +11,7 @@ mod_run() {
     msisdn2="$(vty "$MSC_VTY" "show subscriber imsi ${imsi2:-0}" | sed -n 's/^ *MSISDN: *\([0-9]*\).*/\1/p' | head -1)"
     if [ -z "$msisdn2" ]; then verdict ms2 ECHEC "MS#2 (IMSI ${imsi2:-?}) sans MSISDN au MSC"; return; fi
     # SMS MS#1 -> MS#2 : les deux mobiles ecrivent dans le meme sms.txt.
-    lignes_avant="$(wc -l < "$SMS_TXT" 2>/dev/null || echo 0)"
+    lignes_avant="$(cat "$SMS_TXT" 2>/dev/null | wc -l)"
     vty "$MOB_VTY" "sms 1 $msisdn2 banc-max MS1-MS2 $STAMP" > "$OUT/ms2-sms-vty.txt"
     ok=0
     for i in $(seq 1 "$SMS_MAX"); do
@@ -19,7 +19,16 @@ mod_run() {
     done
     [ "$ok" = 1 ] || ko="$ko sms(MS#2 n'a rien recu)"
     # Appel MS#1 -> MS#2, decroche par la VTY de MS#2 des que sa RR sort d'idle.
-    vty "$MOB_VTY" "call 1 $msisdn2" > "$OUT/ms2-appel-vty.txt"
+    # [2026-10-03] « appel(CC aucune) » : l'appel partait juste apres le SMS, MS#1
+    # encore sur son canal (ou en resynchro), et la VTY repondait aussitot
+    # « Call has been released » sans RACH : le MSC n'a jamais vu de SETUP. On
+    # attend les DEUX mobiles en service, puis appeler() reessaie sur rejet immediat.
+    : > "$OUT/ms2-appel-vty.txt"
+    for i in $(seq 1 20); do
+        vty "$MS2_VTY" "show ms 1" | grep -q 'MM idle, normal service' && break; sleep 1
+    done
+    sleep 2
+    appeler "$msisdn2" "$OUT/ms2-appel-vty.txt" 3 || say "appel MS#1 -> MS#2 rejete a chaque essai"
     ok=0
     for i in $(seq 1 "$CALL_MAX"); do
         vty "$MS2_VTY" "show ms 1" | grep -q "radio resource layer state: idle" || vty "$MS2_VTY" "call 1 answer" >> "$OUT/ms2-appel-vty.txt"

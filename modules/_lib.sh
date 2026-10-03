@@ -2,7 +2,7 @@
 # _lib.sh — ce que tous les barreaux partagent : le mode, la VTY, les
 # compteurs, le tableau. Charge par banc-max.sh, jamais lance seul.
 REPO="${OSMO_REPO:-/opt/GSM/osmo-operator}"
-MODE="${MODE:-}"; RESTART=0; MULTI=0; LEGACY=0; CONTINUE=0; STOP_AFTER=0; REBUILD=0
+MODE="${MODE:-}"; RESTART=0; MULTI=0; LEGACY=0; CONTINUE=0; STOP_AFTER=0; REBUILD=0; LTE=0
 ESSAIS=2; RELANCES=1; RELANCES_FAITES=0
 DEST=600; BOOT_MAX=180; ATTACH_MAX=60; SMS_MAX=30; CALL_MAX=25; CALL_S=6
 MS2_VTY=4248; MSC_VTY=4254
@@ -90,15 +90,29 @@ cc_state() { show_ms | sed -n 's/^ *call control state: //p' | head -1; }
 # tirait pendant la resynchro. On attend le service, on ne mesure pas notre
 # impatience. Rend 0 si en service, 1 sinon (le barreau decide).
 attendre_service() {   # [$1 = delai max en s]
-    local i ms
-    for i in $(seq 1 "${1:-20}"); do
+    # [2026-10-03] « EN SERVICE » NE SUFFIT PAS : STABLE. En mode dsp le mobile peut
+    # apparaitre campe et en service pendant une trame puis perdre la cellule (la
+    # fenetre SB n'est armee que rarement : « FBSB RESP: result=255 », « no cell
+    # available ») ; un RACH tire dans ce trou meurt en « LOS during RACH request »
+    # et le SMS est « rejected ». On exige donc SERVICE_STABLE lectures consecutives
+    # (defaut 4, ~1 s chacune) en service avant de rendre la main ; une rechute
+    # remet le compteur a zero. Le delai max ($1) borne le tout.
+    local ms bon=0 need="${SERVICE_STABLE:-4}" debut=$SECONDS max="${1:-20}" depuis=0
+    while [ $((SECONDS - debut)) -lt "$max" ]; do
         ms="$(show_ms)"
         if printf '%s' "$ms" | grep -q 'C3 camped normally' && printf '%s' "$ms" | grep -q 'MM idle, normal service'; then
-            [ "$i" -gt 1 ] && say "mobile en service apres ${i}s d'attente"
-            return 0
+            [ "$bon" = 0 ] && depuis=$((SECONDS - debut))
+            bon=$((bon + 1))
+            if [ "$bon" -ge "$need" ]; then
+                [ $((SECONDS - debut)) -gt 2 ] && say "mobile en service stable apres $((SECONDS - debut))s d'attente"
+                return 0
+            fi
+        else
+            [ "$bon" -gt 0 ] && say "mobile : service perdu apres ${bon} lecture(s) - on attend la resynchronisation"
+            bon=0
         fi
     done
-    say "mobile toujours pas en service apres ${1:-20}s : $(printf '%s' "$ms" | sed -n 's/^ *mobility management layer state: //p' | head -1)"
+    say "mobile toujours pas en service stable apres ${max}s : $(printf '%s' "$ms" | sed -n 's/^ *mobility management layer state: //p' | head -1)"
     return 1
 }
 

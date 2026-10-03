@@ -53,6 +53,8 @@
 #     banc-max.sh --boot-max 240        attente maximale du camp (s)
 #     banc-max.sh --rebuild             avec --multi : reconstruit l'image docker
 #                                       (Dockerfile.run) ; sinon jamais reconstruite
+#     banc-max.sh --4g                  ajoute la 4G (Open5GS + srsENB + srsUE) ; avec --restart
+#                                       elle relance osmo-lte
 #     banc-max.sh --stop-after          arrete la pile a la fin
 #
 #  Sortie : tableau, un barreau par ligne, puis « ELEMENT MAX : N/M ». Tout ce
@@ -110,6 +112,7 @@ while [ $# -gt 0 ]; do
         --continue)   CONTINUE=1 ;;
         --stop-after) STOP_AFTER=1 ;;
         --rebuild)    REBUILD=1 ;;
+        --4g)         LTE=1 ;;
         --only=*)     ONLY="${1#*=}" ;;
         --skip=*)     SKIP="${1#*=}" ;;
         --list)       for m in "$TESTS"/modules/[0-9]*.sh; do
@@ -171,7 +174,9 @@ for m in "$TESTS"/modules/[0-9]*.sh; do
 done
 for m in "$TESTS"/modules/[0-9]*.sh; do
     nom="$(mod_nom "$m")"
-    if [ -n "$ONLY" ] && ! liste_contient "$ONLY" "$nom"; then VERD[$nom]="SAUTE"; DET[$nom]="hors --only"; continue; fi
+    # --restart ET --only : le demarrage est toujours joue, sinon la pile n'est
+    # jamais relancee (le barreau « demarrage » ne figure pas dans la liste).
+    if [ -n "$ONLY" ] && ! liste_contient "$ONLY" "$nom" && ! { [ "$nom" = demarrage ] && [ "$RESTART" = 1 ]; }; then VERD[$nom]="SAUTE"; DET[$nom]="hors --only"; continue; fi
     if liste_contient "$SKIP" "$nom"; then VERD[$nom]="SAUTE"; DET[$nom]="--skip"; continue; fi
     MOD_CHAINE=0; MOD_OPTIONNEL=0; MOD_RELANCE_PILE=0; MOD_TIMEOUT=""
     unset -f mod_run mod_titre 2>/dev/null

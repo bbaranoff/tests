@@ -16,12 +16,21 @@ mod_run() {
     local dest="${SMS_DEST:-100102}" out mt_avant mt lignes_avant ok=0 i remis=""
     [ "$MSISDN" = "$dest" ] && dest=100101
     mt_avant="$(msc_ctr "SMS MT" 1)"; : "${mt_avant:=0}"
-    lignes_avant="$(wc -l < "$SMS_TXT" 2>/dev/null || echo 0)"
-    attendre_service 20
-    # La reponse arrive en asynchrone sur la VTY : on garde la session ouverte.
-    out="$( { printf 'enable\nsms 1 %s banc-max MO %s\n' "$dest" "$STAMP"; sleep 8; } | timeout --foreground 12 nc 127.0.0.1 "$MOB_VTY" 2>/dev/null | tr -d '\r' | sed 's/\x1b\[[0-9;]*m//g')"
-    printf '%s\n' "$out" >> "$OUT/sms-mo-vty.txt"   # >> : garder la trace de chaque essai (le 1er echoue souvent en LOS pendant le RACH)
-    printf '%s' "$out" | grep -q "SMS to $dest successful" && ok=1
+    lignes_avant="$(cat "$SMS_TXT" 2>/dev/null | wc -l)"
+    # [2026-10-03] Jusqu'a 3 envois dans le module : un « LOS during RACH request »
+    # (mobile qui perd la cellule au moment du RACH, mode dsp) rend « SMS rejected » ;
+    # on attend alors une VRAIE resynchronisation (service stable) et on renvoie, au
+    # lieu de laisser le second essai du barreau retomber dans le meme trou.
+    local essai
+    for essai in 1 2 3; do
+        attendre_service 40
+        # La reponse arrive en asynchrone sur la VTY : on garde la session ouverte.
+        out="$( { printf 'enable\nsms 1 %s banc-max MO %s\n' "$dest" "$STAMP"; sleep 8; } | timeout --foreground 12 nc 127.0.0.1 "$MOB_VTY" 2>/dev/null | tr -d '\r' | sed 's/\x1b\[[0-9;]*m//g')"
+        printf '%s\n' "$out" >> "$OUT/sms-mo-vty.txt"   # >> : garder la trace de chaque essai
+        printf '%s' "$out" | grep -q "SMS to $dest successful" && { ok=1; break; }
+        say "SMS MO rejete (essai $essai/3) : $(printf '%s' "$out" | grep -o '% SMS[^%]*' | head -1 | tr -s ' \n' ' ')"
+        sleep 3
+    done
     for i in $(seq 1 10); do
         mt="$(msc_ctr "SMS MT" 1)"
         [ -n "$mt" ] && [ "$mt" -gt "$mt_avant" ] 2>/dev/null && { remis="MT delivered $mt_avant->$mt"; break; }
