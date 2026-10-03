@@ -1,6 +1,6 @@
 """couche 1 dsp — c54x_exe (mask-ROM TI) : dsp.log de c54x_exe/run.sh, montant.c, pont_dsp.py.
-Les points ouverts du README (B_BFI, SACCH en TCH, marge temps reel) sont des xfail : on les
-mesure a chaque run, on ne les fait pas passer d'office."""
+Le B_BFI de la parole (juste depuis qosmo a19dde59, MVKD/MVDK sous RPT) et la marge temps reel
+(4.6 ms pour 4.62 ms) passaient en xpassed : ce sont maintenant des tests ordinaires."""
 import re
 
 import pytest
@@ -57,7 +57,6 @@ def test_bascule_tch_suit_le_firmware():
     assert banc.count("dsp", r"\[montant\] TCH : le firmware poste la tache") >= 1, "le BSP n'a pas bascule sur le TCH"
 
 
-@pytest.mark.xfail(strict=False, reason="README c54x_exe : B_BFI sur toute la parole, point ouvert n°1")
 def test_parole_descendante_pas_toute_bfi():
     banc.require_log("dsp")
     ln = banc.last("dsp", r"\[a_dd\]")
@@ -69,7 +68,6 @@ def test_parole_descendante_pas_toute_bfi():
     assert bfi < vues, f"toutes les trames TCH/F marquees BFI ({bfi}/{vues})"
 
 
-@pytest.mark.xfail(strict=False, reason="README c54x_exe : 4.3-4.6 ms de travail DSP pour 4.62 ms")
 def test_marge_temps_reel():
     banc.require_log("dsp")
     ln = banc.last("dsp", r"\[chrono\]")

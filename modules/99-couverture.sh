@@ -90,7 +90,7 @@ ASSIGNMENT COMMAND (TCH);pont annonce au DSP;pont;ASSIGNMENT COMMAND : TCH;ASSIG
 bascule BSP -> TCH;ROM TI suit la tache TCHT/TCHA du firmware;dsp;\[montant\] TCH : le firmware poste la tache;;
 ASSIGNMENT COMPLETE;mobile -> pont;mobile;ASSIGNMENT COMPLETE (cause;ASSIGNMENT FAILURE;le pont ne suffixe pas sa ligne FACCH (uplink.py:275), preuve lue chez le mobile
 TCH/F descendant : decodage canal;ROM TI (Viterbi);dsp;\[a_dd\];;
-TCH/F descendant : qualite (B_BFI);ROM TI;dsp;;bfi=[1-9];README : B_BFI sur toute la parole, point ouvert n°1
+TCH/F descendant : qualite (B_BFI);ROM TI;dsp;\[a_dd\].*BFI=0;bfi=[1-9];B_BFI juste depuis qosmo a19dde59 (MVKD/MVDK sous RPT) : restent les trames vraiment mauvaises (c214) et les vols FACCH (8084), masquees par layer1.highram_patched
 FACCH montant;firmware -> montant.c;dsp;\[montant\] FACCH UL;FACCH montante ECARTEE;
 SACCH montant en TCH;firmware -> montant.c;dsp;\[montant\] SACCH UL;Radio link lost signal\|LOS during dedicated;README : correctif MVKD/MVDK, point ouvert n°2
 garde MVKD/MVDK;qosmo c54x_exec.c;qemu;;\[garde-3d89\];une ligne = la garde a joue
@@ -130,7 +130,7 @@ SB/SCH : decodage, BSIC;ROM (a_sch) sinon SB en conserve;dsp;CRC_OK;\[can-sb\];c
 descendant : BCCH/CCCH/SDCCH/SACCH;ROM (a_cd lu par le firmware);dsp;\[a_cd\];;SACCH/8 souvent FIRE KO (rapport 2026-10-03)
 descendant : IMMEDIATE ASSIGNMENT;ROM + retouche hote de la reference (qosmo calypso_trx.c);qemu;;IMM ASS ra=.*reference;l'hote reecrit la reference de requete lue dans a_cd
 descendant : FACCH/F;ROM (a_fd);dsp;\[a_fd\];;
-descendant : TCH/F parole;ROM (a_dd, Viterbi, lu tel quel par le firmware);dsp;\[a_dd\];;B_BFI pose a tort sur toute la parole (le firmware l'ignore) ; bit-exactitude mesuree le 2026-09-30, a re-mesurer
+descendant : TCH/F parole;ROM (a_dd, Viterbi, lu tel quel par le firmware);dsp;\[a_dd\];;B_BFI juste (qosmo a19dde59), trames B_BFI masquees par layer1.highram_patched ; trames c200 identiques a la reference (2023/2025, 2026-10-03)
 descendant : A5;ROM + coprocesseur A5 modelise (calypso_a5.c);dsp;\[a5\] .*A5/;;le pont ne dechiffre pas (PONT_DSP_DECHIFFRE=0)
 montant : RACH;hote : montant.c lit d_rach, pont code (gsm.rach_burst);pont;;rach=[1-9];calypso_bsp_tx_rach_burst = code mort
 montant : SDCCH/SACCH codage canal;ROM (bursts 0x3f8a, rom-ul) sinon hote;pont;xCCH ul rom=[1-9];xCCH ul rom=[0-9]* hote=[1-9];MIXTE = des blocs repartis codes par l'hote (bursts ROM absents ou sans CRC)
