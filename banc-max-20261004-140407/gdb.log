@@ -1,0 +1,1 @@
+14:04:50 ecoute telnet 127.0.0.1:44444 -> gdbstub :1234 (gdb-multiarch, elf=/opt/GSM/firmware/board/compal_e88/layer1.highram_patched.elf)

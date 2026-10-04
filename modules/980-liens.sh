@@ -82,10 +82,73 @@ _ep_appel() {   # $1 = source, $2 = destination
     return $ok
 }
 
+# ── BTS#1 : le side-car qui porte op1-ms2 ───────────────────────────────────
+# [2026-10-04] Il est mort EN COURS de campagne (« PC clock skew too high » a
+# 00:00:17), entre les paires d'op1-ms1 - toutes OK - et celles d'op1-ms2 -
+# toutes « source hors service ». qosmo (59-sidecar-bts.sh) ne le surveille
+# qu'au demarrage : personne ne le relancait, et la matrice accusait le mobile.
+# Avant chaque paire qui touche op1-ms2 : s'il est mort, on le relance par le
+# runner qosmo - meme module, memes essais, meme priorite temps reel - et on
+# attend que MS#2 se recale. La relance est ecrite dans la matrice et dans le
+# verdict : on mesure les liens, on ne cache pas la panne.
+#   BTS1_RELANCES_MAX=2   relances au plus par campagne (0 = jamais)
+#   BTS1_RECALE_MAX=120   secondes laissees a MS#2 pour revenir en service
+QOSMO_RUN="${QOSMO_RUN:-/opt/GSM/qosmo/run.sh}"
+_qosmo_vivant() {   # $1 = module qosmo (son pid dans RUN_DIR), $2 = motif de sa ligne de commande
+    local pid; pid="$(cat "$(dirname "$LOGDIR")/$1.pid" 2>/dev/null)"
+    tr '\0' ' ' 2>/dev/null < "/proc/${pid:-0}/cmdline" | grep -q -- "$2"
+}
+# Mort = la chaine du side-car tourne (son fake_trx) mais plus son BTS. Sans
+# fake_trx, ce montage n'a pas de side-car : rien a relancer.
+_bts1_mort() { _qosmo_vivant sidecar-faketrx fake_trx && ! _qosmo_vivant sidecar-bts osmo-bts-trx; }
+_bts1_assure() {   # $1 = indice du point op1-ms2 ; rend 1 si MS#2 reste sans cellule ($BTS1_HS dit pourquoi)
+    [ -n "$BTS1_HS" ] && return 1     # deja tente sans succes : on n'insiste pas a chaque paire
+    _bts1_mort || return 0
+    local raison t0 bon=0 need="${SERVICE_STABLE:-4}"
+    # « reason: PC clock skew too high (bts_shutdown_fsm.c:268) », en couleur
+    raison="$(sed 's/\x1b\[[0-9;]*m//g' "$LOGDIR/sidecar-bts.log" 2>/dev/null \
+        | sed -n 's/.*Shutting down BTS.*reason: //p' | sed 's/ *([^()]*\.c:[0-9]*) *$//' | tail -1)"
+    raison="${raison:-cause inconnue}"
+    if [ "$BTS1_RELANCES" -ge "${BTS1_RELANCES_MAX:-2}" ]; then
+        BTS1_HS="BTS#1 mort ($raison), relances epuisees"; return 1
+    fi
+    BTS1_RELANCES=$((BTS1_RELANCES + 1)); BTS1_RAISONS="${BTS1_RAISONS:+$BTS1_RAISONS ; }$raison"
+    # le module vide sidecar-bts.log en relancant : la mort est gardee d'abord
+    tail -n 40 "$LOGDIR/sidecar-bts.log" > "$OUT/liens-bts1-mort-$BTS1_RELANCES.log" 2>/dev/null
+    say "BTS#1 mort ($raison) : relance $BTS1_RELANCES/${BTS1_RELANCES_MAX:-2} par qosmo"
+    t0=$SECONDS
+    # --only : faketrx et bsc sont cites pour que le runner tienne les
+    # dependances du BTS#1 pour satisfaites ; leurs propres dependances n'etant
+    # pas dans la liste, il les saute sans jamais les relancer (verifie en
+    # --dry-run). --force : la mort est constatee ici, sur la ligne de commande,
+    # pas sur un pid que le systeme aurait pu recycler.
+    ( cd "$(dirname "$QOSMO_RUN")" && NO_COLOR=1 CALYPSO_NO_ATTACH=1 \
+        RUN_DIR="$(dirname "$LOGDIR")" LOG_DIR="$LOGDIR" \
+        "$QOSMO_RUN" --only sidecar-faketrx,bsc,sidecar-bts --force --no-attach ) >> "$OUT/liens-bts1.log" 2>&1
+    if ! _qosmo_vivant sidecar-bts osmo-bts-trx; then
+        BTS1_HS="BTS#1 mort ($raison), relance echouee"
+    else
+        while [ $((SECONDS - t0)) -lt "${BTS1_RECALE_MAX:-120}" ]; do
+            if _ep_en_service "$1" 1; then bon=$((bon + 1)); [ "$bon" -ge "$need" ] && break
+            else bon=0; sleep 1; fi
+        done
+        [ "$bon" -ge "$need" ] || BTS1_HS="BTS#1 relance, MS#2 hors service apres ${BTS1_RECALE_MAX:-120}s"
+    fi
+    if [ -n "$BTS1_HS" ]; then
+        say "$BTS1_HS (liens-bts1.log)"
+        printf 'BTS#1 : %s\n' "$BTS1_HS" >> "$OUT/liens-matrice.txt"
+        return 1
+    fi
+    say "BTS#1 relance : MS#2 de nouveau en service apres $((SECONDS - t0))s"
+    printf 'BTS#1 : mort (%s), relance %s, MS#2 en service apres %ss\n' "$raison" "$BTS1_RELANCES" "$((SECONDS - t0))" >> "$OUT/liens-matrice.txt"
+    return 0
+}
+
 mod_run() {
     if [ "$MULTI" != 1 ]; then verdict liens SAUTE "sans --multi"; return; fi
     local -a EP_NOM=() EP_CONT=() EP_PORT=() EP_MSISDN=()
-    local c p ko="" n_sms=0 ok_sms=0 n_call=0 ok_call=0 i j mat="$OUT/liens-matrice.txt" ss7_ko=""
+    local c p ko="" n_sms=0 ok_sms=0 n_call=0 ok_call=0 i j mat="$OUT/liens-matrice.txt" ss7_ko="" ms2=""
+    local BTS1_RELANCES=0 BTS1_RAISONS="" BTS1_HS=""
     : > "$OUT/liens-vty.txt"; : > "$mat"
     # ── les points ──
     _ep_ajoute "op1-ms1" "" "$MOB_VTY"
@@ -97,6 +160,7 @@ mod_run() {
     done
     # nom lisible : « op2-ms:4248 »
     for i in "${!EP_NOM[@]}"; do case "${EP_NOM[$i]}" in op*) ;; *) EP_NOM[$i]="op${EP_NOM[$i]}" ;; esac; done
+    for i in "${!EP_NOM[@]}"; do [ "${EP_NOM[$i]}" = op1-ms2 ] && ms2="$i"; done
     if [ "${#EP_NOM[@]}" -lt 2 ]; then verdict liens ECHEC "moins de 2 mobiles joignables (${#EP_NOM[@]})"; return; fi
     # ── le SS7 de chaque operateur : l'ASP vers le hub doit etre ACTIVE ──
     local asp
@@ -112,17 +176,21 @@ mod_run() {
     for i in "${!EP_NOM[@]}"; do
         for j in "${!EP_NOM[@]}"; do
             [ "$i" = "$j" ] && continue
-            local r_sms r_call="-"
+            local r_sms r_call="-" bts1=""
+            if [ -n "$ms2" ] && { [ "$i" = "$ms2" ] || [ "$j" = "$ms2" ]; }; then
+                _bts1_assure "$ms2" || bts1="$BTS1_HS"
+            fi
             n_sms=$((n_sms+1))
             if _ep_sms "$i" "$j"; then r_sms=OK; ok_sms=$((ok_sms+1)); else r_sms=ECHEC; ko="$ko sms(${EP_NOM[$i]}>${EP_NOM[$j]})"; fi
             if [ "${LIENS_SMS_ONLY:-0}" != 1 ] && { [ "${LIENS_FULL:-0}" = 1 ] || [ "$i" -lt "$j" ]; }; then
                 n_call=$((n_call+1))
                 if _ep_appel "$i" "$j"; then r_call="OK($LIEN_CC)"; ok_call=$((ok_call+1)); else r_call="ECHEC($LIEN_CC)"; ko="$ko appel(${EP_NOM[$i]}>${EP_NOM[$j]}:$LIEN_CC)"; fi
             fi
-            printf '%-14s -> %-14s %-8s sms=%-6s appel=%s\n' "${EP_NOM[$i]}" "${EP_NOM[$j]}" "${EP_MSISDN[$j]}" "$r_sms" "$r_call" >> "$mat"
-            say "${EP_NOM[$i]} -> ${EP_NOM[$j]} : sms $r_sms, appel $r_call"
+            printf '%-14s -> %-14s %-8s sms=%-6s appel=%s%s\n' "${EP_NOM[$i]}" "${EP_NOM[$j]}" "${EP_MSISDN[$j]}" "$r_sms" "$r_call" "${bts1:+  [$bts1]}" >> "$mat"
+            say "${EP_NOM[$i]} -> ${EP_NOM[$j]} : sms $r_sms, appel $r_call${bts1:+ [$bts1]}"
         done
     done
     local res="${#EP_NOM[@]} mobiles, sms $ok_sms/$n_sms, appels $ok_call/$n_call"
+    [ "$BTS1_RELANCES" -gt 0 ] && res="$res, BTS#1 relance ${BTS1_RELANCES}x ($BTS1_RAISONS)"
     [ -z "$ko" ] && verdict liens OK "$res (liens-matrice.txt)" || verdict liens ECHEC "$res :$(printf '%s' "$ko" | cut -c1-110) (liens-matrice.txt)"
 }

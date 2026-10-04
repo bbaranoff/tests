@@ -1,0 +1,110 @@
+Sun Oct  4 14:04:27 2026 <0003> telnet_interface.c:88 Available via telnet 127.0.0.1 4243
+[38;5;33mSun Oct  4 14:04:27 2026 <000a> control_if.c:1026 CTRL at 127.0.0.1 4267[0;m
+[38;5;51mSun Oct  4 14:04:27 2026 <0013> mgw_main.c:412 Configured for MGCP, listen on 127.0.0.1:2427[0;m
+[38;5;51mSun Oct  4 14:06:25 2026 <0013> mgcp_trunk.c:231 missing domain name in endpoint name "all", expecting "mgw"[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/1@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/1@mgw CI:FD4BD367 CRCX: connection successfully created: (6/rtp C:FD4BD367 r=NULL:0<->l=127.0.0.1:4002)[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/1@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/1@mgw CI:67B103C7 CRCX: connection successfully created: (6/rtp C:67B103C7 r=NULL:0<->l=127.0.0.1:4004)[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/2@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/2@mgw CI:567C880E CRCX: connection successfully created: (8/rtp C:567C880E r=NULL:0<->l=127.0.0.1:4006)[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/2@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_sdp.c:432 rtpbridge/2@mgw: Got media info via SDP: port:16384, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:07:59 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/2@mgw CI:567C880E MDCX: connection successfully modified: (8/rtp C:567C880E r=127.0.0.1:16384<->l=127.0.0.1:4006)[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/2@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_sdp.c:432 rtpbridge/2@mgw: Got media info via SDP: port:4004, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/2@mgw CI:46CF8939 CRCX: connection successfully created: (8/rtp C:46CF8939 r=127.0.0.1:4004<->l=127.0.0.1:4008)[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/1@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_sdp.c:432 rtpbridge/1@mgw: Got media info via SDP: port:4008, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/1@mgw CI:67B103C7 MDCX: connection successfully modified: (6/rtp C:67B103C7 r=127.0.0.1:4008<->l=127.0.0.1:4004)[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/1@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_sdp.c:432 rtpbridge/1@mgw: Got media info via SDP: port:30140, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:00 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/1@mgw CI:FD4BD367 MDCX: connection successfully modified: (6/rtp C:FD4BD367 r=127.0.0.1:30140<->l=127.0.0.1:4002)[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/1@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/1@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/1@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/1@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/2@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/2@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/2@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:08:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/2@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/1@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/1@mgw CI:50828D9D CRCX: connection successfully created: (7/rtp C:50828D9D r=NULL:0<->l=127.0.0.1:4010)[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/1@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/1@mgw CI:B0E9FDD1 CRCX: connection successfully created: (7/rtp C:B0E9FDD1 r=NULL:0<->l=127.0.0.1:4012)[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/2@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/2@mgw CI:3C410DED CRCX: connection successfully created: (9/rtp C:3C410DED r=NULL:0<->l=127.0.0.1:4014)[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/2@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_sdp.c:432 rtpbridge/2@mgw: Got media info via SDP: port:16386, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:22 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/2@mgw CI:3C410DED MDCX: connection successfully modified: (9/rtp C:3C410DED r=127.0.0.1:16386<->l=127.0.0.1:4014)[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/2@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_sdp.c:432 rtpbridge/2@mgw: Got media info via SDP: port:4012, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/2@mgw CI:9A8E667B CRCX: connection successfully created: (9/rtp C:9A8E667B r=127.0.0.1:4012<->l=127.0.0.1:4016)[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/1@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_sdp.c:432 rtpbridge/1@mgw: Got media info via SDP: port:4016, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/1@mgw CI:B0E9FDD1 MDCX: connection successfully modified: (7/rtp C:B0E9FDD1 r=127.0.0.1:4016<->l=127.0.0.1:4012)[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/1@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_sdp.c:432 rtpbridge/1@mgw: Got media info via SDP: port:30048, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:08:23 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/1@mgw CI:50828D9D MDCX: connection successfully modified: (7/rtp C:50828D9D r=127.0.0.1:30048<->l=127.0.0.1:4010)[0;m
+[1;30mSun Oct  4 14:08:45 2026 <0000> mgcp_network.c:288 endpoint:rtpbridge/1@mgw The input timestamp has an alignment error of 8 on SSRC: 976115326 SeqNo delta: 1, TS delta: 1775363368, dTS/dSeq: 1775363368 from 127.0.0.1:30048. ptime: 160[0;m
+[1;30mSun Oct  4 14:08:45 2026 <0000> mgcp_network.c:389 endpoint:rtpbridge/1@mgw Corrected timestamp alignment error of 8 on SSRC: 976115326 new TS offset: 152, from 127.0.0.1:30048[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/1@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/1@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/1@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/1@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/2@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/2@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/2@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:09 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/2@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/1@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/1@mgw CI:61C3D9F4 CRCX: connection successfully created: (a/rtp C:61C3D9F4 r=NULL:0<->l=127.0.0.1:4018)[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/1@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/1@mgw CI:866A2715 CRCX: connection successfully created: (a/rtp C:866A2715 r=NULL:0<->l=127.0.0.1:4020)[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/2@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/2@mgw CI:BDEB0F3C CRCX: connection successfully created: (c/rtp C:BDEB0F3C r=NULL:0<->l=127.0.0.1:4022)[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/2@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_sdp.c:432 rtpbridge/2@mgw: Got media info via SDP: port:16388, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:34 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/2@mgw CI:BDEB0F3C MDCX: connection successfully modified: (c/rtp C:BDEB0F3C r=127.0.0.1:16388<->l=127.0.0.1:4022)[0;m
+[38;5;51mSun Oct  4 14:09:35 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/2@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:35 2026 <0013> mgcp_sdp.c:432 rtpbridge/2@mgw: Got media info via SDP: port:4020, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:35 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/2@mgw CI:6CF0BD64 CRCX: connection successfully created: (c/rtp C:6CF0BD64 r=127.0.0.1:4020<->l=127.0.0.1:4024)[0;m
+[38;5;51mSun Oct  4 14:09:35 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/1@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:09:35 2026 <0013> mgcp_sdp.c:432 rtpbridge/1@mgw: Got media info via SDP: port:4024, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:35 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/1@mgw CI:866A2715 MDCX: connection successfully modified: (a/rtp C:866A2715 r=127.0.0.1:4024<->l=127.0.0.1:4020)[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/3@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/3@mgw CI:0D005D8E CRCX: connection successfully created: (b/rtp C:0D005D8E r=NULL:0<->l=127.0.0.1:4026)[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/3@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/3@mgw CI:45865455 CRCX: connection successfully created: (b/rtp C:45865455 r=NULL:0<->l=127.0.0.1:4028)[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/4@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/4@mgw CI:9E9D64A4 CRCX: connection successfully created: (d/rtp C:9E9D64A4 r=NULL:0<->l=127.0.0.1:4030)[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/4@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_sdp.c:432 rtpbridge/4@mgw: Got media info via SDP: port:16384, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:37 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/4@mgw CI:9E9D64A4 MDCX: connection successfully modified: (d/rtp C:9E9D64A4 r=127.0.0.1:16384<->l=127.0.0.1:4030)[0;m
+[38;5;51mSun Oct  4 14:09:38 2026 <0013> mgcp_protocol.c:628 endpoint:rtpbridge/4@mgw CRCX: creating new connection ...[0;m
+[38;5;51mSun Oct  4 14:09:38 2026 <0013> mgcp_sdp.c:432 rtpbridge/4@mgw: Got media info via SDP: port:4028, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:38 2026 <0013> mgcp_protocol.c:772 endpoint:rtpbridge/4@mgw CI:FA9C58A8 CRCX: connection successfully created: (d/rtp C:FA9C58A8 r=127.0.0.1:4028<->l=127.0.0.1:4032)[0;m
+[38;5;51mSun Oct  4 14:09:38 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/3@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:09:38 2026 <0013> mgcp_sdp.c:432 rtpbridge/3@mgw: Got media info via SDP: port:4032, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:38 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/3@mgw CI:45865455 MDCX: connection successfully modified: (b/rtp C:45865455 r=127.0.0.1:4032<->l=127.0.0.1:4028)[0;m
+[38;5;51mSun Oct  4 14:09:39 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/3@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:09:39 2026 <0013> mgcp_sdp.c:432 rtpbridge/3@mgw: Got media info via SDP: port:30192, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m8=PCMA[0;m[38;5;51m [0;m[38;5;51m0=PCMU[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:39 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/3@mgw CI:0D005D8E MDCX: connection successfully modified: (b/rtp C:0D005D8E r=127.0.0.1:30192<->l=127.0.0.1:4026)[0;m
+[38;5;51mSun Oct  4 14:09:39 2026 <0013> mgcp_protocol.c:878 endpoint:rtpbridge/1@mgw MDCX: modifying existing connection ...[0;m
+[38;5;51mSun Oct  4 14:09:39 2026 <0013> mgcp_sdp.c:432 rtpbridge/1@mgw: Got media info via SDP: port:30182, addr:127.0.0.1, duration:20, payload-types:[0;m[38;5;51m3=GSM[0;m[38;5;51m [0;m[38;5;51m[0;m
+[38;5;51mSun Oct  4 14:09:39 2026 <0013> mgcp_protocol.c:976 endpoint:rtpbridge/1@mgw CI:61C3D9F4 MDCX: connection successfully modified: (a/rtp C:61C3D9F4 r=127.0.0.1:30182<->l=127.0.0.1:4018)[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/1@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/1@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/1@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/1@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/2@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/2@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/2@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/2@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/3@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/3@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/3@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/3@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/4@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/4@mgw DLCX: connection successfully deleted[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1051 endpoint:rtpbridge/4@mgw DLCX: deleting connection(s) ...[0;m
+[38;5;51mSun Oct  4 14:09:48 2026 <0013> mgcp_protocol.c:1137 endpoint:rtpbridge/4@mgw DLCX: connection successfully deleted[0;m

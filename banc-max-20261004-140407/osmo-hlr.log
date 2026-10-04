@@ -1,0 +1,10 @@
+20261004140427383 [1;33mNOTICE[0;m <0000> hlr.c:812 hlr starting
+[1;31m20261004140427383 [1;33mNOTICE[0;m[1;31m <0001> db.c:600 using database: /var/lib/osmocom/hlr.db[0;m
+[1;31m20261004140427383 [1;33mNOTICE[0;m[1;31m <0001> db.c:679 Database '/var/lib/osmocom/hlr.db' has HLR DB schema version 7[0;m
+20261004140427383 [1;33mNOTICE[0;m <0009> telnet_interface.c:88 Available via telnet 127.0.0.1 4258
+[38;5;33m20261004140427383 [1;33mNOTICE[0;m[38;5;33m <0010> control_if.c:1026 CTRL at 127.0.0.1 4259[0;m
+[38;5;23m20261004140428008 [1;33mNOTICE[0;m[38;5;23m <000b> input/ipa.c:321 127.0.0.2:4222 accept()ed new link from 127.0.0.1:42273[0;m
+[38;5;23m20261004140429044 [1;33mNOTICE[0;m[38;5;23m <000b> input/ipa.c:321 127.0.0.2:4222 accept()ed new link from 127.0.0.1:36669[0;m
+[38;5;23m20261004140430711 [1;33mNOTICE[0;m[38;5;23m <000b> input/ipa.c:321 127.0.0.2:4222 accept()ed new link from 127.0.0.1:38376[0;m
+[38;5;23m20261004140430711 [1;31mERROR[0;m[38;5;23m <000b> input/ipa.c:415 127.0.0.1:38376 connection closed with server[0;m
+[38;5;23m20261004140433720 [1;33mNOTICE[0;m[38;5;23m <000b> input/ipa.c:321 127.0.0.2:4222 accept()ed new link from 127.0.0.1:38121[0;m

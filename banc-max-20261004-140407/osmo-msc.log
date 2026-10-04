@@ -1,0 +1,184 @@
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_instance.c:98 0: Creating SS7 Instance[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_route_table.c:62 0: Creating Route Table system[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_asp_vty.c:673 0: ASP(asp-to-stp) Applying Adm State change: ENABLED -> ENABLED[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_asp.c:892 0: ASP(asp-to-stp) Restarting ASP asp-to-stp, r=127.0.0.2:2905<->l=127.0.0.1:2906[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_instance.c:380 0: AS(as-msc) Created AS[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_as.c:185 0: AS(as-msc) Adding ASP asp-to-stp to AS[0;m
+[1;39mSun Oct  4 14:04:28 2026 <0007> mncc_sock.c:300 MNCC socket at /tmp/msc_mncc[0;m
+Sun Oct  4 14:04:28 2026 <0017> telnet_interface.c:88 Available via telnet 127.0.0.1 4254
+Sun Oct  4 14:04:28 2026 <000f> smpp_smsc.c:990 SMPP at 0.0.0.0 2775
+[38;5;33mSun Oct  4 14:04:28 2026 <001e> control_if.c:1026 CTRL at 127.0.0.1 4255[0;m
+[38;5;39mSun Oct  4 14:04:28 2026 <0021> gsup_client.c:77 GSUP connecting to 127.0.0.2:4222[0;m
+Sun Oct  4 14:04:28 2026 <000c> db.c:518 Init database connection to 'sms.db' using SQLite3 lib version 3.45.1
+[38;5;51mSun Oct  4 14:04:28 2026 <0027> mgcp_client.c:945 MGW(mgw) MGCP client: using endpoint domain '@mgw'[0;m
+Sun Oct  4 14:04:28 2026 <0009> msc_main.c:576 MGW pool with 1 pool members configured, (ignoring MGW configuration in VTY node 'msc').
+[38;5;45mSun Oct  4 14:04:28 2026 <0024> sccp_instance.c:655 OsmoMSC-A: Using SS7 instance 0, pc:1.1.1[0;m
+[38;5;45mSun Oct  4 14:04:28 2026 <0024> sccp_instance.c:673 OsmoMSC-A: Using AS instance as-msc[0;m
+[38;5;45mSun Oct  4 14:04:28 2026 <0024> sccp_instance.c:679 OsmoMSC-A: Creating default route[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_route.c:143 0: RT(dpc=0=0.0.0,mask=0x0=0.0.0,prio=5,via=as-msc,st=available) Creating route: pc=0=0.0.0 mask=0x0=0.0.0 prio=5 dyn via AS as-msc proto=m3ua[0;m
+[38;5;45mSun Oct  4 14:04:28 2026 <0024> sccp_instance.c:784 OsmoMSC-A: Using ASP instance asp-to-stp[0;m
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_instance.c:214 0: Creating SCCP instance[0;m
+Sun Oct  4 14:04:28 2026 <0014> sgs_server.c:186 SGs socket bound to r=NULL<->l=127.0.0.1:29118
+Sun Oct  4 14:04:28 2026 <0009> msc_main.c:790 A-interface: SCCP user OsmoMSC-A:RI=SSN_PC,PC=(no PC),SSN=BSSAP, cs7-instance 0 ((null))
+[38;5;43mSun Oct  4 14:04:28 2026 <0023> ss7_asp.c:1202 0: ASP(asp-to-stp) Client connected (r=127.0.0.2:2905<->l=127.0.0.1:2906)[0;m
+[38;5;23mSun Oct  4 14:04:28 2026 <0019> input/ipa.c:144 127.0.0.2:4222 connection done[0;m
+[38;5;23mSun Oct  4 14:04:28 2026 <0019> input/ipa.c:617 received ID_GET for unit ID 0/0/0[0;m
+[38;5;43mSun Oct  4 14:04:29 2026 <0023> ss7_asp.c:998 0: ASP(asp-to-stp) xUA CLNT SCTP NOTIFICATION 32770 flags=0x0[0;m
+[38;5;43mSun Oct  4 14:04:29 2026 <0023> ss7_asp.c:1014 0: ASP(asp-to-stp) xUA CLNT SCTP_PEER_ADDR_CHANGE: ADDR_CONFIRMED 127.0.0.1:2905 err=None[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> xua_rkm.c:477 0: ASP(asp-to-stp) Received RKM REG RES rctx=110 status=SUCCESS[0;m
+[38;5;49mSun Oct  4 14:04:30 2026 <0026> m3ua.c:707 0: ASP(asp-to-stp) Received NOTIFY Type State Change:AS Inactive ()[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> xua_as_fsm.c:430 0: AS(as-msc) AS became active, some routes to remote PCs may have become available[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> xua_as_fsm.c:471 0: AS(as-msc) AS became active => address-book pc=2059=1.1.3 is now available[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> ss7_route.c:143 0: RT(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5,via=as-msc,st=available) Creating route: pc=2059=1.1.3 mask=0x3fff=7.255.7 prio=5 dyn via AS as-msc proto=m3ua[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> ss7_route.c:409 0: RT(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5,via=as-msc,st=available) changed to status 'available'[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> xua_default_lm_fsm.c:406 xua_default_lm(asp-to-stp)[0x57cdb7ad9580]{ACTIVE}: Ignoring primitive M-ASP_ACTIVE.confirm[0;m
+[38;5;49mSun Oct  4 14:04:30 2026 <0026> m3ua.c:707 0: ASP(asp-to-stp) Received NOTIFY Type State Change:AS Active ()[0;m
+[38;5;49mSun Oct  4 14:04:30 2026 <0026> xua_snm.c:501 0: ASP(asp-to-stp) Rx DUNA(RFC4666 4.5.1) for 1.1.2/0[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> ss7_route.c:143 0: RT(dpc=2058=1.1.2,mask=0x3fff=7.255.7,prio=5,via=as-msc,st=available) Creating route: pc=2058=1.1.2 mask=0x3fff=7.255.7 prio=5 dyn via AS as-msc proto=m3ua[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> ss7_route.c:409 0: RT(dpc=2058=1.1.2,mask=0x3fff=7.255.7,prio=5,via=as-msc,st=available) changed to status 'unavailable'[0;m
+[38;5;49mSun Oct  4 14:04:30 2026 <0026> xua_snm.c:536 0: ASP(asp-to-stp) Rx DAVA() for 1.1.3/0[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> ss7_route.c:409 0: RT(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5,via=as-msc,st=available) changed to status 'available'[0;m
+[38;5;43mSun Oct  4 14:04:30 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=0 -> eSLS=32: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;39mSun Oct  4 14:04:30 2026 <0007> mncc_sock.c:257 MNCC Socket has connection with external call control application[0;m
+[38;5;43mSun Oct  4 14:04:52 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=1 -> eSLS=33: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;38mSun Oct  4 14:04:52 2026 <0008> ran_peer.c:123 ran_peer(GERAN-A:RI-SSN_PC:PC-1-1-3:SSN-BSSAP)[0x57cdb7c6b5c0]{READY}: Added seen cell to this RAN peer: CGI:001-01-1-6012[0;m
+Sun Oct  4 14:04:54 2026 <0009> gsm_04_08.c:1548 msub(IMSI-001010001000002:MSISDN-100102) VLR: update for IMSI=001010001000002 (MSISDN=100102)
+Sun Oct  4 14:04:54 2026 <0009> gsm_04_08.c:1548 msub(IMSI-001010001000002:MSISDN-100102:TMSInew-0x9DF346FB) VLR: update for IMSI=001010001000002 (MSISDN=100102)
+Sun Oct  4 14:04:55 2026 <0009> gsm_04_08.c:1548 msub(IMSI-001010001000002:MSISDN-100102:TMSI-0x9DF346FB) VLR: update for IMSI=001010001000002 (MSISDN=100102)
+[38;5;43mSun Oct  4 14:04:58 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=2 -> eSLS=34: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;38mSun Oct  4 14:04:58 2026 <0008> ran_peer.c:123 ran_peer(GERAN-A:RI-SSN_PC:PC-1-1-3:SSN-BSSAP)[0x57cdb7c6b5c0]{READY}: Added seen cell to this RAN peer: CGI:001-01-1-6001[0;m
+Sun Oct  4 14:05:01 2026 <0009> gsm_04_08.c:1548 msub(IMSI-001010001000001:MSISDN-100101) VLR: update for IMSI=001010001000001 (MSISDN=100101)
+Sun Oct  4 14:05:01 2026 <0009> gsm_04_08.c:1548 msub(IMSI-001010001000001:MSISDN-100101:TMSInew-0x9446A39C) VLR: update for IMSI=001010001000001 (MSISDN=100101)
+Sun Oct  4 14:05:02 2026 <0009> gsm_04_08.c:1548 msub(IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C) VLR: update for IMSI=001010001000001 (MSISDN=100101)
+[38;5;43mSun Oct  4 14:06:50 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=3 -> eSLS=35: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:94 SMC(0) instance created for network[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smr.c:90 SMR(0) instance created for network.[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-EST-IND (CP DATA) received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:291 SMC(0) received CP-DATA[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state IDLE -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smr.c:487 SMR(0) message MNSMS-EST-IND received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state IDLE -> WAIT_TO_TX_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smr.c:420 SMR(0) message SM-RL-REPORT_REQ received in state WAIT_TO_TX_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state WAIT_TO_TX_RP_ACK -> IDLE[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-DATA-REQ received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:188 SMC(0) send CP data[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-REL-REQ received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:52 2026 <001d> gsm0411_smc.c:338 SMC(0) cannot release yet current state: WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm0411_smc.c:94 SMC(0) instance created for network[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm0411_smr.c:90 SMR(0) instance created for network.[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm_04_11.c:1195 trans(SMS IMSI-001010001000002:MSISDN-100102:TMSI-0x9DF346FB callref-0x40000002 tid-0) Going to send a MT SMS[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm0411_smr.c:420 SMR(0) message SM-RL-DATA_REQ received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state IDLE -> WAIT_FOR_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-EST-REQ received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:06:53 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state IDLE -> MM_CONN_PENDING[0;m
+[38;5;43mSun Oct  4 14:06:53 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=4 -> eSLS=36: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP ACK) received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:263 SMC(0) received CP-ACK[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state WAIT_CP_ACK -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:274 SMC(0) we have pending release.[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> IDLE[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smr.c:98 SMR(0) clearing SMR instance[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:102 SMC(0) clearing instance[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-EST-CNF received in state MM_CONN_PENDING[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:188 SMC(0) send CP data[0;m
+[38;5;31mSun Oct  4 14:06:54 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_CONN_PENDING -> WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:55 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP ACK) received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:55 2026 <001d> gsm0411_smc.c:263 SMC(0) received CP-ACK[0;m
+[38;5;31mSun Oct  4 14:06:55 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state WAIT_CP_ACK -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP DATA) received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smc.c:291 SMC(0) received CP-DATA[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smr.c:487 SMR(0) message MNSMS-DATA-IND received in state WAIT_FOR_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state WAIT_FOR_RP_ACK -> IDLE[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-REL-REQ received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> IDLE[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smr.c:98 SMR(0) clearing SMR instance[0;m
+[38;5;31mSun Oct  4 14:06:56 2026 <001d> gsm0411_smc.c:102 SMC(0) clearing instance[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm0411_smc.c:94 SMC(0) instance created for network[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm0411_smr.c:90 SMR(0) instance created for network.[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm_04_11.c:1195 trans(SMS IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C callref-0x40000003 tid-0) Going to send a MT SMS[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm0411_smr.c:420 SMR(0) message SM-RL-DATA_REQ received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state IDLE -> WAIT_FOR_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-EST-REQ received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:07:04 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state IDLE -> MM_CONN_PENDING[0;m
+[38;5;43mSun Oct  4 14:07:05 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=5 -> eSLS=37: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;31mSun Oct  4 14:07:06 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-EST-CNF received in state MM_CONN_PENDING[0;m
+[38;5;31mSun Oct  4 14:07:06 2026 <001d> gsm0411_smc.c:188 SMC(0) send CP data[0;m
+[38;5;31mSun Oct  4 14:07:06 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_CONN_PENDING -> WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP ACK) received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:263 SMC(0) received CP-ACK[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state WAIT_CP_ACK -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP DATA) received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:291 SMC(0) received CP-DATA[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smr.c:487 SMR(0) message MNSMS-DATA-IND received in state WAIT_FOR_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state WAIT_FOR_RP_ACK -> IDLE[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-REL-REQ received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> IDLE[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smr.c:98 SMR(0) clearing SMR instance[0;m
+[38;5;31mSun Oct  4 14:07:09 2026 <001d> gsm0411_smc.c:102 SMC(0) clearing instance[0;m
+[38;5;43mSun Oct  4 14:07:17 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=6 -> eSLS=38: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;43mSun Oct  4 14:07:35 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=7 -> eSLS=39: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;43mSun Oct  4 14:07:58 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=8 -> eSLS=40: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;32mSun Oct  4 14:07:59 2026 <0001> transaction.c:151 LCLS: using 14 bits (1 bytes) for node ID[0;m
+[1;32mSun Oct  4 14:07:59 2026 <0001> transaction.c:168 LCLS: allocated LAC-based CR-ID 00 00 01 00 01 for callref 0x80000001[0;m
+[1;32mSun Oct  4 14:07:59 2026 <0001> gsm_04_08_cc.c:704 trans(CC:NULL IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C:GERAN-A-8:CM_SERVICE_REQ callref-0x80000001 tid-8) SETUP to 600[0;m
+[1;32mSun Oct  4 14:08:00 2026 <0001> msc_a.c:1597 trans(CC:INITIATED IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C:GERAN-A-8:CM_SERVICE_REQ callref-0x80000001 tid-8) Assignment Complete: RAN: GSM#3, CN: GSM#3[0;m
+[38;5;43mSun Oct  4 14:08:20 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=9 -> eSLS=41: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;32mSun Oct  4 14:08:22 2026 <0001> transaction.c:151 LCLS: using 14 bits (1 bytes) for node ID[0;m
+[1;32mSun Oct  4 14:08:22 2026 <0001> transaction.c:168 LCLS: allocated LAC-based CR-ID 00 00 02 00 01 for callref 0x80000002[0;m
+[1;32mSun Oct  4 14:08:22 2026 <0001> gsm_04_08_cc.c:704 trans(CC:NULL IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C:GERAN-A-9:CM_SERVICE_REQ callref-0x80000002 tid-8) SETUP to 600[0;m
+[1;32mSun Oct  4 14:08:23 2026 <0001> msc_a.c:1597 trans(CC:INITIATED IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C:GERAN-A-9:CM_SERVICE_REQ callref-0x80000002 tid-8) Assignment Complete: RAN: GSM#3, CN: GSM#3[0;m
+[38;5;43mSun Oct  4 14:09:15 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=10 -> eSLS=42: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:94 SMC(0) instance created for network[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:90 SMR(0) instance created for network.[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-EST-IND (CP DATA) received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:291 SMC(0) received CP-DATA[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state IDLE -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:487 SMR(0) message MNSMS-EST-IND received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state IDLE -> WAIT_TO_TX_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:420 SMR(0) message SM-RL-REPORT_REQ received in state WAIT_TO_TX_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state WAIT_TO_TX_RP_ACK -> IDLE[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-DATA-REQ received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:188 SMC(0) send CP data[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-REL-REQ received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:338 SMC(0) cannot release yet current state: WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:94 SMC(0) instance created for network[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:90 SMR(0) instance created for network.[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm_04_11.c:1195 trans(SMS IMSI-001010001000002:MSISDN-100102:TMSI-0x9DF346FB callref-0x40000005 tid-0) Going to send a MT SMS[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:420 SMR(0) message SM-RL-DATA_REQ received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state IDLE -> WAIT_FOR_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-EST-REQ received in state IDLE[0;m
+[38;5;31mSun Oct  4 14:09:18 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state IDLE -> MM_CONN_PENDING[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP ACK) received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smc.c:263 SMC(0) received CP-ACK[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state WAIT_CP_ACK -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smc.c:274 SMC(0) we have pending release.[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> IDLE[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smr.c:98 SMR(0) clearing SMR instance[0;m
+[38;5;31mSun Oct  4 14:09:19 2026 <001d> gsm0411_smc.c:102 SMC(0) clearing instance[0;m
+[38;5;43mSun Oct  4 14:09:19 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=11 -> eSLS=43: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[38;5;31mSun Oct  4 14:09:20 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-EST-CNF received in state MM_CONN_PENDING[0;m
+[38;5;31mSun Oct  4 14:09:20 2026 <001d> gsm0411_smc.c:188 SMC(0) send CP data[0;m
+[38;5;31mSun Oct  4 14:09:20 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_CONN_PENDING -> WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:21 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP ACK) received in state WAIT_CP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:21 2026 <001d> gsm0411_smc.c:263 SMC(0) received CP-ACK[0;m
+[38;5;31mSun Oct  4 14:09:21 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state WAIT_CP_ACK -> MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smc.c:573 SMC(0) message MMSMS-DATA-IND (CP DATA) received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smc.c:291 SMC(0) received CP-DATA[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smr.c:487 SMR(0) message MNSMS-DATA-IND received in state WAIT_FOR_RP_ACK[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smr.c:144 SMR(0) new RP state WAIT_FOR_RP_ACK -> IDLE[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smc.c:473 SMC(0) message MNSMS-REL-REQ received in state MM_ESTABLISHED[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smc.c:140 SMC(0) new CP state MM_ESTABLISHED -> IDLE[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smr.c:98 SMR(0) clearing SMR instance[0;m
+[38;5;31mSun Oct  4 14:09:22 2026 <001d> gsm0411_smc.c:102 SMC(0) clearing instance[0;m
+[38;5;43mSun Oct  4 14:09:31 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=12 -> eSLS=44: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;32mSun Oct  4 14:09:34 2026 <0001> transaction.c:151 LCLS: using 14 bits (1 bytes) for node ID[0;m
+[1;32mSun Oct  4 14:09:34 2026 <0001> transaction.c:168 LCLS: allocated LAC-based CR-ID 00 00 03 00 01 for callref 0x80000003[0;m
+[1;32mSun Oct  4 14:09:34 2026 <0001> gsm_04_08_cc.c:704 trans(CC:NULL IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C:GERAN-A-12:CM_SERVICE_REQ callref-0x80000003 tid-8) SETUP to 100102[0;m
+[1;32mSun Oct  4 14:09:35 2026 <0001> msc_a.c:1597 trans(CC:INITIATED IMSI-001010001000001:MSISDN-100101:TMSI-0x9446A39C:GERAN-A-12:CM_SERVICE_REQ callref-0x80000003 tid-8) Assignment Complete: RAN: GSM#3, CN: GSM#3[0;m
+[38;5;43mSun Oct  4 14:09:36 2026 <0023> ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=13 -> eSLS=45: picked Normal Route via 'as-msc' round-robin style (available)[0;m
+[1;32mSun Oct  4 14:09:36 2026 <0001> transaction.c:151 LCLS: using 14 bits (1 bytes) for node ID[0;m
+[1;32mSun Oct  4 14:09:36 2026 <0001> transaction.c:168 LCLS: allocated LAC-based CR-ID 00 13 8c 00 01 for callref 0x138c[0;m
+[1;32mSun Oct  4 14:09:38 2026 <0001> msc_a.c:1597 trans(CC:CALL_RECEIVED IMSI-001010001000002:MSISDN-100102:TMSI-0x9DF346FB:GERAN-A-13:PAGING_RESP callref-0x138c tid-0) Assignment Complete: RAN: GSM#3, CN: GSM#3[0;m
+[1;32mSun Oct  4 14:09:39 2026 <0001> rtp_stream.c:328 rtp_stream(IMSI-001010001000002:MSISDN-100102:TMSI-0x9DF346FB:GERAN-A-13:PAGING_RESP:trans-0:call-11:RTP_TO_CN:CI-0D005D8E:remote-port-not-sent:codecs-not-sent:mode-not-sent:local-127-0-0-1-4026:remote-127-0-0-1-30192)[0x57cdb7c7a530]{ESTABLISHING}: Cannot map codec 'telephone-event' to MGCP: codec is unknown[0;m

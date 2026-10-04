@@ -1,0 +1,180 @@
+{
+  "counts": {
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0
+  },
+  "tests": [
+    {
+      "nodeid": "test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]",
+      "name": "test_coeur_process_et_vty[osmo-hlr-4258]",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun",
+        "parametrize"
+      ],
+      "duration_s": 0.01993880000009085,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]",
+      "name": "test_coeur_process_et_vty[osmo-stp-4239]",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun",
+        "parametrize"
+      ],
+      "duration_s": 0.024062599999524537,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]",
+      "name": "test_coeur_process_et_vty[osmo-msc-4254]",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun",
+        "parametrize"
+      ],
+      "duration_s": 0.0222664770008123,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]",
+      "name": "test_coeur_process_et_vty[osmo-bsc-4242]",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun",
+        "parametrize"
+      ],
+      "duration_s": 0.02649513199867215,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]",
+      "name": "test_coeur_process_et_vty[osmo-mgw-4243]",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun",
+        "parametrize"
+      ],
+      "duration_s": 0.016925434001677786,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_bts_trx_vty",
+      "name": "test_bts_trx_vty",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun"
+      ],
+      "duration_s": 0.015869238999584923,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_bts_trx_operationnel",
+      "name": "test_bts_trx_operationnel",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun"
+      ],
+      "duration_s": 1.301139763001629,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_asterisk_sip_5060",
+      "name": "test_asterisk_sip_5060",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun"
+      ],
+      "duration_s": 0.04816115500034357,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_sip_connector_et_mncc",
+      "name": "test_sip_connector_et_mncc",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun"
+      ],
+      "duration_s": 0.019490680999297183,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_proto_smsc_socket",
+      "name": "test_proto_smsc_socket",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun"
+      ],
+      "duration_s": 5.761600004916545e-05,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    },
+    {
+      "nodeid": "test_10_infra.py::test_pulse_sinks_gsm",
+      "name": "test_pulse_sinks_gsm",
+      "outcome": "passed",
+      "markers": [
+        "banc_infra",
+        "commun"
+      ],
+      "duration_s": 0.0038806569991720608,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "Infra"
+    }
+  ]
+}

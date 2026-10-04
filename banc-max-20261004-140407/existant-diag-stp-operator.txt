@@ -1,0 +1,36 @@
+
+== IDENTITE ==
+  hostname     : legion
+  role         : operator   noeud : ?
+  inter-STP    : 172.20.0.10   ce noeud (WAN) : ?
+
+== CONF SUR DISQUE (/etc/osmocom/osmo-stp.cfg) ==
+  point-code STP             1.1.2            [ OK ]
+  asp remote-ip (hub)        127.0.0.1        [FAIL] attendu 172.20.0.10
+  asp local-ip (self)        127.0.0.1        [ OK ]
+  routing-key inter          150              [ OK ]
+  asp administratif          (indetermine)    [WARN]
+  point-code MSC             1.1.1            [ OK ]
+  point-code BSC             1.1.3            [ OK ]
+
+== SERVICES (systemd) ==
+  osmo-stp       active     [ OK ]
+  osmo-msc       active     [ OK ]
+  osmo-bsc       active     [ OK ]
+  osmo-hlr       active     [ OK ]
+
+== VTY osmo-stp (etat RUNTIME, port 4239) ==
+  asp-to-inter  etat=ASP_DOWN  remote=127.0.0.1:2908
+  ASP locaux ACTIVE (MSC/HLR internes) : 2
+
+== TRANSPORT vers inter-STP 172.20.0.10:2908 ==
+  [FAIL] ping 172.20.0.10 injoignable
+  [FAIL] aucune association SCTP etablie vers le hub
+
+== VERDICT ==
+  INTERCO SS7 : DOWN
+  causes probables (par ordre) :
+    - remote-ip disque (127.0.0.1) != hub (172.20.0.10)
+    - pas de SCTP etabli (hub down, pare-feu, ou asp pas monte)
+  (rappel : ce script ne redemarre rien)
+-------------------------------------------------------------------------

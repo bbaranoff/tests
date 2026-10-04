@@ -1,0 +1,366 @@
+{
+  "counts": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 11,
+    "xfailed": 0
+  },
+  "tests": [
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_process_couche1",
+      "name": "test_process_couche1",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 5.133900049258955e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 12, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 12, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_backend_grgsm_annonce",
+      "name": "test_backend_grgsm_annonce",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 4.050600000482518e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 17, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 17, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_synchro_fb_sb",
+      "name": "test_synchro_fb_sb",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.52789993485203e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 22, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 22, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants",
+      "name": "test_pont_stats_bursts_descendants",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.106499934801832e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 29, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 29, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_pont_rach_monte",
+      "name": "test_pont_rach_monte",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.164500049024355e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 41, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 41, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_immediate_assignment_vu",
+      "name": "test_immediate_assignment_vu",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 2.965199928439688e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 48, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 48, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_canal_dedie_sdcch",
+      "name": "test_canal_dedie_sdcch",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.1631998353987e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 53, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 53, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme",
+      "name": "test_chiffrement_a5_publie_et_confirme",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.189999915775843e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 58, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 58, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_pas_de_saut_de_frequence_non_gere",
+      "name": "test_pas_de_saut_de_frequence_non_gere",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.109200042672455e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 65, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 65, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_pas_de_release_orphelin",
+      "name": "test_pas_de_release_orphelin",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 3.0139999580569565e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 70, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 70, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_20_couche1_grgsm.py::test_qemu_sans_crash",
+      "name": "test_qemu_sans_crash",
+      "outcome": "skipped",
+      "markers": [
+        "banc_couche1",
+        "grgsm",
+        "skip"
+      ],
+      "duration_s": 2.9647000701515935e-05,
+      "wasxfail": false,
+      "err_short": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 75, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "err_long": "('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 75, 'Skipped: test grgsm : le banc est en mode dsp')",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_process_couche1",
+      "name": "test_process_couche1",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.06165809099911712,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_api_ram_partagee",
+      "name": "test_api_ram_partagee",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.0005259350000414997,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_tache_fb_postee_et_fb_detecte",
+      "name": "test_tache_fb_postee_et_fb_detecte",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.0027959580002061557,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_sb_plausible",
+      "name": "test_sb_plausible",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.003112634998615249,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_rach_publie",
+      "name": "test_rach_publie",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.0019791160011664033,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_canal_dedie_suivi",
+      "name": "test_canal_dedie_suivi",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.002867578999939724,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_chiffrement_a5_dans_le_dsp",
+      "name": "test_chiffrement_a5_dans_le_dsp",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.0022244619995035464,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_bascule_tch_suit_le_firmware",
+      "name": "test_bascule_tch_suit_le_firmware",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.001159411000116961,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_parole_descendante_pas_toute_bfi",
+      "name": "test_parole_descendante_pas_toute_bfi",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.000890768000317621,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_marge_temps_reel",
+      "name": "test_marge_temps_reel",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.000870619998750044,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_garde_mvkd_muette",
+      "name": "test_garde_mvkd_muette",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.00021959500008961186,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    },
+    {
+      "nodeid": "test_21_couche1_dsp.py::test_pas_de_los_en_dedie",
+      "name": "test_pas_de_los_en_dedie",
+      "outcome": "passed",
+      "markers": [
+        "banc_couche1",
+        "dsp"
+      ],
+      "duration_s": 0.001627210998776718,
+      "wasxfail": false,
+      "err_short": "",
+      "err_long": "",
+      "category": "Banc",
+      "layer": "L1-data"
+    }
+  ]
+}

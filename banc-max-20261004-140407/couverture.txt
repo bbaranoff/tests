@@ -1,0 +1,74 @@
+couverture couche 1 — mode dsp — 2026-10-04 14:10:22
+journaux lus :
+  dsp      /tmp/c54x-pont/dsp.log  3146 lignes
+  qemu     /tmp/c54x-pont/qemu.log  100 lignes
+  osmocon  /tmp/c54x-pont/osmocon.log  1205 lignes
+  mobile   /tmp/c54x-pont/mobile.log  2087 lignes
+  pont     /dev/shm/pont.log  341 lignes
+  cfg      /opt/GSM/c54x_exe/mobile_pont.cfg  167 lignes
+
+  FONCTION                               VERDICT      preuv sympt  QUI (note)
+  API RAM partagee ARM <-> DSP           GERE             1     0  qosmo + c54x_exe
+  tache FB postee par l'ARM              GERE            18     0  firmware (layer1)
+  FB (FCCH) detection                    GERE            78     0  ROM TI dans c54x_exe (d_fb_det)
+  tache SB postee par l'ARM              GERE            44     0  firmware — fenetre SB rarement armee (README)
+  SB (SCH) decodage, BSIC                GERE            32     0  ROM TI (a_sch)
+  BCCH SI1/2/4 decodes                   GERE            41     0  ROM TI (decodage canal) -> firmware -> mobile
+  SACCH SI5/6 (canal dedie)              GERE            20     0  ROM TI -> mobile
+  RACH montant                           GERE             9     0  firmware -> DSP (d_rach) -> montant.c -> pont
+  IMMEDIATE ASSIGNMENT                   GERE            17     0  pont (AGCH) -> DSP
+  canal dedie SDCCH : BSP                GERE            21     0  ROM TI suit la tache du firmware
+  SDCCH descendant                       GERE            26     0  ROM TI (decodage canal) — README : blocs jetes sur SDCCH/8 (suspect)
+  SDCCH montant                          GERE            20     0  firmware -> montant.c (a_cu)
+  authentification                       GERE             3     0  MSC <-> SIM emulee (QEMU)
+  chiffrement A5 : Kc vers le DSP        GERE            25     0  firmware -> API RAM (a_kc)
+  chiffrement A5 : coprocesseur          GERE             9     0  calypso_a5.c dans c54x_exe — CALYPSO_A5=0 le coupe
+  chiffrement A5 : confirme par la BTS   GERE             9     0  pont
+  CIPHERING MODE COMPLETE                GERE             9     0  mobile
+  LOCATION UPDATING ACCEPT               GERE             1     0  mobile <-> MSC
+  TMSI attribue                          GERE             1     0  mobile
+  SMS (SM-CP/RP)                         GERE             8     0  mobile <-> MSC — DMM : connexion MM pour le SMS
+  appel : SETUP / PROCEEDING             GERE             3     0  mobile <-> MSC
+  appel : ALERTING / CONNECT             GERE             3     0  mobile <-> MSC
+  ASSIGNMENT COMMAND (TCH)               GERE             3     0  pont annonce au DSP
+  bascule BSP -> TCH                     GERE             3     0  ROM TI suit la tache TCHT/TCHA du firmware
+  ASSIGNMENT COMPLETE                    GERE             3     0  mobile -> pont — le pont ne suffixe pas sa ligne FACCH (uplink.py:275), preuve lue chez le mobile
+  TCH/F descendant : decodage canal      GERE            55     0  ROM TI (Viterbi)
+  TCH/F descendant : qualite (B_BFI)     DEGRADE         31    55  ROM TI — B_BFI juste depuis qosmo a19dde59 (MVKD/MVDK sous RPT) : restent les trames vraiment mauvaises (c214) et les vols FACCH (8084), masquees par layer1.highram_patched
+  FACCH montant                          GERE            20     0  firmware -> montant.c
+  SACCH montant en TCH                   GERE            20     0  firmware -> montant.c — README : correctif MVKD/MVDK, point ouvert n°2
+  garde MVKD/MVDK                        NON OBSERVE      0     0  qosmo c54x_exec.c — une ligne = la garde a joue
+  parole montante                        GERE            20     0  firmware -> montant.c (anneau calypso_tch_ul)
+  vocodage                               GERE             3     0  ROM TI, trames TI converties TI -> FR sur l'hote (io-tch-format ti)
+  saut de frequence                      NON GERE         0     0  pont : NON GERE — hors de ce montage
+  marge temps reel DSP                   GERE            71     0  c54x_exe [chrono] — README : 4.3-4.6 ms de travail pour 4.62 ms
+  CHANNEL RELEASE                        GERE             9     0  pont
+  retour BSP sur le SDCCH                NON OBSERVE      0     0  ROM TI (tache ALLC) — attendu absent : seul un ASSIGNMENT FAILURE (retour a l'ancien canal, 04.08 3.4.3.3) y mene, un appel normal finit par CHANNEL RELEASE
+  liberation radio cote mobile           GERE            18     0  mobile — DRR (DSUM n'est pas journalise)
+
+derniers compteurs :
+  pont  14:10:19 [pont] STATS fn=70436 | DL bursts=23170 blocs=5766 crc=26 dummy=65938 hors_voie=11857 | UL bursts=15880 tard=18 rach=9 | TCH dl=3121 facch=53 sacch=143 crc=505 ul=3110 bursts=14575 perdus=0 | FACCH ul=42 SACCH ul=236 | A5 dl=16859 ul=15735 | xCCH ul rom=172 hote=0 rom_ko=0 | IQ dl=70433tr/560432bu ul=70433tr/15875bu fifo_drop=69898/69908
+  dsp   [a_dd] fn=64233 etat=c200 FIRE=0 BFI=0 err=0 (ecart 5 trames) | vues=3500 ko=0 bfi=407
+  dsp   [chrono] fn=70997 sur 1000 trames (ms) : qemu 3.47 | A 0.06 | go 0.29 | B 0.18 | apres DONE 0.62 | trame 4.61 (temps reel 4.62)
+  mobile LU ACCEPT=1  CIPHER COMPLETE=9  CALL PROCEEDING=3  CONNECT=3  LOS=0
+
+bilan : 33 gere, 1 degrade, 1 non gere, 2 non observe
+
+chemin ROM / hote du traitement du signal (mode dsp) :
+  TRAITEMENT                                   CHEMIN        rom  hote  ATTENDU (note)
+  FB : detection                               ROM            79     0  ROM (d_fb_det)
+  SB/SCH : decodage, BSIC                      ROM            32     0  ROM (a_sch) sinon SB en conserve — conserve = hacks CAN_* (pont.c)
+  descendant : BCCH/CCCH/SDCCH/SACCH           ROM            63     0  ROM (a_cd lu par le firmware) — SACCH/8 souvent FIRE KO (rapport 2026-10-03)
+  descendant : IMMEDIATE ASSIGNMENT            HOTE            0     9  ROM + retouche hote de la reference (qosmo calypso_trx.c) — l'hote reecrit la reference de requete lue dans a_cd
+  descendant : FACCH/F                         ROM            54     0  ROM (a_fd)
+  descendant : TCH/F parole                    ROM            55     0  ROM (a_dd, Viterbi, lu tel quel par le firmware) — B_BFI juste (qosmo a19dde59), trames B_BFI masquees par layer1.highram_patched ; trames c200 identiques a la reference (2023/2025, 2026-10-03)
+  descendant : A5                              ROM           108     0  ROM + coprocesseur A5 modelise (calypso_a5.c) — le pont ne dechiffre pas (PONT_DSP_DECHIFFRE=0)
+  montant : RACH                               HOTE            0    65  hote : montant.c lit d_rach, pont code (gsm.rach_burst) — calypso_bsp_tx_rach_burst = code mort
+  montant : SDCCH/SACCH codage canal           ROM            65     0  ROM (bursts 0x3f8a, rom-ul) sinon hote — MIXTE = des blocs repartis codes par l'hote (bursts ROM absents ou sans CRC)
+  montant : A5                                 HOTE            0    64  hote : le pont defait le XOR de la ROM et rechiffre au fn de l'air — la ROM chiffre a l'heure du DSP, pas au fn emis
+  montant : FACCH/F                            HOTE            0    28  hote : montant.c (a_cu) -> pont (TchScheduler)
+  montant : SACCH en TCH                       HOTE            0    65  hote : pont (gsm.xcch_encode)
+  montant : TCH/F parole                       HOTE            0    28  hote : montant.c (TI -> FR) -> pont (tch_fr_encode)
+  vocodage                                     HOTE            0     3  hote : GAPK du mobile (trames TI de la ROM)
+  dernier compteur pont : xCCH ul rom=172 hote=0 rom_ko=0 
+chemin : 7 ROM, 7 hote, 0 mixte, 0 non observe

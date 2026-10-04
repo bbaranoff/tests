@@ -42,6 +42,9 @@
 #     banc-max.sh --multi               ajoute l'inter-operateur (start-multi)
 #     banc-max.sh --legacy              joue aussi l'ancienne suite pytest (qemu/tests)
 #     banc-max.sh --campagne [--multi]  grgsm puis dsp, jusqu'a l'appel, + rapport
+#     banc-max.sh --full                le banc au maximum = --grgsm --dsp --4g
+#                                       --multi --restart (les deux couches 1,
+#                                       4G et inter-operateur, jusqu'a la voix)
 #     banc-max.sh --continue            ne s'arrete pas au premier echec
 #     banc-max.sh --essais 3            rejoue un barreau en echec (defaut 2)
 #     banc-max.sh --relances 1          relance la pile si mobile/camp echouent
@@ -100,12 +103,13 @@ _stop() {
 }
 trap _stop INT TERM
 
-ONLY=""; SKIP=""; CAMPAGNE=0; ARGS=("$@")
+ONLY=""; SKIP=""; CAMPAGNE=0; ASK_GRGSM=0; ASK_DSP=0; FULL=0; ARGS=("$@")
 while [ $# -gt 0 ]; do
     case "$1" in
         --campagne)   CAMPAGNE=1 ;;
-        --grgsm)      MODE=grgsm ;;
-        --dsp)        MODE=dsp ;;
+        --grgsm)      MODE=grgsm; ASK_GRGSM=1 ;;
+        --dsp)        MODE=dsp; ASK_DSP=1 ;;
+        --full)       FULL=1 ;;
         --restart)    RESTART=1 ;;
         --multi)      MULTI=1 ;;
         --legacy)     LEGACY=1 ;;
@@ -123,11 +127,31 @@ while [ $# -gt 0 ]; do
         --dest)       DEST="${2:?}"; shift ;;
         --boot-max)   BOOT_MAX="${2:?}"; shift ;;
         --call-s)     CALL_S="${2:?}"; shift ;;
-        -h|--help)    sed -n '2,45p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        -h|--help)    sed -n '2,61p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) echo "option inconnue : $1" >&2; exit 2 ;;
     esac
     shift
 done
+
+# ── --full : LE BANC AU MAXIMUM ──────────────────────────────────────────────
+# Les deux couches 1 (grgsm ET dsp), la 4G, l'inter-operateur, redemarrage
+# propre. Strictement equivalent a :
+#     banc-max.sh --grgsm --dsp --4g --multi --restart
+# Les deux couches 1 demandees ensemble (que ce soit par --full ou en ecrivant
+# --grgsm --dsp a la main) ne s'ecrasent plus l'une l'autre : le banc les joue
+# toutes les deux a la suite — c'est exactement la campagne, a laquelle --4g et
+# --multi sont transmis mode par mode. --restart est implicite (la campagne
+# redemarre chaque mode), et chaque mode pousse jusqu'a l'appel (--continue).
+# --full depose --4g et --multi dans ARGS : la campagne ne transmet aux deux
+# modes que les options presentes dans ARGS (elle retire --full, --grgsm, --dsp,
+# --restart). Sans ce depot, « --full » lancerait les deux couches 1 mais SANS
+# la 4G ni l'inter-operateur (barreaux 4g/multi « SAUTE sans --4g/--multi »).
+if [ "$FULL" = 1 ]; then
+    ASK_GRGSM=1; ASK_DSP=1; LTE=1; MULTI=1; RESTART=1
+    liste_contient "$(IFS=,; echo "${ARGS[*]}")" --4g    || ARGS+=(--4g)
+    liste_contient "$(IFS=,; echo "${ARGS[*]}")" --multi  || ARGS+=(--multi)
+fi
+if [ "$ASK_GRGSM" = 1 ] && [ "$ASK_DSP" = 1 ]; then CAMPAGNE=1; MODE=""; fi
 
 # Sans mode, sans --only et sans --restart : c'est la campagne complete, les
 # deux couches 1 l'une apres l'autre. Un mode explicite joue ce mode seul.

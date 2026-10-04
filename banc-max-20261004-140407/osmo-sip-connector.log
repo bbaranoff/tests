@@ -1,0 +1,36 @@
+Sun Oct  4 14:04:30 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0004> telnet_interface.c:88 Available via telnet 127.0.0.1 4256
+Sun Oct  4 14:04:30 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1179 Scheduling MNCC connect
+Sun Oct  4 14:04:30 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 su_source_port_create() returns 0x5a6d53701d90
+
+Sun Oct  4 14:04:30 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:741 sres: /etc/resolv.conf: unknown option         
+
+Sun Oct  4 14:04:30 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:1031 Reconnected to /tmp/msc_mncc
+Sun Oct  4 14:04:30 2026 [1;33mDMNCC[0;m [1;33mNOTICE[0;m <0001> mncc.c:918 Got hello message version 8
+Sun Oct  4 14:07:59 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5001) with MNCC leg(2147483649) IMSI(001010001000001)
+Sun Oct  4 14:08:00 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483649) ip(127.0.0.1), port(4002) pt(3) ptm(768)
+Sun Oct  4 14:08:00 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5a6d53724960) is now connected(15e0b435-3a8f-1240-929c-c4c6e6754a1c).
+Sun Oct  4 14:08:01 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483649) is now connected.
+Sun Oct  4 14:08:09 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Sun Oct  4 14:08:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5a6d53724960) in connected state.
+Sun Oct  4 14:08:09 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5a6d53724960) got resp to bye
+Sun Oct  4 14:08:22 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5002) with MNCC leg(2147483650) IMSI(001010001000001)
+Sun Oct  4 14:08:23 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483650) ip(127.0.0.1), port(4010) pt(3) ptm(768)
+Sun Oct  4 14:08:23 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5a6d5372cc50) is now connected(232e15ad-3a8f-1240-929c-c4c6e6754a1c).
+Sun Oct  4 14:08:23 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483650) is now connected.
+Sun Oct  4 14:09:09 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Sun Oct  4 14:09:09 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5a6d5372cc50) in connected state.
+Sun Oct  4 14:09:09 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5a6d5372cc50) got resp to bye
+Sun Oct  4 14:09:34 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:582 Created call(5003) with MNCC leg(2147483651) IMSI(001010001000001)
+Sun Oct  4 14:09:35 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(2147483651) ip(127.0.0.1), port(4018) pt(3) ptm(768)
+Sun Oct  4 14:09:35 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:436 Processing INVITE Call-ID: 32a13a39-571f-491b-be78-b5bc42b6a6a9
+Sun Oct  4 14:09:35 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:126 Incoming call(32a13a39-571f-491b-be78-b5bc42b6a6a9) handle(0x5a6d53725700)
+Sun Oct  4 14:09:35 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:189 SDP Extracted: IP=(127.0.0.1) PORT=(30192) PAYLOAD=(3).
+Sun Oct  4 14:09:35 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:88 leg(0x5a6d53710470) is now progressing.
+Sun Oct  4 14:09:37 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:88 leg(0x5a6d53710470) is now progressing.
+Sun Oct  4 14:09:38 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:464 RTP continue leg(5004) ip(127.0.0.1), port(4026) pt(3) ptm(768)
+Sun Oct  4 14:09:39 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:110 leg(0x5a6d53710470) is now connected(4e278320-3a8f-1240-929c-c4c6e6754a1c).
+Sun Oct  4 14:09:40 2026 [1;32mDMNCC[0;m [1;32mINFO[0;m <0001> mncc.c:699 leg(2147483651) is now connected.
+Sun Oct  4 14:09:48 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:503 sip_release_call(): Release with MNCC cause(NORM_CALL_CLEAR)
+Sun Oct  4 14:09:48 2026 [1;33mDSIP[0;m [1;33mNOTICE[0;m <0000> sip.c:527 Ending leg(0x5a6d53710470) in connected state.
+Sun Oct  4 14:09:48 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:419 leg(0x5a6d53710470) got resp to bye
+Sun Oct  4 14:09:48 2026 [1;32mDSIP[0;m [1;32mINFO[0;m <0000> sip.c:428 leg(0x5a6d53734620) got bye, releasing.

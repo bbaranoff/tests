@@ -1,0 +1,27 @@
+   1 demarrage [32mOK       [0m arret complet, puis start-direct.sh --dsp : coeur en 16s
+   2 coeur     [32mOK       [0m process + VTY 4258 4239 4254 4242 4243
+   3 bts       [32mOK       [0m osmo-bts-trx, VTY 4241
+   4 services  [32mOK       [0m asterisk 5060, sip-connector, /tmp/sendmt_socket
+   5 ss7       [32mOK       [0m ss7_check 1 ✓, 0 ✗, diag-stp-operator
+   6 checks-existants [32mOK       [0m global_check, call-diag, audio-diag sans echec
+   7 couche1   [32mOK       [0m c54x_exe[^ ]* --arm qemu-system-arm osmocon (+ pont_dsp.py )
+   8 mobile    [32mOK       [0m VTY 4347 repond, IMSI 001010001000001
+   9 camp      [32mOK       [0m apres 1s, ARFCN=514(DCS) CGI=001-01-1-6001
+  10 attache   [32mOK       [0m MM « MM idle, normal service », IMSI 001010001000001 au VLR, MSISDN 100101
+  11 sms-mo    [32mOK       [0m SMS to 100102 successful (RP-ACK), MT delivered 0->1
+  12 sms-mt    [32mOK       [0m MSC delivered 1 -> 2 (1s)
+  13 ussd      [32mOK       [0m *#100# -> 100101, *#101# -> 001010001000001, MSC requests 0->2 etablies 0->2
+  14 appel     [32mOK       [0m CC ACTIVE apres 3s, MSC setup 0->1, connect-ack 0->1
+  15 voix      [32mOK       [0m retour: ton retrouve a t=4.0s (latence 1.0s), rms silence=34 rms ton=8890 (+48.5 dB) ; raie dominante 1000 Hz, 100% de l'energie dans 950-1050 Hz ; silence: raie 496 Hz
+  16 ms2       [32mOK       [0m SMS et appel MS#1 -> 100102
+  17 4g        [2mSAUTE    [0m sans --4g
+  18 multi     [2mSAUTE    [0m sans --multi
+  19 liens     [2mSAUTE    [0m sans --multi
+  20 pytest-infra [32mOK       [0m 11 passed -> pytest/infra/test_results.md
+  21 pytest-couche1 [32mOK       [0m 12 passed 11 skipped -> pytest/couche1/test_results.md
+  22 pytest-mobile [32mOK       [0m 10 passed -> pytest/mobile/test_results.md
+  23 pytest-reseau [32mOK       [0m 6 passed -> pytest/reseau/test_results.md
+  24 pytest-legacy [2mSAUTE    [0m sans --legacy (suite ecrite pour l'ancien banc en conteneur)
+  25 couverture [32mOK       [0m 33 gere, 1 degrade, 1 non gere, 2 non observe ; chemin 7 ROM 7 hote 0 mixte -> couverture.txt
+
+  [1mELEMENT MAX : 25/25[0m  (couverture)  mode dsp  echecs 0

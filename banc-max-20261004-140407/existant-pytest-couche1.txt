@@ -1,0 +1,12 @@
+sssssssssss............                                                  [100%]============================ Mermaid report bundle =============================
+  folder : /root/banc-max-20261004-140407/pytest/couche1/test_results_20261004_141000/
+  md     : /root/banc-max-20261004-140407/pytest/couche1/test_results_20261004_141000/test_results.md
+  qmd    : /root/banc-max-20261004-140407/pytest/couche1/test_results_20261004_141000/test_results.qmd  (RStudio/quarto render)
+  zip    : /root/banc-max-20261004-140407/pytest/couche1/test_results_20261004_141000.zip
+  latest : /root/banc-max-20261004-140407/pytest/couche1/test_results_latest.zip
+  PNGs rendered : 0  (mmdc absent — only .mmd written)
+  counts : {'passed': 12, 'failed': 0, 'skipped': 11, 'xfailed': 0}
+
+=========================== short test summary info ============================
+SKIPPED [11] test_20_couche1_grgsm.py: test grgsm : le banc est en mode dsp
+12 passed, 11 skipped, 32 deselected in 2.62s

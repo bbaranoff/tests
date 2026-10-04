@@ -1,0 +1,10 @@
+...........                                                              [100%]============================ Mermaid report bundle =============================
+  folder : /root/banc-max-20261004-140407/pytest/infra/test_results_20261004_140956/
+  md     : /root/banc-max-20261004-140407/pytest/infra/test_results_20261004_140956/test_results.md
+  qmd    : /root/banc-max-20261004-140407/pytest/infra/test_results_20261004_140956/test_results.qmd  (RStudio/quarto render)
+  zip    : /root/banc-max-20261004-140407/pytest/infra/test_results_20261004_140956.zip
+  latest : /root/banc-max-20261004-140407/pytest/infra/test_results_latest.zip
+  PNGs rendered : 0  (mmdc absent — only .mmd written)
+  counts : {'passed': 11, 'failed': 0, 'skipped': 0, 'xfailed': 0}
+
+11 passed, 44 deselected in 4.54s

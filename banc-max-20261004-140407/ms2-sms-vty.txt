@@ -1,0 +1,5 @@
+Welcome to the OsmocomBB(mobile) VTY interface
+
+ÿûÿûÿþ"ÿýOsmocomBB(mobile)> enable
+OsmocomBB(mobile)# sms 1 100102 banc-max MS1-MS2 20261004-140407
+OsmocomBB(mobile)# 

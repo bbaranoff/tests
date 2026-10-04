@@ -1,0 +1,144 @@
+[38;5;43m20261004140427037 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_instance.c:98 0: Creating SS7 Instance[0;m
+[38;5;43m20261004140427037 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_route_table.c:62 0: Creating Route Table system[0;m
+[38;5;43m20261004140427037 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:248 Creating m3ua Server (null):2905[0;m
+[38;5;43m20261004140427037 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:268 Created m3ua server on (null):2905[0;m
+[38;5;43m20261004140427037 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:336 (Re)binding m3ua Server to (127.0.0.1|127.0.0.2):2905[0;m
+[38;5;43m20261004140427049 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_asp.c:892 0: ASP(asp-to-inter) Restarting ASP asp-to-inter, r=127.0.0.1:2908<->l=127.0.0.1:2910[0;m
+[38;5;43m20261004140427049 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_instance.c:380 0: AS(as-inter) Created AS[0;m
+[38;5;43m20261004140427049 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_as.c:185 0: AS(as-inter) Adding ASP asp-to-inter to AS[0;m
+[38;5;43m20261004140427049 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_route.c:143 0: RT(dpc=0=0.0.0,mask=0x0=0.0.0,prio=5,via=as-inter,st=available) Creating route: pc=0=0.0.0 mask=0x0=0.0.0 prio=5 via AS as-inter proto=m3ua[0;m
+20261004140427049 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m telnet_interface.c:88 Available via telnet 127.0.0.1 4239
+[38;5;23m20261004140427049 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140428007 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:75 (r=127.0.0.1:2906<->l=127.0.0.1:2905): New m3ua connection accepted[0;m
+[38;5;43m20261004140428007 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:169 (r=127.0.0.1:2906<->l=127.0.0.1:2905): created dynamic ASP asp-dyn-0[0;m
+[38;5;43m20261004140428333 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:75 (r=127.0.0.1:2907<->l=127.0.0.1:2905): New m3ua connection accepted[0;m
+[38;5;43m20261004140428333 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_xua_srv.c:169 (r=127.0.0.1:2907<->l=127.0.0.1:2905): created dynamic ASP asp-dyn-1[0;m
+[38;5;43m20261004140430010 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m xua_rkm.c:218 0: ASP(asp-dyn-0) RKM: Registering routing key 110 for DPC 1.1.1[0;m
+[38;5;43m20261004140430010 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_instance.c:380 0: AS(as-rkm-110) Created AS[0;m
+[38;5;43m20261004140430010 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_route.c:143 0: RT(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5,via=as-rkm-110,st=available) Creating route: pc=2057=1.1.1 mask=0x3fff=7.255.7 prio=5 dyn via AS as-rkm-110 proto=m3ua[0;m
+[38;5;43m20261004140430010 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_as.c:185 0: AS(as-rkm-110) Adding ASP asp-dyn-0 to AS[0;m
+[38;5;43m20261004140430010 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m xua_as_fsm.c:142 0: ASP(asp-dyn-0) Tx NOTIFY Type State Change:AS Inactive ()[0;m
+[38;5;43m20261004140430011 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m xua_as_fsm.c:142 0: ASP(asp-dyn-0) Tx NOTIFY Type State Change:AS Active ()[0;m
+[38;5;43m20261004140430011 [1;33mDLSS7[0;m[38;5;43m [1;33mNOTICE[0;m[38;5;43m ss7_route.c:409 0: RT(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5,via=as-rkm-110,st=available) changed to status 'available'[0;m
+[38;5;43m20261004140430337 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m xua_rkm.c:218 0: ASP(asp-dyn-1) RKM: Registering routing key 130 for DPC 1.1.3[0;m
+[38;5;43m20261004140430337 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_instance.c:380 0: AS(as-rkm-130) Created AS[0;m
+[38;5;43m20261004140430338 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_route.c:143 0: RT(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5,via=as-rkm-130,st=available) Creating route: pc=2059=1.1.3 mask=0x3fff=7.255.7 prio=5 dyn via AS as-rkm-130 proto=m3ua[0;m
+[38;5;43m20261004140430338 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_as.c:185 0: AS(as-rkm-130) Adding ASP asp-dyn-1 to AS[0;m
+[38;5;43m20261004140430338 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m xua_as_fsm.c:142 0: ASP(asp-dyn-1) Tx NOTIFY Type State Change:AS Inactive ()[0;m
+[38;5;43m20261004140430338 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m xua_as_fsm.c:142 0: ASP(asp-dyn-1) Tx NOTIFY Type State Change:AS Active ()[0;m
+[38;5;43m20261004140430338 [1;33mDLSS7[0;m[38;5;43m [1;33mNOTICE[0;m[38;5;43m ss7_route.c:409 0: RT(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5,via=as-rkm-130,st=available) changed to status 'available'[0;m
+[38;5;43m20261004140430340 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=7 -> eSLS=39: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140430340 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=0 -> eSLS=32: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140432049 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140437050 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140442051 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140447052 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140452053 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140452424 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=1 -> eSLS=33: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140452433 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=1 -> eSLS=33: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140457054 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140458906 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=2 -> eSLS=34: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140458906 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=2 -> eSLS=34: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140502055 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140507056 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140512057 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140517058 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140522059 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140527060 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140532061 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140537062 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140542063 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140547064 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140552064 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140557065 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140602066 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140607067 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140612068 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140617069 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140622070 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140627071 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140632072 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140637073 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140642074 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140647075 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140650353 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=3 -> eSLS=35: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140650354 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=3 -> eSLS=35: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140652076 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140653872 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=4 -> eSLS=36: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140653873 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=4 -> eSLS=36: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140657077 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140702077 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140705893 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=5 -> eSLS=37: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140705894 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=5 -> eSLS=37: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140707078 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140712079 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140717080 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140717418 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=6 -> eSLS=38: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140717419 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=6 -> eSLS=38: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140722081 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140727082 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140732083 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140735557 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=7 -> eSLS=39: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140737084 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140742085 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140747086 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140752087 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140757088 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140758370 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=8 -> eSLS=40: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140758371 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=8 -> eSLS=40: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140802089 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140807090 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140812091 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140817092 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140820739 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=9 -> eSLS=41: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140820739 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=9 -> eSLS=41: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140822093 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140827094 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140832095 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140837096 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140842097 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140847098 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140852099 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140857100 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140902101 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140907102 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140912103 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140915569 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=10 -> eSLS=42: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140915569 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=10 -> eSLS=42: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140917104 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140919798 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=11 -> eSLS=43: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140919799 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=11 -> eSLS=43: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140922105 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140927106 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140931829 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=12 -> eSLS=44: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140931830 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=12 -> eSLS=44: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140932107 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;43m20261004140936273 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2057=1.1.1,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2059=1.1.3,DPC=2057=1.1.1,SLS=13 -> eSLS=45: picked Normal Route via 'as-rkm-110' round-robin style (available)[0;m
+[38;5;43m20261004140936274 [1;32mDLSS7[0;m[38;5;43m [1;32mINFO[0;m[38;5;43m ss7_combined_linkset.c:297 0: CombinedLinkset(dpc=2059=1.1.3,mask=0x3fff=7.255.7,prio=5) RT loookup: OPC=2057=1.1.1,DPC=2059=1.1.3,SLS=13 -> eSLS=45: picked Normal Route via 'as-rkm-130' round-robin style (available)[0;m
+[38;5;23m20261004140937108 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140942109 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140947110 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140952111 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004140957112 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141002113 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141007114 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141012115 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141017116 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141022117 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141027118 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141032119 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141037120 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141042121 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141047122 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141052123 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141057124 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141102125 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141107126 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141112127 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141117128 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141122129 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141127130 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141132131 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141137132 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141142133 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m
+[38;5;23m20261004141147134 [1;31mDLINP[0;m[38;5;23m [1;31mERROR[0;m[38;5;23m stream_cli.c:424 CLICONN(asp-to-inter,){CONNECTING} connect failed (-111)[0;m

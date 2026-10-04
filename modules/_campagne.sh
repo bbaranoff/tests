@@ -5,7 +5,11 @@ campagne_run() {
     local stamp; stamp="$(date +%Y%m%d-%H%M%S)"
     local dir="/root/banc-max-campagne-$stamp"; mkdir -p "$dir"
     local extra=() a mode rc
-    for a in "${ARGS[@]}"; do case "$a" in --campagne|--grgsm|--dsp|--restart|--continue) ;; *) extra+=("$a") ;; esac; done
+    # --full et les deux couches 1 sont « deplies » par la campagne elle-meme :
+    # on les retire des extras pour ne pas les repasser a chaque mode (sinon le
+    # fils re-declencherait la campagne -> recursion infinie). --4g, --multi,
+    # --stop-after... restent et sont joues dans chaque mode.
+    for a in "${ARGS[@]}"; do case "$a" in --campagne|--full|--grgsm|--dsp|--restart|--continue) ;; *) extra+=("$a") ;; esac; done
     head_ "CAMPAGNE $stamp : grgsm puis dsp, jusqu'a l'appel"
     for mode in grgsm dsp; do
         say "── mode $mode ──"

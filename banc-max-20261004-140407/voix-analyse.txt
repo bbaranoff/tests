@@ -1,0 +1,1 @@
+OK retour: ton retrouve a t=4.0s (latence 1.0s), rms silence=34 rms ton=8890 (+48.5 dB) ; raie dominante 1000 Hz, 100% de l'energie dans 950-1050 Hz ; silence: raie 496 Hz

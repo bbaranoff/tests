@@ -1,0 +1,16 @@
+Sun Oct  4 14:04:29 2026 [1;33mDLGLOBAL[0;m [1;33mNOTICE[0;m <0011> telnet_interface.c:88 Available via telnet 127.0.0.1 4240
+[1;32mSun Oct  4 14:04:29 2026 [1;31mDL1IF[0;m[1;32m [1;31mERROR[0;m[1;32m <0001> pcuif_sock.c:210 Failed to connect to the BTS (/tmp/pcu_bts). Retrying...[0;m
+[1;32mSun Oct  4 14:04:34 2026 [1;31mDL1IF[0;m[1;32m [1;31mERROR[0;m[1;32m <0001> pcuif_sock.c:210 Failed to connect to the BTS (/tmp/pcu_bts). Retrying...[0;m
+[1;32mSun Oct  4 14:04:39 2026 [1;31mDL1IF[0;m[1;32m [1;31mERROR[0;m[1;32m <0001> pcuif_sock.c:210 Failed to connect to the BTS (/tmp/pcu_bts). Retrying...[0;m
+[1;32mSun Oct  4 14:04:44 2026 [1;31mDL1IF[0;m[1;32m [1;31mERROR[0;m[1;32m <0001> pcuif_sock.c:210 Failed to connect to the BTS (/tmp/pcu_bts). Retrying...[0;m
+[1;32mSun Oct  4 14:04:49 2026 [1;33mDL1IF[0;m[1;32m [1;33mNOTICE[0;m[1;32m <0001> pcuif_sock.c:220 osmo-bts PCU socket /tmp/pcu_bts has been connected[0;m
+[1;32mSun Oct  4 14:04:49 2026 [1;33mDL1IF[0;m[1;32m [1;33mNOTICE[0;m[1;32m <0001> pcu_l1_if.cpp:1246 Received message for new BTS0[0;m
+[38;5;57mSun Oct  4 14:04:49 2026 [1;33mDLNS[0;m[38;5;57m [1;33mNOTICE[0;m[38;5;57m <0024> gprs_ns2.c:575 NSE(00010) NS-STATUS.ind(bvci=00000): cause=NSE recovery, transfer=100, first=1, mtu=65523[0;m
+[1;35mSun Oct  4 14:04:49 2026 [1;33mDPCU[0;m[1;35m [1;33mNOTICE[0;m[1;35m <000d> gprs_bssgp_pcu.c:681 NS-NSE 10 became available[0;m
+[38;5;59mSun Oct  4 14:04:49 2026 [1;33mDLBSSGP[0;m[38;5;59m [1;33mNOTICE[0;m[38;5;59m <0025> gprs_bssgp.c:124 BSSGP (BVCI=0) Tx BVC-RESET CAUSE=O&M intervention[0;m
+[38;5;57mSun Oct  4 14:04:49 2026 [1;33mDLNS[0;m[38;5;57m [1;33mNOTICE[0;m[38;5;57m <0024> gprs_ns2.c:571 NSE(00010)-NSVC(00010) NS-STATUS.ind(bvci=00000): cause=NSVC recovery, transfer=100, first=0, mtu=65523[0;m
+[38;5;59mSun Oct  4 14:04:49 2026 [1;33mDLBSSGP[0;m[38;5;59m [1;33mNOTICE[0;m[38;5;59m <0025> gprs_bssgp_pcu.c:421 Rx BSSGP BVCI=0 (SIGN) BVC_RESET_ACK[0;m
+[38;5;59mSun Oct  4 14:04:49 2026 [1;33mDLBSSGP[0;m[38;5;59m [1;33mNOTICE[0;m[38;5;59m <0025> gprs_bssgp.c:124 BSSGP (BVCI=12) Tx BVC-RESET CAUSE=O&M intervention[0;m
+[38;5;59mSun Oct  4 14:04:49 2026 [1;33mDLBSSGP[0;m[38;5;59m [1;33mNOTICE[0;m[38;5;59m <0025> gprs_bssgp_pcu.c:421 Rx BSSGP BVCI=0 (SIGN) BVC_RESET_ACK[0;m
+[38;5;59mSun Oct  4 14:04:49 2026 [1;33mDLBSSGP[0;m[38;5;59m [1;33mNOTICE[0;m[38;5;59m <0025> gprs_bssgp_bss.c:281 BSSGP (BVCI=12) Tx BVC-UNBLOCK[0;m
+[38;5;59mSun Oct  4 14:04:49 2026 [1;33mDLBSSGP[0;m[38;5;59m [1;33mNOTICE[0;m[38;5;59m <0025> gprs_bssgp_pcu.c:435 Rx BSSGP BVCI=0 (SIGN) BVC_UNBLOCK_ACK[0;m
