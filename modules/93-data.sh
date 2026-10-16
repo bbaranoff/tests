@@ -42,14 +42,12 @@ mod_run() {
     fi
     ggsn="$(ip -4 -o addr show apn0 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -1)"
     ip netns exec msgprs ip route replace default dev tun_modem 2>/dev/null
-    # NAT du pool vers la sortie (aussi posee par start-direct.sh) : sans --restart
-    # la pile peut dater d'avant, et Internet tombait a 0/5. Idempotent.
+    # Sortie Internet du pool : network/apn-nat.sh (MASQUERADE + FORWARD), le meme que lance
+    # start-direct.sh (7septies). Rejoue ici parce que sans --restart la pile peut dater
+    # d'avant, et Internet tombait a 0/5. Idempotent ; pool relu dans osmo-ggsn.cfg.
     local pool; pool="$(awk '/ip prefix dynamic/{print $4; exit}' /etc/osmocom/osmo-ggsn.cfg 2>/dev/null)"
-    if [ -n "$pool" ]; then
-        sysctl -qw net.ipv4.ip_forward=1 2>/dev/null
-        iptables -w -t nat -C POSTROUTING -s "$pool" ! -o apn0 -j MASQUERADE 2>/dev/null \
-            || iptables -w -t nat -A POSTROUTING -s "$pool" ! -o apn0 -j MASQUERADE 2>/dev/null
-    fi
+    sysctl -qw net.ipv4.ip_forward=1 2>/dev/null
+    APN_SUBNET="${pool:-176.16.32.0/24}" bash /opt/GSM/osmo-operator/network/apn-nat.sh > "$OUT/data-nat.txt" 2>&1
     { echo "== GGSN $ggsn"; ip netns exec msgprs ping -c5 -i3 -W20 "$ggsn" 2>&1
       echo "== Internet 8.8.8.8"; ip netns exec msgprs ping -c5 -i3 -W20 8.8.8.8 2>&1; } > "$OUT/data-ping.txt"
     local g i rtt
