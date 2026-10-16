@@ -2,7 +2,7 @@
 # _lib.sh — ce que tous les barreaux partagent : le mode, la VTY, les
 # compteurs, le tableau. Charge par banc-max.sh, jamais lance seul.
 REPO="${OSMO_REPO:-/opt/GSM/osmo-operator}"
-MODE="${MODE:-}"; RESTART=0; MULTI=0; LEGACY=0; CONTINUE=0; STOP_AFTER=0; REBUILD=0; LTE=0
+MODE="${MODE:-}"; RESTART=0; MULTI=0; LEGACY=0; CONTINUE=0; STOP_AFTER=0; REBUILD=0; LTE=0; MS2=0; DATA=0
 ESSAIS=2; RELANCES=1; RELANCES_FAITES=0
 DEST=600; BOOT_MAX=180; ATTACH_MAX=60; SMS_MAX=30; CALL_MAX=25; CALL_S=6
 MS2_VTY=4248; MSC_VTY=4254
@@ -130,10 +130,12 @@ lib_init() {
     STAMP="$(date +%Y%m%d-%H%M%S)"; OUT="/root/banc-max-$STAMP"
     mkdir -p "$OUT" || { echo "impossible de creer $OUT" >&2; exit 1; }
     if [ -z "$MODE" ] && [ "$RESTART" = 0 ]; then
-        if   port_ouvert 4347; then MODE=dsp
+        # [2026-10-15] les deux couches 1 ont la VTY mobile sur 4247 : le mode se lit
+        # au processus (c54x_exe --arm = DSP), plus au port.
+        if   port_ouvert 4247 && pgrep -f 'c54x_exe[^ ]* --arm' >/dev/null; then MODE=dsp
         elif port_ouvert 4247; then MODE=grgsm
         else
-            say "aucune VTY mobile n'ecoute (4247 gr-gsm, 4347 DSP) : mode inconnu"
+            say "aucune VTY mobile n'ecoute sur 4247 : mode inconnu"
             say "-> --grgsm ou --dsp, avec --restart pour lancer la pile"; exit 2
         fi
     fi
@@ -141,7 +143,7 @@ lib_init() {
     case "$MODE" in
         grgsm) MOB_VTY=4247; MOB_CFG=/root/.osmocom/bb/mobile.cfg; START_OPT=--grgsm
                L1_REQ=(qemu-system-arm osmocon); L1_INFO=("pont/pont.py" grgsm_exe fake_trx trxcon) ;;
-        dsp)   MOB_VTY=4347; MOB_CFG=/opt/GSM/c54x_exe/mobile_pont.cfg; START_OPT=--dsp
+        dsp)   MOB_VTY=4247; MOB_CFG=/opt/GSM/c54x_exe/mobile_pont.cfg; START_OPT=--dsp
                L1_REQ=("c54x_exe[^ ]* --arm" qemu-system-arm osmocon); L1_INFO=(pont_dsp.py) ;;
     esac
     IMSI="$(sed -n 's/^ *imsi \([0-9]\{15\}\).*/\1/p' "$MOB_CFG" 2>/dev/null | head -1)"

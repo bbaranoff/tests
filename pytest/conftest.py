@@ -2110,7 +2110,7 @@ def _build_detail_only_mermaid(tree: dict) -> str:
 # ── [2026-09-29] Deux couches 1, un seul jeu de tests ─────────────────────────
 # Un test marque `grgsm` ne se joue qu'en mode grgsm, `dsp` qu'en mode dsp ; `commun`
 # (ou sans marqueur de mode) se joue partout. Le mode vient de CALYPSO_MODE, sinon de
-# la VTY mobile qui ecoute (4347 dsp, 4247 grgsm) — voir banc.py.
+# la VTY mobile qui ecoute (4247, ou CALYPSO_MOBILE_VTY) — voir banc.py.
 def pytest_collection_modifyitems(config, items):
     try:
         import banc as _banc

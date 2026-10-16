@@ -3,6 +3,8 @@
 MOD_CHAINE=1; MOD_OPTIONNEL=1
 mod_titre() { echo "VTY $MS2_VTY"; }
 mod_run() {
+    # [2026-10-15] seulement sur demande explicite : --ms2 (ou --only=...ms2...)
+    if [ "${MS2:-0}" != 1 ] && ! liste_contient "${ONLY:-}" ms2; then verdict ms2 SAUTE "sans --ms2"; return; fi
     if ! port_ouvert "$MS2_VTY"; then verdict ms2 SAUTE "pas de MS#2 en $MS2_VTY dans ce montage"; return; fi
     local ms2 imsi2 msisdn2 ko="" lignes_avant ok i cc
     ms2="$(vty "$MS2_VTY" "show ms 1")"; printf '%s\n' "$ms2" > "$OUT/show-ms2.txt"

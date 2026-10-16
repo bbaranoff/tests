@@ -42,7 +42,18 @@ mod_run() {
         ( cd "$REPO" && ./start-multi.sh --align ) >"$OUT/align-multi.log" 2>&1
     fi
     say "start-direct.sh $START_OPT, detache (CALYPSO_NO_ATTACH=1)"
-    ( cd "$REPO" && CALYPSO_NO_ATTACH=1 setsid ./start-direct.sh "$START_OPT" ) >"$OUT/start.log" 2>&1 &
+    # Meme environnement que osmo-banc.service (EnvironmentFile=/etc/default/osmo-banc) :
+    # firmware GPRS, profil ROM max, RT_CPUS. Sans lui, --restart repartait sur
+    # layer1.highram.elf et « data » sautait. Une variable deja passee a banc-max gagne.
+    ( cd "$REPO"
+      if [ -r /etc/default/osmo-banc ]; then
+          while IFS= read -r l; do
+              [[ "$l" =~ ^([A-Za-z_][A-Za-z0-9_]*)= ]] || continue
+              [ -n "${!BASH_REMATCH[1]+x}" ] || eval "export $l"
+          done < /etc/default/osmo-banc
+      fi
+      echo "firmware : ${FIRMWARE_ELF:-defaut de run.sh}"
+      CALYPSO_NO_ATTACH=1 exec setsid ./start-direct.sh "$START_OPT" ) >"$OUT/start.log" 2>&1 &
     # On attend que le coeur ecoute avant de mesurer : sinon « coeur » tomberait
     # sur un demon qui n'a simplement pas encore lu sa conf.
     local i

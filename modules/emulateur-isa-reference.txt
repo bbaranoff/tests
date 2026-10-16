@@ -1,0 +1,12 @@
+# 986-emulateur.sh : echecs connus de la suite ISA (isa_test tools/isa_tests.txt), un id par ligne.
+# Un FAIL absent de cette liste = regression de l'emulateur ; un id de la liste qui passe = progres (a retirer).
+# Etat du 2026-10-16, suite lancee avec les drapeaux CALYPSO_* du DSP vivant (profil --vocodeur-rom) :
+# 207/210. Du 15/10 (58 FAIL) : 21 artefacts du banc d'essai et des vecteurs corriges (isa_test.c,
+# isa_tests.txt), ~35 vrais bugs de l'emulateur corriges (workflow ISA + MAC + BC tc,nc,bio), 2 vecteurs
+# ajoutes (301/302, ADD/SUB src,ASM). Restent 3 exemples DOUTEUX, ou le vecteur contredit la regle :
+#   27  BCD BOV : SPRU172C « affects OVB if BOV is chosen » -- l'emulateur efface OVB, le vecteur le garde.
+#   53  DSADT *AR3-, C16=1 : C attendu 1 alors que la moitie haute emprunte (C=0 par la regle SUB).
+#   188 SFTA B,+5 : C attendu 1 alors que src(39-SHIFT) = bit 34 = 0 pour B = 80AA001234.
+27
+53
+188

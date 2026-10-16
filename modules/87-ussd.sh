@@ -6,20 +6,28 @@ MOD_CHAINE=1
 # suivants — sinon toute la couverture TCH restait « NON OBSERVE » a cause
 # d'un *#100# sans reponse (run du 2026-09-29 22:37).
 MOD_OPTIONNEL=1
-mod_titre() { echo "*#100# *#101#, jamais teste avant ce script"; }
+mod_titre() { echo "*#100# *#101#"; }
 # La reponse arrive de facon asynchrone sur la VTY du mobile (« Service
 # response: ... ») : on garde la session ouverte plus longtemps que pour une
 # commande ordinaire. Preuve double : la reponse doit contenir ce que le HLR
 # promet (notre MSISDN, notre IMSI), et le MSC doit compter la requete.
 mod_run() {
-    local ko="" req_avant est_avant out code attendu
+    local ko="" retente="" req_avant est_avant out code attendu
     req_avant="$(msc_ctr "MO NC SS/USSD" 1)"; est_avant="$(msc_ctr "MO NC SS/USSD" 2)"
     : "${req_avant:=0}"; : "${est_avant:=0}"
     for code in "*#100#:${MSISDN}" "*#101#:${IMSI}"; do
         attendu="${code#*:}"; code="${code%%:*}"
-        attendre_service 20   # apres la liberation du code precedent, le mobile resynchronise
-        out="$( { printf 'enable\nservice 1 %s\n' "$code"; sleep 8; } | timeout --foreground 12 nc 127.0.0.1 "$MOB_VTY" 2>/dev/null | tr -d '\r' | sed 's/\x1b\[[0-9;]*m//g')"
-        printf '%s\n' "$out" >> "$OUT/ussd-vty.txt"
+        # [2026-10-16] un second essai si AUCUNE reponse : apres la liberation du canal precedent, la
+        # couche 1 se recale (FBSB) et un RACH lance dans cette fenetre est perdu (« LOS during RACH
+        # request », mobile.log du run 12:12) -- c'est la radio, pas le service USSD. Le verdict le dit.
+        local essai
+        for essai in 1 2; do
+            attendre_service 20   # apres la liberation du code precedent, le mobile resynchronise
+            out="$( { printf 'enable\nservice 1 %s\n' "$code"; sleep 8; } | timeout --foreground 12 nc 127.0.0.1 "$MOB_VTY" 2>/dev/null | tr -d '\r' | sed 's/\x1b\[[0-9;]*m//g')"
+            printf '%s\n' "$out" >> "$OUT/ussd-vty.txt"
+            printf '%s' "$out" | grep -q "Service response:" && break
+            [ "$essai" = 1 ] && { echo "  $code : pas de reponse ($(printf '%s' "$out" | grep -oE 'No service|Service request failed' | head -1)), second essai"; retente="$retente $code"; sleep 3; }
+        done
         if printf '%s' "$out" | grep -q "Service response:.*${attendu:-@@}"; then :
         elif printf '%s' "$out" | grep -q "Service response:"; then ko="$ko $code(reponse sans $attendu)"
         else ko="$ko $code(pas de reponse : $(printf '%s' "$out" | grep -o 'Service request failed[^\n]*' | head -1))"; fi
@@ -27,6 +35,6 @@ mod_run() {
     done
     local req est; req="$(msc_ctr "MO NC SS/USSD" 1)"; est="$(msc_ctr "MO NC SS/USSD" 2)"
     [ "${req:-0}" -gt "$req_avant" ] 2>/dev/null || ko="$ko msc(requests $req_avant->$req)"
-    [ -z "$ko" ] && verdict ussd OK "*#100# -> $MSISDN, *#101# -> $IMSI, MSC requests $req_avant->$req etablies $est_avant->$est" \
+    [ -z "$ko" ] && verdict ussd OK "*#100# -> $MSISDN, *#101# -> $IMSI, MSC requests $req_avant->$req etablies $est_avant->$est${retente:+ (second essai :$retente)}" \
                  || verdict ussd ECHEC "$ko ; MSC requests $req_avant->$req etablies $est_avant->$est"
 }

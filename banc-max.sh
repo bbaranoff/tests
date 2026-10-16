@@ -40,6 +40,8 @@
 #     banc-max.sh --grgsm|--dsp         force la couche 1
 #     banc-max.sh --dsp --restart       (re)demarre la pile dans ce mode
 #     banc-max.sh --multi               ajoute l'inter-operateur (start-multi)
+#     banc-max.sh --ms2                 joue aussi le barreau ms2 (SMS + appel MS#1 -> MS#2)
+#     banc-max.sh --data                joue aussi le barreau data (GPRS : attach, PDP, ping)
 #     banc-max.sh --legacy              joue aussi l'ancienne suite pytest (qemu/tests)
 #     banc-max.sh --campagne [--multi]  grgsm puis dsp, jusqu'a l'appel, + rapport
 #     banc-max.sh --full                le banc au maximum = --grgsm --dsp --4g
@@ -112,6 +114,8 @@ while [ $# -gt 0 ]; do
         --full)       FULL=1 ;;
         --restart)    RESTART=1 ;;
         --multi)      MULTI=1 ;;
+        --ms2)        MS2=1 ;;
+        --data)       DATA=1 ;;
         --legacy)     LEGACY=1 ;;
         --continue)   CONTINUE=1 ;;
         --stop-after) STOP_AFTER=1 ;;
@@ -127,7 +131,7 @@ while [ $# -gt 0 ]; do
         --dest)       DEST="${2:?}"; shift ;;
         --boot-max)   BOOT_MAX="${2:?}"; shift ;;
         --call-s)     CALL_S="${2:?}"; shift ;;
-        -h|--help)    sed -n '2,61p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        -h|--help)    sed -n '2,63p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) echo "option inconnue : $1" >&2; exit 2 ;;
     esac
     shift
@@ -176,6 +180,13 @@ mod_run_borne() {   # $1 = nom du barreau
             tuer_arbre "$pid"; sleep 1; kill -KILL "$pid" 2>/dev/null
             wait "$pid" 2>/dev/null
             VERD[$nom]=ECHEC; DET[$nom]="timeout apres ${lim}s (MOD_TIMEOUT)"
+            # Filet : un barreau tue pendant la bascule GPRS laisserait le Calypso
+            # au modem, sans mobile pour la suite. On rend la voix.
+            if [ "$(cat /run/osmo-banc/calypso-mode 2>/dev/null)" = data ]; then
+                say "Calypso reste au modem GPRS : retour au mobile"
+                timeout 120 bash "$REPO/scripts/calypso-mode.sh" voix --wait >> "$OUT/data-mode.txt" 2>&1
+                DET[$nom]="${DET[$nom]} - mobile rendu par banc-max"
+            fi
             return
         fi
         sleep 1; t=$((t+1))

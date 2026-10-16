@@ -51,16 +51,29 @@ PY2
     # capture grossit). L'analyse cherche le ton sur toute la duree et donne la
     # latence ; un retour a 10 s est un fait a noter, pas un echec du trajet.
     local REC_S="${VOIX_REC_S:-15}"   # l'echo revient 1-2 s apres le ton une fois l'annonce passee
+    # [2026-10-16] le micro est enregistre EN MEME TEMPS que le retour : la latence est l'ecart entre
+    # l'arrivee du ton dans les deux enregistrements (pas de 20 ms), plus « meilleure fenetre - 3 s »
+    # qui ajoutait jusqu'a 2 s (6,0 s annoncees pour 4,5 s reelles, run 12:12).
+    local mic="$OUT/voix-micro.raw"
     timeout --foreground "$REC_S" parecord --device=gsm_audio.monitor --rate=8000 --channels=1 --format=s16le --raw "$rec" &
     local prec=$!
+    timeout --foreground "$REC_S" parecord --device=gsm_mic.monitor --rate=8000 --channels=1 --format=s16le --raw "$mic" &
+    local pmic=$!
     sleep 3                                   # 3 s de silence : la reference
     timeout --foreground 6 paplay --device=gsm_mic "$ton"  # 4 s de ton dans le micro
-    wait $prec 2>/dev/null
+    wait $prec $pmic 2>/dev/null
     vty "$MOB_VTY" "call 1 hangup" >> "$OUT/voix-appel-vty.txt"; sleep 2
-    local res; res="$($py - "$rec" <<'PY'
-import sys, numpy as np
+    local res; res="$($py - "$rec" "$mic" <<'PY'
+import sys, os, numpy as np
 x=np.fromfile(sys.argv[1],dtype='<i2').astype(float)
 sr=8000
+def arrivee(v, seuil):
+    # premier bloc de 20 ms ou l'amplitude de la composante 1 kHz depasse le seuil
+    n=160; w=np.exp(-2j*np.pi*1000*np.arange(n)/sr)
+    for k in range(len(v)//n):
+        if abs((v[k*n:(k+1)*n]*w).sum())*2/n > seuil: return k*n/sr
+    return None
+m=np.fromfile(sys.argv[2],dtype='<i2').astype(float) if os.path.exists(sys.argv[2]) else np.zeros(0)
 if len(x)<sr*6: print(f"ECHEC enregistrement trop court ({len(x)/sr:.1f}s)"); sys.exit()
 sil=x[int(0.5*sr):int(2.5*sr)]
 def rms(v): return float(np.sqrt(np.mean(v*v)))+1e-9
@@ -77,8 +90,11 @@ t_ton,f_ton,p_ton,r_ton=best
 f_sil,p_sil=raie(sil); r_sil=rms(sil)
 snr=20*np.log10(r_ton/r_sil)
 ok = r_ton>200 and 950<=f_ton<=1050 and p_ton>0.5
-lat=t_ton-3.0
-print(f"{'OK' if ok else 'ECHEC'} retour: ton retrouve a t={t_ton:.1f}s (latence {lat:.1f}s), rms silence={r_sil:.0f} rms ton={r_ton:.0f} (+{snr:.1f} dB) ; raie dominante {f_ton:.0f} Hz, {p_ton*100:.0f}% de l'energie dans 950-1050 Hz ; silence: raie {f_sil:.0f} Hz")
+t_ret=arrivee(x, max(300.0, 4*r_sil)); t_mic=arrivee(m, 1000.0) if len(m) else None
+if t_ret is not None and t_mic is not None: lat=f"latence {t_ret-t_mic:.2f}s, micro t={t_mic:.2f}s -> retour t={t_ret:.2f}s"
+elif t_ret is not None: lat=f"latence ~{t_ret-3.0:.2f}s (micro non enregistre)"
+else: lat=f"latence ~{t_ton-3.0:.1f}s (fenetre)"
+print(f"{'OK' if ok else 'ECHEC'} retour: ton retrouve a t={t_ton:.1f}s ({lat}), rms silence={r_sil:.0f} rms ton={r_ton:.0f} (+{snr:.1f} dB) ; raie dominante {f_ton:.0f} Hz, {p_ton*100:.0f}% de l'energie dans 950-1050 Hz ; silence: raie {f_sil:.0f} Hz")
 PY
 )"
     printf '%s\n' "$res" > "$ana"

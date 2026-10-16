@@ -1,7 +1,8 @@
 # banc.py — LE BANC VU PAR PYTEST : mode, journaux, VTY, compteurs.
 #
 # Le meme modele que /opt/GSM/tests/modules/_lib.sh, en Python : les deux
-# couches 1 different par la VTY du mobile (4247 grgsm / 4347 dsp), la conf
+# couches 1 different par la conf du mobile (VTY 4247 dans les deux modes
+# depuis le passage de _lib.sh a 4247 ; CALYPSO_MOBILE_VTY la force), la conf
 # qu'il ouvre, et l'endroit ou leurs journaux tombent (qosmo :
 # /run/user/<uid>/osmo-nitb/logs ; c54x_exe/run.sh : /tmp/c54x-pont). Le pont
 # ecrit toujours /dev/shm/pont.log. Rien ici ne modifie le banc.
@@ -39,13 +40,15 @@ def _detect_mode() -> str:
     m = os.environ.get("CALYPSO_MODE", "").strip().lower()
     if m in ("dsp", "grgsm"):
         return m
-    if port_open(4347):
+    if alive(r"c54x_exe[^ ]* --arm"):
         return "dsp"
     return "grgsm"
 
 
 MODE = _detect_mode()
-MOB_VTY = 4347 if MODE == "dsp" else 4247
+# 4247 dans les deux modes (_lib.sh) : le 4347 du DSP faisait echouer pytest-mobile
+# sur une VTY muette alors que le mobile repondait sur 4247.
+MOB_VTY = int(os.environ.get("CALYPSO_MOBILE_VTY") or 4247)
 MOB_CFG = Path("/opt/GSM/c54x_exe/mobile_pont.cfg" if MODE == "dsp" else "/root/.osmocom/bb/mobile.cfg")
 
 
