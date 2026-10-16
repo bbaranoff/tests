@@ -1,0 +1,14 @@
+{
+  "name": "qmd-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "marked": "^18.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

@@ -13,7 +13,9 @@ dossiers dans UN fichier Markdown, raccourci SANS PERTE :
 
     ./tout-en-un.py [dossier...]      defaut : /opt/GSM/tests et le dernier /root/banc-max-*
     SORTIE=/chemin.md  EXT="log sh md mmd py txt"  SEUIL=3 (taille mini d'un groupe)
+    EXCLURE="banc-max-*"   sous-dossiers ignores (motifs separes par des espaces)
 """
+import fnmatch
 import glob
 import hashlib
 import os
@@ -27,6 +29,7 @@ FORMAT = os.environ.get("FORMAT", "qmd")           # qmd (Quarto) ou md
 SORTIE = os.environ.get("SORTIE") or "/root/tout-en-un-%s.%s" % (time.strftime("%Y%m%d-%H%M%S"), FORMAT)
 AUTEUR = os.environ.get("AUTEUR", "Banc GSM émulé — banc-max")
 IGNORES = {".git", "__pycache__", ".pytest_cache", "node_modules"}
+EXCLURE = os.environ.get("EXCLURE", "").split()
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 TELNET = re.compile(rb"\xff[\xfb-\xfe].|\xff.")           # negociation telnet (IAC) des captures VTY
 CONTROLE = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\ufffd]")  # caracteres de commande, octets indecodables
@@ -42,7 +45,7 @@ def dossiers_par_defaut():
 
 def fichiers(dossier):
     for racine, dirs, noms in os.walk(dossier):
-        dirs[:] = sorted(d for d in dirs if d not in IGNORES)
+        dirs[:] = sorted(d for d in dirs if d not in IGNORES and not any(fnmatch.fnmatch(d, m) for m in EXCLURE))
         for n in sorted(noms):
             if n.startswith("tout-en-un-"):      # nos propres sorties
                 continue
