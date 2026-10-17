@@ -19,21 +19,21 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Status global
 
-> [!TIP]
-> [OK] **ALL PASS** - 9/23 (39 %)
+> [!WARNING]
+> [!] **PARTIAL** - 8 echec(s), 3/23 passent
 
 | metrique | valeur | interpretation |
 |---|---:|---|
-| pct brut       | 39 % | `passed / total` (inclut xfail+skip - minore) |
-| **pct fonctionnel** | **100 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
-| pct actionnable | 39 % | `(passed+failed) / total` - non-xfailed/non-skipped |
+| pct brut       | 13 % | `passed / total` (inclut xfail+skip - minore) |
+| **pct fonctionnel** | **27 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
+| pct actionnable | 48 % | `(passed+failed) / total` - non-xfailed/non-skipped |
 
 | resultat | nombre |
 |---|---:|
-| [OK] passed | 9 |
-| [X] failed | 0 |
-| >> skipped | 13 |
-| [!] xfailed | 1 |
+| [OK] passed | 3 |
+| [X] failed | 8 |
+| >> skipped | 12 |
+| [!] xfailed | 0 |
 | **total** | **23** |
 
 
@@ -45,18 +45,7 @@ valeur fallback de `run.sh`.
 
 | Variable | Valeur | Source |
 |---|---|---|
-| `CALYPSO_CONTAINER` | `local` | env |
-| `CALYPSO_HOST_ROOT` | `/root` | env |
-| `CALYPSO_MOBILE_LOG` | `/tmp/c54x-pont/mobile.log` | env |
-| `CALYPSO_MOBILE_VTY` | `4347` | env |
-| `CALYPSO_MODE` | `dsp` | env |
-| `CALYPSO_MODE_TAG` | `dsp` | env |
-| `CALYPSO_MON_SOCK` | `/tmp/qemu-calypso-mon.sock` | env |
-| `CALYPSO_OSMOCON_LOG` | `/tmp/c54x-pont/osmocon.log` | env |
-| `CALYPSO_QEMU_LOG` | `/tmp/c54x-pont/qemu.log` | env |
-| `CALYPSO_SKIP_DIAG_BUNDLE` | `1` | env |
-| `CALYPSO_TEST_OUT` | `/root/banc-max-20260930-000727/pytest/couche1` | env |
-| `QEMU_TREE` | `/opt/GSM/qosmo` | env |
+| `CALYPSO_TEST_OUT` | `/opt/GSM/tests/pytest/couche1` | env |
 
 
 ## Pipeline - ou ca casse
@@ -74,7 +63,7 @@ graph LR
   classDef fail    fill:#fbb4b4,stroke:#a31a1a,color:#5a0000;
   classDef skip    fill:#e0e0e0,stroke:#6a6a6a,color:#333;
   classDef brk  fill:#ff5252,stroke:#990000,color:#fff,stroke-width:3px;
-  P_L1_data["L1-data 10/23"]
+  P_L1_data["L1-data 3/23"]
   class P_L1_data partial;
 </pre>
 
@@ -83,13 +72,38 @@ graph LR
 
 ## Blockers
 
-_Aucun test en echec._
+**8 test(s) en echec** :
+
+[X] **1. `test_backend_grgsm_annonce`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_backend_grgsm_annonce`
+  -  `test_20_couche1_grgsm.py:19: in test_backend_grgsm_annonce`
+ **2. `test_canal_dedie_sdcch`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_canal_dedie_sdcch`
+  -  `test_20_couche1_grgsm.py:55: in test_canal_dedie_sdcch`
+ **3. `test_chiffrement_a5_publie_et_confirme`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme`
+  -  `test_20_couche1_grgsm.py:60: in test_chiffrement_a5_publie_et_confirme`
+ **4. `test_immediate_assignment_vu`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_immediate_assignment_vu`
+  -  `test_20_couche1_grgsm.py:50: in test_immediate_assignment_vu`
+ **5. `test_pont_rach_monte`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_pont_rach_monte`
+  -  `test_20_couche1_grgsm.py:45: in test_pont_rach_monte`
+ **6. `test_pont_stats_bursts_descendants`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants`
+  -  `test_20_couche1_grgsm.py:32: in test_pont_stats_bursts_descendants`
+ **7. `test_process_couche1`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.02s
+  - `test_20_couche1_grgsm.py::test_process_couche1`
+  -  `test_20_couche1_grgsm.py:13: in test_process_couche1`
+ **8. `test_synchro_fb_sb`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_synchro_fb_sb`
+  -  `test_20_couche1_grgsm.py:25: in test_synchro_fb_sb`
 
 ## Couches - ce qui marche, ce qui casse
 
-### [~] `L1-data` - 10/23
->> **Skipped :** `test_process_couche1`, `test_backend_grgsm_annonce`, `test_synchro_fb_sb`, `test_pont_stats_bursts_descendants`, `test_pont_rach_monte`, `test_immediate_assignment_vu`, `test_canal_dedie_sdcch`, `test_chiffrement_a5_publie_et_confirme`, `test_pas_de_saut_de_frequence_non_gere`, `test_pas_de_release_orphelin`, `test_qemu_sans_crash`, `test_bascule_tch_suit_le_firmware`, `test_parole_descendante_pas_toute_bfi`
-[!] **xfail :** `test_marge_temps_reel`
+### [~] `L1-data` - 3/23
+[X] **Echecs :** `test_process_couche1`, `test_backend_grgsm_annonce`, `test_synchro_fb_sb`, `test_pont_stats_bursts_descendants`, `test_pont_rach_monte`, `test_immediate_assignment_vu`, `test_canal_dedie_sdcch`, `test_chiffrement_a5_publie_et_confirme`
+>> **Skipped :** `test_process_couche1`, `test_api_ram_partagee`, `test_tache_fb_postee_et_fb_detecte`, `test_sb_plausible`, `test_rach_publie`, `test_canal_dedie_suivi`, `test_chiffrement_a5_dans_le_dsp`, `test_bascule_tch_suit_le_firmware`, `test_parole_descendante_pas_toute_bfi`, `test_marge_temps_reel`, `test_garde_mvkd_muette`, `test_pas_de_los_en_dedie`
 
 
 ## Diagramme detaille - un graphe par categorie
@@ -99,7 +113,7 @@ gros graphe avec subgraphs imbriques devient illisible >50 tests). Les
 categories sont independantes cote layout - pas de chaine causale entre
 elles dans le detail (voir le pipeline plus haut pour ca).
 
-### [~] `Banc` - 10/23
+### [~] `Banc` - 3/23
 
 
 <pre class="mermaid">
@@ -109,9 +123,9 @@ flowchart TB
   classDef fail    fill:#fbb4b4,stroke:#a31a1a,color:#5a0000;
   classDef skip    fill:#e0e0e0,stroke:#6a6a6a,color:#333;
   classDef xfail   fill:#fde79c,stroke:#b07a00,color:#3a2c00;
-  C_Banc["Banc 10/23"]
-  C_Banc --> T_001_pass_grp_Banc["PASS 9 0.1s"]
-  C_Banc --> T_002_test_process_couche1["test_process_couche1 L1-data - banc_couche1 0.00s"]
+  C_Banc["Banc 3/23"]
+  C_Banc --> T_001_pass_grp_Banc["PASS 3 0.0s"]
+  C_Banc --> T_002_test_process_couche1["test_process_couche1 L1-data - banc_couche1 0.02s"]
   C_Banc --> T_003_test_backend_grgsm_annonce["test_backend_grgsm_annonce L1-data - banc_couche1 0.00s"]
   C_Banc --> T_004_test_synchro_fb_sb["test_synchro_fb_sb L1-data - banc_couche1 0.00s"]
   C_Banc --> T_005_test_pont_stats_bursts_descendants["test_pont_stats_bursts_descendants L1-data - banc_couche1 0.00s"]
@@ -119,51 +133,59 @@ flowchart TB
   C_Banc --> T_007_test_immediate_assignment_vu["test_immediate_assignment_vu L1-data - banc_couche1 0.00s"]
   C_Banc --> T_008_test_canal_dedie_sdcch["test_canal_dedie_sdcch L1-data - banc_couche1 0.00s"]
   C_Banc --> T_009_test_chiffrement_a5_publie_et_confirme["test_chiffrement_a5_publie_et_confirme L1-data - banc_couche1 0.00s"]
-  C_Banc --> T_010_test_pas_de_saut_de_frequence_non_gere["test_pas_de_saut_de_frequence_non_gere L1-data - banc_couche1 0.00s"]
-  C_Banc --> T_011_test_pas_de_release_orphelin["test_pas_de_release_orphelin L1-data - banc_couche1 0.00s"]
-  C_Banc --> T_012_test_qemu_sans_crash["test_qemu_sans_crash L1-data - banc_couche1 0.00s"]
-  C_Banc --> T_013_test_bascule_tch_suit_le_firmware["test_bascule_tch_suit_le_firmware L1-data - banc_couche1 0.00s"]
-  C_Banc --> T_014_test_parole_descendante_pas_toute_bfi["test_parole_descendante_pas_toute_bfi L1-data - banc_couche1 0.00s"]
-  C_Banc --> T_015_test_marge_temps_reel["test_marge_temps_reel L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_010_test_process_couche1["test_process_couche1 L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_011_test_api_ram_partagee["test_api_ram_partagee L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_012_test_tache_fb_postee_et_fb_detecte["test_tache_fb_postee_et_fb_detecte L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_013_test_sb_plausible["test_sb_plausible L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_014_test_rach_publie["test_rach_publie L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_015_test_canal_dedie_suivi["test_canal_dedie_suivi L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_016_test_chiffrement_a5_dans_le_dsp["test_chiffrement_a5_dans_le_dsp L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_017_test_bascule_tch_suit_le_firmware["test_bascule_tch_suit_le_firmware L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_018_test_parole_descendante_pas_toute_bfi["test_parole_descendante_pas_toute_bfi L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_019_test_marge_temps_reel["test_marge_temps_reel L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_020_test_garde_mvkd_muette["test_garde_mvkd_muette L1-data - banc_couche1 0.00s"]
+  C_Banc --> T_021_test_pas_de_los_en_dedie["test_pas_de_los_en_dedie L1-data - banc_couche1 0.00s"]
   class C_Banc partial;
   class T_001_pass_grp_Banc pass;
-  class T_002_test_process_couche1 skip;
-  class T_003_test_backend_grgsm_annonce skip;
-  class T_004_test_synchro_fb_sb skip;
-  class T_005_test_pont_stats_bursts_descendants skip;
-  class T_006_test_pont_rach_monte skip;
-  class T_007_test_immediate_assignment_vu skip;
-  class T_008_test_canal_dedie_sdcch skip;
-  class T_009_test_chiffrement_a5_publie_et_confirme skip;
-  class T_010_test_pas_de_saut_de_frequence_non_gere skip;
-  class T_011_test_pas_de_release_orphelin skip;
-  class T_012_test_qemu_sans_crash skip;
-  class T_013_test_bascule_tch_suit_le_firmware skip;
-  class T_014_test_parole_descendante_pas_toute_bfi skip;
-  class T_015_test_marge_temps_reel xfail;
+  class T_002_test_process_couche1 fail;
+  class T_003_test_backend_grgsm_annonce fail;
+  class T_004_test_synchro_fb_sb fail;
+  class T_005_test_pont_stats_bursts_descendants fail;
+  class T_006_test_pont_rach_monte fail;
+  class T_007_test_immediate_assignment_vu fail;
+  class T_008_test_canal_dedie_sdcch fail;
+  class T_009_test_chiffrement_a5_publie_et_confirme fail;
+  class T_010_test_process_couche1 skip;
+  class T_011_test_api_ram_partagee skip;
+  class T_012_test_tache_fb_postee_et_fb_detecte skip;
+  class T_013_test_sb_plausible skip;
+  class T_014_test_rach_publie skip;
+  class T_015_test_canal_dedie_suivi skip;
+  class T_016_test_chiffrement_a5_dans_le_dsp skip;
+  class T_017_test_bascule_tch_suit_le_firmware skip;
+  class T_018_test_parole_descendante_pas_toute_bfi skip;
+  class T_019_test_marge_temps_reel skip;
+  class T_020_test_garde_mvkd_muette skip;
+  class T_021_test_pas_de_los_en_dedie skip;
 </pre>
 
 
 
 ## Skipped / xfailed
 
-### 13 skipped
-- `test_process_couche1` - banc_couche1,grgsm,skip
-- `test_backend_grgsm_annonce` - banc_couche1,grgsm,skip
-- `test_synchro_fb_sb` - banc_couche1,grgsm,skip
-- `test_pont_stats_bursts_descendants` - banc_couche1,grgsm,skip
-- `test_pont_rach_monte` - banc_couche1,grgsm,skip
-- `test_immediate_assignment_vu` - banc_couche1,grgsm,skip
-- `test_canal_dedie_sdcch` - banc_couche1,grgsm,skip
-- `test_chiffrement_a5_publie_et_confirme` - banc_couche1,grgsm,skip
-- `test_pas_de_saut_de_frequence_non_gere` - banc_couche1,grgsm,skip
-- `test_pas_de_release_orphelin` - banc_couche1,grgsm,skip
-- `test_qemu_sans_crash` - banc_couche1,grgsm,skip
-- `test_bascule_tch_suit_le_firmware` - banc_couche1,dsp
-- `test_parole_descendante_pas_toute_bfi` - banc_couche1,dsp,xfail
-
-### 1 xfailed
-- `test_marge_temps_reel` - banc_couche1,dsp,xfail
+### 12 skipped
+- `test_process_couche1` - banc_couche1,dsp,skip
+- `test_api_ram_partagee` - banc_couche1,dsp,skip
+- `test_tache_fb_postee_et_fb_detecte` - banc_couche1,dsp,skip
+- `test_sb_plausible` - banc_couche1,dsp,skip
+- `test_rach_publie` - banc_couche1,dsp,skip
+- `test_canal_dedie_suivi` - banc_couche1,dsp,skip
+- `test_chiffrement_a5_dans_le_dsp` - banc_couche1,dsp,skip
+- `test_bascule_tch_suit_le_firmware` - banc_couche1,dsp,skip
+- `test_parole_descendante_pas_toute_bfi` - banc_couche1,dsp,skip
+- `test_marge_temps_reel` - banc_couche1,dsp,skip
+- `test_garde_mvkd_muette` - banc_couche1,dsp,skip
+- `test_pas_de_los_en_dedie` - banc_couche1,dsp,skip
 
 ## Catalogue des tests
 
@@ -171,89 +193,83 @@ Liste exhaustive des tests executes ce run, groupes par marker pytest.
 Source : nodeids pytest + outcome. Pour chaque test, le statut, la duree
 et le fichier source.
 
-### `banc_couche1` - 10/23
+### `banc_couche1` - 3/23
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| [OK] passed | `test_api_ram_partagee` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_canal_dedie_suivi` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_chiffrement_a5_dans_le_dsp` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_garde_mvkd_muette` | 0.00s | `test_21_couche1_dsp.py` |
-| [!] xfail | `test_marge_temps_reel` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_pas_de_los_en_dedie` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_process_couche1` | 0.05s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_rach_publie` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_sb_plausible` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_tache_fb_postee_et_fb_detecte` | 0.00s | `test_21_couche1_dsp.py` |
-| >> skipped | `test_backend_grgsm_annonce` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_backend_grgsm_annonce` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_canal_dedie_sdcch` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_chiffrement_a5_publie_et_confirme` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_immediate_assignment_vu` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_pont_rach_monte` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_pont_stats_bursts_descendants` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_process_couche1` | 0.02s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_synchro_fb_sb` | 0.00s | `test_20_couche1_grgsm.py` |
+| [OK] passed | `test_pas_de_release_orphelin` | 0.00s | `test_20_couche1_grgsm.py` |
+| [OK] passed | `test_pas_de_saut_de_frequence_non_gere` | 0.00s | `test_20_couche1_grgsm.py` |
+| [OK] passed | `test_qemu_sans_crash` | 0.00s | `test_20_couche1_grgsm.py` |
+| >> skipped | `test_api_ram_partagee` | 0.00s | `test_21_couche1_dsp.py` |
 | >> skipped | `test_bascule_tch_suit_le_firmware` | 0.00s | `test_21_couche1_dsp.py` |
-| >> skipped | `test_canal_dedie_sdcch` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_chiffrement_a5_publie_et_confirme` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_immediate_assignment_vu` | 0.00s | `test_20_couche1_grgsm.py` |
+| >> skipped | `test_canal_dedie_suivi` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_chiffrement_a5_dans_le_dsp` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_garde_mvkd_muette` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_marge_temps_reel` | 0.00s | `test_21_couche1_dsp.py` |
 | >> skipped | `test_parole_descendante_pas_toute_bfi` | 0.00s | `test_21_couche1_dsp.py` |
-| >> skipped | `test_pas_de_release_orphelin` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pas_de_saut_de_frequence_non_gere` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pont_rach_monte` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pont_stats_bursts_descendants` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_process_couche1` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_qemu_sans_crash` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_synchro_fb_sb` | 0.00s | `test_20_couche1_grgsm.py` |
+| >> skipped | `test_pas_de_los_en_dedie` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_process_couche1` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_rach_publie` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_sb_plausible` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_tache_fb_postee_et_fb_detecte` | 0.00s | `test_21_couche1_dsp.py` |
 
-### `dsp` - 10/12
+### `dsp` - 0/12
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| [OK] passed | `test_api_ram_partagee` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_canal_dedie_suivi` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_chiffrement_a5_dans_le_dsp` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_garde_mvkd_muette` | 0.00s | `test_21_couche1_dsp.py` |
-| [!] xfail | `test_marge_temps_reel` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_pas_de_los_en_dedie` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_process_couche1` | 0.05s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_rach_publie` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_sb_plausible` | 0.00s | `test_21_couche1_dsp.py` |
-| [OK] passed | `test_tache_fb_postee_et_fb_detecte` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_api_ram_partagee` | 0.00s | `test_21_couche1_dsp.py` |
 | >> skipped | `test_bascule_tch_suit_le_firmware` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_canal_dedie_suivi` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_chiffrement_a5_dans_le_dsp` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_garde_mvkd_muette` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_marge_temps_reel` | 0.00s | `test_21_couche1_dsp.py` |
 | >> skipped | `test_parole_descendante_pas_toute_bfi` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_pas_de_los_en_dedie` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_process_couche1` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_rach_publie` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_sb_plausible` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_tache_fb_postee_et_fb_detecte` | 0.00s | `test_21_couche1_dsp.py` |
 
-### `grgsm` - 0/11
-
-| Status | Test | Duree | Fichier |
-|---|---|---:|---|
-| >> skipped | `test_backend_grgsm_annonce` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_canal_dedie_sdcch` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_chiffrement_a5_publie_et_confirme` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_immediate_assignment_vu` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pas_de_release_orphelin` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pas_de_saut_de_frequence_non_gere` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pont_rach_monte` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pont_stats_bursts_descendants` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_process_couche1` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_qemu_sans_crash` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_synchro_fb_sb` | 0.00s | `test_20_couche1_grgsm.py` |
-
-### `skip` - 0/11
+### `grgsm` - 3/11
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| >> skipped | `test_backend_grgsm_annonce` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_canal_dedie_sdcch` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_chiffrement_a5_publie_et_confirme` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_immediate_assignment_vu` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pas_de_release_orphelin` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pas_de_saut_de_frequence_non_gere` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pont_rach_monte` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_pont_stats_bursts_descendants` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_process_couche1` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_qemu_sans_crash` | 0.00s | `test_20_couche1_grgsm.py` |
-| >> skipped | `test_synchro_fb_sb` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_backend_grgsm_annonce` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_canal_dedie_sdcch` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_chiffrement_a5_publie_et_confirme` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_immediate_assignment_vu` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_pont_rach_monte` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_pont_stats_bursts_descendants` | 0.00s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_process_couche1` | 0.02s | `test_20_couche1_grgsm.py` |
+| [X] failed | `test_synchro_fb_sb` | 0.00s | `test_20_couche1_grgsm.py` |
+| [OK] passed | `test_pas_de_release_orphelin` | 0.00s | `test_20_couche1_grgsm.py` |
+| [OK] passed | `test_pas_de_saut_de_frequence_non_gere` | 0.00s | `test_20_couche1_grgsm.py` |
+| [OK] passed | `test_qemu_sans_crash` | 0.00s | `test_20_couche1_grgsm.py` |
 
-### `xfail` - 1/2
+### `skip` - 0/12
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| [!] xfail | `test_marge_temps_reel` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_api_ram_partagee` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_bascule_tch_suit_le_firmware` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_canal_dedie_suivi` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_chiffrement_a5_dans_le_dsp` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_garde_mvkd_muette` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_marge_temps_reel` | 0.00s | `test_21_couche1_dsp.py` |
 | >> skipped | `test_parole_descendante_pas_toute_bfi` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_pas_de_los_en_dedie` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_process_couche1` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_rach_publie` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_sb_plausible` | 0.00s | `test_21_couche1_dsp.py` |
+| >> skipped | `test_tache_fb_postee_et_fb_detecte` | 0.00s | `test_21_couche1_dsp.py` |
 
 
 ## Cadence des logs et timers dans le temps
@@ -339,32 +355,32 @@ if (!requireNamespace("ggplot2", quietly=TRUE) ||
 <summary>Cliquer pour deplier - sortie verbatim type <code>pytest -v</code></summary>
 
 ```
-SKIPPED  test_20_couche1_grgsm.py::test_process_couche1 (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_backend_grgsm_annonce (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_synchro_fb_sb (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_pont_rach_monte (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_immediate_assignment_vu (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_canal_dedie_sdcch (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_pas_de_saut_de_frequence_non_gere (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_pas_de_release_orphelin (0.000s)
-SKIPPED  test_20_couche1_grgsm.py::test_qemu_sans_crash (0.000s)
-PASSED   test_21_couche1_dsp.py::test_process_couche1 (0.045s)
-PASSED   test_21_couche1_dsp.py::test_api_ram_partagee (0.000s)
-PASSED   test_21_couche1_dsp.py::test_tache_fb_postee_et_fb_detecte (0.001s)
-PASSED   test_21_couche1_dsp.py::test_sb_plausible (0.001s)
-PASSED   test_21_couche1_dsp.py::test_rach_publie (0.000s)
-PASSED   test_21_couche1_dsp.py::test_canal_dedie_suivi (0.001s)
-PASSED   test_21_couche1_dsp.py::test_chiffrement_a5_dans_le_dsp (0.001s)
+FAILED   test_20_couche1_grgsm.py::test_process_couche1 (0.019s)
+FAILED   test_20_couche1_grgsm.py::test_backend_grgsm_annonce (0.000s)
+FAILED   test_20_couche1_grgsm.py::test_synchro_fb_sb (0.000s)
+FAILED   test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants (0.000s)
+FAILED   test_20_couche1_grgsm.py::test_pont_rach_monte (0.000s)
+FAILED   test_20_couche1_grgsm.py::test_immediate_assignment_vu (0.000s)
+FAILED   test_20_couche1_grgsm.py::test_canal_dedie_sdcch (0.000s)
+FAILED   test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme (0.000s)
+PASSED   test_20_couche1_grgsm.py::test_pas_de_saut_de_frequence_non_gere (0.000s)
+PASSED   test_20_couche1_grgsm.py::test_pas_de_release_orphelin (0.000s)
+PASSED   test_20_couche1_grgsm.py::test_qemu_sans_crash (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_process_couche1 (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_api_ram_partagee (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_tache_fb_postee_et_fb_detecte (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_sb_plausible (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_rach_publie (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_canal_dedie_suivi (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_chiffrement_a5_dans_le_dsp (0.000s)
 SKIPPED  test_21_couche1_dsp.py::test_bascule_tch_suit_le_firmware (0.000s)
 SKIPPED  test_21_couche1_dsp.py::test_parole_descendante_pas_toute_bfi (0.000s)
-XFAIL    test_21_couche1_dsp.py::test_marge_temps_reel (0.001s)
-PASSED   test_21_couche1_dsp.py::test_garde_mvkd_muette (0.000s)
-PASSED   test_21_couche1_dsp.py::test_pas_de_los_en_dedie (0.001s)
+SKIPPED  test_21_couche1_dsp.py::test_marge_temps_reel (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_garde_mvkd_muette (0.000s)
+SKIPPED  test_21_couche1_dsp.py::test_pas_de_los_en_dedie (0.000s)
 
 ============================================================
-9 passed, 13 skipped, 1 xfailed in 0.05s
+3 passed, 8 failed, 12 skipped in 0.02s
 ```
 
 </details>
@@ -394,7 +410,168 @@ Pour chaque test en echec : categorie, couche, marker, message d'assertion,
 audit Python dynamique (greps des keywords du message contre tous les logs
 container), et stack trace complet depliable.
 
-_Aucun test en echec - pas de chapitre a generer._
+_8 test(s) en echec, tries par ordre pipeline (le premier est l'upstream le plus en amont). Chaque entree inclut un audit dynamique des keywords du message d'assertion._
+
+### [STOP] 1. `test_backend_grgsm_annonce`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_backend_grgsm_annonce`
+- **Assertion** : `test_20_couche1_grgsm.py:19: in test_backend_grgsm_annonce`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:19: in test_backend_grgsm_annonce
+    assert banc.count("qemu", r"backend gr-gsm") >= 1, "qemu.log : la couche 1 gr-gsm ne s'est pas annoncee"
+E   AssertionError: qemu.log : la couche 1 gr-gsm ne s'est pas annoncee
+E   assert 0 >= 1
+E    +  where 0 = <function count at 0x7fdc45623d80>('qemu', 'backend gr-gsm')
+E    +    where <function count at 0x7fdc45623d80> = banc.count
+```
+
+</details>
+
+### [STOP] 2. `test_canal_dedie_sdcch`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_canal_dedie_sdcch`
+- **Assertion** : `test_20_couche1_grgsm.py:55: in test_canal_dedie_sdcch`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:55: in test_canal_dedie_sdcch
+    assert banc.count("qemu", r"canal dedie SDCCH") >= 1, "aucun canal dedie SDCCH ouvert cote QEMU"
+E   AssertionError: aucun canal dedie SDCCH ouvert cote QEMU
+E   assert 0 >= 1
+E    +  where 0 = <function count at 0x7fdc45623d80>('qemu', 'canal dedie SDCCH')
+E    +    where <function count at 0x7fdc45623d80> = banc.count
+```
+
+</details>
+
+### [STOP] 3. `test_chiffrement_a5_publie_et_confirme`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme`
+- **Assertion** : `test_20_couche1_grgsm.py:60: in test_chiffrement_a5_publie_et_confirme`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:60: in test_chiffrement_a5_publie_et_confirme
+    assert banc.count("qemu", r"chiffrement A5/") >= 1, "Kc jamais publie par le firmware"
+E   AssertionError: Kc jamais publie par le firmware
+E   assert 0 >= 1
+E    +  where 0 = <function count at 0x7fdc45623d80>('qemu', 'chiffrement A5/')
+E    +    where <function count at 0x7fdc45623d80> = banc.count
+```
+
+</details>
+
+### [STOP] 4. `test_immediate_assignment_vu`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_immediate_assignment_vu`
+- **Assertion** : `test_20_couche1_grgsm.py:50: in test_immediate_assignment_vu`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:50: in test_immediate_assignment_vu
+    assert banc.count("pont", r"IMMEDIATE ASSIGNMENT") >= 1
+E   AssertionError: assert 0 >= 1
+E    +  where 0 = <function count at 0x7fdc45623d80>('pont', 'IMMEDIATE ASSIGNMENT')
+E    +    where <function count at 0x7fdc45623d80> = banc.count
+```
+
+</details>
+
+### [STOP] 5. `test_pont_rach_monte`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_pont_rach_monte`
+- **Assertion** : `test_20_couche1_grgsm.py:45: in test_pont_rach_monte`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:45: in test_pont_rach_monte
+    assert m and int(m.group(1)) >= 1, f"aucun RACH publie par le firmware : {ln}"
+E   AssertionError: aucun RACH publie par le firmware : 
+E   assert (None)
+```
+
+</details>
+
+### [STOP] 6. `test_pont_stats_bursts_descendants`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants`
+- **Assertion** : `test_20_couche1_grgsm.py:32: in test_pont_stats_bursts_descendants`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:32: in test_pont_stats_bursts_descendants
+    assert ln, "pont.log sans ligne STATS"
+E   AssertionError: pont.log sans ligne STATS
+E   assert ''
+```
+
+</details>
+
+### [STOP] 7. `test_process_couche1`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.02s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_process_couche1`
+- **Assertion** : `test_20_couche1_grgsm.py:13: in test_process_couche1`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:13: in test_process_couche1
+    assert banc.alive("qemu-system-arm"), "qemu-system-arm absent"
+E   AssertionError: qemu-system-arm absent
+E   assert False
+E    +  where False = <function alive at 0x7fdc45623a60>('qemu-system-arm')
+E    +    where <function alive at 0x7fdc45623a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 8. `test_synchro_fb_sb`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_synchro_fb_sb`
+- **Assertion** : `test_20_couche1_grgsm.py:25: in test_synchro_fb_sb`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_20_couche1_grgsm.py:25: in test_synchro_fb_sb
+    assert ln, "pas de " synchro gr-gsm : ARFCN=... BSIC=... " : FB/SB non decodes"
+E   AssertionError: pas de " synchro gr-gsm : ARFCN=... BSIC=... " : FB/SB non decodes
+E   assert ''
+```
+
+</details>
 
 
 ## Annexe - Audit independant (`abstract.py`)
@@ -439,33 +616,33 @@ _`make_diag_bundle.sh` introuvable ; ou poser CALYPSO_DIAG_BUNDLE=<tar.gz>._
 ::: {.callout-note collapse="true"}
 ## Deplier - table complete de tous les tests
 
-### Banc / L1-data - 10/23
+### Banc / L1-data - 3/23
 
 | | Test | Markers | Duree | Erreur / raison (si non-pass) |
 |---|---|---|---:|---|
-| [OK] | `test_api_ram_partagee` | banc_couche1,dsp | 0.00s |  |
-| [OK] | `test_canal_dedie_suivi` | banc_couche1,dsp | 0.00s |  |
-| [OK] | `test_chiffrement_a5_dans_le_dsp` | banc_couche1,dsp | 0.00s |  |
-| [OK] | `test_garde_mvkd_muette` | banc_couche1,dsp | 0.00s |  |
-| [!] | `test_marge_temps_reel` | banc_couche1,dsp,xfail | 0.00s |  |
-| [OK] | `test_pas_de_los_en_dedie` | banc_couche1,dsp | 0.00s |  |
-| [OK] | `test_process_couche1` | banc_couche1,dsp | 0.05s |  |
-| [OK] | `test_rach_publie` | banc_couche1,dsp | 0.00s |  |
-| [OK] | `test_sb_plausible` | banc_couche1,dsp | 0.00s |  |
-| [OK] | `test_tache_fb_postee_et_fb_detecte` | banc_couche1,dsp | 0.00s |  |
-| >> | `test_backend_grgsm_annonce` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 17, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_bascule_tch_suit_le_firmware` | banc_couche1,dsp | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 56, 'Skipped: aucun appel dans ce run : pas de bascule TCH a verifier') |
-| >> | `test_canal_dedie_sdcch` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 53, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_chiffrement_a5_publie_et_confirme` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 58, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_immediate_assignment_vu` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 48, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_parole_descendante_pas_toute_bfi` | banc_couche1,dsp,xfail | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 65, 'Skipped: pas de sonde [a_dd] : aucun TCH dans ce run') |
-| >> | `test_pas_de_release_orphelin` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 70, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_pas_de_saut_de_frequence_non_gere` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 65, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_pont_rach_monte` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 41, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_pont_stats_bursts_descendants` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 29, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_process_couche1` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 12, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_qemu_sans_crash` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 75, 'Skipped: test grgsm : le banc est en mode dsp') |
-| >> | `test_synchro_fb_sb` | banc_couche1,grgsm,skip | 0.00s | ('/opt/GSM/tests/pytest/test_20_couche1_grgsm.py', 22, 'Skipped: test grgsm : le banc est en mode dsp') |
+| [X] | `test_backend_grgsm_annonce` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:19: in test_backend_grgsm_annonce |
+| [X] | `test_canal_dedie_sdcch` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:55: in test_canal_dedie_sdcch |
+| [X] | `test_chiffrement_a5_publie_et_confirme` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:60: in test_chiffrement_a5_publie_et_confirme |
+| [X] | `test_immediate_assignment_vu` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:50: in test_immediate_assignment_vu |
+| [X] | `test_pont_rach_monte` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:45: in test_pont_rach_monte |
+| [X] | `test_pont_stats_bursts_descendants` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:32: in test_pont_stats_bursts_descendants |
+| [X] | `test_process_couche1` | banc_couche1,grgsm | 0.02s | test_20_couche1_grgsm.py:13: in test_process_couche1 |
+| [X] | `test_synchro_fb_sb` | banc_couche1,grgsm | 0.00s | test_20_couche1_grgsm.py:25: in test_synchro_fb_sb |
+| [OK] | `test_pas_de_release_orphelin` | banc_couche1,grgsm | 0.00s |  |
+| [OK] | `test_pas_de_saut_de_frequence_non_gere` | banc_couche1,grgsm | 0.00s |  |
+| [OK] | `test_qemu_sans_crash` | banc_couche1,grgsm | 0.00s |  |
+| >> | `test_api_ram_partagee` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 19, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_bascule_tch_suit_le_firmware` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 53, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_canal_dedie_suivi` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 41, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_chiffrement_a5_dans_le_dsp` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 47, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_garde_mvkd_muette` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 80, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_marge_temps_reel` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 71, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_parole_descendante_pas_toute_bfi` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 60, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_pas_de_los_en_dedie` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 85, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_process_couche1` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 13, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_rach_publie` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 36, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_sb_plausible` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 30, 'Skipped: test dsp : le banc est en mode grgsm') |
+| >> | `test_tache_fb_postee_et_fb_detecte` | banc_couche1,dsp,skip | 0.00s | ('/opt/GSM/tests/pytest/test_21_couche1_dsp.py', 24, 'Skipped: test dsp : le banc est en mode grgsm') |
 
 ### Tous les nodeids (reference)
 
@@ -473,29 +650,29 @@ _`make_diag_bundle.sh` introuvable ; ou poser CALYPSO_DIAG_BUNDLE=<tar.gz>._
 <summary>Cliquer pour deplier - liste exhaustive nodeid -> outcome</summary>
 
 ```
-SKIPPED  test_20_couche1_grgsm.py::test_backend_grgsm_annonce
-SKIPPED  test_20_couche1_grgsm.py::test_canal_dedie_sdcch
-SKIPPED  test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme
-SKIPPED  test_20_couche1_grgsm.py::test_immediate_assignment_vu
-SKIPPED  test_20_couche1_grgsm.py::test_pas_de_release_orphelin
-SKIPPED  test_20_couche1_grgsm.py::test_pas_de_saut_de_frequence_non_gere
-SKIPPED  test_20_couche1_grgsm.py::test_pont_rach_monte
-SKIPPED  test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants
-SKIPPED  test_20_couche1_grgsm.py::test_process_couche1
-SKIPPED  test_20_couche1_grgsm.py::test_qemu_sans_crash
-SKIPPED  test_20_couche1_grgsm.py::test_synchro_fb_sb
-PASSED   test_21_couche1_dsp.py::test_api_ram_partagee
+FAILED   test_20_couche1_grgsm.py::test_backend_grgsm_annonce
+FAILED   test_20_couche1_grgsm.py::test_canal_dedie_sdcch
+FAILED   test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme
+FAILED   test_20_couche1_grgsm.py::test_immediate_assignment_vu
+PASSED   test_20_couche1_grgsm.py::test_pas_de_release_orphelin
+PASSED   test_20_couche1_grgsm.py::test_pas_de_saut_de_frequence_non_gere
+FAILED   test_20_couche1_grgsm.py::test_pont_rach_monte
+FAILED   test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants
+FAILED   test_20_couche1_grgsm.py::test_process_couche1
+PASSED   test_20_couche1_grgsm.py::test_qemu_sans_crash
+FAILED   test_20_couche1_grgsm.py::test_synchro_fb_sb
+SKIPPED  test_21_couche1_dsp.py::test_api_ram_partagee
 SKIPPED  test_21_couche1_dsp.py::test_bascule_tch_suit_le_firmware
-PASSED   test_21_couche1_dsp.py::test_canal_dedie_suivi
-PASSED   test_21_couche1_dsp.py::test_chiffrement_a5_dans_le_dsp
-PASSED   test_21_couche1_dsp.py::test_garde_mvkd_muette
-XFAIL    test_21_couche1_dsp.py::test_marge_temps_reel
+SKIPPED  test_21_couche1_dsp.py::test_canal_dedie_suivi
+SKIPPED  test_21_couche1_dsp.py::test_chiffrement_a5_dans_le_dsp
+SKIPPED  test_21_couche1_dsp.py::test_garde_mvkd_muette
+SKIPPED  test_21_couche1_dsp.py::test_marge_temps_reel
 SKIPPED  test_21_couche1_dsp.py::test_parole_descendante_pas_toute_bfi
-PASSED   test_21_couche1_dsp.py::test_pas_de_los_en_dedie
-PASSED   test_21_couche1_dsp.py::test_process_couche1
-PASSED   test_21_couche1_dsp.py::test_rach_publie
-PASSED   test_21_couche1_dsp.py::test_sb_plausible
-PASSED   test_21_couche1_dsp.py::test_tache_fb_postee_et_fb_detecte
+SKIPPED  test_21_couche1_dsp.py::test_pas_de_los_en_dedie
+SKIPPED  test_21_couche1_dsp.py::test_process_couche1
+SKIPPED  test_21_couche1_dsp.py::test_rach_publie
+SKIPPED  test_21_couche1_dsp.py::test_sb_plausible
+SKIPPED  test_21_couche1_dsp.py::test_tache_fb_postee_et_fb_detecte
 ```
 :::
 
@@ -512,11 +689,11 @@ cd /home/nirvana/qemu-calypso/tests
 ```
 
 Le diagramme et ce rapport sont regeneres a chaque run et ecrits dans
-`/root/banc-max-20260930-000727/pytest/couche1/test_results_20260930_000959/test_results.{mmd,md}` (override via `CALYPSO_TEST_OUT`).
+`/opt/GSM/tests/pytest/couche1/test_results_20261017_153055/test_results.{mmd,md}` (override via `CALYPSO_TEST_OUT`).
 
 ---
 
-_Run finished at 2026-09-30T00:10:00._
+_Run finished at 2026-10-17T15:30:56._
 
 
 ## Annexe - Report condense (machine-friendly)
@@ -526,28 +703,28 @@ _Run finished at 2026-09-30T00:10:00._
 
 > _Rapport condense (machine-friendly) extrait de `test_results.md`. Pour la version complete : voir le `.md` ou `.qmd` a cote._
 
-## Calypso test report - 2026-09-30T00:10:00
+## Calypso test report - 2026-10-17T15:30:56
 
 > Auto-generated by `tests/conftest.py::pytest_sessionfinish`.
 > Pasteable directly in a GitHub issue/PR (Mermaid blocks render natively).
 
 ### Status global
 
-> [!TIP]
-> [OK] **ALL PASS** - 9/23 (39 %)
+> [!WARNING]
+> [!] **PARTIAL** - 8 echec(s), 3/23 passent
 
 | metrique | valeur | interpretation |
 |---|---:|---|
-| pct brut       | 39 % | `passed / total` (inclut xfail+skip - minore) |
-| **pct fonctionnel** | **100 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
-| pct actionnable | 39 % | `(passed+failed) / total` - non-xfailed/non-skipped |
+| pct brut       | 13 % | `passed / total` (inclut xfail+skip - minore) |
+| **pct fonctionnel** | **27 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
+| pct actionnable | 48 % | `(passed+failed) / total` - non-xfailed/non-skipped |
 
 | resultat | nombre |
 |---|---:|
-| [OK] passed | 9 |
-| [X] failed | 0 |
-| >> skipped | 13 |
-| [!] xfailed | 1 |
+| [OK] passed | 3 |
+| [X] failed | 8 |
+| >> skipped | 12 |
+| [!] xfailed | 0 |
 | **total** | **23** |
 
 
@@ -559,18 +736,7 @@ valeur fallback de `run.sh`.
 
 | Variable | Valeur | Source |
 |---|---|---|
-| `CALYPSO_CONTAINER` | `local` | env |
-| `CALYPSO_HOST_ROOT` | `/root` | env |
-| `CALYPSO_MOBILE_LOG` | `/tmp/c54x-pont/mobile.log` | env |
-| `CALYPSO_MOBILE_VTY` | `4347` | env |
-| `CALYPSO_MODE` | `dsp` | env |
-| `CALYPSO_MODE_TAG` | `dsp` | env |
-| `CALYPSO_MON_SOCK` | `/tmp/qemu-calypso-mon.sock` | env |
-| `CALYPSO_OSMOCON_LOG` | `/tmp/c54x-pont/osmocon.log` | env |
-| `CALYPSO_QEMU_LOG` | `/tmp/c54x-pont/qemu.log` | env |
-| `CALYPSO_SKIP_DIAG_BUNDLE` | `1` | env |
-| `CALYPSO_TEST_OUT` | `/root/banc-max-20260930-000727/pytest/couche1` | env |
-| `QEMU_TREE` | `/opt/GSM/qosmo` | env |
+| `CALYPSO_TEST_OUT` | `/opt/GSM/tests/pytest/couche1` | env |
 
 
 ### Pipeline - ou ca casse
@@ -585,13 +751,38 @@ ne peut pas etre valide tant qu'elle n'est pas verte.
 
 ### Blockers
 
-_Aucun test en echec._
+**8 test(s) en echec** :
+
+[X] **1. `test_backend_grgsm_annonce`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_backend_grgsm_annonce`
+  -  `test_20_couche1_grgsm.py:19: in test_backend_grgsm_annonce`
+ **2. `test_canal_dedie_sdcch`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_canal_dedie_sdcch`
+  -  `test_20_couche1_grgsm.py:55: in test_canal_dedie_sdcch`
+ **3. `test_chiffrement_a5_publie_et_confirme`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme`
+  -  `test_20_couche1_grgsm.py:60: in test_chiffrement_a5_publie_et_confirme`
+ **4. `test_immediate_assignment_vu`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_immediate_assignment_vu`
+  -  `test_20_couche1_grgsm.py:50: in test_immediate_assignment_vu`
+ **5. `test_pont_rach_monte`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_pont_rach_monte`
+  -  `test_20_couche1_grgsm.py:45: in test_pont_rach_monte`
+ **6. `test_pont_stats_bursts_descendants`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants`
+  -  `test_20_couche1_grgsm.py:32: in test_pont_stats_bursts_descendants`
+ **7. `test_process_couche1`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.02s
+  - `test_20_couche1_grgsm.py::test_process_couche1`
+  -  `test_20_couche1_grgsm.py:13: in test_process_couche1`
+ **8. `test_synchro_fb_sb`** - Banc / L1-data - marker(s): banc_couche1,grgsm - duree 0.00s
+  - `test_20_couche1_grgsm.py::test_synchro_fb_sb`
+  -  `test_20_couche1_grgsm.py:25: in test_synchro_fb_sb`
 
 ### Couches - ce qui marche, ce qui casse
 
-#### [~] `L1-data` - 10/23
->> **Skipped :** `test_process_couche1`, `test_backend_grgsm_annonce`, `test_synchro_fb_sb`, `test_pont_stats_bursts_descendants`, `test_pont_rach_monte`, `test_immediate_assignment_vu`, `test_canal_dedie_sdcch`, `test_chiffrement_a5_publie_et_confirme`, `test_pas_de_saut_de_frequence_non_gere`, `test_pas_de_release_orphelin`, `test_qemu_sans_crash`, `test_bascule_tch_suit_le_firmware`, `test_parole_descendante_pas_toute_bfi`
-[!] **xfail :** `test_marge_temps_reel`
+#### [~] `L1-data` - 3/23
+[X] **Echecs :** `test_process_couche1`, `test_backend_grgsm_annonce`, `test_synchro_fb_sb`, `test_pont_stats_bursts_descendants`, `test_pont_rach_monte`, `test_immediate_assignment_vu`, `test_canal_dedie_sdcch`, `test_chiffrement_a5_publie_et_confirme`
+>> **Skipped :** `test_process_couche1`, `test_api_ram_partagee`, `test_tache_fb_postee_et_fb_detecte`, `test_sb_plausible`, `test_rach_publie`, `test_canal_dedie_suivi`, `test_chiffrement_a5_dans_le_dsp`, `test_bascule_tch_suit_le_firmware`, `test_parole_descendante_pas_toute_bfi`, `test_marge_temps_reel`, `test_garde_mvkd_muette`, `test_pas_de_los_en_dedie`
 
 
 ### Plan IrDA debug channel (Phase 2)
@@ -619,7 +810,79 @@ Pour chaque test en echec : categorie, couche, marker, message d'assertion,
 audit Python dynamique (greps des keywords du message contre tous les logs
 container), et stack trace complet depliable.
 
-_Aucun test en echec - pas de chapitre a generer._
+_8 test(s) en echec, tries par ordre pipeline (le premier est l'upstream le plus en amont). Chaque entree inclut un audit dynamique des keywords du message d'assertion._
+
+#### [STOP] 1. `test_backend_grgsm_annonce`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_backend_grgsm_annonce`
+- **Assertion** : `test_20_couche1_grgsm.py:19: in test_backend_grgsm_annonce`
+
+
+#### [STOP] 2. `test_canal_dedie_sdcch`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_canal_dedie_sdcch`
+- **Assertion** : `test_20_couche1_grgsm.py:55: in test_canal_dedie_sdcch`
+
+
+#### [STOP] 3. `test_chiffrement_a5_publie_et_confirme`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_chiffrement_a5_publie_et_confirme`
+- **Assertion** : `test_20_couche1_grgsm.py:60: in test_chiffrement_a5_publie_et_confirme`
+
+
+#### [STOP] 4. `test_immediate_assignment_vu`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_immediate_assignment_vu`
+- **Assertion** : `test_20_couche1_grgsm.py:50: in test_immediate_assignment_vu`
+
+
+#### [STOP] 5. `test_pont_rach_monte`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_pont_rach_monte`
+- **Assertion** : `test_20_couche1_grgsm.py:45: in test_pont_rach_monte`
+
+
+#### [STOP] 6. `test_pont_stats_bursts_descendants`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_pont_stats_bursts_descendants`
+- **Assertion** : `test_20_couche1_grgsm.py:32: in test_pont_stats_bursts_descendants`
+
+
+#### [STOP] 7. `test_process_couche1`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.02s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_process_couche1`
+- **Assertion** : `test_20_couche1_grgsm.py:13: in test_process_couche1`
+
+
+#### [STOP] 8. `test_synchro_fb_sb`
+
+- **Categorie / couche** : Banc / L1-data
+- **Marker(s)** : banc_couche1,grgsm
+- **Duree** : 0.00s
+- **Nodeid** : `test_20_couche1_grgsm.py::test_synchro_fb_sb`
+- **Assertion** : `test_20_couche1_grgsm.py:25: in test_synchro_fb_sb`
+
 
 
 ### Annexe - Audit independant (`abstract.py`)

@@ -119,19 +119,19 @@ _(sequence go-live + timeline : voir sequence.mmd / timeline.mmd et rapport.pdf)
 
 ## Status global
 
-> [!TIP]
-> [OK] **ALL PASS** - 11/11 (100 %)
+> [!WARNING]
+> [!] **PARTIAL** - 10 echec(s), 1/11 passent
 
 | metrique | valeur | interpretation |
 |---|---:|---|
-| pct brut       | 100 % | `passed / total` (inclut xfail+skip - minore) |
-| **pct fonctionnel** | **100 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
+| pct brut       | 9 % | `passed / total` (inclut xfail+skip - minore) |
+| **pct fonctionnel** | **9 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
 | pct actionnable | 100 % | `(passed+failed) / total` - non-xfailed/non-skipped |
 
 | resultat | nombre |
 |---|---:|
-| [OK] passed | 11 |
-| [X] failed | 0 |
+| [OK] passed | 1 |
+| [X] failed | 10 |
 | >> skipped | 0 |
 | [!] xfailed | 0 |
 | **total** | **11** |
@@ -145,18 +145,7 @@ valeur fallback de `run.sh`.
 
 | Variable | Valeur | Source |
 |---|---|---|
-| `CALYPSO_CONTAINER` | `local` | env |
-| `CALYPSO_HOST_ROOT` | `/root` | env |
-| `CALYPSO_MOBILE_LOG` | `/tmp/c54x-pont/mobile.log` | env |
-| `CALYPSO_MOBILE_VTY` | `4347` | env |
-| `CALYPSO_MODE` | `dsp` | env |
-| `CALYPSO_MODE_TAG` | `dsp` | env |
-| `CALYPSO_MON_SOCK` | `/tmp/qemu-calypso-mon.sock` | env |
-| `CALYPSO_OSMOCON_LOG` | `/tmp/c54x-pont/osmocon.log` | env |
-| `CALYPSO_QEMU_LOG` | `/tmp/c54x-pont/qemu.log` | env |
-| `CALYPSO_SKIP_DIAG_BUNDLE` | `1` | env |
-| `CALYPSO_TEST_OUT` | `/root/banc-max-20260930-000727/pytest/infra` | env |
-| `QEMU_TREE` | `/opt/GSM/qosmo` | env |
+| `CALYPSO_TEST_OUT` | `/opt/GSM/tests/pytest/infra` | env |
 
 
 ## Pipeline - ou ca casse
@@ -173,20 +162,51 @@ graph LR
   classDef fail    fill:#fbb4b4,stroke:#a31a1a,color:#5a0000;
   classDef skip    fill:#e0e0e0,stroke:#6a6a6a,color:#333;
   classDef brk  fill:#ff5252,stroke:#990000,color:#fff,stroke-width:3px;
-  P_Infra["Infra 11/11"]
-  class P_Infra pass;
+  P_Infra["Infra 1/11"]
+  class P_Infra partial;
 ```
 
-[OK] Pipeline complet jusqu'a `Infra` - pas de rupture detectee dans l'ordre logique.
+
 
 ## Blockers
 
-_Aucun test en echec._
+**10 test(s) en echec** :
+
+[X] **1. `test_asterisk_sip_5060`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.02s
+  - `test_10_infra.py::test_asterisk_sip_5060`
+  -  `test_10_infra.py:30: in test_asterisk_sip_5060`
+ **2. `test_bts_trx_operationnel`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.00s
+  - `test_10_infra.py::test_bts_trx_operationnel`
+  -  `test_10_infra.py:25: in test_bts_trx_operationnel`
+ **3. `test_bts_trx_vty`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.02s
+  - `test_10_infra.py::test_bts_trx_vty`
+  -  `test_10_infra.py:19: in test_bts_trx_vty`
+ **4. `test_coeur_process_et_vty[osmo-bsc-4242]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **5. `test_coeur_process_et_vty[osmo-hlr-4258]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.01s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **6. `test_coeur_process_et_vty[osmo-mgw-4243]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **7. `test_coeur_process_et_vty[osmo-msc-4254]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **8. `test_coeur_process_et_vty[osmo-stp-4239]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **9. `test_proto_smsc_socket`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.00s
+  - `test_10_infra.py::test_proto_smsc_socket`
+  -  `test_10_infra.py:43: in test_proto_smsc_socket`
+ **10. `test_sip_connector_et_mncc`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.02s
+  - `test_10_infra.py::test_sip_connector_et_mncc`
+  -  `test_10_infra.py:36: in test_sip_connector_et_mncc`
 
 ## Couches - ce qui marche, ce qui casse
 
-### [OK] `Infra` - 11/11
-Tous les tests passent dans cette couche.
+### [~] `Infra` - 1/11
+[X] **Echecs :** `test_coeur_process_et_vty[osmo-hlr-4258]`, `test_coeur_process_et_vty[osmo-stp-4239]`, `test_coeur_process_et_vty[osmo-msc-4254]`, `test_coeur_process_et_vty[osmo-bsc-4242]`, `test_coeur_process_et_vty[osmo-mgw-4243]`, `test_bts_trx_vty`, `test_bts_trx_operationnel`, `test_asterisk_sip_5060`, `test_sip_connector_et_mncc`, `test_proto_smsc_socket`
 
 
 ## Diagramme detaille - un graphe par categorie
@@ -196,7 +216,7 @@ gros graphe avec subgraphs imbriques devient illisible >50 tests). Les
 categories sont independantes cote layout - pas de chaine causale entre
 elles dans le detail (voir le pipeline plus haut pour ca).
 
-### [OK] `Banc` - 11/11
+### [~] `Banc` - 1/11
 
 ```{mermaid}
 flowchart TB
@@ -205,10 +225,30 @@ flowchart TB
   classDef fail    fill:#fbb4b4,stroke:#a31a1a,color:#5a0000;
   classDef skip    fill:#e0e0e0,stroke:#6a6a6a,color:#333;
   classDef xfail   fill:#fde79c,stroke:#b07a00,color:#3a2c00;
-  C_Banc["Banc 11/11"]
-  C_Banc --> T_001_pass_grp_Banc["PASS 11 1.5s"]
-  class C_Banc pass;
+  C_Banc["Banc 1/11"]
+  C_Banc --> T_001_pass_grp_Banc["PASS 1 0.0s"]
+  C_Banc --> T_002_test_coeur_process_et_vty_osmo_hlr_4258_["test_coeur_process_et_vty(osmo-hlr-425 Infra - banc_infra 0.01s"]
+  C_Banc --> T_003_test_coeur_process_et_vty_osmo_stp_4239_["test_coeur_process_et_vty(osmo-stp-423 Infra - banc_infra 0.02s"]
+  C_Banc --> T_004_test_coeur_process_et_vty_osmo_msc_4254_["test_coeur_process_et_vty(osmo-msc-425 Infra - banc_infra 0.02s"]
+  C_Banc --> T_005_test_coeur_process_et_vty_osmo_bsc_4242_["test_coeur_process_et_vty(osmo-bsc-424 Infra - banc_infra 0.02s"]
+  C_Banc --> T_006_test_coeur_process_et_vty_osmo_mgw_4243_["test_coeur_process_et_vty(osmo-mgw-424 Infra - banc_infra 0.02s"]
+  C_Banc --> T_007_test_bts_trx_vty["test_bts_trx_vty Infra - banc_infra 0.02s"]
+  C_Banc --> T_008_test_bts_trx_operationnel["test_bts_trx_operationnel Infra - banc_infra 0.00s"]
+  C_Banc --> T_009_test_asterisk_sip_5060["test_asterisk_sip_5060 Infra - banc_infra 0.02s"]
+  C_Banc --> T_010_test_sip_connector_et_mncc["test_sip_connector_et_mncc Infra - banc_infra 0.02s"]
+  C_Banc --> T_011_test_proto_smsc_socket["test_proto_smsc_socket Infra - banc_infra 0.00s"]
+  class C_Banc partial;
   class T_001_pass_grp_Banc pass;
+  class T_002_test_coeur_process_et_vty_osmo_hlr_4258_ fail;
+  class T_003_test_coeur_process_et_vty_osmo_stp_4239_ fail;
+  class T_004_test_coeur_process_et_vty_osmo_msc_4254_ fail;
+  class T_005_test_coeur_process_et_vty_osmo_bsc_4242_ fail;
+  class T_006_test_coeur_process_et_vty_osmo_mgw_4243_ fail;
+  class T_007_test_bts_trx_vty fail;
+  class T_008_test_bts_trx_operationnel fail;
+  class T_009_test_asterisk_sip_5060 fail;
+  class T_010_test_sip_connector_et_mncc fail;
+  class T_011_test_proto_smsc_socket fail;
 ```
 
 
@@ -222,47 +262,47 @@ Liste exhaustive des tests executes ce run, groupes par marker pytest.
 Source : nodeids pytest + outcome. Pour chaque test, le statut, la duree
 et le fichier source.
 
-### `banc_infra` - 11/11
+### `banc_infra` - 1/11
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| [OK] passed | `test_asterisk_sip_5060` | 0.05s | `test_10_infra.py` |
-| [OK] passed | `test_bts_trx_operationnel` | 1.30s | `test_10_infra.py` |
-| [OK] passed | `test_bts_trx_vty` | 0.01s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-bsc-4242]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-hlr-4258]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-mgw-4243]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-msc-4254]` | 0.03s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-stp-4239]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_proto_smsc_socket` | 0.00s | `test_10_infra.py` |
+| [X] failed | `test_asterisk_sip_5060` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_bts_trx_operationnel` | 0.00s | `test_10_infra.py` |
+| [X] failed | `test_bts_trx_vty` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-bsc-4242]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-hlr-4258]` | 0.01s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-mgw-4243]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-msc-4254]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-stp-4239]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_proto_smsc_socket` | 0.00s | `test_10_infra.py` |
+| [X] failed | `test_sip_connector_et_mncc` | 0.02s | `test_10_infra.py` |
 | [OK] passed | `test_pulse_sinks_gsm` | 0.00s | `test_10_infra.py` |
-| [OK] passed | `test_sip_connector_et_mncc` | 0.02s | `test_10_infra.py` |
 
-### `commun` - 11/11
+### `commun` - 1/11
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| [OK] passed | `test_asterisk_sip_5060` | 0.05s | `test_10_infra.py` |
-| [OK] passed | `test_bts_trx_operationnel` | 1.30s | `test_10_infra.py` |
-| [OK] passed | `test_bts_trx_vty` | 0.01s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-bsc-4242]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-hlr-4258]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-mgw-4243]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-msc-4254]` | 0.03s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-stp-4239]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_proto_smsc_socket` | 0.00s | `test_10_infra.py` |
+| [X] failed | `test_asterisk_sip_5060` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_bts_trx_operationnel` | 0.00s | `test_10_infra.py` |
+| [X] failed | `test_bts_trx_vty` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-bsc-4242]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-hlr-4258]` | 0.01s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-mgw-4243]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-msc-4254]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-stp-4239]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_proto_smsc_socket` | 0.00s | `test_10_infra.py` |
+| [X] failed | `test_sip_connector_et_mncc` | 0.02s | `test_10_infra.py` |
 | [OK] passed | `test_pulse_sinks_gsm` | 0.00s | `test_10_infra.py` |
-| [OK] passed | `test_sip_connector_et_mncc` | 0.02s | `test_10_infra.py` |
 
-### `parametrize` - 5/5
+### `parametrize` - 0/5
 
 | Status | Test | Duree | Fichier |
 |---|---|---:|---|
-| [OK] passed | `test_coeur_process_et_vty[osmo-bsc-4242]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-hlr-4258]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-mgw-4243]` | 0.02s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-msc-4254]` | 0.03s | `test_10_infra.py` |
-| [OK] passed | `test_coeur_process_et_vty[osmo-stp-4239]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-bsc-4242]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-hlr-4258]` | 0.01s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-mgw-4243]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-msc-4254]` | 0.02s | `test_10_infra.py` |
+| [X] failed | `test_coeur_process_et_vty[osmo-stp-4239]` | 0.02s | `test_10_infra.py` |
 
 
 ## Cadence des logs et timers dans le temps
@@ -348,20 +388,20 @@ if (!requireNamespace("ggplot2", quietly=TRUE) ||
 <summary>Cliquer pour deplier - sortie verbatim type <code>pytest -v</code></summary>
 
 ```
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258] (0.017s)
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239] (0.022s)
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254] (0.030s)
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242] (0.017s)
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243] (0.019s)
-PASSED   test_10_infra.py::test_bts_trx_vty (0.015s)
-PASSED   test_10_infra.py::test_bts_trx_operationnel (1.301s)
-PASSED   test_10_infra.py::test_asterisk_sip_5060 (0.049s)
-PASSED   test_10_infra.py::test_sip_connector_et_mncc (0.017s)
-PASSED   test_10_infra.py::test_proto_smsc_socket (0.000s)
-PASSED   test_10_infra.py::test_pulse_sinks_gsm (0.003s)
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258] (0.013s)
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239] (0.020s)
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254] (0.022s)
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242] (0.021s)
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243] (0.017s)
+FAILED   test_10_infra.py::test_bts_trx_vty (0.017s)
+FAILED   test_10_infra.py::test_bts_trx_operationnel (0.001s)
+FAILED   test_10_infra.py::test_asterisk_sip_5060 (0.021s)
+FAILED   test_10_infra.py::test_sip_connector_et_mncc (0.019s)
+FAILED   test_10_infra.py::test_proto_smsc_socket (0.000s)
+PASSED   test_10_infra.py::test_pulse_sinks_gsm (0.004s)
 
 ============================================================
-11 passed in 1.49s
+1 passed, 10 failed in 0.15s
 ```
 
 </details>
@@ -391,7 +431,216 @@ Pour chaque test en echec : categorie, couche, marker, message d'assertion,
 audit Python dynamique (greps des keywords du message contre tous les logs
 container), et stack trace complet depliable.
 
-_Aucun test en echec - pas de chapitre a generer._
+_10 test(s) en echec, tries par ordre pipeline (le premier est l'upstream le plus en amont). Chaque entree inclut un audit dynamique des keywords du message d'assertion._
+
+### [STOP] 1. `test_asterisk_sip_5060`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_asterisk_sip_5060`
+- **Assertion** : `test_10_infra.py:30: in test_asterisk_sip_5060`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:30: in test_asterisk_sip_5060
+    assert banc.alive("asterisk"), "asterisk absent"
+E   AssertionError: asterisk absent
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('asterisk')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 2. `test_bts_trx_operationnel`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.00s
+- **Nodeid** : `test_10_infra.py::test_bts_trx_operationnel`
+- **Assertion** : `test_10_infra.py:25: in test_bts_trx_operationnel`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:25: in test_bts_trx_operationnel
+    assert "BTS 0" in out, "le BSC ne decrit pas le BTS 0"
+E   AssertionError: le BSC ne decrit pas le BTS 0
+E   assert 'BTS 0' in ''
+```
+
+</details>
+
+### [STOP] 3. `test_bts_trx_vty`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_bts_trx_vty`
+- **Assertion** : `test_10_infra.py:19: in test_bts_trx_vty`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:19: in test_bts_trx_vty
+    assert banc.alive("osmo-bts-"), "aucun osmo-bts-*"
+E   AssertionError: aucun osmo-bts-*
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-bts-')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 4. `test_coeur_process_et_vty[osmo-bsc-4242]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:14: in test_coeur_process_et_vty
+    assert banc.alive(proc), f"{proc} absent"
+E   AssertionError: osmo-bsc absent
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-bsc')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 5. `test_coeur_process_et_vty[osmo-hlr-4258]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.01s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:14: in test_coeur_process_et_vty
+    assert banc.alive(proc), f"{proc} absent"
+E   AssertionError: osmo-hlr absent
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-hlr')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 6. `test_coeur_process_et_vty[osmo-mgw-4243]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:14: in test_coeur_process_et_vty
+    assert banc.alive(proc), f"{proc} absent"
+E   AssertionError: osmo-mgw absent
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-mgw')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 7. `test_coeur_process_et_vty[osmo-msc-4254]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:14: in test_coeur_process_et_vty
+    assert banc.alive(proc), f"{proc} absent"
+E   AssertionError: osmo-msc absent
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-msc')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 8. `test_coeur_process_et_vty[osmo-stp-4239]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:14: in test_coeur_process_et_vty
+    assert banc.alive(proc), f"{proc} absent"
+E   AssertionError: osmo-stp absent
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-stp')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
+
+### [STOP] 9. `test_proto_smsc_socket`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.00s
+- **Nodeid** : `test_10_infra.py::test_proto_smsc_socket`
+- **Assertion** : `test_10_infra.py:43: in test_proto_smsc_socket`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:43: in test_proto_smsc_socket
+    assert os.path.exists("/tmp/sendmt_socket") and stat.S_ISSOCK(os.stat("/tmp/sendmt_socket").st_mode), "/tmp/sendmt_socket absent"
+E   AssertionError: /tmp/sendmt_socket absent
+E   assert (False)
+E    +  where False = <function exists at 0x795bc41b7560>('/tmp/sendmt_socket')
+E    +    where <function exists at 0x795bc41b7560> = <module 'posixpath' (frozen)>.exists
+E    +      where <module 'posixpath' (frozen)> = <module 'os' (frozen)>.path
+```
+
+</details>
+
+### [STOP] 10. `test_sip_connector_et_mncc`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_sip_connector_et_mncc`
+- **Assertion** : `test_10_infra.py:36: in test_sip_connector_et_mncc`
+
+<details><summary>Stack trace complet (depliable)</summary>
+
+```
+test_10_infra.py:36: in test_sip_connector_et_mncc
+    assert banc.alive("osmo-sip-connector"), "osmo-sip-connector absent : pas de voix"
+E   AssertionError: osmo-sip-connector absent : pas de voix
+E   assert False
+E    +  where False = <function alive at 0x795bc2437a60>('osmo-sip-connector')
+E    +    where <function alive at 0x795bc2437a60> = banc.alive
+```
+
+</details>
 
 
 ## Annexe - Audit independant (`abstract.py`)
@@ -436,21 +685,21 @@ _`make_diag_bundle.sh` introuvable ; ou poser CALYPSO_DIAG_BUNDLE=<tar.gz>._
 ::: {.callout-note collapse="true"}
 ## Deplier - table complete de tous les tests
 
-### Banc / Infra - 11/11
+### Banc / Infra - 1/11
 
 | | Test | Markers | Duree | Erreur / raison (si non-pass) |
 |---|---|---|---:|---|
-| [OK] | `test_asterisk_sip_5060` | banc_infra,commun | 0.05s |  |
-| [OK] | `test_bts_trx_operationnel` | banc_infra,commun | 1.30s |  |
-| [OK] | `test_bts_trx_vty` | banc_infra,commun | 0.01s |  |
-| [OK] | `test_coeur_process_et_vty[osmo-bsc-4242]` | banc_infra,commun,parametrize | 0.02s |  |
-| [OK] | `test_coeur_process_et_vty[osmo-hlr-4258]` | banc_infra,commun,parametrize | 0.02s |  |
-| [OK] | `test_coeur_process_et_vty[osmo-mgw-4243]` | banc_infra,commun,parametrize | 0.02s |  |
-| [OK] | `test_coeur_process_et_vty[osmo-msc-4254]` | banc_infra,commun,parametrize | 0.03s |  |
-| [OK] | `test_coeur_process_et_vty[osmo-stp-4239]` | banc_infra,commun,parametrize | 0.02s |  |
-| [OK] | `test_proto_smsc_socket` | banc_infra,commun | 0.00s |  |
+| [X] | `test_asterisk_sip_5060` | banc_infra,commun | 0.02s | test_10_infra.py:30: in test_asterisk_sip_5060 |
+| [X] | `test_bts_trx_operationnel` | banc_infra,commun | 0.00s | test_10_infra.py:25: in test_bts_trx_operationnel |
+| [X] | `test_bts_trx_vty` | banc_infra,commun | 0.02s | test_10_infra.py:19: in test_bts_trx_vty |
+| [X] | `test_coeur_process_et_vty[osmo-bsc-4242]` | banc_infra,commun,parametrize | 0.02s | test_10_infra.py:14: in test_coeur_process_et_vty |
+| [X] | `test_coeur_process_et_vty[osmo-hlr-4258]` | banc_infra,commun,parametrize | 0.01s | test_10_infra.py:14: in test_coeur_process_et_vty |
+| [X] | `test_coeur_process_et_vty[osmo-mgw-4243]` | banc_infra,commun,parametrize | 0.02s | test_10_infra.py:14: in test_coeur_process_et_vty |
+| [X] | `test_coeur_process_et_vty[osmo-msc-4254]` | banc_infra,commun,parametrize | 0.02s | test_10_infra.py:14: in test_coeur_process_et_vty |
+| [X] | `test_coeur_process_et_vty[osmo-stp-4239]` | banc_infra,commun,parametrize | 0.02s | test_10_infra.py:14: in test_coeur_process_et_vty |
+| [X] | `test_proto_smsc_socket` | banc_infra,commun | 0.00s | test_10_infra.py:43: in test_proto_smsc_socket |
+| [X] | `test_sip_connector_et_mncc` | banc_infra,commun | 0.02s | test_10_infra.py:36: in test_sip_connector_et_mncc |
 | [OK] | `test_pulse_sinks_gsm` | banc_infra,commun | 0.00s |  |
-| [OK] | `test_sip_connector_et_mncc` | banc_infra,commun | 0.02s |  |
 
 ### Tous les nodeids (reference)
 
@@ -458,17 +707,17 @@ _`make_diag_bundle.sh` introuvable ; ou poser CALYPSO_DIAG_BUNDLE=<tar.gz>._
 <summary>Cliquer pour deplier - liste exhaustive nodeid -> outcome</summary>
 
 ```
-PASSED   test_10_infra.py::test_asterisk_sip_5060
-PASSED   test_10_infra.py::test_bts_trx_operationnel
-PASSED   test_10_infra.py::test_bts_trx_vty
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]
-PASSED   test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]
-PASSED   test_10_infra.py::test_proto_smsc_socket
+FAILED   test_10_infra.py::test_asterisk_sip_5060
+FAILED   test_10_infra.py::test_bts_trx_operationnel
+FAILED   test_10_infra.py::test_bts_trx_vty
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]
+FAILED   test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]
+FAILED   test_10_infra.py::test_proto_smsc_socket
 PASSED   test_10_infra.py::test_pulse_sinks_gsm
-PASSED   test_10_infra.py::test_sip_connector_et_mncc
+FAILED   test_10_infra.py::test_sip_connector_et_mncc
 ```
 :::
 
@@ -485,11 +734,11 @@ cd /home/nirvana/qemu-calypso/tests
 ```
 
 Le diagramme et ce rapport sont regeneres a chaque run et ecrits dans
-`/root/banc-max-20260930-000727/pytest/infra/test_results_20260930_000957/test_results.{mmd,md}` (override via `CALYPSO_TEST_OUT`).
+`/opt/GSM/tests/pytest/infra/test_results_20261017_153053/test_results.{mmd,md}` (override via `CALYPSO_TEST_OUT`).
 
 ---
 
-_Run finished at 2026-09-30T00:09:58._
+_Run finished at 2026-10-17T15:30:54._
 
 
 ## Annexe - Report condense (machine-friendly)
@@ -499,26 +748,26 @@ _Run finished at 2026-09-30T00:09:58._
 
 > _Rapport condense (machine-friendly) extrait de `test_results.md`. Pour la version complete : voir le `.md` ou `.qmd` a cote._
 
-## Calypso test report - 2026-09-30T00:09:58
+## Calypso test report - 2026-10-17T15:30:54
 
 > Auto-generated by `tests/conftest.py::pytest_sessionfinish`.
 > Pasteable directly in a GitHub issue/PR (Mermaid blocks render natively).
 
 ### Status global
 
-> [!TIP]
-> [OK] **ALL PASS** - 11/11 (100 %)
+> [!WARNING]
+> [!] **PARTIAL** - 10 echec(s), 1/11 passent
 
 | metrique | valeur | interpretation |
 |---|---:|---|
-| pct brut       | 100 % | `passed / total` (inclut xfail+skip - minore) |
-| **pct fonctionnel** | **100 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
+| pct brut       | 9 % | `passed / total` (inclut xfail+skip - minore) |
+| **pct fonctionnel** | **9 %** | `passed / (passed+failed)` - vrai taux des tests qui pretendent valider |
 | pct actionnable | 100 % | `(passed+failed) / total` - non-xfailed/non-skipped |
 
 | resultat | nombre |
 |---|---:|
-| [OK] passed | 11 |
-| [X] failed | 0 |
+| [OK] passed | 1 |
+| [X] failed | 10 |
 | >> skipped | 0 |
 | [!] xfailed | 0 |
 | **total** | **11** |
@@ -532,18 +781,7 @@ valeur fallback de `run.sh`.
 
 | Variable | Valeur | Source |
 |---|---|---|
-| `CALYPSO_CONTAINER` | `local` | env |
-| `CALYPSO_HOST_ROOT` | `/root` | env |
-| `CALYPSO_MOBILE_LOG` | `/tmp/c54x-pont/mobile.log` | env |
-| `CALYPSO_MOBILE_VTY` | `4347` | env |
-| `CALYPSO_MODE` | `dsp` | env |
-| `CALYPSO_MODE_TAG` | `dsp` | env |
-| `CALYPSO_MON_SOCK` | `/tmp/qemu-calypso-mon.sock` | env |
-| `CALYPSO_OSMOCON_LOG` | `/tmp/c54x-pont/osmocon.log` | env |
-| `CALYPSO_QEMU_LOG` | `/tmp/c54x-pont/qemu.log` | env |
-| `CALYPSO_SKIP_DIAG_BUNDLE` | `1` | env |
-| `CALYPSO_TEST_OUT` | `/root/banc-max-20260930-000727/pytest/infra` | env |
-| `QEMU_TREE` | `/opt/GSM/qosmo` | env |
+| `CALYPSO_TEST_OUT` | `/opt/GSM/tests/pytest/infra` | env |
 
 
 ### Pipeline - ou ca casse
@@ -554,16 +792,47 @@ est rouge (0% pass), c'est le premier blocker** - tout ce qui vient apres
 ne peut pas etre valide tant qu'elle n'est pas verte.
 
 
-[OK] Pipeline complet jusqu'a `Infra` - pas de rupture detectee dans l'ordre logique.
+
 
 ### Blockers
 
-_Aucun test en echec._
+**10 test(s) en echec** :
+
+[X] **1. `test_asterisk_sip_5060`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.02s
+  - `test_10_infra.py::test_asterisk_sip_5060`
+  -  `test_10_infra.py:30: in test_asterisk_sip_5060`
+ **2. `test_bts_trx_operationnel`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.00s
+  - `test_10_infra.py::test_bts_trx_operationnel`
+  -  `test_10_infra.py:25: in test_bts_trx_operationnel`
+ **3. `test_bts_trx_vty`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.02s
+  - `test_10_infra.py::test_bts_trx_vty`
+  -  `test_10_infra.py:19: in test_bts_trx_vty`
+ **4. `test_coeur_process_et_vty[osmo-bsc-4242]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **5. `test_coeur_process_et_vty[osmo-hlr-4258]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.01s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **6. `test_coeur_process_et_vty[osmo-mgw-4243]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **7. `test_coeur_process_et_vty[osmo-msc-4254]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **8. `test_coeur_process_et_vty[osmo-stp-4239]`** - Banc / Infra - marker(s): banc_infra,commun,parametrize - duree 0.02s
+  - `test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]`
+  -  `test_10_infra.py:14: in test_coeur_process_et_vty`
+ **9. `test_proto_smsc_socket`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.00s
+  - `test_10_infra.py::test_proto_smsc_socket`
+  -  `test_10_infra.py:43: in test_proto_smsc_socket`
+ **10. `test_sip_connector_et_mncc`** - Banc / Infra - marker(s): banc_infra,commun - duree 0.02s
+  - `test_10_infra.py::test_sip_connector_et_mncc`
+  -  `test_10_infra.py:36: in test_sip_connector_et_mncc`
 
 ### Couches - ce qui marche, ce qui casse
 
-#### [OK] `Infra` - 11/11
-Tous les tests passent dans cette couche.
+#### [~] `Infra` - 1/11
+[X] **Echecs :** `test_coeur_process_et_vty[osmo-hlr-4258]`, `test_coeur_process_et_vty[osmo-stp-4239]`, `test_coeur_process_et_vty[osmo-msc-4254]`, `test_coeur_process_et_vty[osmo-bsc-4242]`, `test_coeur_process_et_vty[osmo-mgw-4243]`, `test_bts_trx_vty`, `test_bts_trx_operationnel`, `test_asterisk_sip_5060`, `test_sip_connector_et_mncc`, `test_proto_smsc_socket`
 
 
 ### Plan IrDA debug channel (Phase 2)
@@ -591,7 +860,97 @@ Pour chaque test en echec : categorie, couche, marker, message d'assertion,
 audit Python dynamique (greps des keywords du message contre tous les logs
 container), et stack trace complet depliable.
 
-_Aucun test en echec - pas de chapitre a generer._
+_10 test(s) en echec, tries par ordre pipeline (le premier est l'upstream le plus en amont). Chaque entree inclut un audit dynamique des keywords du message d'assertion._
+
+#### [STOP] 1. `test_asterisk_sip_5060`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_asterisk_sip_5060`
+- **Assertion** : `test_10_infra.py:30: in test_asterisk_sip_5060`
+
+
+#### [STOP] 2. `test_bts_trx_operationnel`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.00s
+- **Nodeid** : `test_10_infra.py::test_bts_trx_operationnel`
+- **Assertion** : `test_10_infra.py:25: in test_bts_trx_operationnel`
+
+
+#### [STOP] 3. `test_bts_trx_vty`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_bts_trx_vty`
+- **Assertion** : `test_10_infra.py:19: in test_bts_trx_vty`
+
+
+#### [STOP] 4. `test_coeur_process_et_vty[osmo-bsc-4242]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-bsc-4242]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+
+#### [STOP] 5. `test_coeur_process_et_vty[osmo-hlr-4258]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.01s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-hlr-4258]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+
+#### [STOP] 6. `test_coeur_process_et_vty[osmo-mgw-4243]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-mgw-4243]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+
+#### [STOP] 7. `test_coeur_process_et_vty[osmo-msc-4254]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-msc-4254]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+
+#### [STOP] 8. `test_coeur_process_et_vty[osmo-stp-4239]`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun,parametrize
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_coeur_process_et_vty[osmo-stp-4239]`
+- **Assertion** : `test_10_infra.py:14: in test_coeur_process_et_vty`
+
+
+#### [STOP] 9. `test_proto_smsc_socket`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.00s
+- **Nodeid** : `test_10_infra.py::test_proto_smsc_socket`
+- **Assertion** : `test_10_infra.py:43: in test_proto_smsc_socket`
+
+
+#### [STOP] 10. `test_sip_connector_et_mncc`
+
+- **Categorie / couche** : Banc / Infra
+- **Marker(s)** : banc_infra,commun
+- **Duree** : 0.02s
+- **Nodeid** : `test_10_infra.py::test_sip_connector_et_mncc`
+- **Assertion** : `test_10_infra.py:36: in test_sip_connector_et_mncc`
+
 
 
 ### Annexe - Audit independant (`abstract.py`)
