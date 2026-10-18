@@ -1,0 +1,15 @@
+# Sorties générées par deploy.sh / grafcet_gen.py (binaires régénérables).
+deploy/
+__pycache__/
+*.pyc
+
+# Diagrammes / rapports intermédiaires produits à côté d'un run ponctuel.
+d_*.png
+pipeline_uml.dot
+pipeline_uml.png
+puppeteer.json
+
+# Injections de trames et captures (bancs de test).
+inj_*.txt
+*.pcap
+*.cfile

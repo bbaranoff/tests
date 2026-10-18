@@ -23,13 +23,28 @@ import re
 import sys
 import time
 
-EXT = os.environ.get("EXT", "log sh md mmd py txt").split()
+# Le dossier montre les RESULTATS du dernier test (logs, verdicts, rapports,
+# grafcets), pas le code du harnais : on exclut les sources .sh/.py (banc-max.sh,
+# modules/*.sh, conftest.py, test_*.py, grafcet_gen.py…). EXT= les reintegre.
+EXT = os.environ.get("EXT", "log md mmd txt").split()
 SEUIL = int(os.environ.get("SEUIL", "3"))
+# Plafond de lignes par fichier inline (apres compactage) : tete+queue, milieu
+# resume. Evite qu'un journal de rejeu de 8 Mo noie la page. 0 = pas de plafond.
+MAX_LIGNES = int(os.environ.get("MAX_LIGNES", "500"))
 FORMAT = os.environ.get("FORMAT", "qmd")           # qmd (Quarto) ou md
 SORTIE = os.environ.get("SORTIE") or "/root/tout-en-un-%s.%s" % (time.strftime("%Y%m%d-%H%M%S"), FORMAT)
 AUTEUR = os.environ.get("AUTEUR", "Banc GSM émulé — banc-max")
 IGNORES = {".git", "__pycache__", ".pytest_cache", "node_modules"}
-EXCLURE = os.environ.get("EXCLURE", "").split()
+# Par defaut on ne garde que le DERNIER test, sans la redondance : les rapports
+# par batterie deja agreges (couche1/infra/mobile/reseau), les sorties de
+# deploiement (deploy/, public/, build/, .wrangler/ — public s'inclurait lui-meme),
+# les anciennes suites (legacy/archives) et les banc-max horodates (le dernier est
+# ajoute explicitement par dossiers_par_defaut). EXCLURE= le surcharge si besoin.
+EXCLURE_DEFAUT = ("banc-max-* archives legacy build .wrangler deploy public "
+                  "couche1 infra mobile reseau rom-tx")
+EXCLURE = os.environ.get("EXCLURE", EXCLURE_DEFAUT).split()
+# Fichiers superflus ignores d'office (vecteurs d'injection en masse, captures brutes).
+SKIP_FICHIERS = ("inj_*.txt", "inj_*.bin", "*.pcap", "*.cfile")
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 TELNET = re.compile(rb"\xff[\xfb-\xfe].|\xff.")           # negociation telnet (IAC) des captures VTY
 CONTROLE = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\ufffd]")  # caracteres de commande, octets indecodables
@@ -48,6 +63,8 @@ def fichiers(dossier):
         dirs[:] = sorted(d for d in dirs if d not in IGNORES and not any(fnmatch.fnmatch(d, m) for m in EXCLURE))
         for n in sorted(noms):
             if n.startswith("tout-en-un-"):      # nos propres sorties
+                continue
+            if any(fnmatch.fnmatch(n, m) for m in SKIP_FICHIERS):  # inj_*.txt, captures…
                 continue
             if n.rsplit(".", 1)[-1].lower() in EXT and "." in n:
                 yield os.path.join(racine, n)
@@ -177,8 +194,10 @@ def main():
     total_in = total_out = 0
     # Ordre : les resultats des tests (.txt .md .mmd : verdicts, couverture, rapports, grafcets)
     # d'abord, les fichiers du banc (.sh .py) ensuite, les .log en dernier
+    # Pas de section "Fichiers" : le dossier montre les resultats, pas le code
+    # du harnais (.sh/.py hors EXT par defaut).
     CATEGORIES = (("Verdict et couverture", ()), ("Resultats des tests", ("txt", "md", "mmd")),
-                  ("Fichiers", ("sh", "py")), ("Logs", ("log",)))
+                  ("Logs", ("log",)))
     EN_TETE = ("verdict.txt", "couverture.txt")     # tout en haut, dans cet ordre
     tous = []
     for d in dossiers:
@@ -230,8 +249,21 @@ def main():
                                 % (f, len(brut), len(lignes), rendre_md(lignes) if ext == "md" else rendre_mmd(lignes)))
                 continue
             compact, groupes = compacter(lignes)
+            # Plafond tête+queue : les enormes journaux (ex. emulateur-rejeu.txt,
+            # 8 Mo de BOOT-MMR-WR) alourdissent la page sans valeur ; on garde le
+            # debut et la fin, le milieu est resume. MAX_LIGNES=0 desactive.
+            omis = 0
+            if MAX_LIGNES and len(compact) > MAX_LIGNES:
+                tete = MAX_LIGNES * 2 // 3
+                queue = MAX_LIGNES - tete
+                omis = len(compact) - MAX_LIGNES
+                compact = (compact[:tete]
+                           + ["", "[... %d lignes omises (milieu) — tête %d + queue %d ...]" % (omis, tete, queue), ""]
+                           + compact[-queue:])
             total_out += sum(len(l) + 1 for l in compact)
             note = "%d groupes compactés" % groupes if groupes else ""
+            if omis:
+                note = (note + ", " if note else "") + "%d lignes omises (tête+queue)" % omis
             # cloture plus longue que toute suite de ` du contenu : un ``` dans un
             # .py ou un .md ne referme plus le bloc (pandoc lisait alors la suite
             # comme du Markdown : « Could not fetch resource »)
@@ -262,7 +294,6 @@ def main():
         o.write("| dossier de run | contenu | |\n|---|---|---|\n")
         o.write("| Verdict et couverture | échelle des barreaux et tableau de couverture couche 1 | |\n")
         o.write("| Résultats des tests | captures VTY, diagnostics, rapports pytest, grafcets (.txt .md .mmd) | |\n")
-        o.write("| Fichiers | scripts du banc et des tests (.sh .py) | |\n")
         o.write("| Logs | journaux (.log), en dernier | |\n\n")
         o.write("::: {.callout-note collapse=\"true\"}\n## Méthode\n\n" if FORMAT == "qmd" else "### Méthode\n\n")
         o.write("Dossiers : %s. Extensions : %s. Entrée %d Ko, sortie %d Ko.\n\n"

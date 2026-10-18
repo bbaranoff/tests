@@ -4,6 +4,7 @@
 // BANC="/root/banc-max-… […]" : les runs à prendre, à la place du dernier par date
 // (banc-max.sh le pose en fin de banc : le run, ou la campagne et ses deux modes).
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { Marked } from "marked";
@@ -16,7 +17,10 @@ if (!src) {
   const banc = (process.env.BANC || "").split(/\s+/).filter(Boolean);
   const args = banc.length ? [DIR, ...banc] : [];
   execFileSync("python3", [path.join(DIR, "tout-en-un.py"), ...args], {
-    env: { ...process.env, SORTIE: src, EXCLURE: "banc-max-* archives" },
+    // tout-en-un.py exclut deja par defaut la redondance (rapports par batterie,
+    // deploy/, public/, build/, legacy/archives, banc-max horodates, inj_*.txt) :
+    // le dossier ne garde que le DERNIER test, et le grafcet vit sur /grafcet/.
+    env: { ...process.env, SORTIE: src },
     stdio: "inherit",
   });
 }
@@ -111,8 +115,7 @@ const html = `<!doctype html>
 <meta name="robots" content="noindex">
 <title>${esc(meta.title || path.basename(src))}</title>
 <style>
-:root{--bg:#fff;--fg:#212529;--mute:#6c757d;--line:#dee2e6;--code:#f6f8fa;--acc:#2780e3;--side:#f8f9fa}
-@media (prefers-color-scheme:dark){:root{--bg:#16181c;--fg:#e3e5e8;--mute:#9aa0a6;--line:#30343a;--code:#1e2126;--acc:#6ab0ff;--side:#1b1d21}}
+:root{color-scheme:light;--bg:#fff;--fg:#212529;--mute:#6c757d;--line:#dee2e6;--code:#f6f8fa;--acc:#2780e3;--side:#f8f9fa}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 #toc{position:fixed;top:0;left:0;bottom:0;width:300px;overflow:auto;padding:16px 12px;border-right:1px solid var(--line);background:var(--side);font-size:13px}
@@ -152,7 +155,7 @@ document.getElementById("q").addEventListener("input",e=>{const q=e.target.value
 const srcs=document.querySelectorAll("pre.mermaid-src");
 if(srcs.length){
   const {default:mermaid}=await import("https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs");
-  mermaid.initialize({startOnLoad:false,securityLevel:"strict",theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"default"});
+  mermaid.initialize({startOnLoad:false,securityLevel:"strict",theme:"default"});
   let n=0;
   const io=new IntersectionObserver(async ents=>{for(const e of ents){if(!e.isIntersecting)continue;io.unobserve(e.target);
     const pre=e.target;try{const {svg}=await mermaid.render("mmd"+(n++),pre.textContent);const d=document.createElement("div");d.className="mermaid";d.innerHTML=svg;pre.replaceWith(d)}catch(err){pre.title=String(err)}}},{rootMargin:"600px"});
@@ -167,3 +170,49 @@ fs.writeFileSync("public/index.html", html);
 fs.copyFileSync(src, "public/source.qmd");
 const mb = (f) => (fs.statSync(f).size / 1048576).toFixed(1) + " Mo";
 console.log(`${src} → public/index.html (${mb("public/index.html")}), ${toc.length} entrées de sommaire`);
+
+// --- En tête de page : résumé DYNAMIQUE des tests + panneau GRAFCET go-live ---
+// grafcet_gen.py "fragments" lance les batteries pytest (résumé), rend le grafcet
+// en SVG clair (npx mmdc) et écrit fragment.html + rapport.pdf. On injecte le
+// fragment juste après l'en-tête du dossier et on sert le PDF à la racine.
+// Best-effort : ne bloque jamais le deploy.
+// MÊME run partout : celui que tout-en-un.py a mis dans le dossier (BANC, sinon
+// le dernier /root/banc-max-* par date) alimente aussi le bandeau, le GRAFCET et
+// le PDF — plus de mélange entre un run archivé et la pile live.
+const runDuDossier = () => {
+  const banc = (process.env.BANC || "").split(/\s+/).filter(Boolean);
+  if (banc.length) return banc[banc.length - 1];
+  const runs = fs.readdirSync("/root").filter((n) => n.startsWith("banc-max-"))
+    .map((n) => path.join("/root", n))
+    .filter((p) => { try { return fs.statSync(p).isDirectory(); } catch { return false; } })
+    .sort((a, b) => fs.statSync(a).mtimeMs - fs.statSync(b).mtimeMs);
+  return runs.length ? runs[runs.length - 1] : "";
+};
+try {
+  const RUN = runDuDossier();
+  const frag = fs.mkdtempSync(path.join(os.tmpdir(), "grafcet-"));
+  execFileSync("python3", [path.join(DIR, "pytest/grafcet_gen.py"), "fragments", frag, "rapport.pdf", RUN],
+    { stdio: "inherit" });
+  const fragHtml = fs.readFileSync(path.join(frag, "fragment.html"), "utf8");
+  // PDF : pandoc (xelatex) sur le MÊME dossier.qmd que l'HTML, bandeau + GRAFCET
+  // en tête → la page et le PDF disent la même chose, sur le même run.
+  try {
+    execFileSync("python3", [path.join(DIR, "pytest/grafcet_gen.py"), "pdf", src, frag,
+      path.resolve("public/rapport.pdf")], { stdio: "inherit" });
+  } catch (e) {
+    console.warn("pdf pandoc skip:", e.message);
+  }
+  let idx = fs.readFileSync("public/index.html", "utf8");
+  // la page COMMENCE par le résumé + grafcet (juste après l'en-tête du dossier)
+  idx = idx.replace("</header>", "</header>\n" + fragHtml + "\n");
+  // liens de sommaire (après le téléchargement source .qmd)
+  idx = idx.replace('<a href="source.qmd" download>⬇ source .qmd</a>',
+    '<a href="source.qmd" download>⬇ source .qmd</a>\n'
+    + '<a href="#tests-panel">▸ Résumé des tests</a>\n'
+    + '<a href="#grafcet-panel">▸ GRAFCET go-live</a>');
+  fs.writeFileSync("public/index.html", idx);
+  fs.rmSync(frag, { recursive: true, force: true });
+  console.log(`résumé tests + grafcet injectés en tête ; rapport.pdf servi à la racine`);
+} catch (e) {
+  console.warn("grafcet/résumé skip:", e.message);
+}

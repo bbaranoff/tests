@@ -10,7 +10,11 @@ from __future__ import annotations
 import os
 import re
 import sys as _sys
+import warnings as _warnings
 from pathlib import Path
+
+# fpdf2 >=2.5.2 avertit sur cell(ln=...) : on garde l'API courte, on tait le bruit.
+_warnings.filterwarnings("ignore", message=r'.*parameter "ln" is deprecated.*')
 
 # banc.py = LE resolveur de journaux (meme source que les tests) : newest de
 # /run/user/<uid>/osmo-nitb/logs et /tmp/c54x-pont, strip ANSI, override env.
@@ -75,7 +79,16 @@ def _tr(s):
 
 def _count(name: str, pat: str) -> int:
     """Occurrences de `pat` dans le journal `name`, via banc (ANSI retire, bon
-    chemin). Repli _read(path) si banc indisponible."""
+    chemin). Repli _read(path) si banc indisponible. Si un run est fixe
+    (_use_run_logs), on lit SON journal et rien d'autre : banc.log() choisit le
+    plus recent par date, ce qui ferait gagner la pile live sur le run."""
+    if _RUN_DIR:
+        p = os.path.join(_RUN_DIR, f"{name}.log")
+        if not os.path.isfile(p):
+            return 0          # journal absent du run : pas de repli live (melange)
+        rx = re.compile(pat)
+        txt = re.sub(r"\x1b\[[0-9;]*m", "", _read(p))
+        return sum(1 for ln in txt.splitlines() if rx.search(ln))
     if banc is not None:
         try:
             return banc.count(name, pat)
@@ -124,6 +137,7 @@ def derive_status() -> dict:
 
     # --- gardes (un hit = defaut) -------------------------------------------
     los_n = _count("mobile", r"LOS during dedicated|Radio link lost")
+    lostcov_n = _count("mobile", r"MM_EVENT_LOST_COVERAGE")   # perte de couverture cote MM
     crash_n = (_count("mobile", r"Segmentation fault|Aborted|core dumped")
                + _count("qemu", r"Aborted|Segmentation fault|qemu: hardware error"))
 
@@ -140,14 +154,15 @@ def derive_status() -> dict:
         cipher=("ok" if ciph_n else ("wip" if a5_n else "bad")),
         tmsi=ok(tmsi_n),
         lu=("ok" if (lu_ok and not lu_ko) else ("wip" if lu_ok else "bad")),
-        radio=("bad" if (los_n or crash_n) else "ok"),
+        # LOS en dedie / crash = MANQUANT ; perte de couverture MM (recuperee) = EN COURS
+        radio=("bad" if (los_n or crash_n) else ("wip" if lostcov_n else "ok")),
     )
     # metriques exposees (rendu / meta)
     st.update(mode=(banc.MODE if banc is not None else "?"),
               fb_n=fb_n, sb_n=sb_n, rach_n=rach_n, sdcch_n=sdcch_n, a5_n=a5_n,
               si_n=si_n, camp_n=camp_n, auth_n=auth_n, ciph_n=ciph_n,
               tmsi_n=tmsi_n, lu_ok=lu_ok, lu_ko=lu_ko, los_n=los_n,
-              crash_n=crash_n, romload_n=romload)
+              crash_n=crash_n, lostcov_n=lostcov_n, romload_n=romload)
     return st
 
 
@@ -173,18 +188,18 @@ _CHAIN = [
     ("AUTH", "auth",    "authentification (RAND/SRES)",     6,  "AUTHENTICATION REQUEST"),
     ("CIPH", "cipher",  "chiffrement A5 complete",         10,  "CIPHERING MODE COMPLETE"),
     ("TMSI", "tmsi",    "TMSI attribue (LU acceptee)",      6,  "got TMSI / LU ACCEPT"),
-    ("LINK", "radio",   "lien radio tenu (pas de LOS)",     6,  "garde : LOS / crash = 0"),
+    ("LINK", "radio",   "lien radio tenu (ni LOS ni perte de couverture)", 6, "LOS / LOST_COVERAGE / crash = 0"),
 ]
 
 
 def _mermaid(st: dict) -> str:
     c = lambda k: _MERMAID_CLASS.get(st.get(k, "bad"), "bad")
     head = ("""flowchart TD
-  classDef src  fill:#12242f,stroke:#6ea8d8,stroke-width:1px,color:#cfe3f2;
-  classDef ok   fill:#0f2620,stroke:#46c39a,stroke-width:1px,color:#bfe9d7;
-  classDef wip  fill:#2a2211,stroke:#e6a94e,stroke-width:1px,color:#f0d6a4;
-  classDef bad  fill:#2a1412,stroke:#e86a5f,stroke-width:1.4px,color:#f2c3bd;
-  classDef join fill:#101d22,stroke:#38d3c2,stroke-width:1.4px,color:#bff0ea;
+  classDef src  fill:#eef4fb,stroke:#2780e3,stroke-width:1px,color:#1a4f8a;
+  classDef ok   fill:#eaf7f0,stroke:#2e9e6a,stroke-width:1px,color:#145c3c;
+  classDef wip  fill:#fdf4e3,stroke:#c08a16,stroke-width:1px,color:#7a5600;
+  classDef bad  fill:#fdeceb,stroke:#d6484f,stroke-width:1.4px,color:#8f2b2f;
+  classDef join fill:#e8f6f4,stroke:#1a9c8e,stroke-width:1.4px,color:#0c5f57;
 
   E0["BTS emet en continu<br/>FCCH - SCH - BCCH - FN reelle"]:::src""")
     lines = [head]
@@ -355,13 +370,13 @@ def _draw_grafcet(pdf, st):
     C = {"ok": (70, 195, 154), "wip": (230, 169, 78), "bad": (232, 106, 95)}
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 12); pdf.set_text_color(20, 40, 46)
-    pdf.cell(0, 8, "GRAFCET interprete (etat go-live -> correlateur -> camp)", ln=1)
+    pdf.cell(0, 8, "GRAFCET interprete (romload -> synchro L1 -> camp -> chiffrement)", ln=1)
     pdf.set_text_color(20, 20, 20)
     pct_tot, pct_path, _rows = _weighted_pct(st)
-    # barre de progression ponderee (chemin ordonne : FBSB & camping = max %)
+    # barre de progression ponderee (chemin ordonne : camp + chiffrement = max %)
     pdf.set_font("Helvetica", "B", 9)
     pdf.cell(0, 6, _ascii(f"Progression chemin (ponderee) : {pct_path}%   "
-                          f"[FBSB 25% + camping 22% = 47% du but]  -  total etapes atteintes {pct_tot}%"), ln=1)
+                          f"[camp 20% + chiffrement 10% + SI 10% = cible L3]  -  total etapes atteintes {pct_tot}%"), ln=1)
     bx, by, bwd, bhh = 14.0, pdf.get_y() + 1, 182.0, 5.0
     pdf.set_draw_color(120, 130, 134); pdf.set_fill_color(232, 236, 236)
     pdf.rect(bx, by, bwd, bhh, "DF")
@@ -469,49 +484,32 @@ def write_pdf(out_dir, ts: str = "") -> Path:
         pdf.ln(3); pdf.set_font("Helvetica", "B", 12); pdf.set_text_color(20, 40, 46)
         pdf.cell(0, 8, _ascii(t), ln=1); pdf.set_text_color(20, 20, 20)
 
-    # --- GRAFCET interprete (dessin natif) ---
+    # --- LE GRAFCET, une seule fois : dessin natif (fiable, sans npx), avec
+    #     barre de progression ponderee + etapes colorees. Pas de doublon :
+    #     ni graphviz UML, ni PNG mermaid du grafcet, ni liste d'etapes texte. ---
     try:
         _draw_grafcet(pdf, st)
     except Exception:
         pass
-    # --- UML pipeline (graphviz dot -> PNG embarque) ---
+    # --- figures complementaires (chacune UNE fois) : sequence, timeline,
+    #     puis plots temporels. Le grafcet n'est PAS re-rendu ici. ---
+    figs = []
     try:
-        _up = _uml_png(out_dir, st)
-        if _up:
-            pdf.add_page()
-            h2("Diagramme pipeline (UML)")
-            pdf.image(str(_up), x=14, w=182)
+        sq = _mermaid_png(_seq_diagram(st), str(Path(out_dir) / "d_sequence.png"))
+        if sq: figs.append(("Sequence : BTS -> L1 -> mobile -> reseau", sq))
+        tl = _mermaid_png(_timeline_diagram(st), str(Path(out_dir) / "d_timeline.png"))
+        if tl: figs.append(("Timeline : romload -> camp -> chiffrement", tl))
+        figs += _temporal_plots(out_dir)
     except Exception:
         pass
-    # --- diagrammes MERMAID (grafcet/sequence/timeline) + TEMPORELS (matplotlib) ---
-    try:
-        for _title, _png in _all_diagram_pngs(out_dir, st):
-            pdf.add_page(); h2(_title)
-            try: pdf.image(str(_png), x=14, w=182)
-            except Exception: pass
-    except Exception:
-        pass
-    # --- pipeline (grafcet en étapes texte) ---
-    h2("Pipeline (etapes)")
-    pdf.set_font("Courier", "", 9)
-    _cnt = {"fb": st.get("fb_n"), "sb": st.get("sb_n"), "si": st.get("si_n"),
-            "camp": st.get("camp_n"), "rach": st.get("rach_n"),
-            "sdcch": st.get("sdcch_n"), "auth": st.get("auth_n"),
-            "cipher": st.get("ciph_n"), "tmsi": st.get("tmsi_n")}
-    steps = []
-    for code, key, label, w, detail in _CHAIN:
-        n = _cnt.get(key)
-        suffix = f"  (x{n})" if n not in (None, 0) else ""
-        steps.append((st.get(key, "bad"), _ascii(f"{code:5} {label}  [{detail}]{suffix}")))
-    for stt, line in steps:
-        r, g, b = C[stt]
-        pdf.set_text_color(r, g, b)
-        pdf.cell(4, 5, "*", 0, 0)
-        pdf.set_text_color(30, 30, 30)
-        pdf.cell(0, 5, _ascii(line), ln=1)
+    for _title, _png in figs:
+        try:
+            pdf.add_page(); h2(_title); pdf.image(str(_png), x=14, w=182)
+        except Exception:
+            pass
 
-    # --- table RANK ---
-    h2("Rang de blocage - gates")
+    # --- table des maillons (detail par etape, pas une figure) ---
+    h2("Maillons de la chaine - journal / sonde")
     pdf.set_font("Helvetica", "B", 8)
     pdf.set_fill_color(240, 242, 242)
     pdf.cell(18, 7, "Rang", 1, 0, "L", True)
@@ -532,55 +530,26 @@ def write_pdf(out_dir, ts: str = "") -> Path:
         pdf.cell(0, 6, MARK[st[k]], 1, 1, "L")
         pdf.set_text_color(20, 20, 20); pdf.set_font("Helvetica", "", 7.5)
 
-    # --- milestones (depuis report.md du run si présent) ---
-    rep = Path(out_dir) / "report.md"
-    if not rep.exists():
-        rep = Path(out_dir).parent / "report.md"
-    if rep.exists():
-        h2("Milestones (resultats pytest)")
-        pdf.set_font("Courier", "", 7.5)
-        txt = _ascii(rep.read_text(encoding="utf-8", errors="replace"))
-        for line in txt.splitlines():
-            if any(t in line for t in ("PASS", "FAIL", "XFAIL", "XPASS", "SKIP", "milestone", "PHASE")):
-                pdf.set_x(pdf.l_margin)
-                pdf.multi_cell(0, 4.4, line[:110] or " ")
-
-    # --- rapport de tests COMPLET : test_results.md en BLOC CODE COLORE (dark) ---
-    trp = Path(out_dir) / "test_results.md"
-    if not trp.exists():
-        trp = Path(out_dir).parent / "test_results.md"
+    # --- résumé des tests : MÊME source que le bandeau HTML (run archivé si
+    #     fourni, sinon live). Plus de report.md / test_results.md hérités de
+    #     l'ancien banc (ALL PASS 39/55, IrDA, abstract.py, /home/nirvana…). ---
     try:
-        trtxt = trp.read_text(encoding="utf-8", errors="replace")
+        s = tests_summary(run_dir=_RUN_DIR) if _RUN_DIR else {}
     except Exception:
-        trtxt = ""
-    if trtxt:
-        pdf.add_page()
-        h2("Rapport de tests complet (test_results.md)")
-        pdf.set_font("Courier", "", 6.0)
-        # syntaxe light-theme (style GitHub clair) sur FOND BLANC
-        BG = (255, 255, 255)
-        COL = {"hdr": (0, 92, 197), "ok": (34, 134, 58), "bad": (203, 36, 49),
-               "warn": (176, 122, 0), "key": (111, 66, 193), "code": (3, 102, 102),
-               "txt": (36, 41, 46)}
-        def _cls(s):
-            u = s.upper(); st = s.lstrip()
-            if st.startswith("#"): return "hdr"
-            if any(t in u for t in ("PASS", "[OK]", "[V]")): return "ok"
-            if any(t in u for t in ("FAIL", " MUR", "[X]", "ERROR")): return "bad"
-            if any(t in u for t in ("XFAIL", "XPASS", "SKIP", "[~]")): return "warn"
-            if st.startswith("- **") or st.startswith("**") or st.startswith("|"): return "key"
-            if st.startswith("`") or st.startswith(">"): return "code"
-            return "txt"
-        for raw in trtxt.splitlines():
-            l = _tr(raw)
-            r, g, b = COL[_cls(l)]
-            pdf.set_text_color(r, g, b)
-            if not l:
-                pdf.set_x(pdf.l_margin); pdf.multi_cell(0, 3.1, " "); continue
-            for i in range(0, len(l), 140):
-                pdf.set_x(pdf.l_margin)
-                pdf.multi_cell(0, 3.1, l[i:i+140] or " ")
-        pdf.set_text_color(20, 20, 20)
+        s = {}
+    if s and not s.get("error") and s.get("total"):
+        p_, f_, sk_ = s.get("passed", 0), s.get("failed", 0), s.get("skipped", 0)
+        ex_ = p_ + f_ + s.get("errors", 0)
+        h2("Resume des tests (run %s)" % (s.get("source") or "?"))
+        pdf.set_font("Helvetica", "", 9)
+        pdf.cell(0, 6, _ascii("%d reussis / %d executes - %d echec(s) - %d saute(s) - %d collectes"
+                              % (p_, ex_, f_ + s.get("errors", 0), sk_, s.get("total", 0))), ln=1)
+        pdf.set_font("Courier", "", 8.5)
+        for nom, b in s.get("batteries", {}).items():
+            ne = b.get("passed", 0) + b.get("failed", 0) + b.get("errors", 0)
+            sk = b.get("skipped", 0)
+            pdf.cell(0, 5, _ascii("  %-9s %3d/%-3d executes%s" % (
+                nom, b.get("passed", 0), ne, ("   +%d sautes (N/A ce mode / opt-in)" % sk) if sk else "")), ln=1)
 
     # --- annexes : logs ---
     def appendix(title, path, filt=None, maxlines=70):
@@ -639,7 +608,7 @@ def _mmdc_cmd():
         return [npx, "-y", _MMDC_PKG]
     return None
 
-def _mermaid_png(mmd_text, out_png):
+def _mermaid_png(mmd_text, out_png, scale=1):
     import subprocess, os, shutil
     base = _mmdc_cmd()
     if not base:
@@ -656,7 +625,7 @@ def _mermaid_png(mmd_text, out_png):
                 Path(puppet).write_text(
                     '{"args":["--no-sandbox","--disable-setuid-sandbox",'
                     '"--disable-gpu","--disable-dev-shm-usage"]}', encoding="utf-8")
-        cmd = base + ["-i", str(src_p), "-o", str(out_png), "-b", "white", "-p", puppet]
+        cmd = base + ["-i", str(src_p), "-o", str(out_png), "-b", "white", "-p", puppet, "-s", str(scale)]
         subprocess.run(cmd, check=True, timeout=300, capture_output=True, env=env)
         try:
             src_p.unlink()   # nettoie le .mmd temporaire (d_*.mmd) : seuls les vrais splits restent
@@ -665,6 +634,34 @@ def _mermaid_png(mmd_text, out_png):
         return Path(out_png) if Path(out_png).exists() else None
     except Exception:
         return None
+
+def _mermaid_svg(mmd_text, out_svg):
+    """Rend un .mmd en SVG (vectoriel, net, leger) via mmdc/npx. None si echec."""
+    import subprocess
+    base = _mmdc_cmd()
+    if not base:
+        return None
+    src_p = Path(out_svg).with_suffix(".mmdsrc")
+    try:
+        src_p.write_text(mmd_text, encoding="utf-8")
+        env = dict(os.environ, PATH="/opt/node/bin:" + os.environ.get("PATH", ""))
+        puppet = _PUPPET
+        if not os.path.exists(puppet):
+            puppet = str(src_p.with_name("puppeteer.json"))
+            if not os.path.exists(puppet):
+                Path(puppet).write_text(
+                    '{"args":["--no-sandbox","--disable-setuid-sandbox",'
+                    '"--disable-gpu","--disable-dev-shm-usage"]}', encoding="utf-8")
+        cmd = base + ["-i", str(src_p), "-o", str(out_svg), "-b", "transparent", "-p", puppet]
+        subprocess.run(cmd, check=True, timeout=300, capture_output=True, env=env)
+        try:
+            src_p.unlink()
+        except Exception:
+            pass
+        return Path(out_svg) if Path(out_svg).exists() else None
+    except Exception:
+        return None
+
 
 def _seq_diagram(st):
     def m(k):
@@ -863,6 +860,422 @@ def _b64_img(path: Path) -> str:
         return f"data:{mt};base64," + base64.b64encode(path.read_bytes()).decode()
     except Exception:
         return ""
+
+
+_RUN_DIR = None
+
+
+def _use_run_logs(run_dir) -> str:
+    """Pointe les journaux de grafcet_gen (via banc : override CALYPSO_*_LOG) sur
+    ceux du RUN archivé donné, pour que grafcet/bandeau/PDF viennent du MÊME run
+    que le dossier. Retourne le nom du run, ou ""."""
+    global _RUN_DIR
+    if not run_dir or not os.path.isdir(run_dir):
+        return ""
+    _RUN_DIR = run_dir
+    for name in ("qemu", "dsp", "osmocon", "mobile", "pont"):
+        p = os.path.join(run_dir, f"{name}.log")
+        if os.path.isfile(p) and os.path.getsize(p) > 0:
+            os.environ[f"CALYPSO_{name.upper()}_LOG"] = p
+    # recharge les chemins module (QEMU_LOG/… relus par _logpath)
+    global QEMU_LOG, OSMOCON_LOG, MOBILE_LOG, DSP_LOG
+    QEMU_LOG = _logpath("qemu", os.environ.get("CALYPSO_QEMU_LOG"))
+    OSMOCON_LOG = _logpath("osmocon", os.environ.get("CALYPSO_OSMOCON_LOG"))
+    MOBILE_LOG = _logpath("mobile", os.environ.get("CALYPSO_MOBILE_LOG"))
+    DSP_LOG = _logpath("dsp", os.environ.get("CALYPSO_DSP_LOG"))
+    return os.path.basename(run_dir.rstrip("/"))
+
+
+def _tests_summary_from_run(run_dir) -> dict:
+    """Résumé par batterie lu dans les existant-pytest-*.txt du RUN archivé
+    (ligne « counts : {...} » écrite par conftest). Aucun pytest relancé :
+    cohérent avec le dossier et le GRAFCET du même run."""
+    import ast, glob
+    bat, tot = {}, dict(passed=0, failed=0, skipped=0, xfailed=0, xpassed=0, errors=0)
+    files = sorted(glob.glob(os.path.join(run_dir, "existant-pytest-*.txt")))
+    for f in files:
+        m0 = re.search(r"existant-pytest-([a-z0-9]+)\.txt", os.path.basename(f))
+        nom = m0.group(1) if m0 else os.path.basename(f)
+        try:
+            txt = open(f, errors="replace").read()
+        except OSError:
+            continue
+        m = re.search(r"counts\s*:\s*(\{[^}]*\})", txt)
+        c = {}
+        if m:
+            try:
+                c = ast.literal_eval(m.group(1))
+            except Exception:
+                c = {}
+        if not c:  # repli : ligne « N passed, M skipped, K failed »
+            for k in ("passed", "failed", "skipped", "xfailed"):
+                mm = re.search(r"(\d+) " + k, txt)
+                if mm:
+                    c[k] = int(mm.group(1))
+        b = dict(passed=c.get("passed", 0), failed=c.get("failed", 0),
+                 skipped=c.get("skipped", 0), xfailed=c.get("xfailed", 0),
+                 xpassed=0, errors=c.get("errors", 0))
+        bat[nom] = b
+        for k in tot:
+            tot[k] += b.get(k, 0)
+    total = sum(tot.values())
+    if not files:
+        return {"error": "aucun existant-pytest-*.txt dans le run"}
+    return dict(total=total, batteries=bat, source=os.path.basename(run_dir.rstrip("/")), **tot)
+
+
+def tests_summary(testdir=None, timeout=300, run_dir=None) -> dict:
+    """Résumé par batterie. Si run_dir : lu dans le RUN archivé (cohérent avec
+    le dossier). Sinon : lance les batteries pytest sur la pile vivante.
+    Retourne {total, passed, failed, skipped, xfailed, errors, batteries, source?}."""
+    if run_dir:
+        return _tests_summary_from_run(run_dir)
+    import subprocess
+    testdir = testdir or str(Path(__file__).resolve().parent)
+    py = os.environ.get("CALYPSO_PY", _sys.executable)
+    try:
+        r = subprocess.run(
+            [py, "-m", "pytest", testdir, "-v", "--tb=no", "-p", "no:cacheprovider",
+             "--continue-on-collection-errors", "-o", "addopts=",
+             "--ignore", os.path.join(testdir, "legacy"),
+             "--ignore", os.path.join(testdir, "archives")],
+            capture_output=True, text=True, timeout=timeout, cwd=testdir)
+        out = r.stdout + "\n" + r.stderr
+    except Exception as e:
+        return {"error": str(e)}
+    bat = {}
+    tot = dict(passed=0, failed=0, skipped=0, xfailed=0, xpassed=0, errors=0)
+    rxl = re.compile(r"^(test_\d+_([a-z]+)[\w]*\.py)::\S+?\s+(PASSED|FAILED|SKIPPED|XFAIL|XPASS|ERROR)")
+    KEY = {"PASSED": "passed", "FAILED": "failed", "SKIPPED": "skipped",
+           "XFAIL": "xfailed", "XPASS": "xpassed", "ERROR": "errors"}
+    for ln in out.splitlines():
+        m = rxl.match(ln.strip())
+        if not m:
+            continue
+        nom, verdict = m.group(2), KEY[m.group(3)]
+        b = bat.setdefault(nom, dict(passed=0, failed=0, skipped=0, xfailed=0, xpassed=0, errors=0))
+        b[verdict] += 1
+        tot[verdict] += 1
+    total = sum(tot.values())
+    if total == 0:
+        # repli : la ligne de synthese « N passed, M skipped » si le -v n'a rien donne
+        for k in tot:
+            mm = re.search(r"(\d+) " + k, out)
+            if mm:
+                tot[k] = int(mm.group(1))
+        total = sum(tot.values())
+    return dict(total=total, batteries=bat, **tot)
+
+
+def tests_summary_fragment(summary: dict, ts: str = "", run: str = "") -> str:
+    """Bandeau SOBRE (thème cosmo du sous-domaine via --bg/--fg/--line/--acc) en
+    tête de page : réussis/exécutés (jamais « 100% » si des tests sont sautés),
+    tuiles passed/failed/skipped, barre par batterie (dénominateur = exécutés,
+    les sauts N/A ne comptent pas comme trous), run source, horodatage."""
+    s = summary or {}
+    if s.get("error") or not s.get("total"):
+        return (f'<section id="tests-panel"><p style="color:var(--mute,#6c757d)">'
+                f'Résumé des tests indisponible{(" : " + s["error"]) if s.get("error") else ""}.</p></section>')
+    passed, failed, skipped = s.get("passed", 0), s.get("failed", 0), s.get("skipped", 0)
+    xf, err = s.get("xfailed", 0), s.get("errors", 0)
+    total = s.get("total", 0)
+    actifs = passed + failed  # tests qui ont reellement statue (ni sautes ni xfail)
+    taux = round(100 * passed / actifs) if actifs else 0
+    verdict = "OK" if failed == 0 and err == 0 else f"{failed + err} EN ÉCHEC"
+    vcol = "var(--gok)" if failed == 0 and err == 0 else "var(--gbad)"
+
+    tiles = [("passed", passed, "var(--gok)"), ("failed", failed, "var(--gbad)"),
+             ("skipped", skipped, "var(--mute,#6c757d)")]
+    if xf:
+        tiles.append(("xfail", xf, "var(--gwip)"))
+    if err:
+        tiles.append(("errors", err, "var(--gbad)"))
+    tcells = "".join(
+        f'<div class="ttile"><div class="tv" style="color:{c}">{v}</div><div class="tk">{k}</div></div>'
+        for k, v, c in tiles)
+
+    order = ["infra", "couche1", "mobile", "reseau", "actif"]
+    bats = s.get("batteries", {})
+    rows = []
+    for nom in order + [b for b in bats if b not in order]:
+        b = bats.get(nom)
+        if not b:
+            continue
+        p, f, sk = b.get("passed", 0), b.get("failed", 0), b.get("skipped", 0)
+        # denominateur = EXECUTES (passed+failed) : les sauts (mode N/A, opt-in)
+        # ne sont pas des trous de couverture, on les note a part.
+        nexec = p + f + b.get("errors", 0)
+        wok = round(100 * p / nexec) if nexec else 0
+        wko = round(100 * (f + b.get("errors", 0)) / nexec) if nexec else 0
+        skn = f' <span class="bsk">+{sk} sautés</span>' if sk else ""
+        bar = (f'<span class="bbar"><i style="width:{wok}%;background:var(--gok)"></i>'
+               f'<i style="width:{wko}%;background:var(--gbad)"></i></span>') if nexec else \
+              '<span class="bbar bempty"></span>'
+        rows.append(
+            f'<div class="brow"><span class="bn">{nom}</span>{bar}'
+            f'<span class="bc">{p}/{nexec}{skn}</span></div>')
+    rows_html = "\n".join(rows)
+    skip_note = (f'<div class="tnote">&#9888; Couverture partielle : {skipped} test(s) '
+                 f'non ex&eacute;cut&eacute;(s) (saut&eacute;s) — le taux porte sur les {actifs} '
+                 f'ex&eacute;cut&eacute;s, pas sur la couverture totale.</div>') if skipped else ""
+    src = run or s.get("source", "")
+    gen = (f'<span class="tgen">{("run " + src + " &middot; ") if src else ""}'
+           f'g&eacute;n&eacute;r&eacute; {ts}</span>') if (ts or src) else ""
+
+    return f"""<section id="tests-panel">
+<style>
+  #tests-panel{{--gok:#2e9e6a;--gwip:#c08a16;--gbad:#d6484f;
+    --gmono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+    background:var(--side,#f8f9fa);color:var(--fg,#212529);
+    border:1px solid var(--line,#dee2e6);border-radius:14px;padding:24px;margin:10px 0 18px}}
+  #tests-panel *{{box-sizing:border-box}}
+  #tests-panel .thead{{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:2px}}
+  #tests-panel .tbig{{font:700 34px var(--gmono);color:var(--fg,#212529)}}
+  #tests-panel .tlab{{font:500 14px var(--gmono);color:var(--mute,#6c757d)}}
+  #tests-panel .tverd{{font:700 13px var(--gmono);letter-spacing:.08em;padding:3px 10px;border-radius:20px;color:#fff;background:{vcol}}}
+  #tests-panel .tgen{{margin-left:auto;font:500 12px var(--gmono);color:var(--mute,#6c757d)}}
+  #tests-panel .tmeta{{color:var(--mute,#6c757d);font-size:13px;margin-top:2px}}
+  #tests-panel .tnote{{margin-top:12px;font-size:12.5px;color:var(--gwip);background:rgba(192,138,22,.08);
+    border:1px solid rgba(192,138,22,.3);border-radius:8px;padding:8px 12px}}
+  #tests-panel .ttiles{{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px;margin:16px 0}}
+  #tests-panel .ttile{{background:var(--bg,#fff);border:1px solid var(--line,#dee2e6);border-radius:10px;padding:12px 8px;text-align:center}}
+  #tests-panel .tv{{font:700 24px var(--gmono)}}
+  #tests-panel .tk{{font-family:var(--gmono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute,#6c757d);margin-top:3px}}
+  #tests-panel .brow{{display:flex;align-items:center;gap:12px;margin:7px 0;font-size:13px}}
+  #tests-panel .bn{{flex:0 0 76px;font-family:var(--gmono);color:var(--fg,#212529)}}
+  #tests-panel .bbar{{flex:1;display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--line,#dee2e6);min-width:40px}}
+  #tests-panel .bbar i{{display:block;height:100%}}
+  #tests-panel .bc{{flex:0 0 auto;font-family:var(--gmono);color:var(--mute,#6c757d);font-variant-numeric:tabular-nums}}
+  #tests-panel .bsk{{color:var(--mute,#6c757d);font-size:11px}}
+  #tests-panel .bempty{{background:repeating-linear-gradient(45deg,var(--line,#dee2e6) 0 4px,transparent 4px 8px)}}
+</style>
+<div class="thead">
+  <span class="tbig">{passed}</span><span class="tlab">r&eacute;ussis / {actifs} ex&eacute;cut&eacute;s</span>
+  <span class="tverd">{verdict}</span>
+  {gen}
+</div>
+<div class="tmeta">{failed} &eacute;chec(s) &middot; {skipped} saut&eacute;(s) &middot; {total} collect&eacute;s &middot; {taux}% des ex&eacute;cut&eacute;s r&eacute;ussis</div>
+<div class="ttiles">{tcells}</div>
+{rows_html}
+{skip_note}
+</section>"""
+
+
+def grafcet_fragment(out_dir, ts: str = "", pdf_href: str = "rapport.pdf", run: str = "") -> str:
+    """Fragment HTML AUTONOME et SCOPE (tout sous #grafcet-panel) a injecter dans
+    une autre page (ex. le dossier tests.pl4y.store) : anneau de progression,
+    chips par maillon, SVG grafcet inline, bouton PDF. N'embarque QUE le grafcet
+    (sequence/timeline/plots restent dans le PDF). grafcet.svg doit exister dans
+    out_dir (rendu npx)."""
+    out = Path(out_dir)
+    st = derive_status()
+    tot, path, rows = _weighted_pct(st)
+
+    def svg_inline(name):
+        p = out / name
+        if not p.is_file():
+            return ""
+        s = p.read_text(encoding="utf-8", errors="replace")
+        s = re.sub(r"<\?xml.*?\?>", "", s, flags=re.S)
+        s = re.sub(r"<!DOCTYPE.*?>", "", s, flags=re.S)
+        return s
+
+    _CNT = {"fb": "fb_n", "sb": "sb_n", "si": "si_n", "camp": "camp_n",
+            "rach": "rach_n", "sdcch": "sdcch_n", "auth": "auth_n",
+            "cipher": "ciph_n", "tmsi": "tmsi_n"}
+    chips = []
+    for code, key, label, w, detail in _CHAIN:
+        stt = st.get(key, "bad")
+        n = st.get(_CNT.get(key, ""), "")
+        badge = {"ok": "VALIDE", "wip": "EN COURS", "bad": "MANQUANT"}[stt]
+        cnt = f'<span class="gn">&times;{n}</span>' if (n not in ("", 0, None)) else ""
+        chips.append(
+            f'<div class="gchip g-{stt}"><div class="gch"><span class="gcode">{code}</span>{cnt}'
+            f'<span class="gbadge">{badge}</span></div>'
+            f'<div class="glabel">{label}</div><div class="gdet">{detail}</div></div>')
+    chips_html = "\n".join(chips)
+
+    R, circ = 46, 2 * 3.14159 * 46
+    dash = circ * path / 100.0
+    ring = (f'<svg viewBox="0 0 120 120" class="gring"><circle cx="60" cy="60" r="{R}" '
+            f'class="grb"/><circle cx="60" cy="60" r="{R}" class="grf" '
+            f'stroke-dasharray="{dash:.1f} {circ:.1f}" transform="rotate(-90 60 60)"/>'
+            f'<text x="60" y="56" class="grp">{path}%</text>'
+            f'<text x="60" y="76" class="grs">chemin</text></svg>')
+
+    metrics = [("FB", st.get("fb_n")), ("SB", st.get("sb_n")), ("SI", st.get("si_n")),
+               ("camp", st.get("camp_n")), ("RACH", st.get("rach_n")),
+               ("SDCCH", st.get("sdcch_n")), ("auth", st.get("auth_n")),
+               ("chiffre", st.get("ciph_n")), ("TMSI", st.get("tmsi_n")),
+               ("LU", f"{st.get('lu_ok')}/{st.get('lu_ko')}")]
+    mcells = "".join(f'<div class="gmetric"><div class="gmv">{v}</div><div class="gmk">{k}</div></div>'
+                     for k, v in metrics)
+    graf_svg = svg_inline("grafcet.svg")
+    pdf_btn = (f'<a class="gdl" href="{pdf_href}" download>&#11015; Rapport PDF</a>'
+               if pdf_href else "")
+
+    # Styles SCOPES qui HERITENT des variables du sous-domaine tests.pl4y.store
+    # (theme cosmo : --bg --fg --mute --line --side --acc, light/dark natif) avec
+    # des fallbacks si injecte ailleurs. Seules les couleurs de STATUT sont
+    # fixees (semantique vert/ambre/rouge, lisibles sur les deux fonds).
+    return f"""<section id="grafcet-panel">
+<style>
+  #grafcet-panel{{--gok:#2e9e6a;--gwip:#c08a16;--gbad:#d6484f;
+    --gmono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+    background:var(--side,#f8f9fa);color:var(--fg,#212529);
+    border:1px solid var(--line,#dee2e6);border-radius:14px;padding:24px;margin:10px 0 30px}}
+  #grafcet-panel *{{box-sizing:border-box}}
+  #grafcet-panel .ghead{{display:flex;gap:22px;align-items:center;flex-wrap:wrap}}
+  #grafcet-panel .gring{{width:100px;height:100px;flex:0 0 auto}}
+  #grafcet-panel .grb{{fill:none;stroke:var(--line,#dee2e6);stroke-width:10}}
+  #grafcet-panel .grf{{fill:none;stroke:var(--acc,#2780e3);stroke-width:10;stroke-linecap:round}}
+  #grafcet-panel .grp{{fill:var(--fg,#212529);font:600 23px var(--gmono);text-anchor:middle}}
+  #grafcet-panel .grs{{fill:var(--mute,#6c757d);font:500 10px var(--gmono);text-anchor:middle;letter-spacing:.14em}}
+  #grafcet-panel .gtt{{flex:1 1 300px;min-width:260px}}
+  #grafcet-panel .geb{{font-family:var(--gmono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc,#2780e3);margin:0 0 8px}}
+  #grafcet-panel h3.gh{{font-size:clamp(18px,2.3vw,25px);margin:0 0 6px;font-weight:700;color:var(--fg,#212529);border:0;padding:0}}
+  #grafcet-panel .gsub{{color:var(--mute,#6c757d);margin:0;font-size:14px;max-width:62ch}}
+  #grafcet-panel .gdl{{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 18px;border-radius:8px;
+    font-weight:600;font-size:14px;color:#fff;text-decoration:none;background:var(--acc,#2780e3)}}
+  #grafcet-panel .gdl:hover{{filter:brightness(1.08)}}
+  #grafcet-panel .gmetrics{{display:grid;grid-template-columns:repeat(auto-fit,minmax(82px,1fr));gap:10px;margin:22px 0}}
+  #grafcet-panel .gmetric{{background:var(--bg,#fff);border:1px solid var(--line,#dee2e6);border-radius:10px;padding:12px 8px;text-align:center}}
+  #grafcet-panel .gmv{{font:600 20px var(--gmono);color:var(--fg,#212529)}}
+  #grafcet-panel .gmk{{font-family:var(--gmono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute,#6c757d);margin-top:3px}}
+  #grafcet-panel .gchips{{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-bottom:22px}}
+  #grafcet-panel .gchip{{background:var(--bg,#fff);border:1px solid var(--line,#dee2e6);border-left-width:4px;border-radius:10px;padding:12px 14px}}
+  #grafcet-panel .g-ok{{border-left-color:var(--gok)}} #grafcet-panel .g-wip{{border-left-color:var(--gwip)}} #grafcet-panel .g-bad{{border-left-color:var(--gbad)}}
+  #grafcet-panel .gch{{display:flex;align-items:center;gap:8px;margin-bottom:6px}}
+  #grafcet-panel .gcode{{font-family:var(--gmono);font-weight:700;font-size:12px;color:var(--fg,#212529)}}
+  #grafcet-panel .gn{{font-family:var(--gmono);font-size:11px;color:var(--mute,#6c757d)}}
+  #grafcet-panel .gbadge{{margin-left:auto;font-family:var(--gmono);font-size:9px;letter-spacing:.06em;padding:2px 7px;border-radius:20px;color:#fff}}
+  #grafcet-panel .g-ok .gbadge{{background:var(--gok)}}
+  #grafcet-panel .g-wip .gbadge{{background:var(--gwip)}}
+  #grafcet-panel .g-bad .gbadge{{background:var(--gbad)}}
+  #grafcet-panel .glabel{{font-size:13px;color:var(--fg,#212529);font-weight:500}}
+  #grafcet-panel .gdet{{font-family:var(--gmono);font-size:10px;color:var(--mute,#6c757d);margin-top:3px}}
+  #grafcet-panel .gcard{{background:var(--bg,#fff);border:1px solid var(--line,#dee2e6);border-radius:12px;padding:18px;overflow:auto}}
+  #grafcet-panel .gcard svg{{max-width:100%;height:auto;display:block;margin:0 auto}}
+</style>
+<div class="ghead">
+  {ring}
+  <div class="gtt">
+    <p class="geb">TI Calypso &middot; mode {st.get('mode','?')} &middot; {ts}</p>
+    <h3 class="gh">GRAFCET go-live &mdash; romload &rarr; synchro L1 &rarr; camp &rarr; chiffrement</h3>
+    <p class="gsub">Chaque maillon d&eacute;riv&eacute; des journaux du run {run or 'live'} (m&ecirc;me run que le verdict et la couverture). Progression du chemin&nbsp;: {path}%.</p>
+    {pdf_btn}
+  </div>
+</div>
+<div class="gmetrics">{mcells}</div>
+<div class="gchips">{chips_html}</div>
+<div class="gcard">{graf_svg or '<p style="color:var(--mute,#6c757d)">grafcet.svg absent</p>'}</div>
+</section>"""
+
+
+def fragment_md(summary: dict, st: dict, ts: str = "", run: str = "") -> str:
+    """Version MARKDOWN du bandeau + panneau GRAFCET (mêmes données, même run
+    que les fragments HTML), placée en tête du dossier.qmd pour le PDF pandoc."""
+    s = summary or {}
+    out = ["## Résumé des tests", ""]
+    if s.get("error") or not s.get("total"):
+        out += ["_Résumé des tests indisponible._", ""]
+    else:
+        p, f = s.get("passed", 0), s.get("failed", 0) + s.get("errors", 0)
+        sk, tot = s.get("skipped", 0), s.get("total", 0)
+        ex = p + f
+        out += [f"**{p} réussis / {ex} exécutés** — {f} échec(s) · {sk} sauté(s) · "
+                f"{tot} collectés — run `{run or s.get('source') or 'live'}` — généré {ts}", ""]
+        if sk:
+            out += [f"> Couverture partielle : {sk} test(s) non exécuté(s) (sautés). "
+                    f"Le taux porte sur les {ex} exécutés, pas sur la couverture totale.", ""]
+        out += ["| Batterie | Réussis / exécutés | Sautés |", "|---|---|---|"]
+        for nom, b in s.get("batteries", {}).items():
+            ne = b.get("passed", 0) + b.get("failed", 0) + b.get("errors", 0)
+            out.append(f"| {nom} | {b.get('passed', 0)} / {ne} | {b.get('skipped', 0) or ''} |")
+        out.append("")
+    tot_pct, path, _ = _weighted_pct(st)
+    badge = {"ok": "VALIDE", "wip": "EN COURS", "bad": "MANQUANT"}
+    out += ["## GRAFCET go-live", "",
+            f"Chemin pondéré **{path} %** — journaux du run `{run or 'live'}` "
+            f"(même run que le verdict et la couverture).", "",
+            "| Étape | Maillon | Journal / sonde | État |", "|---|---|---|---|"]
+    for code, key, label, w, detail in _CHAIN:
+        out.append(f"| {code} | {label} | `{detail}` | {badge[st.get(key, 'bad')]} |")
+    out += ["", "![GRAFCET go-live — chaîne ordonnée, couleur = état du maillon](grafcet.png){height=21cm}", ""]
+    return "\n".join(out)
+
+
+def pdf_from_qmd(qmd_path, frag_dir, out_pdf) -> Path:
+    """PDF du dossier rendu par PANDOC (xelatex) à partir du MÊME dossier.qmd
+    que la page HTML, avec fragment.md (bandeau + GRAFCET) en tête : page et
+    PDF disent la même chose, sur le même run."""
+    import subprocess
+    qmd = Path(qmd_path).read_text(encoding="utf-8", errors="replace")
+    meta = {}
+    fm = re.match(r"^---\n(.*?)\n---\n", qmd, flags=re.S)
+    if fm:
+        for k in ("title", "subtitle", "date"):
+            m = re.search(r'^%s:\s*"?(.*?)"?\s*$' % k, fm.group(1), flags=re.M)
+            if m:
+                meta[k] = m.group(1)
+        qmd = qmd[fm.end():]
+    frag = Path(frag_dir) / "fragment.md"
+    head = frag.read_text(encoding="utf-8") if frag.is_file() else ""
+    esc = lambda v: (v or "").replace('"', "'")
+    front = f"""---
+title: "{esc(meta.get('title', 'Dossier de run'))}"
+subtitle: "{esc(meta.get('subtitle', ''))}"
+date: "{esc(meta.get('date', ''))}"
+lang: fr
+documentclass: article
+fontsize: 10pt
+geometry: margin=1.5cm
+mainfont: DejaVu Sans
+monofont: DejaVu Sans Mono
+colorlinks: true
+linkcolor: blue
+toc: true
+toc-depth: 2
+numbersections: true
+header-includes:
+  - \\usepackage{{fvextra}}
+  - \\fvset{{breaklines=true,breakanywhere=true,fontsize=\\scriptsize}}
+  - \\RecustomVerbatimEnvironment{{verbatim}}{{Verbatim}}{{breaklines,breakanywhere,fontsize=\\scriptsize}}
+---
+
+"""
+    md = Path(frag_dir) / "dossier-pdf.md"
+    md.write_text(front + head + "\n\n" + qmd, encoding="utf-8")
+    out_pdf = Path(out_pdf)
+    r = subprocess.run(
+        ["pandoc", str(md), "-o", str(out_pdf), "--pdf-engine=xelatex",
+         "--no-highlight", "--shift-heading-level-by=-1",
+         "--resource-path", str(frag_dir)],
+        capture_output=True, text=True, timeout=600)
+    if r.returncode != 0 or not out_pdf.is_file():
+        raise RuntimeError("pandoc : " + (r.stderr or r.stdout)[-800:])
+    return out_pdf
+
+
+def write_fragments(out_dir, ts: str = "", pdf_href: str = "rapport.pdf", run_dir=None) -> Path:
+    """Prepare tout pour la page du sous-domaine : out_dir/fragment.html
+    (bandeau + panneau grafcet, injectes dans l'HTML) et out_dir/fragment.md
+    (meme contenu en markdown, place en tete du qmd pour le PDF pandoc), plus
+    grafcet.svg (HTML) et grafcet.png (PDF). Si run_dir : TOUT provient du MEME
+    run archive que le dossier (plus de melange de runs) ; sinon live."""
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    run = _use_run_logs(run_dir)          # pointe les journaux sur le run (si fourni)
+    st = derive_status()
+    _mermaid_svg(_mermaid(st), str(out / "grafcet.svg"))   # HTML : vectoriel inline
+    _mermaid_png(_mermaid(st), str(out / "grafcet.png"), scale=3)   # PDF : image LaTeX nette
+    # resume des tests : depuis le run archive (coherent) ou live
+    summary = tests_summary(run_dir=run_dir)
+    frag = tests_summary_fragment(summary, ts, run) + "\n" + grafcet_fragment(out_dir, ts, pdf_href, run)
+    (out / "fragment.md").write_text(fragment_md(summary, st, ts, run), encoding="utf-8")
+    p = out / "fragment.html"
+    p.write_text(frag, encoding="utf-8")
+    return p
 
 
 def write_deploy(out_dir, ts: str = "", pdf_href: str = "rapport.pdf") -> Path:
@@ -1071,7 +1484,18 @@ if __name__ == "__main__":
     import sys, time
     argv = sys.argv[1:]
     ts = time.strftime("%Y-%m-%d %H:%M")
-    if argv and argv[0] == "deploy":
+    if argv and argv[0] == "fragments":
+        # fragments <out_dir> [pdf_href] [run_dir] : bandeau + grafcet (HTML + md)
+        d = argv[1] if len(argv) > 1 else "/tmp/calypso-frag"
+        href = argv[2] if len(argv) > 2 else "rapport.pdf"
+        run_dir = argv[3] if len(argv) > 3 and argv[3] else None
+        p = write_fragments(d, ts, href, run_dir)
+        print("fragment ecrit:", p)
+    elif argv and argv[0] == "pdf":
+        # pdf <dossier.qmd> <frag_dir> <out.pdf> : PDF pandoc du meme qmd que l'HTML
+        p = pdf_from_qmd(argv[1], argv[2], argv[3])
+        print("pdf ecrit:", p)
+    elif argv and argv[0] == "deploy":
         d = argv[1] if len(argv) > 1 else "/tmp/calypso-deploy"
         paths = write_grafcet(d, ts)          # html/md/pdf/rmd + d_*.png (npx)
         idx = write_deploy(d, ts)             # page autonome index.html

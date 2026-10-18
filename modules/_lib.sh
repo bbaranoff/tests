@@ -180,18 +180,24 @@ lib_collecte() {
 
 lib_verdict() {
     head_ "ECHELLE — mode $MODE$([ "$MULTI" = 1 ] && echo ' + multi-operateur')"
-    local n=0 max=0 nom v c
+    local n=0 max=0 nom v c ok=0 sau=0 sautes=""
     ECHECS=0
     {
         for nom in "${NOMS[@]}"; do
             n=$((n+1)); v="${VERD[$nom]}"
-            [ "$v" = OK ] && max=$n
+            [ "$v" = OK ] && { max=$n; ok=$((ok+1)); }
             [ "$v" = ECHEC ] && ECHECS=$((ECHECS+1))
+            { [ "$v" = SAUTE ] || [ "$v" = NON-TESTE ]; } && { sau=$((sau+1)); sautes="$sautes $nom"; }
             c="$G"; [ "$v" = ECHEC ] && c="$R"; { [ "$v" = SAUTE ] || [ "$v" = NON-TESTE ]; } && c="$D"
-            printf '  %2d %-9s %s%-9s%s %s\n' "$n" "$nom" "$c" "$v" "$Z" "${DET[$nom]}"
+            printf '  %2d %-16s %s%-9s%s %s\n' "$n" "$nom" "$c" "$v" "$Z" "${DET[$nom]}"
         done
-        printf '\n  %sELEMENT MAX : %d/%d%s  (%s)  mode %s  echecs %d\n' \
-            "$B" "$max" "${#NOMS[@]}" "$Z" "${NOMS[$((max>0 ? max-1 : 0))]}" "$MODE" "$ECHECS"
+        # ELEMENT MAX = le plus haut barreau OK. Il ne dit pas que tout ce qui est
+        # en dessous a tourne : les barreaux sautes ne sont pas des reussites, on
+        # donne donc executes / sautes sur la meme ligne (lue telle quelle par
+        # tout-en-un.py ; rapport.py ne lit que le debut, inchange).
+        printf '\n  %sELEMENT MAX : %d/%d%s  (%s)  mode %s  echecs %d  —  executes %d/%d OK, %d saute(s)%s\n' \
+            "$B" "$max" "${#NOMS[@]}" "$Z" "${NOMS[$((max>0 ? max-1 : 0))]}" "$MODE" "$ECHECS" \
+            "$ok" "$((ok+ECHECS))" "$sau" "${sautes:+ :$sautes}"
     } | tee "$OUT/verdict.txt"
     say "details dans $OUT"
 }

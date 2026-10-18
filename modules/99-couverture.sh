@@ -15,6 +15,10 @@ mod_titre() { echo "qui fait quoi en $MODE, et par quel chemin (ROM ou hote), d'
 #     DEGRADE     preuve(s) ET symptome(s)
 #     NON GERE    la fonction est hors de ce montage (dit par la doc), ou un
 #                 symptome sans aucune preuve
+#     ATTENDU ABSENT  rien dans le journal, et c'est le comportement attendu :
+#                 garde (ligne sans motif de preuve) qui n'a pas joue, note
+#                 « attendu absent », ou marqueur @absent_si=journal:motif@ verifie
+#                 (ex. GAPK a 0 parce que la ROM vocode : lignes [vsp])
 #     NON OBSERVE rien dans le journal : pas exerce par ce run, ou pas journalise
 #
 # [2026-10-03] « Kc lache » n'est PAS un symptome en soi : le pont lache la cle a
@@ -26,6 +30,8 @@ mod_titre() { echo "qui fait quoi en $MODE, et par quel chemin (ROM ou hote), d'
 # repli « CHANNEL RELEASE sans liberation du mobile » (pont/uplink.py) signale
 # un canal reste ouvert et une cle gardee : c'est lui qu'on cherche.
 # Format d'une ligne du tableau :  fonction;qui;journal;motif preuve;motif symptome;note
+# (la note peut porter « @absent_si=journal:motif@ » : si ce motif est dans ce
+#  journal, une ligne sans preuve ni symptome est ATTENDU ABSENT, pas NON OBSERVE)
 # (separateur « ; » : les motifs grep contiennent des alternances « \| », qu'un
 # separateur « | » coupait en deux champs — SMS, SDCCH descendant, SACCH en TCH
 # et retour BSP etaient lus de travers jusqu'au 2026-09-29)
@@ -94,10 +100,10 @@ TCH/F descendant : qualite (B_BFI);ROM TI;dsp;\[a_dd\].*BFI=0;bfi=[1-9];B_BFI ju
 FACCH montant;firmware -> montant.c;dsp;\[montant\] FACCH UL;FACCH montante ECARTEE;
 SACCH montant en TCH;firmware -> montant.c;dsp;\[montant\] SACCH UL;Radio link lost signal\|LOS during dedicated;README : correctif MVKD/MVDK, point ouvert n°2
 garde MVKD/MVDK;qosmo c54x_exec.c;qemu;;\[garde-3d89\];une ligne = la garde a joue
-parole montante;firmware -> montant.c (anneau calypso_tch_ul);dsp;\[montant\] parole UL;;
-vocodage;GAPK du mobile (FR) sur les trames TI de la ROM (io-tch-format ti);mobile;format/ti-fr;;[2026-10-15] preuve = chaine GAPK preparee dans le journal du mobile (avant : 3 lignes fixes de la conf)
+parole montante;ROM : bursts TCH bruts (PONT_UL_RAW_TCH=1), sinon hote montant.c -> pont tch_fr_encode;pont;TCH ul rom F=[0-9]* S=[0-9]* P=[1-9]\|hote F=[0-9]* S=[0-9]* P=[1-9];;[2026-10-18] preuve = compteur P (trames de parole) des STATS du pont, chemin ROM ou hote ; l ancien motif « [montant] parole UL » n existe que sur le chemin hote
+vocodage;GAPK du mobile (FR) sur les trames TI de la ROM (io-tch-format ti);mobile;format/ti-fr;;[2026-10-15] preuve = chaine GAPK preparee dans le journal du mobile (avant : 3 lignes fixes de la conf) ; attendu absent quand la ROM vocode elle-meme (lignes [vsp]) @absent_si=dsp:\[vsp\] fn=[0-9]* sur 1000 trames : rint=[1-9]@
 saut de frequence;pont : NON GERE;pont;;saut de frequence : TCH non arme;hors de ce montage
-marge temps reel DSP;c54x_exe [chrono];dsp;\[chrono\];;README : 4.3-4.6 ms de travail pour 4.62 ms
+marge temps reel DSP;c54x_exe [chrono];dsp;\[chrono\];pire trame [0-9]\{3,\}\.\|DSP >4.62 ms [1-9];README : 4.3-4.6 ms de travail pour 4.62 ms ; [2026-10-18] symptome = trames DSP hors budget 4.62 ms, ou blocage >= 100 ms (l1_sync « GO envoye quand meme »)
 CHANNEL RELEASE;pont;pont;CHANNEL RELEASE;CHANNEL RELEASE sans liberation du mobile;
 retour BSP sur le SDCCH;ROM TI (tache ALLC);dsp;BSP rendu au SDCCH\|revenu sur le SDCCH;;attendu absent : seul un ASSIGNMENT FAILURE (retour a l'ancien canal, 04.08 3.4.3.3) y mene, un appel normal finit par CHANNEL RELEASE
 liberation radio cote mobile;mobile;mobile;new state dedicated -> release pending\|Returning to IDLE mode;;DRR (DSUM n'est pas journalise)
@@ -139,7 +145,7 @@ montant : FACCH/F;ROM avec PONT_UL_RAW_TCH=1 + CALYPSO_C54X_BCTC_NORM=1 (sinon h
 montant : SACCH en TCH;ROM avec PONT_UL_RAW_TCH=1 (sinon hote : pont gsm.xcch_encode);pont;=TCH ul rom F=[0-9]* S=;=TCH ul rom F=[0-9]* S=[0-9]* P=[0-9]* jete F=[0-9]* S=[0-9]* P=[0-9]* hote F=[0-9]* S=;S = fn%26 12/25 ; bursts ROM ecartes : TCH ul ... jete S=
 montant : TCH/F parole;ROM avec PONT_UL_RAW_TCH=1 + CALYPSO_C54X_BCTC_NORM=1 + CALYPSO_NORM_TC=0 (sinon hote : montant.c TI -> FR -> pont tch_fr_encode);pont;=TCH ul rom F=[0-9]* S=[0-9]* P=;=TCH ul rom F=[0-9]* S=[0-9]* P=[0-9]* jete F=[0-9]* S=[0-9]* P=[0-9]* hote F=[0-9]* S=[0-9]* P=;P = ni SACCH ni stealing flag ; [2026-10-15] marqueur de trame de parole PROM0 0x90a0 (BC apres NORM) : sans BCTC_NORM la ROM n emet pas la parole
 vocodage : port voix ROM (VSP);ROM : codec FR de la ROM, PCM par le port serie SP0 (IT 20, ISR 0xc14a) -- calypso_vsp.c, CALYPSO_VSP=1 + BANC_VOCODEUR=rom (mobile en l1phy);dsp;\[vsp\] fn=[0-9]* sur 1000 trames : rint=[1-9];;[2026-10-15] une ligne [vsp] par 1000 trames avec des IT voix servies ; la ligne GAPK ci-dessous doit alors rester a 0
-vocodage;hote : GAPK du mobile (trames TI de la ROM);mobile;;chain 'source/alsa -> codec/fr;[2026-10-15] une ligne par session TCH parole (chaine de capture GAPK) ; 0 sans appel
+vocodage;hote : GAPK du mobile (trames TI de la ROM);mobile;;chain 'source/alsa -> codec/fr;[2026-10-15] une ligne par session TCH parole (chaine de capture GAPK) ; 0 sans appel ; attendu absent quand la ROM vocode (lignes [vsp]) @absent_si=dsp:\[vsp\] fn=[0-9]* sur 1000 trames : rint=[1-9]@
 GPRS descendant : PDTCH CS-1;ROM (tache ALLC, a_cd lu par le firmware -> l1gprs_fw, L1CTL 0x23) - aucun decodeur PDTCH cote hote;modem;Attach success\|Adding address .* to dev tun_modem;;[2026-10-15] journal du modem du barreau data (data-modem.log) ; NON OBSERVE sans le test data. L IMM ASS du CCCH peut etre retouche par qosmo (MONTANT_REQREF)
 GPRS montant : PDTCH CS-1;ROM : bursts NB de la ROM pendant que le pont croit le PDCH actif (calypso_tx_rom, PONT_UL_RAW=1);pont;=AIR rom rach=[0-9]* xcch=[0-9]* pdch=;;TS6/TS7 = PDCH de la BTS 0 ; compteur borne par dedicated.pdch() (efface au DCCH_RELEASED)
 T
@@ -149,8 +155,34 @@ T
 # juste avant le nombre (ex. « AIR rom rach= »), $2 = journal. Vide si absent.
 val_stats() { grep -a "STATS fn=" "$2" 2>/dev/null | tail -1 | grep -o -- "$1[0-9]*" | grep -o '[0-9]*$'; }
 
+# Une ligne sans preuve ni symptome est-elle une absence ATTENDUE ?
+# $1 motif preuve, $2 motif symptome, $3 note, $4 absent_si (« journal:motif »).
+# JLOG est celui de mod_run (portee dynamique de bash).
+absence_attendue() {
+    local aj am asrc
+    if [ -n "$4" ]; then
+        aj="${4%%:*}"; am="${4#*:}"; asrc="${JLOG[$aj]:-}"
+        [ -n "$asrc" ] && [ "$(grep -ac -- "$am" "$asrc" 2>/dev/null)" -gt 0 ]
+        return
+    fi
+    [ -z "$1" ] && [ -n "$2" ] && return 0          # garde : elle n'a pas joue
+    case "$3" in *"attendu absent"*) return 0 ;; esac
+    return 1
+}
+
+# Extrait « @absent_si=journal:motif@ » de la note (variables note / absent_si
+# de mod_run) : un marqueur dans la note plutot qu'un 7e champ « ; », parce que
+# des notes contiennent deja des « ; » (lus jusqu'ici comme reste du 6e champ).
+marqueur_absent() {
+    absent_si=""
+    case "$note" in *"@absent_si="*)
+        absent_si="${note#*@absent_si=}"; absent_si="${absent_si%%@*}"
+        note="${note%%@absent_si=*}${note#*@absent_si=*@}"; note="${note% }" ;;
+    esac
+}
+
 mod_run() {
-    local rap="$OUT/couverture.txt" f j src n_p n_s v ligne
+    local rap="$OUT/couverture.txt" f j src n_p n_s v ligne absent_si n_att=0 n_catt=0
     local fonction qui journal preuve symptome note
     local n_gere=0 n_deg=0 n_non=0 n_obs=0
     declare -A JLOG
@@ -166,8 +198,9 @@ mod_run() {
             printf '  %-8s %s\n' "$j" "${src:-(absent)}$([ -n "$src" ] && printf '  %s lignes' "$(wc -l < "$src")")"
         done
         echo
-        printf '  %-38s %-12s %5s %5s  %s\n' FONCTION VERDICT preuv sympt "QUI (note)"
+        printf '  %-38s %-14s %5s %5s  %s\n' FONCTION VERDICT preuv sympt "QUI (note)"
         while IFS=';' read -r fonction qui journal preuve symptome note; do
+            marqueur_absent
             [ -n "$fonction" ] || continue
             case "$journal" in dsp|qemu|osmocon|mobile|pont|cfg|modem) ;;
                 *) echo "  !! ligne de table mal formee (champ journal « $journal », un ';' de trop ?) : ${fonction:0:50}" ;; esac
@@ -181,10 +214,12 @@ mod_run() {
             elif [ "$n_p" -gt 0 ] && [ "$n_s" = 0 ]; then v=GERE; n_gere=$((n_gere+1))
             elif [ "$n_p" -gt 0 ]; then v=DEGRADE; n_deg=$((n_deg+1))
             elif [ "$n_s" -gt 0 ]; then v="NON GERE"; n_non=$((n_non+1))
+            elif [ -n "$src" ] && absence_attendue "$preuve" "$symptome" "$note" "$absent_si"; then
+                v="ATTENDU ABSENT"; n_att=$((n_att+1))
             elif [ -z "$src" ]; then v="NON OBSERVE"; n_obs=$((n_obs+1)); note="${note:-journal $journal absent}"
             else v="NON OBSERVE"; n_obs=$((n_obs+1)); fi
             [ "$v" = "NON GERE" ] && [ "$n_p" = 0 ] && [ "$n_s" = 0 ] && n_non=$((n_non+1))
-            printf '  %-38s %-12s %5s %5s  %s%s\n' "$fonction" "$v" "$n_p" "$n_s" "$qui" "${note:+ — $note}"
+            printf '  %-38s %-14s %5s %5s  %s%s\n' "$fonction" "$v" "$n_p" "$n_s" "$qui" "${note:+ — $note}"
         done < <(tableau_$MODE)
         echo
         # Les compteurs bruts qui resument un run, tels que les programmes les
@@ -192,6 +227,11 @@ mod_run() {
         # le bilan montant de c54x_exe.
         echo "derniers compteurs :"
         [ -n "${JLOG[pont]}" ] && grep -a "STATS fn=" "${JLOG[pont]}" | tail -1 | sed 's/^/  pont  /'
+        # fifo_drop (pont/record.py) : trames I/Q que la prise optionnelle du
+        # visualiseur FFT n'a pas pu livrer (FIFO sans lecteur). Le dire, sinon
+        # « 78356/78416 » se lit comme une perte radio.
+        [ -n "${JLOG[pont]}" ] && grep -a "STATS fn=" "${JLOG[pont]}" | tail -1 | grep -q "fifo_drop=[1-9]" && \
+            echo "  note  fifo_drop = trames I/Q non livrees a la prise du visualiseur FFT (/tmp/iq_fft*.fifo, aucun lecteur) : sans effet sur la chaine radio"
         if [ "$MODE" = dsp ] && [ -n "${JLOG[dsp]}" ]; then
             grep -a "\[a_dd\]" "${JLOG[dsp]}"  | tail -1 | sed 's/^ */  dsp   /'
             grep -a "\[chrono\]" "${JLOG[dsp]}" | tail -1 | sed 's/^ */  dsp   /'
@@ -207,13 +247,14 @@ mod_run() {
                 "$(grep -ac 'Radio link lost signal\|LOS during' "${JLOG[mobile]}")"
         fi
         echo
-        echo "bilan : $n_gere gere, $n_deg degrade, $n_non non gere, $n_obs non observe"
+        echo "bilan : $n_gere gere, $n_deg degrade, $n_non non gere, $n_att attendu absent, $n_obs non observe"
         echo
         # Chemin ROM / hote, traitement par traitement (voir chemin_$MODE).
         local n_rom=0 n_hote=0 n_mixte=0 n_cobs=0 trait chemin p_rom p_hote r h
         echo "chemin ROM / hote du traitement du signal (mode $MODE) :"
-        printf '  %-44s %-11s %5s %5s  %s\n' TRAITEMENT CHEMIN rom hote "ATTENDU (note)"
+        printf '  %-44s %-14s %5s %5s  %s\n' TRAITEMENT CHEMIN rom hote "ATTENDU (note)"
         while IFS=';' read -r trait chemin journal p_rom p_hote note; do
+            marqueur_absent
             [ -n "$trait" ] || continue
             case "$journal" in dsp|qemu|osmocon|mobile|pont|cfg|modem) ;;
                 *) echo "  !! ligne de table mal formee (champ journal « $journal », un ';' de trop ?) : ${trait:0:50}" ;; esac
@@ -228,16 +269,19 @@ mod_run() {
             if   [ "$r" -gt 0 ] && [ "$h" -gt 0 ]; then v=MIXTE; n_mixte=$((n_mixte+1))
             elif [ "$r" -gt 0 ]; then v=ROM; n_rom=$((n_rom+1))
             elif [ "$h" -gt 0 ]; then v=HOTE; n_hote=$((n_hote+1))
+            elif [ -n "$absent_si" ] && [ -n "$src" ] && absence_attendue "" "" "" "$absent_si"; then
+                v="ATTENDU ABSENT"; n_catt=$((n_catt+1))
             else v="NON OBSERVE"; n_cobs=$((n_cobs+1)); fi
-            printf '  %-44s %-11s %5s %5s  %s%s\n' "$trait" "$v" "$r" "$h" "$chemin" "${note:+ — $note}"
+            printf '  %-44s %-14s %5s %5s  %s%s\n' "$trait" "$v" "$r" "$h" "$chemin" "${note:+ — $note}"
         done < <(chemin_$MODE)
         [ -n "${JLOG[qemu]:-}" ] && grep -a '^\[pdtch\] ' "${JLOG[qemu]}" | grep -v 'perdu' | tail -1 | sed 's/^/  dernier compteur PDTCH (tap QEMU) : /'
         [ -n "${JLOG[pont]}" ] && grep -a "STATS fn=" "${JLOG[pont]}" | tail -1 | grep -o "xCCH ul [^|]*" | sed 's/^/  dernier compteur pont : /'
         [ -n "${JLOG[pont]}" ] && grep -a "STATS fn=" "${JLOG[pont]}" | tail -1 | grep -oE "(AIR|TCH ul|A5 ul) [^|]*" | sed 's/^/  dernier compteur pont : /'
-        echo "chemin : $n_rom ROM, $n_hote hote, $n_mixte mixte, $n_cobs non observe"
+        # « … non observe » d'abord : dsp-rom-max.sh lit ce prefixe tel quel
+        echo "chemin : $n_rom ROM, $n_hote hote, $n_mixte mixte, $n_cobs non observe, $n_catt attendu absent"
         echo "$n_rom $n_hote $n_mixte $n_cobs" > "$OUT/.chemin"
     } > "$rap"     # pas de « | tee » : le sous-shell perdait les compteurs (verdict 0/0/0/0)
     cat "$rap"
     local c; read -r c_rom c_hote c_mixte c_obs < "$OUT/.chemin" 2>/dev/null; rm -f "$OUT/.chemin"
-    verdict couverture OK "$n_gere gere, $n_deg degrade, $n_non non gere, $n_obs non observe ; chemin ${c_rom:-?} ROM ${c_hote:-?} hote ${c_mixte:-?} mixte -> couverture.txt"
+    verdict couverture OK "$n_gere gere, $n_deg degrade, $n_non non gere, $n_att attendu absent, $n_obs non observe ; chemin ${c_rom:-?} ROM ${c_hote:-?} hote ${c_mixte:-?} mixte -> couverture.txt"
 }

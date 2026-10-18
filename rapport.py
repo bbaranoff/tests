@@ -39,7 +39,8 @@ ANSI = re.compile(r"\x1b\[[0-9;]*m")
 VERT, ROUGE, GRIS, JAUNE = colors.HexColor("#1f7a1f"), colors.HexColor("#a31a1a"), colors.HexColor("#777777"), colors.HexColor("#b07a00")
 FOND = {"OK": colors.HexColor("#d9f2d0"), "ECHEC": colors.HexColor("#f7c6c6"), "SAUTE": colors.HexColor("#e6e6e6"),
         "NON-TESTE": colors.HexColor("#e6e6e6"), "GERE": colors.HexColor("#d9f2d0"), "DEGRADE": colors.HexColor("#fde79c"),
-        "NON GERE": colors.HexColor("#f7c6c6"), "NON OBSERVE": colors.HexColor("#eeeeee")}
+        "NON GERE": colors.HexColor("#f7c6c6"), "NON OBSERVE": colors.HexColor("#eeeeee"),
+        "ATTENDU ABSENT": colors.HexColor("#e3eef9")}
 
 ss = getSampleStyleSheet()
 S = {
@@ -83,7 +84,7 @@ def lire_run(d):
     r["couverture"] = []
     c = lire(d / "couverture.txt")
     for ln in c.splitlines():
-        m = re.match(r"\s{2}(.{38})\s(GERE|DEGRADE|NON GERE|NON OBSERVE)\s+(\d+)\s+(\d+)\s+(.*)", ln)
+        m = re.match(r"\s{2}(.{38})\s(GERE|DEGRADE|NON GERE|ATTENDU ABSENT|NON OBSERVE)\s+(\d+)\s+(\d+)\s+(.*)", ln)
         if m:
             r["couverture"].append({"f": m.group(1).strip(), "v": m.group(2), "p": m.group(3), "s": m.group(4), "qui": m.group(5).strip()})
     m = re.search(r"bilan : (.*)", c)
@@ -254,6 +255,7 @@ def construire(runs, out, titre_dir):
             st.append(Paragraph(f"3. Couverture couche 1 — mode {esc(r['mode'])}", S["h1"]))
             st.append(Paragraph("Qui prend en charge chaque fonction dans ce montage, et ce que les journaux du run en prouvent : "
                                 "GERE = au moins une preuve, aucun symptôme ; DEGRADE = preuves et symptômes ; NON GERE = hors du montage ou symptôme seul ; "
+                                "ATTENDU ABSENT = rien dans le journal, et c'est le comportement attendu (garde qui n'a pas joué, chemin non emprunté par construction). "
                                 "NON OBSERVE = rien dans le journal (fonction non exercée par ce run, ou non journalisée). "
                                 "Les motifs sont les chaînes écrites par les programmes eux-mêmes (c54x_exe/src/montant.c, pont/*.py, qosmo calypso_l1_grgsm.c, mobile osmocom-bb).", S["petit"]))
             st.append(Spacer(1, 2 * mm))

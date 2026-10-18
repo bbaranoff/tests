@@ -27,9 +27,19 @@ def test_imsi_du_mobile_est_celle_de_sa_conf():
 
 
 def test_campe_c3():
-    ms = banc.show_ms()
-    assert "C3 camped normally" in ms, re.search(r"cell selection state: .*", ms).group(0) if "cell selection" in ms else ms[-300:]
-    assert re.search(r"ARFCN=\S+ CGI=\S+", ms)
+    # C2 « stored cell selection » est un etat TRANSITOIRE (reselection) : un
+    # snapshot malchanceux pendant un recalage ne doit pas faire echouer le camp.
+    # On laisse le mobile revenir en C3 camped (poll), sinon echec sur le dernier etat.
+    import time
+    ms = ""
+    for _ in range(12):
+        ms = banc.show_ms()
+        if "C3 camped normally" in ms:
+            assert re.search(r"ARFCN=\S+ CGI=\S+", ms), ms[-300:]
+            return
+        time.sleep(1)
+    etat = re.search(r"cell selection state: .*", ms)
+    pytest.fail("mobile pas en C3 camped apres 12 s : %s" % (etat.group(0) if etat else ms[-300:]))
 
 
 def test_sysinfo_bcch_decodes():
