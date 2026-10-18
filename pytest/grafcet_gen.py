@@ -853,6 +853,200 @@ def write_rmd(out_dir, ts=""):
     return p
 
 
+def _b64_img(path: Path) -> str:
+    """data: URI d'une image (PNG/SVG) pour une page autonome ; '' si absente."""
+    import base64, mimetypes
+    try:
+        if not path.is_file():
+            return ""
+        mt = mimetypes.guess_type(str(path))[0] or "image/png"
+        return f"data:{mt};base64," + base64.b64encode(path.read_bytes()).decode()
+    except Exception:
+        return ""
+
+
+def write_deploy(out_dir, ts: str = "", pdf_href: str = "rapport.pdf") -> Path:
+    """Page de deploiement AUTONOME et soignee (index.html) : anneau de
+    progression, chips par maillon derive des VRAIS logs, SVG grafcet/sequence/
+    timeline inline, plots temporels en data-URI, bouton PDF telechargeable.
+    Les SVG/PNG doivent deja exister dans out_dir (npx mmdc + matplotlib)."""
+    out = Path(out_dir)
+    st = derive_status()
+    tot, path, rows = _weighted_pct(st)
+
+    def svg_inline(name):
+        p = out / name
+        if not p.is_file():
+            return ""
+        s = p.read_text(encoding="utf-8", errors="replace")
+        s = re.sub(r"<\?xml.*?\?>", "", s, flags=re.S)
+        s = re.sub(r"<!DOCTYPE.*?>", "", s, flags=re.S)
+        return s
+
+    _CNT = {"fb": "fb_n", "sb": "sb_n", "si": "si_n", "camp": "camp_n",
+            "rach": "rach_n", "sdcch": "sdcch_n", "auth": "auth_n",
+            "cipher": "ciph_n", "tmsi": "tmsi_n"}
+    chips = []
+    for code, key, label, w, detail in _CHAIN:
+        stt = st.get(key, "bad")
+        n = st.get(_CNT.get(key, ""), "")
+        badge = {"ok": "VALIDE", "wip": "EN COURS", "bad": "MANQUANT"}[stt]
+        cnt = f'<span class="chip-n">&times;{n}</span>' if (n not in ("", 0, None)) else ""
+        chips.append(
+            f'<div class="chip chip-{stt}"><div class="chip-h"><span class="chip-code">{code}</span>{cnt}'
+            f'<span class="chip-badge">{badge}</span></div>'
+            f'<div class="chip-l">{label}</div><div class="chip-d">{detail}</div></div>')
+    chips_html = "\n".join(chips)
+
+    # anneau SVG (progression ponderee du chemin)
+    R, circ = 52, 2 * 3.14159 * 52
+    dash = circ * path / 100.0
+    ring = (f'<svg viewBox="0 0 120 120" class="ring"><circle cx="60" cy="60" r="{R}" '
+            f'class="ring-bg"/><circle cx="60" cy="60" r="{R}" class="ring-fg" '
+            f'stroke-dasharray="{dash:.1f} {circ:.1f}" transform="rotate(-90 60 60)"/>'
+            f'<text x="60" y="56" class="ring-pct">{path}%</text>'
+            f'<text x="60" y="76" class="ring-sub">chemin</text></svg>')
+
+    metrics = [("FB", st.get("fb_n")), ("SB", st.get("sb_n")), ("SI", st.get("si_n")),
+               ("camp", st.get("camp_n")), ("RACH", st.get("rach_n")),
+               ("SDCCH", st.get("sdcch_n")), ("auth", st.get("auth_n")),
+               ("chiffre", st.get("ciph_n")), ("TMSI", st.get("tmsi_n")),
+               ("LU", f"{st.get('lu_ok')}/{st.get('lu_ko')}")]
+    mcells = "".join(f'<div class="metric"><div class="m-v">{v}</div><div class="m-k">{k}</div></div>'
+                     for k, v in metrics)
+
+    plots = []
+    for fn, title in (("t_trame.png", "Budget trame DSP (ms) vs FN"),
+                      ("t_pire.png", "Pire trame DSP (ms) vs FN"),
+                      ("t_fbdet.png", "d_fb_det vs FN"),
+                      ("t_rint.png", "rint (frame-IRQ) vs FN")):
+        uri = _b64_img(out / fn)
+        if uri:
+            plots.append(f'<figure class="plot"><img src="{uri}" alt="{title}"/><figcaption>{title}</figcaption></figure>')
+    plots_html = "\n".join(plots) or '<p class="muted">Pas de donnees temporelles dans dsp.log.</p>'
+
+    seq_svg = svg_inline("sequence.svg")
+    tl_svg = svg_inline("timeline.svg")
+    graf_svg = svg_inline("grafcet.svg")
+    uml_uri = _b64_img(out / "pipeline_uml.png")
+
+    html = f"""<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calypso GSM — GRAFCET go-live</title>
+<style>
+  :root{{--bg:#0a1014;--bg2:#0d161b;--panel:#101c22;--line:#1e333b;--ink:#dde8ea;
+    --muted:#8aa0a5;--faint:#5f767b;--cyan:#38d3c2;--ok:#46c39a;--wip:#e6a94e;--bad:#e86a5f;--src:#6ea8d8;
+    --mono:ui-monospace,"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}}
+  *{{box-sizing:border-box}}
+  html{{scroll-behavior:smooth}}
+  body{{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#12343a 0%,transparent 60%),var(--bg);
+    color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}}
+  .wrap{{max-width:1180px;margin:0 auto;padding:40px 24px 120px}}
+  header.hero{{display:flex;gap:28px;align-items:center;flex-wrap:wrap;
+    border:1px solid var(--line);border-radius:20px;padding:30px 32px;
+    background:linear-gradient(135deg,rgba(56,211,194,.06),rgba(110,168,216,.04));box-shadow:0 20px 60px -30px #000}}
+  .hero .ring{{width:132px;height:132px;flex:0 0 auto}}
+  .ring-bg{{fill:none;stroke:#1e333b;stroke-width:11}}
+  .ring-fg{{fill:none;stroke:url(#g);stroke-width:11;stroke-linecap:round;transition:stroke-dasharray 1s ease}}
+  .ring-pct{{fill:#eef6f6;font:600 26px var(--mono);text-anchor:middle}}
+  .ring-sub{{fill:var(--muted);font:500 11px var(--mono);text-anchor:middle;letter-spacing:.15em}}
+  .hero-txt{{flex:1 1 320px;min-width:280px}}
+  .eyebrow{{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin:0 0 12px}}
+  h1{{font-size:clamp(26px,3.6vw,40px);margin:0 0 10px;font-weight:700;letter-spacing:-.02em;color:#f3fafa}}
+  .sub{{color:var(--muted);margin:0;max-width:60ch}}
+  .tag{{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:30px;
+    border:1px solid var(--line);color:var(--cyan);margin:12px 8px 0 0;background:#0c181d}}
+  .dl{{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:12px 22px;border-radius:12px;
+    font-weight:600;font-size:15px;color:#042018;text-decoration:none;
+    background:linear-gradient(135deg,#46c39a,#38d3c2);box-shadow:0 12px 30px -12px #38d3c2}}
+  .dl:hover{{filter:brightness(1.08)}}
+  .metrics{{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:12px;margin:28px 0}}
+  .metric{{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 10px;text-align:center}}
+  .m-v{{font:600 22px var(--mono);color:#eef6f6}}
+  .m-k{{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:4px}}
+  h2{{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);
+    margin:48px 0 18px;display:flex;align-items:center;gap:12px}}
+  h2::after{{content:"";flex:1;height:1px;background:var(--line)}}
+  .chips{{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}}
+  .chip{{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:12px;padding:14px 16px;transition:transform .15s}}
+  .chip:hover{{transform:translateY(-3px)}}
+  .chip-ok{{border-left-color:var(--ok)}} .chip-wip{{border-left-color:var(--wip)}} .chip-bad{{border-left-color:var(--bad)}}
+  .chip-h{{display:flex;align-items:center;gap:8px;margin-bottom:8px}}
+  .chip-code{{font-family:var(--mono);font-weight:700;font-size:13px;color:#eef6f6}}
+  .chip-n{{font-family:var(--mono);font-size:12px;color:var(--muted)}}
+  .chip-badge{{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:2px 8px;border-radius:20px}}
+  .chip-ok .chip-badge{{color:var(--ok);background:rgba(70,195,154,.14)}}
+  .chip-wip .chip-badge{{color:var(--wip);background:rgba(230,169,78,.14)}}
+  .chip-bad .chip-badge{{color:var(--bad);background:rgba(232,106,95,.14)}}
+  .chip-l{{font-size:14px;color:var(--ink);font-weight:500}}
+  .chip-d{{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:4px}}
+  .card{{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:16px;overflow:auto}}
+  .card svg{{max-width:100%;height:auto;display:block;margin:0 auto}}
+  .grid2{{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
+  @media(max-width:820px){{.grid2{{grid-template-columns:1fr}}}}
+  .plots{{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}}
+  .plot{{margin:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px}}
+  .plot img{{width:100%;display:block;border-radius:6px}}
+  .plot figcaption{{font-family:var(--mono);font-size:11px;color:#33484d;text-align:center;padding:8px 4px 4px}}
+  .muted{{color:var(--muted)}}
+  footer{{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:12px;color:var(--faint);display:flex;gap:20px;flex-wrap:wrap}}
+  .dlbar{{position:fixed;right:22px;bottom:22px;z-index:9}}
+  .dlbar a{{box-shadow:0 16px 40px -14px #000}}
+</style></head>
+<body>
+<svg width="0" height="0"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#46c39a"/><stop offset="1" stop-color="#38d3c2"/></linearGradient></defs></svg>
+<div class="wrap">
+  <header class="hero">
+    {ring}
+    <div class="hero-txt">
+      <p class="eyebrow">TI Calypso &middot; QEMU &middot; baseband GSM &middot; mode {st.get('mode','?')}</p>
+      <h1>GRAFCET go-live&nbsp;: romload &rarr; synchro L1 &rarr; camp &rarr; chiffrement</h1>
+      <p class="sub">Chaque maillon est d&eacute;riv&eacute; des <b>vrais journaux</b> du dernier run (dsp/qemu/osmocon/mobile.log, r&eacute;solus par <code>banc.py</code>). Diagrammes rendus via npx&nbsp;mermaid-cli.</p>
+      <div>
+        <span class="tag">{ts}</span>
+        <span class="tag">chemin pond&eacute;r&eacute; {path}%</span>
+        <span class="tag">total {tot}%</span>
+      </div>
+      <a class="dl" href="{pdf_href}" download>&#11015; T&eacute;l&eacute;charger le rapport PDF</a>
+    </div>
+  </header>
+
+  <div class="metrics">{mcells}</div>
+
+  <h2>Cha&icirc;ne de maillons</h2>
+  <div class="chips">{chips_html}</div>
+
+  <h2>GRAFCET interpr&eacute;t&eacute;</h2>
+  <div class="card">{graf_svg or '<p class=muted>SVG grafcet absent.</p>'}</div>
+
+  <h2>S&eacute;quence &amp; timeline</h2>
+  <div class="grid2">
+    <div class="card">{seq_svg or '<p class=muted>sequence.svg absent</p>'}</div>
+    <div class="card">{tl_svg or '<p class=muted>timeline.svg absent</p>'}</div>
+  </div>
+
+  <h2>Diagrammes temporels (dsp.log)</h2>
+  <div class="plots">{plots_html}</div>
+
+  {('<h2>Pipeline (UML)</h2><div class="card" style="background:#fff"><img style="width:100%" src="'+uml_uri+'"></div>') if uml_uri else ''}
+
+  <footer>
+    <span>Auto-g&eacute;n&eacute;r&eacute; par grafcet_gen.py</span>
+    <span>statut &larr; qemu/dsp/osmocon/mobile.log</span>
+    <span>rendu npx &middot; fpdf2</span>
+  </footer>
+</div>
+<div class="dlbar"><a class="dl" href="{pdf_href}" download>&#11015; PDF</a></div>
+</body></html>"""
+    p = out / "index.html"
+    p.write_text(html, encoding="utf-8")
+    return p
+
+
 def write_grafcet(out_dir, ts: str = "") -> list:
     """Écrit grafcet.html + grafcet.md (+ rapport_final.pdf) dans out_dir."""
     st = derive_status()
