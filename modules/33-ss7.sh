@@ -61,9 +61,56 @@ s.connect((sys.argv[1],2908))' "$ip" 2>/dev/null || absent=$((absent+1))
     echo "$absent"
 }
 
+# [2026-10-18] LES PROHIB D'UN ANCIEN WAN, VIDES ICI. Un hub lance pendant un WAN
+# a 2 noeuds declare l'AS du noeud absent (rctx 2150...) et l'annonce PROHIB ; le
+# STP local en garde une route dynamique « 1.21.2 ... PROHIB dyn » que RIEN ne
+# rafraichit ensuite : meme un hub relance sans ce noeud ne dira jamais
+# « allowed » pour un point code qu'il ne connait plus. global_check (barreau
+# checks-existants) echouait sur cette route a chaque run.
+# Si le STP porte de telles routes ET que le hub est sur CETTE machine : le hub
+# est relance avec notre seul noeud s'il porte d'autres routing-keys, puis le STP
+# local est redemarre (table dynamique videe). MSC, BSC et asp-to-inter s'y
+# rattachent seuls (clients SCTP). Un hub distant n'est pas touche (le STP
+# reapprendrait aussitot la meme route). SS7_CLEAR=0 coupe tout.
+ss7_clear_prohib() {
+    [ "${SS7_CLEAR:-1}" = 1 ] || return 0
+    local cfg=/etc/osmocom/osmo-stp.cfg hubcfg=/etc/osmocom/osmo-stp-interop.cfg
+    local prohib hub rctx node op autres i n_asp logd="${OSMO_NITB_LOG:-/tmp/osmo-nitb/logs}"
+    prohib="$(vty 4239 "show cs7 instance 0 route" | awk '/PROHIB/ && /as-inter/ && / dyn/ {print $1}' | tr '\n' ' ')"
+    [ -n "${prohib// }" ] || return 0
+    hub="$(awk '/^ *asp asp-to-inter /{f=1;next} f&&/^ *remote-ip /{print $2; exit} f&&/^ (asp|as) /{exit}' "$cfg" 2>/dev/null)"
+    rctx="$(awk '/^ *as as-inter /{f=1;next} f&&/^ *routing-key /{print $2; exit} f&&/^ (asp|as) /{exit}' "$cfg" 2>/dev/null)"
+    if [ -z "$hub" ] || ! ip -4 -o addr show 2>/dev/null | awk '{split($4,a,"/"); print a[1]}' | grep -qxF "$hub"; then
+        say "routes PROHIB ($prohib) annoncees par un hub distant ($hub) : laissees en place"; return 0
+    fi
+    [[ "$rctx" =~ ^[0-9]+$ ]] || return 0
+    node=$(( rctx / 1000 )); op=$(( (rctx / 100) % 10 ))
+    autres="$(awk -v k="$rctx" '/^ *routing-key /{ if ($2 != k) print $2 }' "$hubcfg" 2>/dev/null | tr '\n' ' ')"
+    if [ -n "${autres// }" ]; then
+        say "hub SS7 $hub : table perimee (rctx $autres) - relance avec le noeud $node seul"
+        ( cd "$REPO" && timeout --foreground 60 ./launch/start-interstp.sh --ip "$hub" --ops "$op" --ips "$node:$hub" --no-save ) \
+            > "$OUT/ss7-hub-clear.txt" 2>&1 < /dev/null
+    fi
+    say "routes PROHIB dynamiques ($prohib) : redemarrage du STP local pour vider sa table"
+    if systemctl list-unit-files osmo-stp.service >/dev/null 2>&1 && systemctl is-active -q osmo-stp 2>/dev/null; then
+        systemctl restart osmo-stp
+    else
+        pkill -f "osmo-stp -c $cfg" 2>/dev/null; sleep 1; pkill -9 -f "osmo-stp -c $cfg" 2>/dev/null
+        mkdir -p "$logd"; setsid "$(command -v osmo-stp)" -c "$cfg" >> "$logd/osmo-stp.log" 2>&1 < /dev/null &
+    fi
+    # MSC + BSC (asp-dyn) et asp-to-inter se reconnectent seuls ; on attend les trois.
+    for i in $(seq 1 30); do
+        n_asp="$(vty 4239 "show cs7 instance 0 asp" | grep -c ASP_ACTIVE)"
+        [ "${n_asp:-0}" -ge 3 ] && break; sleep 1
+    done
+    prohib="$(vty 4239 "show cs7 instance 0 route" | awk '/PROHIB/ && /as-inter/ && / dyn/ {print $1}' | tr '\n' ' ')"
+    say "STP redemarre : ${n_asp:-0} ASP actifs apres ${i}s, routes PROHIB restantes : ${prohib:-aucune}"
+}
+
 mod_run() {
     local ko="" n note=""
     ss7_hub_auto
+    ss7_clear_prohib
     # Sans --multi, osmo-multi.conf ferait inventorier les op 2/3 (conteneurs
     # eteints) : deux « STP VTY inaccessible » qui ne disent rien de ce noeud.
     # OSMO_MULTI_CONF=/dev/null rend l'inventaire a OSMO_OP_IDS (checks/_mode.sh).

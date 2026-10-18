@@ -9,11 +9,38 @@ Statuts : ok (câblé, validé au run) · wip (posé, en cours) · bad (manquant
 from __future__ import annotations
 import os
 import re
+import sys as _sys
 from pathlib import Path
 
-QEMU_LOG = os.environ.get("CALYPSO_QEMU_LOG", "/root/qemu.log")
-OSMOCON_LOG = "/root/osmocon.log"
-MOBILE_LOG = "/root/mobile.log"
+# banc.py = LE resolveur de journaux (meme source que les tests) : newest de
+# /run/user/<uid>/osmo-nitb/logs et /tmp/c54x-pont, strip ANSI, override env.
+# On passe par lui : AUCUN chemin de log en dur ici.
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    import banc  # type: ignore
+except Exception:  # hors pytest / banc indisponible -> repli best-effort
+    banc = None
+
+
+def _logpath(name: str, *fallbacks) -> str:
+    """Chemin du journal `name` resolu par banc ; repli sur un fallback existant."""
+    if banc is not None:
+        try:
+            p = banc.log(name)
+            if p:
+                return str(p)
+        except Exception:
+            pass
+    for f in fallbacks:
+        if f and Path(f).exists():
+            return f
+    return next((f for f in fallbacks if f), "")
+
+
+QEMU_LOG = _logpath("qemu", os.environ.get("CALYPSO_QEMU_LOG"), "/root/qemu.log")
+OSMOCON_LOG = _logpath("osmocon", "/root/osmocon.log")
+MOBILE_LOG = _logpath("mobile", "/root/mobile.log")
+DSP_LOG = _logpath("dsp")
 
 
 def _read(p: str) -> str:
@@ -46,109 +73,134 @@ def _tr(s):
     return s.encode("latin-1", "replace").decode("latin-1")
 
 
+def _count(name: str, pat: str) -> int:
+    """Occurrences de `pat` dans le journal `name`, via banc (ANSI retire, bon
+    chemin). Repli _read(path) si banc indisponible."""
+    if banc is not None:
+        try:
+            return banc.count(name, pat)
+        except Exception:
+            pass
+    path = {"qemu": QEMU_LOG, "osmocon": OSMOCON_LOG, "mobile": MOBILE_LOG,
+            "dsp": DSP_LOG}.get(name, "")
+    return len(re.findall(pat, _read(path))) if path else 0
+
+
 def derive_status() -> dict:
-    """Dérive le statut de chaque maillon depuis les logs du dernier run."""
-    L = _read(QEMU_LOG)
-    O = _read(OSMOCON_LOG)
-    M = _read(MOBILE_LOG)
+    """Statut de chaque maillon de la chaine go-live -> camp, derive des VRAIS
+    journaux du dernier run (dsp.log / qemu.log / osmocon.log / mobile.log).
 
-    def has(pat, s=L):
-        return re.search(pat, s) is not None
+    Mode-aware : un maillon L1 est 'ok' s'il est prouve cote DSP (c54x_exe,
+    sondes [jalon]/[montant]) OU cote gr-gsm (pont.log / qemu backend). Les
+    maillons L3 (SI, camp, LU, auth, chiffrement, TMSI) sont lus dans mobile.log,
+    communs aux deux modes. 100% = mobile campe, inscrit et chiffre."""
+    def ok(cond) -> str:
+        return "ok" if cond else "bad"
 
-    def count(pat, s=L):
-        return len(re.findall(pat, s))
+    # --- L1 : synchro bas-niveau (DSP natif c54x_exe, ou gr-gsm) -------------
+    romload = _count("osmocon", r"your code is running now")
+    apiram = (_count("qemu", r"pont DSP : API RAM partagee")
+              or _count("qemu", r"backend gr-gsm"))
+    fb_n = (_count("dsp", r"\[jalon\] fn=\d+ d_fb_det=1")
+            or _count("qemu", r"synchro gr-gsm : ARFCN="))
+    sb_n = (_count("dsp", r"SB PLAUSIBLE")
+            or _count("qemu", r"synchro gr-gsm : ARFCN=.*BSIC="))
 
-    # RANK1 — gate go-live 0x0810 (CTRLSYS) : a53f TC=1, pas de court-circuit
-    rank1 = "ok" if (has(r"a53f\(BC a575.*TC=1") or has(r"arm2dsp\] CTRLSYS")) else "bad"
+    # --- L1 montant : RACH / canal dedie (DSP [montant], ou qemu/pont) -------
+    rach_n = (_count("dsp", r"\[montant\] RACH ra=")
+              or _count("pont", r"rach=[1-9]") or _count("qemu", r"IMM ASS"))
+    sdcch_n = (_count("dsp", r"\[montant\] canal dedie .*SDCCH")
+               or _count("qemu", r"canal dedie (arme|SDCCH)"))
+    a5_n = _count("dsp", r"\[a5-arm\]") or _count("qemu", r"chiffrement A5/")
 
-    # RANK4 — recalage FN : dernier delta FN-ALIGN dans la fenêtre
-    deltas = [int(x) for x in re.findall(r"FN-ALIGN.*delta=(-?\d+)", L)]
-    if deltas:
-        rank4 = "ok" if abs(deltas[-1]) < 64 else "bad"
-    else:
-        rank4 = "bad"
+    # --- L3 : couche 3 mobile (mobile.log, commun aux deux modes) ------------
+    si_n = _count("mobile", r"New SYSTEM INFORMATION [124]\b")
+    camp_n = _count("mobile", r"normal service")
+    auth_n = _count("mobile", r"AUTHENTICATION REQUEST")
+    ciph_n = _count("mobile", r"CIPHERING MODE COMPLETE")
+    tmsi_n = _count("mobile", r"got TMSI")
+    lu_ok = _count("mobile", r"LOCATION UPDATING ACCEPT")
+    lu_ko = _count("mobile", r"LOCATION UPDATING REJECT")
 
-    # LOST timer : compte des LOST (osmocon) — le fix read-driven doit les tuer
-    lost_n = count(r"LOST \d+", O)
-    lost = "ok" if lost_n < 50 else "bad"
+    # --- gardes (un hit = defaut) -------------------------------------------
+    los_n = _count("mobile", r"LOS during dedicated|Radio link lost")
+    crash_n = (_count("mobile", r"Segmentation fault|Aborted|core dumped")
+               + _count("qemu", r"Aborted|Segmentation fault|qemu: hardware error"))
 
-    # RANK3 — dispatch handler->kernel : AR5 dans le buffer ?
-    if has(r"AR5=2a[0-9a-f]{2}"):
-        rank3 = "ok"
-    elif "correlator_ar5_in_iq_buffer" in L:
-        rank3 = "bad"
-    else:
-        rank3 = "wip"
-
-    # RANK2 — entrée I/Q DL du BSP : le socket reçoit-il (RXSZ) ?
-    rank2 = "ok" if count(r"RXSZ") > 0 else "bad"
-
-    # RANK5 — PM légitime : PM MEAS non nul ?
-    rank5 = "ok" if has(r"PM MEAS.*?[1-9]\d*\s+dBm at baseband", O) else "bad"
-
-    # détection + camp (résultat)
-    detect = "ok" if count(r"fb0_ret=[1-9]", L) else "bad"
-    camp = "ok" if has(r"normal service", M) else "bad"
-
-    # signaux annexes
-    d3f92 = "ok" if has(r"d\[3f92\]=0x0800") else "bad"
-    fben = "wip" if has(r"arm2dsp\] FBEN") else "bad"
-
-    return dict(rank1=rank1, rank2=rank2, rank3=rank3, rank4=rank4, rank5=rank5,
-                lost=lost, detect=detect, camp=camp, d3f92=d3f92, fben=fben,
-                last_delta=(deltas[-1] if deltas else None), lost_n=lost_n)
+    st = dict(
+        romload=ok(romload),
+        apiram=ok(apiram),
+        fb=ok(fb_n),
+        sb=ok(sb_n),
+        si=ok(si_n >= 3),                       # SI1+SI2+SI4 au minimum
+        camp=ok(camp_n),
+        rach=ok(rach_n),
+        sdcch=ok(sdcch_n),
+        auth=ok(auth_n),
+        cipher=("ok" if ciph_n else ("wip" if a5_n else "bad")),
+        tmsi=ok(tmsi_n),
+        lu=("ok" if (lu_ok and not lu_ko) else ("wip" if lu_ok else "bad")),
+        radio=("bad" if (los_n or crash_n) else "ok"),
+    )
+    # metriques exposees (rendu / meta)
+    st.update(mode=(banc.MODE if banc is not None else "?"),
+              fb_n=fb_n, sb_n=sb_n, rach_n=rach_n, sdcch_n=sdcch_n, a5_n=a5_n,
+              si_n=si_n, camp_n=camp_n, auth_n=auth_n, ciph_n=ciph_n,
+              tmsi_n=tmsi_n, lu_ok=lu_ok, lu_ko=lu_ko, los_n=los_n,
+              crash_n=crash_n, romload_n=romload)
+    return st
 
 
 # ---- rendu -----------------------------------------------------------------
 
 _MERMAID_CLASS = {"ok": "ok", "wip": "wip", "bad": "bad"}
 
+# ---------------------------------------------------------------------------
+# LE CHAINON UNIQUE (source de verite des rendus). Chaque etape :
+#   (code, clef_statut, libelle, poids%, detail_mermaid)
+# Poids ordonnes : le but (camp + LU + chiffrement) porte le gros du %.
+# Somme des poids = 100.
+# ---------------------------------------------------------------------------
+_CHAIN = [
+    ("ROM",  "romload", "osmocon : romload termine",        6,  "your code is running now"),
+    ("API",  "apiram",  "QEMU <-> DSP : API RAM partagee",  6,  "pont DSP / backend gr-gsm"),
+    ("FB",   "fb",      "FB detecte (d_fb_det=1)",          8,  "[jalon] d_fb_det=1 / synchro"),
+    ("SB",   "sb",      "SB plausible (BSIC decode)",       8,  "SB PLAUSIBLE"),
+    ("SI",   "si",      "SI 1/2/4 decodes (BCCH)",         10,  "New SYSTEM INFORMATION"),
+    ("CAMP", "camp",    "mobile campe (normal service)",   20,  "normal service / C3 camped"),
+    ("RACH", "rach",    "RACH monte (acces aleatoire)",     6,  "[montant] RACH ra="),
+    ("SDCCH","sdcch",   "canal dedie SDCCH suivi",          8,  "[montant] canal dedie SDCCH"),
+    ("AUTH", "auth",    "authentification (RAND/SRES)",     6,  "AUTHENTICATION REQUEST"),
+    ("CIPH", "cipher",  "chiffrement A5 complete",         10,  "CIPHERING MODE COMPLETE"),
+    ("TMSI", "tmsi",    "TMSI attribue (LU acceptee)",      6,  "got TMSI / LU ACCEPT"),
+    ("LINK", "radio",   "lien radio tenu (pas de LOS)",     6,  "garde : LOS / crash = 0"),
+]
+
 
 def _mermaid(st: dict) -> str:
-    c = lambda k: _MERMAID_CLASS[st[k]]
-    # branche BSP suit RANK2 ; convergence/détection suit RANK3
-    b = c("rank2")
-    k3 = c("rank3")
-    return f"""flowchart TD
+    c = lambda k: _MERMAID_CLASS.get(st.get(k, "bad"), "bad")
+    head = ("""flowchart TD
   classDef src  fill:#12242f,stroke:#6ea8d8,stroke-width:1px,color:#cfe3f2;
   classDef ok   fill:#0f2620,stroke:#46c39a,stroke-width:1px,color:#bfe9d7;
   classDef wip  fill:#2a2211,stroke:#e6a94e,stroke-width:1px,color:#f0d6a4;
   classDef bad  fill:#2a1412,stroke:#e86a5f,stroke-width:1.4px,color:#f2c3bd;
   classDef join fill:#101d22,stroke:#38d3c2,stroke-width:1.4px,color:#bff0ea;
 
-  E0["BTS emet en continu<br/>SI3 - FCCH - SCH - FN reelle"]:::src
-  E0 -->|I/Q air| P1["ipc-device sert l'I/Q<br/>qfn-serve - FCCH"]:::ok
-  P1 -->|FIFO iq_grgsm| G1["gr-gsm decode la SCH<br/>BSIC=7 - sch_fn"]:::ok
-  G1 -->|"DL_FN_OFFSET=-556"| F1["FN-ALIGN recale FN<br/>delta {st.get('last_delta','?')}"]:::{c('rank4')}
-  P1 -. "UDP :6702 -- {'CABLE' if st['rank2']=='ok' else 'NON CABLE'}" .-> B1["BSP bsp_trxd_readable<br/>RXSZ {'>0' if st['rank2']=='ok' else '= 0'}"]:::{b}
-  B1 --> B2["feed_iq -> last_pm<br/>PM {'ok' if st['rank5']=='ok' else '= 0 dBm'}"]:::{c('rank5')}
-  B2 --> B3["rx_burst -> DARAM 0x2a00<br/>entree correlateur"]:::{b}
-
-  A0["init go-live 0xa4c7<br/>ORM/RSBX/IMR"]:::ok
-  A0 -->|"CTRLSYS pose 0x0810 bit15"| A1["gate 0xa53c BITF<br/>TC=1 - bootstrap"]:::{c('rank1')}
-  A1 -->|"KEEP_IMR - FRAME_IT_NATIVE"| A2["IMR=0x52fd - BRINT0 arme<br/>INTM natif - LOST {'=0' if st['lost']=='ok' else 'spam'}"]:::{c('lost')}
-  A2 -->|"TASKW d[3f92]=0x0800"| A3["task_md=5 dispatche<br/>CALA 0xb01e -> 0x8d00"]:::{c('d3f92')}
-  A3 -->|"FBEN d[3fab] bit8"| A4["gate 0x3fab bit8<br/>vers kernel"]:::{c('fben')}
-
-  B3 --> K["CORRELATEUR FB"]:::join
-  A4 --> K
-  K -. "AR5 {'=0x2a00' if st['rank3']=='ok' else '=0xdb7b (garbage)'}<br/>kernel 0xa076 {'atteint' if st['rank3']=='ok' else 'jamais atteint'}" .-> KB["fb0_ret {'>0' if st['detect']=='ok' else '= 0'}"]:::{k3}
-  KB --> D["d_fb_det"]:::{c('detect')}
-  D --> Mn["mobile campe<br/>normal service"]:::{c('camp')}
-
-  linkStyle default stroke:#3a565d,stroke-width:1.3px;"""
+  E0["BTS emet en continu<br/>FCCH - SCH - BCCH - FN reelle"]:::src""")
+    lines = [head]
+    prev = "E0"
+    for code, key, label, w, detail in _CHAIN:
+        node = f'{code}["{label}<br/>{detail}"]:::{c(key)}'
+        lines.append(f"  {prev} --> {node}")
+        prev = code
+    lines.append("  linkStyle default stroke:#3a565d,stroke-width:1.3px;")
+    return "\n".join(lines)
 
 
-_RANK_ROWS = [
-    ("RANK1", "Pont ARM&#8594;DSP d_ctrl_system &#8212; gate go-live 0xa53c (bit15 de 0x0810)", "CALYPSO_ARM2DSP_CTRLSYS=1", "rank1"),
-    ("RANK4", "Recalage FN DSP/TRX sur la SCH &#8212; offset constant &#8722;556", "CALYPSO_DL_FN_OFFSET=-556", "rank4"),
-    ("&#8212;", "Cadence timer &#8212; LOST N! (batching frame-IRQ)", "latch read-driven (&#8722;1875/lecture)", "lost"),
-    ("RANK3", "Dispatch handler 0x8d00 &#8594; kernel MAC 0xa076 (AR5=0x2a00)", "TASKW / FBEN (d[3f92], d[3fab] bit8)", "rank3"),
-    ("RANK2", "Entree I/Q DL du BSP &#8212; forward producteur &#8594; UDP :6702", "&#8212; (aucun forward)", "rank2"),
-    ("RANK5", "PM / rxlev legitime (last_pm depuis le vrai I/Q)", "depend de RANK2 (feed_iq)", "rank5"),
-]
+# Table des maillons : derivee de _CHAIN (code, maillon, sonde/journal, clef).
+_RANK_ROWS = [(code, label, detail, key) for (code, key, label, w, detail) in _CHAIN]
 
-_PILL = {"ok": ("p-ok", "CABLE"), "wip": ("p-wip", "EN COURS"), "bad": ("p-bad", "MANQUANT")}
+_PILL = {"ok": ("p-ok", "VALIDE"), "wip": ("p-wip", "EN COURS"), "bad": ("p-bad", "MANQUANT")}
 
 
 def _css() -> str:
@@ -192,17 +244,17 @@ def render_html(st: dict, ts: str = "") -> str:
         f'<td><span class="pill {_PILL[st[k]][0]}">{_PILL[st[k]][1]}</span></td></tr>'
         for (r, d, e, k) in _RANK_ROWS
     )
-    return f"""<title>GRAFCET &#8212; Calypso go-live &amp; chaine I/Q</title>
+    return f"""<title>GRAFCET &#8212; Calypso L1 DSP &rarr; camp &amp; couche 3</title>
 <style>{_css()}</style>
 <div class="wrap">
   <header>
-    <p class="eyebrow">TI Calypso &#183; emulation QEMU &#183; baseband GSM &#183; auto-genere par pytest</p>
-    <h1>GRAFCET &#8212; go-live DSP &amp; chaine I/Q</h1>
-    <p class="sub">Etat-transition de l'acquisition FB/FCCH, statut de chaque maillon derive des logs du dernier run.</p>
-    <div class="meta"><span>{ts}</span><span>delta FN {st.get('last_delta','?')}</span><span>LOST {st.get('lost_n','?')}</span></div>
+    <p class="eyebrow">TI Calypso &#183; emulation QEMU &#183; baseband GSM &#183; mode {st.get('mode','?')} &#183; auto-genere par pytest</p>
+    <h1>GRAFCET &#8212; romload &rarr; synchro L1 &rarr; camp &rarr; chiffrement</h1>
+    <p class="sub">Etat-transition de la chaine go-live : chaque maillon est derive des VRAIS journaux du dernier run (dsp/qemu/osmocon/mobile.log, resolus par banc.py).</p>
+    <div class="meta"><span>{ts}</span><span>FB {st.get('fb_n','?')} &#183; SB {st.get('sb_n','?')}</span><span>SI {st.get('si_n','?')} &#183; camp {st.get('camp_n','?')}</span><span>auth {st.get('auth_n','?')} &#183; chiffre {st.get('ciph_n','?')} &#183; TMSI {st.get('tmsi_n','?')}</span></div>
   </header>
   <div class="legend">
-    <span><i class="dot d-src"></i>source</span><span><i class="dot d-ok"></i>cable</span>
+    <span><i class="dot d-src"></i>source</span><span><i class="dot d-ok"></i>valide</span>
     <span><i class="dot d-wip"></i>en cours</span><span><i class="dot d-bad"></i>manquant/bloque</span>
   </div>
   <div class="diagram"><pre class="mermaid">
@@ -221,7 +273,7 @@ def render_html(st: dict, ts: str = "") -> str:
 
 
 def render_md(st: dict, ts: str = "") -> str:
-    badge = {"ok": "`CABLE`", "wip": "`EN COURS`", "bad": "`MANQUANT`"}
+    badge = {"ok": "`VALIDE`", "wip": "`EN COURS`", "bad": "`MANQUANT`"}
 
     def deent(s):
         return (s.replace("&#8594;", "->").replace("&#8212;", "-")
@@ -231,24 +283,26 @@ def render_md(st: dict, ts: str = "") -> str:
         f"| {deent(r)} | {deent(d)} | `{deent(e)}` | {badge[st[k]]} |"
         for (r, d, e, k) in _RANK_ROWS
     )
-    return f"""# GRAFCET — go-live DSP & chaîne I/Q
+    return f"""# GRAFCET — romload → synchro L1 → camp → chiffrement
 
-*Auto-généré par `tests/conftest.py::pytest_sessionfinish` — statut dérivé des logs du dernier run ({ts}).*
+*Auto-généré par `tests/conftest.py::pytest_sessionfinish` — statut dérivé des VRAIS journaux du dernier run (mode **{st.get('mode','?')}**, {ts}). Chemins résolus par `banc.py`.*
 
-- delta FN-ALIGN : **{st.get('last_delta','?')}**  ·  LOST : **{st.get('lost_n','?')}**
+- L1 : FB **{st.get('fb_n','?')}** · SB **{st.get('sb_n','?')}** · RACH **{st.get('rach_n','?')}** · SDCCH **{st.get('sdcch_n','?')}**
+- L3 : SI **{st.get('si_n','?')}** · camp **{st.get('camp_n','?')}** · auth **{st.get('auth_n','?')}** · chiffrement **{st.get('ciph_n','?')}** · TMSI **{st.get('tmsi_n','?')}** · LU acc/rej **{st.get('lu_ok','?')}/{st.get('lu_ko','?')}**
 
 ```mermaid
 {_mermaid(st)}
 ```
 
-## Rang de blocage · gates
+## Maillons de la chaîne · journal/sonde
 
-| Rang | Maillon | Gate / wire | État |
+| Étape | Maillon | Journal / sonde | État |
 |------|---------|-------------|------|
 {rows}
 
-> Convergence au corrélateur : dispatch (go-live) ∧ entrée I/Q (signal). Le verrou courant
-> est l'entrée I/Q DL du BSP (`UDP :6702` non câblé) et le dispatch handler→kernel (`AR5`).
+> Chaîne ordonnée : la synchro L1 (FB/SB côté DSP ou gr-gsm) débloque le camping
+> (SI + `normal service`), puis la couche 3 (RACH → SDCCH → authentification →
+> chiffrement A5 → TMSI). 100 % = mobile campé, inscrit et chiffré.
 """
 
 
@@ -265,22 +319,9 @@ def _ascii(s: str) -> str:
 # Chemin ORDONNE + poids (%) : FBSB (d_fb_det) et camping portent le max de %,
 # les etages infra/amont peu (le % reflete la progression reelle vers le but, pas
 # le nombre de tests). Somme des poids = 100.
-_STAGES = [
-    ("E0", "BTS emet SI3/FCCH/SCH", "ok", 2),
-    ("P1", "ipc-device -> FIFO iq_grgsm", "ok", 2),
-    ("G1", "gr-gsm decode SCH (BSIC=7)", "ok", 3),
-    ("F1", "FN-ALIGN recale FN", "rank4", 3),
-    ("B1", "BSP :6702 feed_iq", "rank2", 4),
-    ("B3", "rx_burst -> DARAM 0x2a00", "rank2", 4),
-    ("A0", "init go-live (ORM/RSBX/IMR)", "ok", 4),
-    ("A1", "gate 0x0810 bit15 (abort=0)", "rank1", 4),
-    ("A2", "IMR=0x52fd, LOST=0", "lost", 4),
-    ("A3", "task_md=5 -> 0x8d00", "d3f92", 5),
-    ("F2", "frame-IT vec28 (PRIO)", "fben", 6),
-    ("K",  "CORRELATEUR kernel 0xa076", "rank3", 12),
-    ("D",  "FBSB / d_fb_det (fb0_ret>0)", "detect", 25),
-    ("M",  "mobile campe (normal service)", "camp", 22),
-]
+# Derive de _CHAIN (code, libelle, clef, poids) : meme chaine ordonnee que le
+# mermaid et la table ; le camping + chiffrement portent le gros du %.
+_STAGES = [(code, label, key, w) for (code, key, label, w, detail) in _CHAIN]
 
 def _stage_stt(st, key):
     return (st.get(key, "bad") if key in st else key) if key in ("ok", "wip", "bad") or key in st else "bad"
@@ -369,27 +410,18 @@ def _uml_png(out_dir, st):
         return None
     C = {"ok": "#46c39a", "wip": "#e6a94e", "bad": "#e86a5f"}
     def col(key):
-        stt = st.get(key, "bad") if key in st else key
-        return C.get(stt, "#e86a5f")
-    nodes = [
-        ("bts", "BTS\nSI3/FCCH/SCH", "ok"),
-        ("ipc", "ipc-device\niq_grgsm", "ok"),
-        ("grgsm", "gr-gsm\ndecode SCH", "ok"),
-        ("bsp", "BSP :6702\nDARAM 0x2a00", "rank2"),
-        ("golive", "DSP go-live\nIMR 0x52fd", "rank1"),
-        ("frameit", "frame-IT\nvec28/PRIO", "fben"),
-        ("corr", "CORRELATEUR\nkernel 0xa076", "rank3"),
-        ("det", "d_fb_det", "detect"),
-        ("camp", "mobile\ncampe", "camp"),
-    ]
-    edges = ["bts->ipc", "ipc->grgsm", "grgsm->bsp", "bsp->corr",
-             "grgsm->golive", "golive->frameit", "frameit->corr",
-             "corr->det", "det->camp"]
+        return C.get(st.get(key, "bad"), "#e86a5f")
+    # noeuds derives de _CHAIN : meme chaine que le mermaid, colores par statut.
+    nodes = [("bts", "BTS\\nFCCH/SCH/BCCH", None)]
+    nodes += [(key, f"{code}\\n{detail[:18]}", key) for (code, key, label, w, detail) in _CHAIN]
+    edges = ["bts->" + _CHAIN[0][1]]
+    edges += [f"{_CHAIN[i][1]}->{_CHAIN[i+1][1]}" for i in range(len(_CHAIN) - 1)]
     dot = ['digraph pipeline {', 'rankdir=LR;', 'bgcolor="white";',
            'node [shape=box,style="filled,rounded",fontname="Helvetica",fontsize=10,color="#333333"];',
            'edge [color="#5a7176",penwidth=1.2];']
     for nid, lbl, key in nodes:
-        dot.append(f'{nid} [label="{lbl}",fillcolor="{col(key)}"];')
+        fill = "#6ea8d8" if key is None else col(key)
+        dot.append(f'{nid} [label="{lbl}",fillcolor="{fill}"];')
     dot += edges
     dot.append('}')
     dpath = Path(out_dir) / "pipeline_uml.dot"
@@ -424,12 +456,12 @@ def write_pdf(out_dir, ts: str = "") -> Path:
     pdf.set_text_color(238, 246, 246)
     pdf.set_font("Helvetica", "B", 20)
     pdf.set_x(14)
-    pdf.cell(0, 10, "GRAFCET - go-live DSP & chaine I/Q", ln=1)
+    pdf.cell(0, 10, "GRAFCET - romload -> synchro L1 -> camp -> chiffrement", ln=1)
     pdf.set_text_color(90, 113, 118)
     pdf.set_font("Helvetica", "", 9)
     pdf.set_x(14)
-    pdf.cell(0, 6, _ascii(f"Rapport final auto-genere par pytest  -  {ts}  -  "
-                          f"delta FN {st.get('last_delta')}  -  LOST {st.get('lost_n')}"), ln=1)
+    pdf.cell(0, 6, _ascii(f"Rapport final auto-genere par pytest  -  mode {st.get('mode','?')}  -  {ts}  -  "
+                          f"FB {st.get('fb_n')} / SB {st.get('sb_n')} / camp {st.get('camp_n')} / chiffre {st.get('ciph_n')}"), ln=1)
     pdf.ln(8)
     pdf.set_text_color(20, 20, 20)
 
@@ -462,24 +494,15 @@ def write_pdf(out_dir, ts: str = "") -> Path:
     # --- pipeline (grafcet en étapes texte) ---
     h2("Pipeline (etapes)")
     pdf.set_font("Courier", "", 9)
-    d = st.get("last_delta", "?")
-    steps = [
-        ("ok",  "E0  BTS emet en continu : SI3 - FCCH - SCH - FN reelle"),
-        ("ok",  "P1  ipc-device sert l'I/Q -> FIFO iq_grgsm"),
-        ("ok",  "G1  gr-gsm decode la SCH  (BSIC=7, sch_fn)"),
-        (st["rank4"], f"F1  FN-ALIGN recale la FN  (delta {d}, DL_FN_OFFSET=-556)"),
-        (st["rank2"], "B1  BSP :6702  (feed_iq)   <-- UDP forward " + ("CABLE" if st["rank2"]=="ok" else "NON CABLE")),
-        (st["rank5"], "B2  feed_iq -> last_pm (PM " + ("ok" if st["rank5"]=="ok" else "= 0 dBm") + ")"),
-        (st["rank2"], "B3  rx_burst -> DARAM 0x2a00 (entree correlateur)"),
-        ("ok",  "A0  init go-live 0xa4c7 (ORM/RSBX/IMR)"),
-        (st["rank1"], "A1  gate 0xa53c BITF 0x0810 bit15 -> TC=1 (CTRLSYS)"),
-        (st["lost"], "A2  IMR=0x52fd, BRINT0 arme, INTM natif, LOST " + ("0" if st["lost"]=="ok" else "spam")),
-        (st["d3f92"], "A3  task_md=5 dispatche : CALA 0xb01e -> 0x8d00 (TASKW d[3f92])"),
-        (st["fben"], "A4  gate 0x3fab bit8 -> kernel (FBEN)"),
-        (st["rank3"], "K   CORRELATEUR : AR5 " + ("=0x2a00" if st["rank3"]=="ok" else "=0xdb7b (garbage)") + " -> kernel 0xa076 " + ("atteint" if st["rank3"]=="ok" else "jamais atteint")),
-        (st["detect"], "D   d_fb_det  (fb0_ret " + (">0" if st["detect"]=="ok" else "= 0") + ")"),
-        (st["camp"], "M   mobile campe (normal service)"),
-    ]
+    _cnt = {"fb": st.get("fb_n"), "sb": st.get("sb_n"), "si": st.get("si_n"),
+            "camp": st.get("camp_n"), "rach": st.get("rach_n"),
+            "sdcch": st.get("sdcch_n"), "auth": st.get("auth_n"),
+            "cipher": st.get("ciph_n"), "tmsi": st.get("tmsi_n")}
+    steps = []
+    for code, key, label, w, detail in _CHAIN:
+        n = _cnt.get(key)
+        suffix = f"  (x{n})" if n not in (None, 0) else ""
+        steps.append((st.get(key, "bad"), _ascii(f"{code:5} {label}  [{detail}]{suffix}")))
     for stt, line in steps:
         r, g, b = C[stt]
         pdf.set_text_color(r, g, b)
@@ -564,6 +587,7 @@ def write_pdf(out_dir, ts: str = "") -> Path:
         txt = _read(path)
         if not txt:
             return
+        txt = re.sub(r"\x1b\[[0-9;]*m", "", txt)  # retire les couleurs ANSI (mobile.log)
         lines = txt.splitlines()
         if filt:
             lines = [l for l in lines if any(f in l for f in filt)]
@@ -578,14 +602,17 @@ def write_pdf(out_dir, ts: str = "") -> Path:
             pdf.set_x(pdf.l_margin)
             pdf.multi_cell(0, 3.3, _ascii(l)[:138] or " ")
 
-    appendix("qemu.log  (manifest, invariants, FN-ALIGN, wires)", QEMU_LOG,
-             filt=["[MANIFEST]", "[INVARIANT", "[INVARIANT-SUMMARY]", "FN-ALIGN",
-                   "CTRLSYS", "FBEN", "TASKW", "DANS-CORRELATEUR"], maxlines=90)
-    appendix("osmocon.log  (PM MEAS, FBSB, FCCH, LOST)", OSMOCON_LOG,
-             filt=["PM MEAS", "FBSB", "FCCH", "LOST", "L1CTL"], maxlines=55)
-    appendix("mobile.log  (selection cellule / camp)", MOBILE_LOG,
-             filt=["cell", "service", "sysinfo", "MM_EVENT", "Location", "CCCH"],
-             maxlines=45)
+    appendix("dsp.log  (synchro L1 : jalon FB, SB, montant RACH/SDCCH, A5)", DSP_LOG,
+             filt=["[jalon]", "SB PLAUSIBLE", "[montant]", "[a5-arm]", "tache FB"],
+             maxlines=90)
+    appendix("qemu.log  (pont DSP / trx : IMM ASS, canal dedie, A_SCH)", QEMU_LOG,
+             filt=["pont DSP", "backend gr-gsm", "IMM ASS", "canal dedie",
+                   "chiffrement A5", "[trx]", "[dcch]"], maxlines=70)
+    appendix("osmocon.log  (romload, L1CTL)", OSMOCON_LOG,
+             filt=["your code is running now", "L1CTL", "romload", "TOA AVG"], maxlines=45)
+    appendix("mobile.log  (SI, camp, LU, auth, chiffrement, TMSI)", MOBILE_LOG,
+             filt=["SYSTEM INFORMATION", "normal service", "LOCATION UPDATING",
+                   "AUTHENTICATION", "CIPHERING", "TMSI", "camped"], maxlines=55)
 
     out = Path(out_dir) / "rapport.pdf"
     pdf.output(str(out))
@@ -596,19 +623,41 @@ def write_pdf(out_dir, ts: str = "") -> Path:
 _MMDC = "/opt/node/bin/mmdc"
 _PUPPET = "/root/.puppeteer.json"
 
+_MMDC_PKG = os.environ.get("CALYPSO_MMDC_PKG", "@mermaid-js/mermaid-cli@11.4.2")
+
+def _mmdc_cmd():
+    """mmdc natif s'il existe, sinon repli sur `npx @mermaid-js/mermaid-cli`
+    (deploie avec npx, aucune install globale requise)."""
+    import shutil
+    if os.path.exists(_MMDC):
+        return [_MMDC]
+    m = shutil.which("mmdc")
+    if m:
+        return [m]
+    npx = shutil.which("npx")
+    if npx:
+        return [npx, "-y", _MMDC_PKG]
+    return None
+
 def _mermaid_png(mmd_text, out_png):
     import subprocess, os, shutil
-    mmdc = _MMDC if os.path.exists(_MMDC) else shutil.which("mmdc")
-    if not mmdc:
+    base = _mmdc_cmd()
+    if not base:
         return None
     src_p = Path(out_png).with_suffix(".mmd")
     try:
         src_p.write_text(mmd_text, encoding="utf-8")
         env = dict(os.environ, PATH="/opt/node/bin:" + os.environ.get("PATH", ""))
-        cmd = [mmdc, "-i", str(src_p), "-o", str(out_png), "-b", "white"]
-        if os.path.exists(_PUPPET):
-            cmd += ["-p", _PUPPET]
-        subprocess.run(cmd, check=True, timeout=120, capture_output=True, env=env)
+        # Chromium refuse de tourner en root sans --no-sandbox : config auto si absente.
+        puppet = _PUPPET
+        if not os.path.exists(puppet):
+            puppet = str(src_p.with_name("puppeteer.json"))
+            if not os.path.exists(puppet):
+                Path(puppet).write_text(
+                    '{"args":["--no-sandbox","--disable-setuid-sandbox",'
+                    '"--disable-gpu","--disable-dev-shm-usage"]}', encoding="utf-8")
+        cmd = base + ["-i", str(src_p), "-o", str(out_png), "-b", "white", "-p", puppet]
+        subprocess.run(cmd, check=True, timeout=300, capture_output=True, env=env)
         try:
             src_p.unlink()   # nettoie le .mmd temporaire (d_*.mmd) : seuls les vrais splits restent
         except Exception:
@@ -618,77 +667,74 @@ def _mermaid_png(mmd_text, out_png):
         return None
 
 def _seq_diagram(st):
-    corr = "AR5=0x2a00 OK" if st.get("rank3") == "ok" else "AR5=garbage MUR"
-    det = "d_fb_det>0" if st.get("detect") == "ok" else "d_fb_det=0"
+    def m(k):
+        return {"ok": "OK", "wip": "wip"}.get(st.get(k), "MUR")
     return ("sequenceDiagram\n  autonumber\n"
-            "  participant BTS\n  participant GRGSM as gr-gsm\n  participant ARM\n"
-            "  participant DSP\n  participant CORR as Correlateur\n"
-            "  BTS->>GRGSM: FCCH / SCH (FN reelle)\n"
-            "  GRGSM->>ARM: SCH decodee (BSIC=7)\n"
-            "  ARM->>DSP: 0x0810 B_TASK_ABORT=0\n"
-            "  ARM->>DSP: task_md=5 (FB)\n"
-            "  DSP->>DSP: go-live 0xa4e4 IMR=0x52fd\n"
-            "  BTS-->>DSP: frame-IT vec28 (PRIO)\n"
-            "  DSP->>CORR: CALA 0xb01e -> 0x8d00\n"
-            "  CORR->>CORR: kernel 0xa076 (" + corr + ")\n"
-            "  CORR-->>ARM: " + det + "\n")
+            "  participant BTS\n  participant L1 as L1 (DSP/gr-gsm)\n"
+            "  participant MS as Mobile (L2/L3)\n  participant NET as Reseau (MSC/HLR)\n"
+            "  BTS->>L1: FCCH / SCH / BCCH (FN reelle)\n"
+            "  L1->>L1: FB detecte " + m("fb") + " / SB plausible " + m("sb") + "\n"
+            "  L1->>MS: SI 1/2/4 " + m("si") + "\n"
+            "  MS->>MS: camp normal service " + m("camp") + "\n"
+            "  MS->>BTS: RACH " + m("rach") + "\n"
+            "  BTS-->>MS: IMM ASS -> SDCCH " + m("sdcch") + "\n"
+            "  MS->>NET: Location Updating Request\n"
+            "  NET-->>MS: AUTHENTICATION REQUEST " + m("auth") + "\n"
+            "  NET-->>MS: CIPHERING MODE COMMAND (A5) " + m("cipher") + "\n"
+            "  NET-->>MS: LU ACCEPT + TMSI " + m("tmsi") + "\n")
 
 def _timeline_diagram(st):
     def m(k):
         return "OK" if st.get(k) == "ok" else ("wip" if st.get(k) == "wip" else "MUR")
-    return ("timeline\n  title Milestones go-live -> camp\n"
-            "  Boot : BTS emet : ipc-device : gr-gsm SCH OK\n"
-            "  Go-live : abort=0 " + m("rank1") + " : IMR 0x52fd " + m("lost") +
-            " : frame-IT " + m("fben") + "\n"
-            "  Correlateur : kernel 0xa076 " + m("rank3") + " : d_fb_det " + m("detect") + "\n"
-            "  Camp : mobile campe " + m("camp") + "\n")
+    return ("timeline\n  title romload -> synchro L1 -> camp -> chiffrement\n"
+            "  Boot : osmocon romload " + m("romload") + " : API RAM " + m("apiram") + "\n"
+            "  Synchro L1 : FB " + m("fb") + " : SB " + m("sb") + "\n"
+            "  Camp : SI 1/2/4 " + m("si") + " : normal service " + m("camp") + "\n"
+            "  Dedie : RACH " + m("rach") + " : SDCCH " + m("sdcch") + "\n"
+            "  Couche 3 : auth " + m("auth") + " : chiffrement " + m("cipher") +
+            " : TMSI " + m("tmsi") + "\n")
 
 def _temporal_plots(out_dir):
+    """Series temporelles tirees des VRAIS journaux (dsp.log : budget trame,
+    d_fb_det, rint). PNG best-effort via matplotlib ; aucune donnee -> aucun PNG."""
     pngs = []
     try:
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
-        import re
-        qlog = _read(QEMU_LOG); olog = _read(OSMOCON_LOG)
-        def series(text, pat, gv=True):
-            t, v = [], []
+        dlog = banc.text("dsp") if banc is not None else _read(DSP_LOG)
+
+        def series(text, pat):
+            xs, ys = [], []
             for line in text.splitlines():
                 mt = re.search(pat, line)
                 if mt:
                     try:
-                        t.append(float(mt.group(1)))
-                        v.append(float(mt.group(2)) if gv else 0.0)
+                        xs.append(float(mt.group(1)))
+                        ys.append(float(mt.group(2)))
                     except Exception:
                         pass
-            return t, v
+            return xs, ys
+
         specs = [
-            (r"\+([\d.]+)s .*FN-ALIGN .*delta=(-?\d+)", True,
-             "FN-ALIGN : delta (sch_fn - trx_fn) vs temps", "delta (trames)", "#b07a00", "t_fnalign.png"),
-            (r"\+([\d.]+)s PM MEAS.*?(-?\d+)\s*dBm at baseband", True,
-             "PM MEAS baseband (dBm) vs temps", "dBm", "#1f7a7a", "t_pm.png"),
-            (r"\+([\d.]+)s .*FN-ALIGN sch_fn=(\d+)", True,
-             "FN reelle BTS (sch_fn) vs temps", "FN", "#3a5fa0", "t_fn.png"),
+            (r"\[chrono\] fn=(\d+).*?\btrame ([0-9.]+)",
+             "Budget trame DSP (ms) vs FN", "ms", "#1f7a7a", "t_trame.png"),
+            (r"\[chrono\] fn=(\d+).*?DSP pire ([0-9.]+)",
+             "Pire trame DSP (ms) vs FN", "ms", "#b07a00", "t_pire.png"),
+            (r"\bfn=(\d+)\b.*?d_fb_det=(\d+)",
+             "d_fb_det vs FN", "d_fb_det", "#2e7d32", "t_fbdet.png"),
+            (r"\[vsp\] fn=(\d+).*?rint=(\d+)",
+             "rint (frame-IRQ cumul) vs FN", "rint", "#3a5fa0", "t_rint.png"),
         ]
-        srcmap = {"t_pm.png": olog}
-        for pat, gv, title, ylab, col, fn in specs:
-            text = srcmap.get(fn, qlog)
-            t, v = series(text, pat, gv)
-            if not t:
+        for pat, title, ylab, col, fn in specs:
+            xs, ys = series(dlog, pat)
+            if not xs:
                 continue
-            plt.figure(figsize=(9, 2.5)); plt.plot(t, v, lw=0.8, color=col)
-            plt.title(title); plt.xlabel("t (s)"); plt.ylabel(ylab)
+            plt.figure(figsize=(9, 2.5)); plt.plot(xs, ys, lw=0.8, color=col)
+            plt.title(title); plt.xlabel("FN"); plt.ylabel(ylab)
             plt.grid(alpha=.3); plt.tight_layout()
             p = Path(out_dir) / fn; plt.savefig(p, dpi=130); plt.close()
             pngs.append((title, p))
-        # LOST cumulatif
-        t, _ = series(olog, r"\+([\d.]+)s LOST", False)
-        if t:
-            plt.figure(figsize=(9, 2.5)); plt.plot(t, range(1, len(t) + 1), lw=0.9, color="#a31a1a")
-            plt.title("LOST cumulatif vs temps"); plt.xlabel("t (s)"); plt.ylabel("LOST cumul")
-            plt.grid(alpha=.3); plt.tight_layout()
-            p = Path(out_dir) / "t_lost.png"; plt.savefig(p, dpi=130); plt.close()
-            pngs.append(("LOST cumulatif vs temps", p))
     except Exception:
         pass
     return pngs
@@ -716,8 +762,10 @@ def _all_diagram_pngs(out_dir, st):
 def _report_md_body(st, ts):
     tot, path, rows = _weighted_pct(st)
     out = ["**Progression chemin (ponderee, ordonnee) : %d %%**  " % path,
-           "FBSB 25%% + camping 22%% = 47%% du but ; total etapes %d %%  " % tot,
-           "delta FN %s - LOST %s - %s" % (st.get("last_delta"), st.get("lost_n"), ts), "",
+           "camp 20%% + chiffrement 10%% + SI 10%% = cible L3 ; total etapes %d %%  " % tot,
+           "mode %s - FB %s / SB %s / camp %s / chiffre %s - %s" % (
+               st.get("mode"), st.get("fb_n"), st.get("sb_n"),
+               st.get("camp_n"), st.get("ciph_n"), ts), "",
            "| Etape | Poids | Etat | Description |", "|---|---|---|---|"]
     for code, label, w, stt, got in rows:
         badge = {"ok": "OK", "wip": "en cours", "bad": "MUR"}[stt]

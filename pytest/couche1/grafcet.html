@@ -1,4 +1,4 @@
-<title>GRAFCET &#8212; Calypso go-live &amp; chaine I/Q</title>
+<title>GRAFCET &#8212; Calypso L1 DSP &rarr; camp &amp; couche 3</title>
 <style>
   :root{--bg:#0c1418;--panel:#0f191e;--line:#20343b;--ink:#d7e3e5;--muted:#83999d;
     --faint:#5b7176;--cyan:#38d3c2;--ok:#46c39a;--wip:#e6a94e;--bad:#e86a5f;--src:#6ea8d8;
@@ -33,13 +33,13 @@
 </style>
 <div class="wrap">
   <header>
-    <p class="eyebrow">TI Calypso &#183; emulation QEMU &#183; baseband GSM &#183; auto-genere par pytest</p>
-    <h1>GRAFCET &#8212; go-live DSP &amp; chaine I/Q</h1>
-    <p class="sub">Etat-transition de l'acquisition FB/FCCH, statut de chaque maillon derive des logs du dernier run.</p>
-    <div class="meta"><span>20261017_153055</span><span>delta FN None</span><span>LOST 0</span></div>
+    <p class="eyebrow">TI Calypso &#183; emulation QEMU &#183; baseband GSM &#183; mode dsp &#183; auto-genere par pytest</p>
+    <h1>GRAFCET &#8212; romload &rarr; synchro L1 &rarr; camp &rarr; chiffrement</h1>
+    <p class="sub">Etat-transition de la chaine go-live : chaque maillon est derive des VRAIS journaux du dernier run (dsp/qemu/osmocon/mobile.log, resolus par banc.py).</p>
+    <div class="meta"><span>20261018_185846</span><span>FB 91 &#183; SB 36</span><span>SI 31 &#183; camp 20</span><span>auth 2 &#183; chiffre 7 &#183; TMSI 1</span></div>
   </header>
   <div class="legend">
-    <span><i class="dot d-src"></i>source</span><span><i class="dot d-ok"></i>cable</span>
+    <span><i class="dot d-src"></i>source</span><span><i class="dot d-ok"></i>valide</span>
     <span><i class="dot d-wip"></i>en cours</span><span><i class="dot d-bad"></i>manquant/bloque</span>
   </div>
   <div class="diagram"><pre class="mermaid">
@@ -50,38 +50,37 @@ flowchart TD
   classDef bad  fill:#2a1412,stroke:#e86a5f,stroke-width:1.4px,color:#f2c3bd;
   classDef join fill:#101d22,stroke:#38d3c2,stroke-width:1.4px,color:#bff0ea;
 
-  E0["BTS emet en continu<br/>SI3 - FCCH - SCH - FN reelle"]:::src
-  E0 -->|I/Q air| P1["ipc-device sert l'I/Q<br/>qfn-serve - FCCH"]:::ok
-  P1 -->|FIFO iq_grgsm| G1["gr-gsm decode la SCH<br/>BSIC=7 - sch_fn"]:::ok
-  G1 -->|"DL_FN_OFFSET=-556"| F1["FN-ALIGN recale FN<br/>delta None"]:::bad
-  P1 -. "UDP :6702 -- NON CABLE" .-> B1["BSP bsp_trxd_readable<br/>RXSZ = 0"]:::bad
-  B1 --> B2["feed_iq -> last_pm<br/>PM = 0 dBm"]:::bad
-  B2 --> B3["rx_burst -> DARAM 0x2a00<br/>entree correlateur"]:::bad
-
-  A0["init go-live 0xa4c7<br/>ORM/RSBX/IMR"]:::ok
-  A0 -->|"CTRLSYS pose 0x0810 bit15"| A1["gate 0xa53c BITF<br/>TC=1 - bootstrap"]:::bad
-  A1 -->|"KEEP_IMR - FRAME_IT_NATIVE"| A2["IMR=0x52fd - BRINT0 arme<br/>INTM natif - LOST =0"]:::ok
-  A2 -->|"TASKW d[3f92]=0x0800"| A3["task_md=5 dispatche<br/>CALA 0xb01e -> 0x8d00"]:::bad
-  A3 -->|"FBEN d[3fab] bit8"| A4["gate 0x3fab bit8<br/>vers kernel"]:::bad
-
-  B3 --> K["CORRELATEUR FB"]:::join
-  A4 --> K
-  K -. "AR5 =0xdb7b (garbage)<br/>kernel 0xa076 jamais atteint" .-> KB["fb0_ret = 0"]:::wip
-  KB --> D["d_fb_det"]:::bad
-  D --> Mn["mobile campe<br/>normal service"]:::ok
-
+  E0["BTS emet en continu<br/>FCCH - SCH - BCCH - FN reelle"]:::src
+  E0 --> ROM["osmocon : romload termine<br/>your code is running now"]:::ok
+  ROM --> API["QEMU <-> DSP : API RAM partagee<br/>pont DSP / backend gr-gsm"]:::ok
+  API --> FB["FB detecte (d_fb_det=1)<br/>[jalon] d_fb_det=1 / synchro"]:::ok
+  FB --> SB["SB plausible (BSIC decode)<br/>SB PLAUSIBLE"]:::ok
+  SB --> SI["SI 1/2/4 decodes (BCCH)<br/>New SYSTEM INFORMATION"]:::ok
+  SI --> CAMP["mobile campe (normal service)<br/>normal service / C3 camped"]:::ok
+  CAMP --> RACH["RACH monte (acces aleatoire)<br/>[montant] RACH ra="]:::ok
+  RACH --> SDCCH["canal dedie SDCCH suivi<br/>[montant] canal dedie SDCCH"]:::ok
+  SDCCH --> AUTH["authentification (RAND/SRES)<br/>AUTHENTICATION REQUEST"]:::ok
+  AUTH --> CIPH["chiffrement A5 complete<br/>CIPHERING MODE COMPLETE"]:::ok
+  CIPH --> TMSI["TMSI attribue (LU acceptee)<br/>got TMSI / LU ACCEPT"]:::ok
+  TMSI --> LINK["lien radio tenu (pas de LOS)<br/>garde : LOS / crash = 0"]:::ok
   linkStyle default stroke:#3a565d,stroke-width:1.3px;
   </pre></div>
   <h2>Rang de blocage &#183; gates</h2>
   <table>
     <thead><tr><th>Rang</th><th>Maillon</th><th>Gate / wire</th><th>Etat</th></tr></thead>
     <tbody>
-      <tr><td class="rank">RANK1</td><td>Pont ARM&#8594;DSP d_ctrl_system &#8212; gate go-live 0xa53c (bit15 de 0x0810)</td><td class="env">CALYPSO_ARM2DSP_CTRLSYS=1</td><td><span class="pill p-bad">MANQUANT</span></td></tr>
-      <tr><td class="rank">RANK4</td><td>Recalage FN DSP/TRX sur la SCH &#8212; offset constant &#8722;556</td><td class="env">CALYPSO_DL_FN_OFFSET=-556</td><td><span class="pill p-bad">MANQUANT</span></td></tr>
-      <tr><td class="rank">&#8212;</td><td>Cadence timer &#8212; LOST N! (batching frame-IRQ)</td><td class="env">latch read-driven (&#8722;1875/lecture)</td><td><span class="pill p-ok">CABLE</span></td></tr>
-      <tr><td class="rank">RANK3</td><td>Dispatch handler 0x8d00 &#8594; kernel MAC 0xa076 (AR5=0x2a00)</td><td class="env">TASKW / FBEN (d[3f92], d[3fab] bit8)</td><td><span class="pill p-wip">EN COURS</span></td></tr>
-      <tr><td class="rank">RANK2</td><td>Entree I/Q DL du BSP &#8212; forward producteur &#8594; UDP :6702</td><td class="env">&#8212; (aucun forward)</td><td><span class="pill p-bad">MANQUANT</span></td></tr>
-      <tr><td class="rank">RANK5</td><td>PM / rxlev legitime (last_pm depuis le vrai I/Q)</td><td class="env">depend de RANK2 (feed_iq)</td><td><span class="pill p-bad">MANQUANT</span></td></tr>
+      <tr><td class="rank">ROM</td><td>osmocon : romload termine</td><td class="env">your code is running now</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">API</td><td>QEMU <-> DSP : API RAM partagee</td><td class="env">pont DSP / backend gr-gsm</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">FB</td><td>FB detecte (d_fb_det=1)</td><td class="env">[jalon] d_fb_det=1 / synchro</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">SB</td><td>SB plausible (BSIC decode)</td><td class="env">SB PLAUSIBLE</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">SI</td><td>SI 1/2/4 decodes (BCCH)</td><td class="env">New SYSTEM INFORMATION</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">CAMP</td><td>mobile campe (normal service)</td><td class="env">normal service / C3 camped</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">RACH</td><td>RACH monte (acces aleatoire)</td><td class="env">[montant] RACH ra=</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">SDCCH</td><td>canal dedie SDCCH suivi</td><td class="env">[montant] canal dedie SDCCH</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">AUTH</td><td>authentification (RAND/SRES)</td><td class="env">AUTHENTICATION REQUEST</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">CIPH</td><td>chiffrement A5 complete</td><td class="env">CIPHERING MODE COMPLETE</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">TMSI</td><td>TMSI attribue (LU acceptee)</td><td class="env">got TMSI / LU ACCEPT</td><td><span class="pill p-ok">VALIDE</span></td></tr>
+      <tr><td class="rank">LINK</td><td>lien radio tenu (pas de LOS)</td><td class="env">garde : LOS / crash = 0</td><td><span class="pill p-ok">VALIDE</span></td></tr>
     </tbody>
   </table>
   <p class="foot">Auto-genere par tests/conftest.py::pytest_sessionfinish &#8594; grafcet_gen.py &#183; statut derive de qemu/osmocon/mobile.log</p>
