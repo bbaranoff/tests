@@ -1068,7 +1068,17 @@ def write_grafcet(out_dir, ts: str = "") -> list:
 
 
 if __name__ == "__main__":
-    import sys
-    d = sys.argv[1] if len(sys.argv) > 1 else "/tmp"
-    paths = write_grafcet(d)
-    print("grafcet écrit:", *[str(p) for p in paths])
+    import sys, time
+    argv = sys.argv[1:]
+    ts = time.strftime("%Y-%m-%d %H:%M")
+    if argv and argv[0] == "deploy":
+        d = argv[1] if len(argv) > 1 else "/tmp/calypso-deploy"
+        paths = write_grafcet(d, ts)          # html/md/pdf/rmd + d_*.png (npx)
+        idx = write_deploy(d, ts)             # page autonome index.html
+        print("deploy ecrit:", idx)
+        for p in paths:
+            print("  +", p)
+    else:
+        d = argv[0] if argv else "/tmp"
+        paths = write_grafcet(d, ts)
+        print("grafcet écrit:", *[str(p) for p in paths])

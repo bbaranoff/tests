@@ -1,0 +1,30 @@
+# Fichiers superflus a NE PAS deployer (intermediaires / bruit).
+# Utilise par deploy.sh (rsync --exclude-from).
+# Le deploy ne garde que : index.html, rapport.pdf, grafcet.{html,md},
+# les *.svg et les t_*.png (plots temporels).
+
+# sources mermaid intermediaires (deja inline dans index.html / rendus en svg)
+*.mmd
+# graphviz
+*.dot
+pipeline_uml.png
+# injections de trames (bancs de test) et captures brutes
+inj_*.txt
+inj_1*.txt
+*.pcap
+*.cfile
+# rapports Quarto / R intermediaires
+*.qmd
+*.Rmd
+# diagrammes PDF-only
+d_*.png
+# caches / zips / logs de run
+__pycache__/
+*.pyc
+*.zip
+*.log
+pytest_last.log
+test_results_2*/
+# tables brutes (reprises dans index.html)
+report.md
+test_results.md
