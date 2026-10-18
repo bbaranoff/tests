@@ -13,7 +13,7 @@ campagne_run() {
     head_ "CAMPAGNE $stamp : grgsm puis dsp, jusqu'a l'appel"
     for mode in grgsm dsp; do
         say "── mode $mode ──"
-        "$TESTS/banc-max.sh" "--$mode" --restart --continue "${extra[@]}" 2>&1 | tee "$dir/$mode.log"
+        QMD_WORKER=0 "$TESTS/banc-max.sh" "--$mode" --restart --continue "${extra[@]}" 2>&1 | tee "$dir/$mode.log"
         rc=${PIPESTATUS[0]}
         [ "$rc" = 130 ] && { say "campagne interrompue pendant le mode $mode"; return 130; }
         local out; out="$(grep -o '/root/banc-max-[0-9-]*' "$dir/$mode.log" | tail -1)"
@@ -47,5 +47,9 @@ campagne_run() {
     # Le PDF : meme contenu, mis en page, plus les extraits de preuve.
     if "$TESTS/rapport.py" "$dir" > "$dir/rapport-pdf.log" 2>&1; then say "PDF     : $dir/rapport.pdf"
     else say "PDF non produit (voir $dir/rapport-pdf.log)"; fi
+    # Le dossier en ligne : la campagne et les deux runs (liens resolus, os.walk
+    # ne les suit pas), rien des bancs precedents.
+    local runs=("$dir"); for mode in grgsm dsp; do [ -L "$dir/$mode" ] && runs+=("$(readlink -f "$dir/$mode")"); done
+    qmd_worker_maj "${runs[@]}"
     [ "$(cat "$dir/grgsm.rc" 2>/dev/null)" = 0 ] && [ "$(cat "$dir/dsp.rc" 2>/dev/null)" = 0 ]
 }

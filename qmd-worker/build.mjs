@@ -1,6 +1,8 @@
 // node build.mjs [fichier.qmd]  →  public/index.html (+ public/source.qmd)
 // Sans argument : régénère le dossier avec tout-en-un.py sur /opt/GSM/tests et le
 // dernier /root/banc-max-* seulement (les anciens bancs et les archives sont exclus).
+// BANC="/root/banc-max-… […]" : les runs à prendre, à la place du dernier par date
+// (banc-max.sh le pose en fin de banc : le run, ou la campagne et ses deux modes).
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -11,7 +13,9 @@ let src = process.argv[2];
 if (!src) {
   fs.mkdirSync("build", { recursive: true });
   src = path.resolve("build/dossier.qmd");
-  execFileSync("python3", [path.join(DIR, "tout-en-un.py")], {
+  const banc = (process.env.BANC || "").split(/\s+/).filter(Boolean);
+  const args = banc.length ? [DIR, ...banc] : [];
+  execFileSync("python3", [path.join(DIR, "tout-en-un.py"), ...args], {
     env: { ...process.env, SORTIE: src, EXCLURE: "banc-max-* archives" },
     stdio: "inherit",
   });

@@ -21,7 +21,8 @@
 #               l'appel, avec des points ouverts (B_BFI sur la parole, SACCH
 #               en TCH, SDCCH/8, fenetre SB). Le barreau « couverture » dit
 #               ce que le journal du run confirme ou non de tout cela.
-#  Sans option, le mode est celui dont la VTY mobile ecoute (4247 ou 4347).
+#  Sans option : --dsp --restart --continue, vocodeur ROM (io-handler l1phy). Avec un
+#  mode mais sans --restart, banc-max joue sur la pile en cours.
 #
 #  --campagne : les deux modes a la suite, chacun redemarre et pousse jusqu'a
 #  l'appel (--restart --continue), puis un rapport compare les deux echelles
@@ -34,11 +35,13 @@
 #  test, les compteurs MSC en DELTA, jamais en cumul.
 #
 #  Usage :
-#     banc-max.sh                       PAR DEFAUT : la campagne, grgsm puis dsp
-#                                       (chacun redemarre, jusqu'a la voix) + PDF
+#     banc-max.sh                       PAR DEFAUT : = --dsp --restart --continue, vocodeur
+#                                       ROM (io-handler l1phy). La campagne : --campagne
 #     banc-max.sh --grgsm|--dsp         un seul mode, sur la pile en cours
 #     banc-max.sh --grgsm|--dsp         force la couche 1
 #     banc-max.sh --dsp --restart       (re)demarre la pile dans ce mode
+#     BANC_VOCODEUR=hote banc-max.sh --dsp   vocodeur gapk sur l hote ; DEFAUT en dsp :
+#                                       vocodeur ROM, mobile en io-handler l1phy (+ CALYPSO_VSP=1)
 #     banc-max.sh --multi               ajoute l'inter-operateur (start-multi)
 #     banc-max.sh --ms2                 joue aussi le barreau ms2 (SMS + appel MS#1 -> MS#2)
 #     banc-max.sh --data                joue aussi le barreau data (GPRS : attach, PDP, ping)
@@ -61,6 +64,8 @@
 #     banc-max.sh --4g                  ajoute la 4G (Open5GS + srsENB + srsUE) ; avec --restart
 #                                       elle relance osmo-lte
 #     banc-max.sh --stop-after          arrete la pile a la fin
+#     QMD_WORKER=0 banc-max.sh ...      ne redeploie pas le dossier en ligne
+#                                       (qmd-worker : sinon refait avec ce banc seul)
 #
 #  Sortie : tableau, un barreau par ligne, puis « ELEMENT MAX : N/M ». Tout ce
 #  qui a ete lu (VTY, compteurs, sms.txt, journaux) est dans
@@ -131,7 +136,7 @@ while [ $# -gt 0 ]; do
         --dest)       DEST="${2:?}"; shift ;;
         --boot-max)   BOOT_MAX="${2:?}"; shift ;;
         --call-s)     CALL_S="${2:?}"; shift ;;
-        -h|--help)    sed -n '2,63p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        -h|--help)    sed -n '2,65p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) echo "option inconnue : $1" >&2; exit 2 ;;
     esac
     shift
@@ -157,9 +162,13 @@ if [ "$FULL" = 1 ]; then
 fi
 if [ "$ASK_GRGSM" = 1 ] && [ "$ASK_DSP" = 1 ]; then CAMPAGNE=1; MODE=""; fi
 
-# Sans mode, sans --only et sans --restart : c'est la campagne complete, les
-# deux couches 1 l'une apres l'autre. Un mode explicite joue ce mode seul.
-if [ "$CAMPAGNE" = 0 ] && [ -z "$MODE" ] && [ -z "$ONLY" ] && [ "$RESTART" = 0 ]; then CAMPAGNE=1; fi
+# [2026-10-18] Sans mode, sans --only et sans --restart : le DSP, pile
+# redemarree, jusqu'au bout de l'echelle (= --dsp --restart --continue), avec
+# le vocodeur de la ROM (mobile en io-handler l1phy, voir lib_init). La
+# campagne grgsm puis dsp se demande desormais explicitement : --campagne.
+if [ "$CAMPAGNE" = 0 ] && [ -z "$MODE" ] && [ -z "$ONLY" ] && [ "$RESTART" = 0 ]; then
+    MODE=dsp; RESTART=1; CONTINUE=1
+fi
 if [ "$CAMPAGNE" = 1 ]; then . "$TESTS/modules/_campagne.sh"; campagne_run; exit $?; fi
 lib_init
 say "mode ${B}$MODE${Z}  VTY mobile $MOB_VTY  conf $MOB_CFG  journal $OUT"
@@ -247,4 +256,6 @@ done
 
 lib_collecte
 lib_verdict
+# Lance par la campagne (QMD_WORKER=0) : c'est elle qui deploie, une fois.
+qmd_worker_maj "$OUT"
 exit "$ECHECS"

@@ -43,7 +43,7 @@ mod_run() {
     ggsn="$(ip -4 -o addr show apn0 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -1)"
     ip netns exec msgprs ip route replace default dev tun_modem 2>/dev/null
     # Sortie Internet du pool : network/apn-nat.sh (MASQUERADE + FORWARD), le meme que lance
-    # start-direct.sh (7septies). Rejoue ici parce que sans --restart la pile peut dater
+    # start-native.sh (7septies). Rejoue ici parce que sans --restart la pile peut dater
     # d'avant, et Internet tombait a 0/5. Idempotent ; pool relu dans osmo-ggsn.cfg.
     local pool; pool="$(awk '/ip prefix dynamic/{print $4; exit}' /etc/osmocom/osmo-ggsn.cfg 2>/dev/null)"
     sysctl -qw net.ipv4.ip_forward=1 2>/dev/null

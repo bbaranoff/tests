@@ -144,7 +144,13 @@ lib_init() {
         grgsm) MOB_VTY=4247; MOB_CFG=/root/.osmocom/bb/mobile.cfg; START_OPT=--grgsm
                L1_REQ=(qemu-system-arm osmocon); L1_INFO=("pont/pont.py" grgsm_exe fake_trx trxcon) ;;
         dsp)   MOB_VTY=4247; MOB_CFG=/opt/GSM/c54x_exe/mobile_pont.cfg; START_OPT=--dsp
-               L1_REQ=("c54x_exe[^ ]* --arm" qemu-system-arm osmocon); L1_INFO=(pont_dsp.py) ;;
+               L1_REQ=("c54x_exe[^ ]* --arm" qemu-system-arm osmocon); L1_INFO=(pont_dsp.py)
+               # [2026-10-18] Par defaut le vocodeur est celui de la ROM : mobile en
+               # « io-handler l1phy » (c54x_exe/run.sh genere mobile_pont_rom.cfg) et
+               # port voix modelise. start-native.sh, lance par 00-demarrage, en herite.
+               # BANC_VOCODEUR=hote ./banc-max.sh --dsp : retour a gapk sur l'hote.
+               export BANC_VOCODEUR="${BANC_VOCODEUR:-rom}"
+               [ "$BANC_VOCODEUR" = rom ] && export CALYPSO_VSP="${CALYPSO_VSP:-1}" ;;
     esac
     IMSI="$(sed -n 's/^ *imsi \([0-9]\{15\}\).*/\1/p' "$MOB_CFG" 2>/dev/null | head -1)"
 }
@@ -168,7 +174,7 @@ lib_collecte() {
     for f in mobile qemu osmocon dsp pont; do src="$(log_de $f)"; [ -n "$src" ] && cp "$src" "$OUT/$f.log" 2>/dev/null; done
     if [ "$STOP_AFTER" = 1 ]; then
         say "arret de la pile (--stop-after)"
-        ( cd "$REPO" && CALYPSO_NO_ATTACH=1 ./start-direct.sh --stop ) >"$OUT/stop-after.log" 2>&1
+        ( cd "$REPO" && CALYPSO_NO_ATTACH=1 ./start-native.sh --stop ) >"$OUT/stop-after.log" 2>&1
     fi
 }
 
@@ -232,4 +238,20 @@ pytest_famille() {   # $1 = famille (infra...), $2 = expression -m, [$3 = repert
     elif grep -qE '[0-9]+ passed' "$OUT/existant-pytest-$fam.txt"; then verdict "pytest-$fam" OK "$res"
     elif grep -qE '[0-9]+ (skipped|deselected)' "$OUT/existant-pytest-$fam.txt"; then verdict "pytest-$fam" SAUTE "$res"
     else verdict "pytest-$fam" ECHEC "pytest n'a rien rendu (existant-pytest-$fam.txt)"; fi
+}
+
+# Le dossier en ligne (qmd-worker, tests.pl4y.store) refait avec CE banc seul :
+# build.mjs (lance par wrangler deploy) prend les runs de BANC, et non plus le
+# dernier /root/banc-max-* par date. Un echec du deploiement ne change pas le
+# verdict du banc. QMD_WORKER=0 pour ne pas deployer.
+qmd_worker_maj() {   # $@ = repertoires du banc (run, ou campagne + ses deux modes)
+    [ "${QMD_WORKER:-1}" = 0 ] && return 0
+    local w="$TESTS/qmd-worker" log="$1/qmd-worker.log"
+    [ -d "$w/node_modules" ] || { say "qmd-worker : pas de node_modules, dossier en ligne non mis a jour"; return 0; }
+    say "qmd-worker : dossier en ligne refait avec $*"
+    if ( cd "$w" && BANC="$*" timeout 600 npx --no-install wrangler deploy ) > "$log" 2>&1; then
+        say "qmd-worker : deploye ($(grep -oE 'https?://[^ ]+' "$log" | tail -1))"
+    else
+        say "${R:-}qmd-worker : deploiement en echec (voir $log)${Z:-}"
+    fi
 }

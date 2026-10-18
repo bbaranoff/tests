@@ -3,7 +3,7 @@
 MOD_CHAINE=1; MOD_OPTIONNEL=1
 mod_titre() { echo "inter-operateur SS7"; }
 # Le plan de numerotation du banc multi : MSISDN <noeud>00<op><ms>, donc
-# l'abonne 1 de l'operateur 2 est 100201 (osmo_msisdn dans start.sh).
+# l'abonne 1 de l'operateur 2 est 100201 (osmo_msisdn dans start-docker.sh).
 mod_run() {
     if [ "$MULTI" != 1 ]; then verdict multi SAUTE "sans --multi"; return; fi
     # Le banc multi est lance par 00-demarrage.sh (avec --restart) ou deja debout
