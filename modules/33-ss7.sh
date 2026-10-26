@@ -22,7 +22,13 @@ ss7_hub_auto() {
     rctx="$(awk '/^ *as as-inter /{f=1;next} f&&/^ *routing-key /{print $2; exit} f&&/^ (asp|as) /{exit}' "$cfg")"
     [ -n "$hub" ] && [[ "$rctx" =~ ^[0-9]+$ ]] || { say "hub SS7 : pas d'asp-to-inter dans $cfg - rien a lancer"; return 0; }
     node=$(( rctx / 1000 )); op=$(( (rctx / 100) % 10 ))
-    [ "$node" -ge 1 ] && [ "$node" -le 9 ] && [ "$op" -ge 1 ] || { say "hub SS7 : routing-key $rctx illisible"; return 0; }
+    # [2026-10-26] Pas d'erreur quand ce n'est pas bloquant : sans NODE_ID le rctx vaut
+    # op*100+50 (11-regen-configs.sh, noeud 0 = banc autonome) et il n'y a simplement
+    # pas de hub a lancer d'ici. On le note dans le journal, pas a l'ecran.
+    if ! { [ "$node" -ge 1 ] && [ "$node" -le 9 ] && [ "$op" -ge 1 ]; }; then
+        printf 'hub SS7 : routing-key %s (noeud %s, op %s) : pas de noeud WAN, hub auto non lance\n' "$rctx" "$node" "$op" >> "$OUT/ss7-hub.txt"
+        return 0
+    fi
     if python3 -c 'import socket,sys
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM,132); s.settimeout(2)
 s.connect((sys.argv[1],2908))' "$hub" 2>/dev/null; then
