@@ -12,7 +12,11 @@ CHAINE_RE='qemu-system-arm|osmocon|c54x_exe[^ ]* --arm|pont/pont|pont_dsp|pont/a
 arret_complet() {
     # Les conteneurs op2/op3 et le hub ne sont touches QUE si --multi est passe :
     # sans lui, ce lanceur ne connait pas le multi-operateur.
-    [ "$MULTI" = 1 ] && ( cd "$REPO" && OSMO_NO_ATTACH=1 ./launch/start-multi.sh --stop ) >"$OUT/stop-multi.log" 2>&1
+    # [2026-10-26] OSMO_NO_TERM=1 : start-multi.sh, des que stdout n'est pas un tty (ici,
+    # redirige vers le journal), se relance dans un gnome-terminal — qui meurt sur DBus
+    # sans rien faire. --stop, --align et le lancement ne laissaient que ce bruit, op2/op3
+    # ne montaient jamais et les barreaux ss7/multi echouaient derriere.
+    [ "$MULTI" = 1 ] && ( cd "$REPO" && OSMO_NO_TERM=1 OSMO_NO_ATTACH=1 ./launch/start-multi.sh --stop ) >"$OUT/stop-multi.log" 2>&1
     ( cd "$REPO" && CALYPSO_NO_ATTACH=1 ./start-native.sh --stop ) >"$OUT/stop.log" 2>&1
     [ -x /opt/GSM/c54x_exe/run.sh ] && ( cd /opt/GSM/c54x_exe && MODE=dsp ./run.sh --stop ) >>"$OUT/stop.log" 2>&1
     # [2026-10-26] l'instance 2 (mode bts : Magnetite par l'air) a son propre RUNDIR et ses pid.
@@ -42,7 +46,7 @@ mod_run() {
     # relancait par le bureau : une pile montee pour rien.
     if [ "$MULTI" = 1 ]; then
         say "start-multi.sh --align : identite du natif avant son demarrage"
-        ( cd "$REPO" && ./launch/start-multi.sh --align ) >"$OUT/align-multi.log" 2>&1
+        ( cd "$REPO" && OSMO_NO_TERM=1 ./launch/start-multi.sh --align ) >"$OUT/align-multi.log" 2>&1
     fi
     say "start-native.sh ${START_OPT[*]}, detache (CALYPSO_NO_ATTACH=1)"
     # Meme environnement que osmo-banc.service (EnvironmentFile=/etc/default/osmo-banc) :
@@ -75,7 +79,7 @@ mod_run() {
     # inter-op mesureraient notre impatience.
     local hub="${MULTI_HUB_NAME:-osmo-inter-stp}" op2=osmo-operator-2 j
     say "start-multi.sh, detache (OSMO_NO_ATTACH=1)"
-    ( cd "$REPO" && OSMO_KEEP_NATIF=1 OSMO_NO_ATTACH=1 OSMO_NONINTERACTIVE=1 ./launch/start-multi.sh $([ "$REBUILD" = 1 ] && echo --rebuild) ) > "$OUT/start-multi.log" 2>&1
+    ( cd "$REPO" && OSMO_NO_TERM=1 OSMO_KEEP_NATIF=1 OSMO_NO_ATTACH=1 OSMO_NONINTERACTIVE=1 ./launch/start-multi.sh $([ "$REBUILD" = 1 ] && echo --rebuild) ) > "$OUT/start-multi.log" 2>&1
     for j in $(seq 1 180); do
         docker exec "$op2" bash -c 'echo >/dev/tcp/127.0.0.1/4254' 2>/dev/null && break; sleep 1
     done

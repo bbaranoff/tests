@@ -79,6 +79,11 @@
 #     banc-max.sh --4g                  ajoute la 4G (Open5GS + srsENB + srsUE) ; avec --restart
 #                                       elle relance osmo-lte
 #     banc-max.sh --stop-after          arrete la pile a la fin
+#     banc-max.sh --stop [--multi] [--4g]  ARRETE TOUT et sort : les deux montages (grgsm
+#                                       et dsp), les instances c54x_exe, le pont ; avec
+#                                       --multi les conteneurs op2/op3 et le hub ; avec
+#                                       --4g la pile LTE (osmo-lte stop). Journal
+#                                       /root/banc-max-stop-<date>/stop.log
 #     QMD_WORKER=0 banc-max.sh ...      ne redeploie pas le dossier en ligne
 #                                       (qmd-worker : sinon refait avec ce banc seul)
 #
@@ -125,7 +130,7 @@ _stop() {
 }
 trap _stop INT TERM
 
-ONLY=""; SKIP=""; CAMPAGNE=0; ASK_GRGSM=0; ASK_DSP=0; FULL=0; ALL=0; ARGS=("$@")
+ONLY=""; SKIP=""; CAMPAGNE=0; ASK_GRGSM=0; ASK_DSP=0; FULL=0; ALL=0; STOP=0; ARGS=("$@")
 # Les modes que joue une campagne, dans l'ordre (--campagne, --full : grgsm puis dsp ; --all : les cinq).
 MODES_CAMPAGNE="${MODES_CAMPAGNE:-grgsm dsp}"
 while [ $# -gt 0 ]; do
@@ -146,6 +151,7 @@ while [ $# -gt 0 ]; do
         --legacy)     LEGACY=1 ;;
         --continue)   CONTINUE=1 ;;
         --stop-after) STOP_AFTER=1 ;;
+        --stop)       STOP=1 ;;
         --rebuild)    REBUILD=1 ;;
         --4g)         LTE=1 ;;
         --only=*)     ONLY="${1#*=}" ;;
@@ -163,6 +169,29 @@ while [ $# -gt 0 ]; do
     esac
     shift
 done
+
+# ── --stop : ARRETER, RIEN D'AUTRE ───────────────────────────────────────────
+# [2026-10-26] L'arret complet de 00-demarrage.sh (les deux montages grgsm et
+# dsp, les instances c54x_exe, et avec --multi les conteneurs op2/op3 et le
+# hub), sans lib_init : il n'y a ni mode a deviner ni VTY a trouver quand on
+# eteint. Avec --4g, la pile LTE aussi (osmo-lte stop). Code de retour : 0 si
+# plus rien de la chaine Calypso ne tourne, 1 sinon (les restes sont nommes).
+if [ "$STOP" = 1 ]; then
+    STAMP="$(date +%Y%m%d-%H%M%S)"; OUT="/root/banc-max-stop-$STAMP"
+    mkdir -p "$OUT" || { echo "impossible de creer $OUT" >&2; exit 1; }
+    . "$TESTS/modules/00-demarrage.sh"
+    head_ "arret  $(mod_titre | sed 's/^pile [a-z-]*, no attach//; s/^ + //')"
+    say "arret complet des deux montages (grgsm et dsp)$([ "$MULTI" = 1 ] && echo ', conteneurs op2/op3 et hub')"
+    arret_complet
+    if [ "$LTE" = 1 ]; then
+        lte=/usr/local/bin/osmo-lte; [ -x "$lte" ] || lte="$REPO/tools/osmo-lte.sh"
+        if [ -x "$lte" ]; then say "osmo-lte stop"; "$lte" stop >"$OUT/stop-lte.log" 2>&1 || say "osmo-lte stop : code $? (stop-lte.log)"
+        else say "osmo-lte absent : 4G non touchee"; fi
+    fi
+    restes="$(pgrep -fa -- "$CHAINE_RE" | grep -v pgrep | awk '{print $2}' | xargs -n1 basename 2>/dev/null | sort -u | tr '\n' ' ')"
+    if [ -z "$restes" ]; then say "pile arretee  (journal $OUT)"; exit 0; fi
+    say "${R}ENCORE LA${Z} : $restes (journal $OUT)"; exit 1
+fi
 
 # ── --all : ABSOLUMENT TOUT ──────────────────────────────────────────────────
 # [2026-10-26] --all = une campagne sur les CINQ couches 1 (grgsm, dsp, puis les trois
