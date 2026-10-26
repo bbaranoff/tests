@@ -118,10 +118,13 @@ def lire_run(d):
 def lire_campagne(d):
     d = Path(d)
     runs = []
-    for mode in ("grgsm", "dsp"):
-        lien = d / mode
-        if lien.exists():
-            runs.append(lire_run(lien.resolve()))
+    # [2026-10-26] N modes : chaque lien <mode>/ du dossier de campagne pointe vers un run
+    # (grgsm, dsp, bts, bts-classique, ms-magnetite...). L'ordre canonique d'abord, le reste apres.
+    ordre = ["grgsm", "dsp", "bts", "bts-classique", "ms-magnetite"]
+    liens = [p for p in d.iterdir() if p.is_symlink() and (p / "verdict.txt").exists()]
+    liens.sort(key=lambda p: (ordre.index(p.name) if p.name in ordre else len(ordre), p.name))
+    for lien in liens:
+        runs.append(lire_run(lien.resolve()))
     if not runs and (d / "verdict.txt").exists():
         runs.append(lire_run(d))
     return runs

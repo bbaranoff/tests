@@ -10,7 +10,12 @@ mod_run() {
     # fake_trx + trxcon (/tmp/ms2_l2) sont les sidecars BTS#1 / MS#2 que qosmo
     # lance toujours (run_modules 58/67, MOD_REQUIRED) : ils servent ms2/multi,
     # pas le MS de ce run. Le dire, sinon on croit le lien radio hors du DSP.
-    local voie="qemu (gr-gsm) + pont.py"; [ "$MODE" = dsp ] && voie="c54x_exe + qemu + pont_dsp.py"
+    local voie="qemu (gr-gsm) + pont.py"
+    case "$MODE" in
+        dsp)                        voie="c54x_exe + qemu + pont_dsp.py" ;;
+        bts)                        voie="firmware trx (Calypso TRX de la BTS#0, instance 1) + Magnetite instance 2 par l'air (pont/air.py)" ;;
+        bts-classique|ms-magnetite) voie="Magnetite (firmware TI en flash, rvinterf) + c54x_exe + pont_dsp.py" ;;
+    esac
     grep -q "fake_trx\|trxcon" "$OUT/couche1-ps.txt" 2>/dev/null && \
         echo "# note : fake_trx + trxcon (-s /tmp/ms2_l2) = sidecars BTS#1 / MS#2 lances d'office par qosmo (run_modules 58/67) pour les barreaux ms2/multi ; le MS de ce run passe par $voie -> BTS#0" \
         >> "$OUT/couche1-ps.txt"

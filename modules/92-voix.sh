@@ -24,7 +24,7 @@ PY
     appeler "$DEST" "$OUT/voix-appel-vty.txt" 3
     local i cc actif=0
     for i in $(seq 1 "$CALL_MAX"); do cc="$(cc_state)"; [ "$cc" = ACTIVE ] && { actif=1; break; }; sleep 1; done
-    if [ "$actif" != 1 ]; then vty "$MOB_VTY" "call 1 hangup" >/dev/null; verdict voix ECHEC "appel vers $DEST jamais ACTIVE (CC ${cc:-aucune})"; return; fi
+    if [ "$actif" != 1 ]; then raccrocher >/dev/null; verdict voix ECHEC "appel vers $DEST jamais ACTIVE (CC ${cc:-aucune})"; return; fi
     sleep 2                                   # le TCH s'installe, gapk ouvre ses deux sens
     # [2026-09-30] L'EXTENSION 600 JOUE 22 s D'ANNONCE (demo-echotest) AVANT Echo().
     # Mesure sur l'appel de 10:54 : descendant = voix de l'annonce pendant 22 s,
@@ -62,7 +62,7 @@ PY2
     sleep 3                                   # 3 s de silence : la reference
     timeout --foreground 6 paplay --device=gsm_mic "$ton"  # 4 s de ton dans le micro
     wait $prec $pmic 2>/dev/null
-    vty "$MOB_VTY" "call 1 hangup" >> "$OUT/voix-appel-vty.txt"; sleep 2
+    raccrocher >> "$OUT/voix-appel-vty.txt"; sleep 2   # VTY, ou touche rouge en Magnetite
     local res; res="$($py - "$rec" "$mic" <<'PY'
 import sys, os, numpy as np
 x=np.fromfile(sys.argv[1],dtype='<i2').astype(float)

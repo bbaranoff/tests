@@ -50,6 +50,21 @@
 #     banc-max.sh --full                le banc au maximum = --grgsm --dsp --4g
 #                                       --multi --restart (les deux couches 1,
 #                                       4G et inter-operateur, jusqu'a la voix)
+#     banc-max.sh --all                 ABSOLUMENT TOUT : campagne sur les CINQ
+#                                       couches 1 (grgsm, dsp, bts, bts-classique,
+#                                       ms-magnetite), chacune jusqu'au bout, avec
+#                                       --4g --multi --ms2 --data --legacy
+#     banc-max.sh --bts                 Magnetite par l'air : le Calypso de QEMU est le
+#                                       TRX de la BTS#0, le C139 Magnetite (firmware TI)
+#                                       est l'instance 2 (start-native --bts --ms-magnetite)
+#     banc-max.sh --bts-classique       BTS classique (osmo-bts-trx <-> pont_dsp.py) et le
+#                                       C139 Magnetite sur le pont (--bts-classic --ms-magnetite)
+#     banc-max.sh --ms-magnetite        le C139 Magnetite seul, par le pont (--ms-magnetite)
+#                                       Les trois : PAS de VTY mobile, le telephone est pilote
+#                                       au CLAVIER (socket calypso_armio.c) et les preuves sont
+#                                       lues au reseau (VLR, compteurs MSC). --gapk par defaut
+#                                       (MAGNETITE_GAPK=0 : vocodeur ROM). Le SMS au clavier
+#                                       demande la sequence BMI : MAGNETITE_SMS_MO_TOUCHES.
 #     banc-max.sh --continue            ne s'arrete pas au premier echec
 #     banc-max.sh --essais 3            rejoue un barreau en echec (defaut 2)
 #     banc-max.sh --relances 1          relance la pile si mobile/camp echouent
@@ -110,13 +125,20 @@ _stop() {
 }
 trap _stop INT TERM
 
-ONLY=""; SKIP=""; CAMPAGNE=0; ASK_GRGSM=0; ASK_DSP=0; FULL=0; ARGS=("$@")
+ONLY=""; SKIP=""; CAMPAGNE=0; ASK_GRGSM=0; ASK_DSP=0; FULL=0; ALL=0; ARGS=("$@")
+# Les modes que joue une campagne, dans l'ordre (--campagne, --full : grgsm puis dsp ; --all : les cinq).
+MODES_CAMPAGNE="${MODES_CAMPAGNE:-grgsm dsp}"
 while [ $# -gt 0 ]; do
     case "$1" in
         --campagne)   CAMPAGNE=1 ;;
         --grgsm)      MODE=grgsm; ASK_GRGSM=1 ;;
         --dsp)        MODE=dsp; ASK_DSP=1 ;;
         --full)       FULL=1 ;;
+        --all)        ALL=1 ;;
+        # [2026-10-26] les trois montages Magnetite (firmware TI, pilote au clavier) : voir _lib.sh lib_init
+        --bts)        MODE=bts ;;
+        --bts-classique|--bts-classic) MODE=bts-classique ;;
+        --ms-magnetite) MODE=ms-magnetite ;;
         --restart)    RESTART=1 ;;
         --multi)      MULTI=1 ;;
         --ms2)        MS2=1 ;;
@@ -136,11 +158,26 @@ while [ $# -gt 0 ]; do
         --dest)       DEST="${2:?}"; shift ;;
         --boot-max)   BOOT_MAX="${2:?}"; shift ;;
         --call-s)     CALL_S="${2:?}"; shift ;;
-        -h|--help)    sed -n '2,65p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        -h|--help)    sed -n "2,$(( $(grep -n '^# -----' "$0" | head -1 | cut -d: -f1) - 1 ))p" "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
         *) echo "option inconnue : $1" >&2; exit 2 ;;
     esac
     shift
 done
+
+# ── --all : ABSOLUMENT TOUT ──────────────────────────────────────────────────
+# [2026-10-26] --all = une campagne sur les CINQ couches 1 (grgsm, dsp, puis les trois
+# montages Magnetite : bts, bts-classique, ms-magnetite), chacune redemarree et poussee
+# jusqu'au bout (--restart --continue, comme la campagne), avec TOUT le reste : la 4G,
+# l'inter-operateur et les trois barreaux optionnels (ms2, data, legacy). Ces options
+# sont deposees dans ARGS parce que la campagne ne transmet a chaque mode que ce qui s'y
+# trouve (sinon « SAUTE sans --4g/--multi/--ms2... »). Elle retire elle-meme --all et
+# les noms de modes (voir _campagne.sh), sans quoi chaque fils relancerait une campagne.
+if [ "$ALL" = 1 ]; then
+    CAMPAGNE=1; MODES_CAMPAGNE="grgsm dsp bts bts-classique ms-magnetite"
+    for o in --4g --multi --ms2 --data --legacy; do
+        liste_contient "$(IFS=,; echo "${ARGS[*]}")" "$o" || ARGS+=("$o")
+    done
+fi
 
 # ── --full : LE BANC AU MAXIMUM ──────────────────────────────────────────────
 # Les deux couches 1 (grgsm ET dsp), la 4G, l'inter-operateur, redemarrage

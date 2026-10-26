@@ -7,12 +7,14 @@ mod_run() {
     for i in $(seq 1 "$ATTACH_MAX"); do
         mm="$(show_ms | sed -n 's/^ *mobility management layer state: //p')"
         cache="$(vty "$MSC_VTY" "show subscriber cache")"
-        if printf '%s' "$mm" | grep -q "normal service" && [ -n "$IMSI" ] && printf '%s' "$cache" | grep -q "$IMSI"; then att=1; break; fi
+        # [2026-10-26] Magnetite : pas de VTY, l'etat MM n'est pas lisible ; l'IMSI au VLR suffit.
+        if { [ "$MOB_CLAVIER" = 1 ] || printf '%s' "$mm" | grep -q "normal service"; } && [ -n "$IMSI" ] && printf '%s' "$cache" | grep -q "$IMSI"; then att=1; break; fi
     done
     printf '%s\n' "$cache" > "$OUT/msc-subscriber-cache.txt"
     # Le MSISDN vient de la fiche PAR IMSI : dans le cache, « MSISDN: » precede
     # « IMSI: », un grep -A depuis l'IMSI tombait sur l'abonne suivant.
     MSISDN="$(vty "$MSC_VTY" "show subscriber imsi $IMSI" | sed -n 's/^ *MSISDN: *\([0-9]*\).*/\1/p' | head -1)"
+    [ "$MOB_CLAVIER" = 1 ] && mm="n/a (Magnetite, pas de VTY)"
     if [ "$att" = 1 ]; then verdict attache OK "MM « $mm », IMSI $IMSI au VLR, MSISDN ${MSISDN:-?}"
     else verdict attache ECHEC "MM « ${mm:-?} », IMSI $IMSI $(printf '%s' "$cache" | grep -q "$IMSI" && echo au VLR || echo absent du VLR)"; fi
 }

@@ -19,7 +19,7 @@ mod_run() {
     i=$((SECONDS - t0))
     [ "$actif" = 1 ] && sleep "$CALL_S"
     show_ms > "$OUT/show-ms-appel.txt"
-    vty "$MOB_VTY" "call 1 hangup" >> "$OUT/appel-vty.txt"; sleep 2
+    raccrocher >> "$OUT/appel-vty.txt"; sleep 2   # VTY, ou touche rouge en Magnetite
     setup="$(msc_ctr "MO Calls" 1)"; ack="$(msc_ctr "MO Calls" 2)"
     if [ "$actif" = 1 ]; then verdict appel OK "CC ${cc:-?} apres ${i}s, MSC setup $setup_avant->$setup, connect-ack $ack_avant->$ack"
     else verdict appel ECHEC "CC « ${cc:-aucune transaction} », MSC setup $setup_avant->$setup, connect-ack $ack_avant->$ack"; fi

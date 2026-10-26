@@ -14,12 +14,28 @@ mod_run() {
     if [ -z "$msisdn2" ]; then verdict ms2 ECHEC "MS#2 (IMSI ${imsi2:-?}) sans MSISDN au MSC"; return; fi
     # SMS MS#1 -> MS#2 : les deux mobiles ecrivent dans le meme sms.txt.
     lignes_avant="$(cat "$SMS_TXT" 2>/dev/null | wc -l)"
+    if [ "$MOB_CLAVIER" = 1 ]; then
+        # [2026-10-26] Magnetite : le SMS vers MS#2 se tape au clavier (menus BMI) ; la sequence
+        # est MAGNETITE_SMS_MS2_TOUCHES (le numero de MS#2 est $msisdn2). Sans elle, le SMS n'est
+        # pas joue et le barreau ne juge que l'appel.
+        if [ -n "${MAGNETITE_SMS_MS2_TOUCHES:-}" ]; then
+            clavier_sequence "$MAGNETITE_SMS_MS2_TOUCHES" > "$OUT/ms2-sms-clavier.txt"
+            ok=0
+            for i in $(seq 1 "$SMS_MAX"); do
+                [ "$(cat "$SMS_TXT" 2>/dev/null | wc -l)" -gt "$lignes_avant" ] && { ok=1; break; }; sleep 1
+            done
+            [ "$ok" = 1 ] || ko="$ko sms(MS#2 n'a rien recu du clavier Magnetite)"
+        else
+            say "SMS MS#1 -> MS#2 non joue : Magnetite sans VTY, MAGNETITE_SMS_MS2_TOUCHES non definie"
+        fi
+    else
     vty "$MOB_VTY" "sms 1 $msisdn2 banc-max MS1-MS2 $STAMP" > "$OUT/ms2-sms-vty.txt"
     ok=0
     for i in $(seq 1 "$SMS_MAX"); do
         tail -n +$((lignes_avant + 1)) "$SMS_TXT" 2>/dev/null | grep -q "MS1-MS2 $STAMP" && { ok=1; break; }; sleep 1
     done
     [ "$ok" = 1 ] || ko="$ko sms(MS#2 n'a rien recu)"
+    fi
     # Appel MS#1 -> MS#2, decroche par la VTY de MS#2 des que sa RR sort d'idle.
     # [2026-10-03] « appel(CC aucune) » : l'appel partait juste apres le SMS, MS#1
     # encore sur son canal (ou en resynchro), et la VTY repondait aussitot
@@ -37,7 +53,7 @@ mod_run() {
         cc="$(cc_state)"; [ "$cc" = ACTIVE ] && { ok=1; break; }; sleep 1
     done
     [ "$ok" = 1 ] && sleep "$CALL_S"
-    vty "$MOB_VTY" "call 1 hangup" >> "$OUT/ms2-appel-vty.txt"; sleep 2
+    raccrocher >> "$OUT/ms2-appel-vty.txt"; sleep 2   # VTY, ou touche rouge en Magnetite
     [ "$ok" = 1 ] || ko="$ko appel(CC ${cc:-aucune})"
     [ -z "$ko" ] && verdict ms2 OK "SMS et appel MS#1 -> $msisdn2" || verdict ms2 ECHEC "$ko"
 }

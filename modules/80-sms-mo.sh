@@ -17,6 +17,28 @@ mod_run() {
     [ "$MSISDN" = "$dest" ] && dest=100101
     mt_avant="$(msc_ctr "SMS MT" 1)"; : "${mt_avant:=0}"
     lignes_avant="$(cat "$SMS_TXT" 2>/dev/null | wc -l)"
+    if [ "$MOB_CLAVIER" = 1 ]; then
+        # [2026-10-26] Magnetite : pas de VTY, le SMS se compose au CLAVIER du C139 a travers les
+        # menus BMI du firmware TI. La sequence de touches depend de l'ecran (langue, position du
+        # menu Messages, saisie multi-tap du texte) : elle se pose dans MAGNETITE_SMS_MO_TOUCHES
+        # (ex. "menu down ok ... ok") apres l'avoir verifiee sur la fenetre osmo-c123-gtk.py
+        # --modele c139. Sans elle le barreau est SAUTE, pas ECHEC : rien n'a ete tente. La preuve
+        # reste cote reseau (MT delivered +1 au MSC, ou une ligne de plus dans sms.txt si MS#2 tourne).
+        if [ -z "${MAGNETITE_SMS_MO_TOUCHES:-}" ]; then
+            verdict sms-mo SAUTE "Magnetite : pas de VTY ; sequence clavier BMI non definie (MAGNETITE_SMS_MO_TOUCHES=\"menu ... ok\")"; return
+        fi
+        attendre_service 40
+        : > "$OUT/sms-mo-clavier.txt"
+        clavier_sequence "$MAGNETITE_SMS_MO_TOUCHES" >> "$OUT/sms-mo-clavier.txt"
+        for i in $(seq 1 "$SMS_MAX"); do
+            mt="$(msc_ctr "SMS MT" 1)"
+            [ -n "$mt" ] && [ "$mt" -gt "$mt_avant" ] 2>/dev/null && { remis="MT delivered $mt_avant->$mt"; break; }
+            [ "$(cat "$SMS_TXT" 2>/dev/null | wc -l)" -gt "$lignes_avant" ] && { remis="une ligne de plus dans sms.txt"; break; }
+        done
+        if [ -n "$remis" ]; then verdict sms-mo OK "Magnetite au clavier ($(echo "$MAGNETITE_SMS_MO_TOUCHES" | wc -w) touches) : $remis"
+        else verdict sms-mo ECHEC "Magnetite au clavier : sequence jouee, rien de remis apres ${SMS_MAX}s (MT delivered reste a ${mt:-?})"; fi
+        return
+    fi
     # [2026-10-03] Jusqu'a 3 envois dans le module : un « LOS during RACH request »
     # (mobile qui perd la cellule au moment du RACH, mode dsp) rend « SMS rejected » ;
     # on attend alors une VRAIE resynchronisation (service stable) et on renvoie, au
