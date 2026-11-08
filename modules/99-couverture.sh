@@ -235,8 +235,8 @@ mod_run() {
         if [ "$MODE" = dsp ] && [ -n "${JLOG[dsp]}" ]; then
             grep -a "\[a_dd\]" "${JLOG[dsp]}"  | tail -1 | sed 's/^ */  dsp   /'
             grep -a "\[chrono\]" "${JLOG[dsp]}" | tail -1 | sed 's/^ */  dsp   /'
-            grep -a "montant publie" "${JLOG[dsp]}" | tail -1 | sed 's/^ */  dsp   /'
-            grep -a "d_fb_det leve\|a_sch change" "${JLOG[dsp]}" | tail -2 | sed 's/^ */  dsp   /'
+            grep -a -E "montant publie|uplink published" "${JLOG[dsp]}" | tail -1 | sed 's/^ */  dsp   /'
+            grep -a -E "d_fb_det (leve|raised)|a_sch change" "${JLOG[dsp]}" | tail -2 | sed 's/^ */  dsp   /'
         fi
         if [ -n "${JLOG[mobile]}" ]; then
             printf '  mobile LU ACCEPT=%s  CIPHER COMPLETE=%s  CALL PROCEEDING=%s  CONNECT=%s  LOS=%s\n' \

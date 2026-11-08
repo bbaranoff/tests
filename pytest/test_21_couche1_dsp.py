@@ -18,18 +18,18 @@ def test_process_couche1():
 
 def test_api_ram_partagee():
     banc.require_log("qemu")
-    assert banc.count("qemu", r"pont DSP : API RAM partagee") >= 1, "QEMU n'a pas rejoint le DSP"
+    assert banc.count("qemu", r"pont DSP : API RAM partagee|DSP bridge: shared API RAM") >= 1, "QEMU n'a pas rejoint le DSP"
 
 
 def test_tache_fb_postee_et_fb_detecte():
     banc.require_log("dsp")
-    assert banc.count("dsp", r"tache FB postee par l'ARM") >= 1, "l'ARM n'a jamais poste la tache FB"
+    assert banc.count("dsp", r"tache FB postee par l'ARM|FB task posted by the ARM") >= 1, "l'ARM n'a jamais poste la tache FB"
     assert banc.count("dsp", r"\[jalon\] fn=\d+ d_fb_det=1") >= 1, "la ROM n'a jamais leve d_fb_det"
 
 
 def test_sb_plausible():
     banc.require_log("dsp")
-    assert banc.count("dsp", r"tache SB postee par l'ARM") >= 1, "tache SB jamais postee"
+    assert banc.count("dsp", r"tache SB postee par l'ARM|SB task posted by the ARM") >= 1, "tache SB jamais postee"
     assert banc.count("dsp", r"SB PLAUSIBLE") >= 1, "aucun SB plausible (BSIC) decode par la ROM"
 
 
@@ -40,21 +40,21 @@ def test_rach_publie():
 
 def test_canal_dedie_suivi():
     banc.require_log("dsp")
-    assert banc.count("dsp", r"\[montant\] canal dedie .*SDCCH") >= 1, "le BSP n'a jamais suivi un canal dedie SDCCH"
+    assert banc.count("dsp", r"\[montant\] (canal dedie|dedicated channel) .*SDCCH") >= 1, "le BSP n'a jamais suivi un canal dedie SDCCH"
     assert banc.count("dsp", r"\[montant\] SDCCH UL") >= 1, "aucun bloc SDCCH montant"
 
 
 def test_chiffrement_a5_dans_le_dsp():
     banc.require_log("dsp")
     assert banc.count("dsp", r"\[a5-arm\]") >= 1, "l'ARM n'a jamais ecrit a_kc / d_a5mode"
-    assert banc.count("dsp", r"\[montant\] chiffrement A5/") >= 1, "Kc jamais publie par montant.c"
+    assert banc.count("dsp", r"\[montant\] (chiffrement A5/|ciphering A5/)") >= 1, "Kc jamais publie par montant.c"
 
 
 def test_bascule_tch_suit_le_firmware():
     banc.require_log("dsp")
     if banc.count("pont", r"ASSIGNMENT COMMAND : TCH") == 0:
         pytest.skip("aucun appel dans ce run : pas de bascule TCH a verifier")
-    assert banc.count("dsp", r"\[montant\] TCH : le firmware poste la tache") >= 1, "le BSP n'a pas bascule sur le TCH"
+    assert banc.count("dsp", r"\[montant\] TCH ?: (le firmware poste la tache|the firmware posts task)") >= 1, "le BSP n'a pas bascule sur le TCH"
 
 
 def test_parole_descendante_pas_toute_bfi():
@@ -62,7 +62,7 @@ def test_parole_descendante_pas_toute_bfi():
     ln = banc.last("dsp", r"\[a_dd\]")
     if not ln:
         pytest.skip("pas de sonde [a_dd] : aucun TCH dans ce run")
-    m = re.search(r"vues=(\d+) ko=(\d+) bfi=(\d+)", ln)
+    m = re.search(r"(?:vues|seen)=(\d+) ko=(\d+) bfi=(\d+)", ln)
     assert m, ln
     vues, ko, bfi = map(int, m.groups())
     assert bfi < vues, f"toutes les trames TCH/F marquees BFI ({bfi}/{vues})"
@@ -73,7 +73,7 @@ def test_marge_temps_reel():
     ln = banc.last("dsp", r"\[chrono\]")
     if not ln:
         pytest.skip("pas de [chrono]")
-    vals = [float(x) for x in re.findall(r"(?:A|go|B|apres DONE) ([0-9.]+)", ln)]
+    vals = [float(x) for x in re.findall(r"(?:A|go|B|apres DONE|after DONE) ([0-9.]+)", ln)]
     assert vals and sum(vals) < 4.62, f"budget DSP depasse : {sum(vals):.2f} ms >= 4.62 ms ({ln.strip()})"
 
 

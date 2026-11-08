@@ -112,19 +112,19 @@ def derive_status() -> dict:
 
     # --- L1 : synchro bas-niveau (DSP natif c54x_exe, ou gr-gsm) -------------
     romload = _count("osmocon", r"your code is running now")
-    apiram = (_count("qemu", r"pont DSP : API RAM partagee")
+    apiram = (_count("qemu", r"pont DSP : API RAM partagee|DSP bridge: shared API RAM")
               or _count("qemu", r"backend gr-gsm"))
     fb_n = (_count("dsp", r"\[jalon\] fn=\d+ d_fb_det=1")
-            or _count("qemu", r"synchro gr-gsm : ARFCN="))
+            or _count("qemu", r"(synchro gr-gsm :|gr-gsm sync:) ARFCN="))
     sb_n = (_count("dsp", r"SB PLAUSIBLE")
-            or _count("qemu", r"synchro gr-gsm : ARFCN=.*BSIC="))
+            or _count("qemu", r"(synchro gr-gsm :|gr-gsm sync:) ARFCN=.*BSIC="))
 
     # --- L1 montant : RACH / canal dedie (DSP [montant], ou qemu/pont) -------
     rach_n = (_count("dsp", r"\[montant\] RACH ra=")
               or _count("pont", r"rach=[1-9]") or _count("qemu", r"IMM ASS"))
-    sdcch_n = (_count("dsp", r"\[montant\] canal dedie .*SDCCH")
-               or _count("qemu", r"canal dedie (arme|SDCCH)"))
-    a5_n = _count("dsp", r"\[a5-arm\]") or _count("qemu", r"chiffrement A5/")
+    sdcch_n = (_count("dsp", r"\[montant\] (canal dedie|dedicated channel) .*SDCCH")
+               or _count("qemu", r"(canal dedie|dedicated channel) (arme|armed|SDCCH)"))
+    a5_n = _count("dsp", r"\[a5-arm\]") or _count("qemu", r"chiffrement A5/|A5/[0-9]+ ciphering")
 
     # --- L3 : couche 3 mobile (mobile.log, commun aux deux modes) ------------
     si_n = _count("mobile", r"New SYSTEM INFORMATION [124]\b")
@@ -575,7 +575,7 @@ def write_pdf(out_dir, ts: str = "") -> Path:
              filt=["[jalon]", "SB PLAUSIBLE", "[montant]", "[a5-arm]", "tache FB"],
              maxlines=90)
     appendix("qemu.log  (pont DSP / trx : IMM ASS, canal dedie, A_SCH)", QEMU_LOG,
-             filt=["pont DSP", "backend gr-gsm", "IMM ASS", "canal dedie",
+             filt=["pont DSP", "DSP bridge", "backend gr-gsm", "IMM ASS", "canal dedie", "dedicated channel",
                    "chiffrement A5", "[trx]", "[dcch]"], maxlines=70)
     appendix("osmocon.log  (romload, L1CTL)", OSMOCON_LOG,
              filt=["your code is running now", "L1CTL", "romload", "TOA AVG"], maxlines=45)
@@ -714,9 +714,9 @@ def _temporal_plots(out_dir):
             return xs, ys
 
         specs = [
-            (r"\[chrono\] fn=(\d+).*?\btrame ([0-9.]+)",
+            (r"\[chrono\] fn=(\d+).*?\b(?:trame|frame) ([0-9.]+)",
              "Budget trame DSP (ms) vs FN", "ms", "#1f7a7a", "t_trame.png"),
-            (r"\[chrono\] fn=(\d+).*?DSP pire ([0-9.]+)",
+            (r"\[chrono\] fn=(\d+).*?(?:DSP pire|worst DSP) ([0-9.]+)",
              "Pire trame DSP (ms) vs FN", "ms", "#b07a00", "t_pire.png"),
             (r"\bfn=(\d+)\b.*?d_fb_det=(\d+)",
              "d_fb_det vs FN", "d_fb_det", "#2e7d32", "t_fbdet.png"),
